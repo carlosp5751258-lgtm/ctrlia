@@ -54,4 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.transitionDelay = Math.min(n, 8) * 60 + "ms";
     visor.observe(el);
   });
+  // Contador propio y anónimo: sin cookies ni datos personales; respeta "No rastrear" y GPC
+  const contador = document.querySelector('meta[name="ctrlia-visitas"]')?.content;
+  if (contador && navigator.doNotTrack !== "1" && !navigator.globalPrivacyControl) {
+    const ruta = location.pathname.replace(/index\.html$/, "");
+    const avisar = (e) => navigator.sendBeacon(contador, JSON.stringify({ p: ruta, e }));
+    avisar("vista");
+    document.addEventListener("click", (ev) => {
+      const h = ev.target.closest("a[href]")?.hostname || "";
+      const e = h.endsWith("gumroad.com") ? "clic-gumroad" : h === "github.com" ? "clic-github" : h === "dev.to" ? "clic-devto" : "";
+      if (e) avisar(e);
+    });
+  }
 });

@@ -20,8 +20,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Dockerfiles optimizados", "description": "Dockerfiles multi-stage, sin root y comentados en español: imágenes pequeñas y builds rápidos.", "codeRepository": "https://github.com/carlosp5751258-lgtm/dockerfiles-espanol", "license": "https://opensource.org/licenses/MIT", "inLanguage": "es", "isAccessibleForFree": true, "url": "https://ctrlia.dev/recursos/docker.html", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=9537b7a5">
-<script src="../js/sitio.js?v=9537b7a5"></script>
+<link rel="stylesheet" href="../css/estilo.css?v=b9c6cfaf">
+<script src="../js/sitio.js?v=b9c6cfaf"></script>
 </head>
 <body>
 <header class="barra">
@@ -42,6 +42,7 @@
 </section>
 <section class="seccion detalle">
   <div class="detalle-col">
+    <h2>El problema</h2><p>Un Dockerfile hecho a la rápida produce imágenes de cientos de megas que tardan en subir y en desplegar, corren como root y reconstruyen todo con cada cambio mínimo. Estos Dockerfiles de ejemplo para Go y Node/Express usan multi-stage, usuario sin privilegios, caché de capas y su propio .dockerignore, y explican en español cada línea para que entiendas qué cambiar en el tuyo.</p>
     <h2>Qué incluye</h2>
     <ul class="lista"><li>go/: Dockerfile distroless multi-arquitectura</li><li>node-express/: alpine, tini y healthcheck sin curl</li><li>.dockerignore para cada uno</li></ul>
     <h2>Instálala en un minuto</h2>

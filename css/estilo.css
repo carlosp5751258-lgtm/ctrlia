@@ -83,11 +83,19 @@ ul { padding: 0; list-style: none; }
 .hero-acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
 .hero-datos { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 40px; color: #c9d3e1; font-size: 0.9375rem; }
 .hero-datos strong { color: var(--menta); font-weight: 600; }
-.hero-visual { position: relative; aspect-ratio: 1 / 0.9; }
-.hv { position: absolute; width: 78%; border-radius: 16px; border: 1px solid rgb(255 255 255 / 0.16); box-shadow: 0 24px 60px rgb(0 0 0 / 0.4); }
-.hv1 { top: 0; right: 0; z-index: 3; }
-.hv2 { top: 30%; left: 0; z-index: 2; width: 66%; }
-.hv3 { bottom: 0; right: 8%; z-index: 1; width: 60%; }
+/* portada = buscador: el problema del visitante es lo primero que ve */
+.portada { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 0; }
+.portada h1 { max-width: 22ch; text-wrap: balance; }
+.portada .entrada { max-width: 56ch; }
+.portada .chips { justify-content: center; max-width: 980px; margin-top: 40px; }
+.portada .chip { background: transparent; color: var(--superficie); border-color: rgb(255 255 255 / 0.28); }
+.portada .chip:hover { border-color: var(--menta); }
+.portada .chip.activo { background: var(--menta); color: var(--navy); border-color: var(--menta); }
+.portada .fichas { width: 100%; max-width: 980px; margin-top: 36px; text-align: left; color: var(--texto); }
+.portada .ficha { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; }
+.portada .ficha img { aspect-ratio: 16 / 9; object-fit: cover; }
+.portada .hero-datos { justify-content: center; }
+.portada .hero-datos a { color: var(--superficie); }
 
 /* secciones */
 .seccion { padding: clamp(72px, 9vw, 128px) var(--margen); }
@@ -193,7 +201,9 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
   .barra nav { display: none; }
   .barra .boton { margin-left: auto; }
   .hero { grid-template-columns: 1fr; margin: 12px 12px 0; border-radius: 22px; }
-  .hero-visual { max-width: 520px; width: 100%; justify-self: center; }
+  .portada .ficha { grid-template-columns: 1fr; }
+  .portada .chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; width: calc(100% + 2 * clamp(40px, 6vw, 88px)); padding: 0 24px 6px; scroll-snap-type: x proximity; }
+  .portada .chip { white-space: nowrap; scroll-snap-align: start; font-size: 0.875rem; padding: 9px 14px; }
   .buscador, .byte { grid-template-columns: 1fr; }
   .rejilla { grid-template-columns: 1fr 1fr; }
   .rejilla .recurso:first-child { flex-direction: column; }
@@ -266,3 +276,36 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
 .rejilla .recurso:first-child h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
 .rejilla .recurso:first-child .recurso-cuerpo > p:not(.insignia) { font-size: var(--t-lead); }
 @media (max-width: 960px) { .rejilla .recurso:first-child .recurso-cuerpo { padding: 22px 24px 24px; } }
+
+/* ===== Tema elegido el 2026-10-30: claro 01 «Separación directa» + oscuro 04 «Tarjetas elevadas» + menta pastel =====
+   Claro: sin bloque navy (la portada es una tarjeta clara); navy solo para texto. Oscuro: automático según el dispositivo. */
+:root { --menta: #7ee0bd; --menta-osc: #1a7f5e; --menta-claro: #eaf9f3; color-scheme: light dark; }
+.boton-menta:hover { background: #9ee8cd; }
+.boton-menta, .portada .chip.activo { color: #0b1520; }
+.hero, .detalle-hero { background: var(--superficie); color: var(--navy); border: 1px solid var(--linea); }
+.entrada, .hero-datos { color: var(--suave); }
+.hero-datos strong { color: var(--menta-osc); }
+.portada .chip { background: #fff; color: var(--navy); border-color: var(--linea); }
+.portada .chip:hover { border-color: var(--menta-osc); }
+.portada .chip.activo { background: var(--menta); border-color: var(--menta); }
+.portada .hero-datos a { color: var(--navy); }
+.detalle-hero img { border-color: var(--linea); box-shadow: var(--sombra); }
+.detalle-hero .insignia { background: var(--menta-claro); color: var(--menta-osc); }
+.detalle-hero .boton-borde { border-color: var(--navy); color: var(--navy); }
+.detalle-hero .boton-github { box-shadow: var(--sombra); }
+
+@media (prefers-color-scheme: dark) {
+  :root { --fondo: #12202c; --superficie: #22364d; --fondo-2: #172735; --texto: #e8eef3; --suave: #a9b8c8; --linea: #33506d;
+    --menta-osc: #7ee0bd; --menta-claro: #365b66; --azul-claro: #17283d; --lila-claro: #241f38; --arena-claro: #33291a; }
+  .hero, .detalle-hero { background: #1b2c3f; color: #f2f6f8; border-color: #33506d; }
+  .portada .chip { background: transparent; color: #f2f6f8; border-color: #3a5370; }
+  .portada .hero-datos a, .logo, .logo-claro, .barra nav a:hover, .plan-destacado, .pie nav a:hover { color: #f2f6f8; }
+  .hero-datos strong { color: var(--menta); }
+  .boton-oscuro { background: var(--menta); color: #0b1520; }
+  .boton-oscuro:hover { background: #9ee8cd; }
+  .ficha, .recurso, .faq details, .plan, .pro { box-shadow: 0 10px 30px rgb(0 0 0 / 0.35); }
+  .pie { background: #0a121a; }
+  .detalle pre { background: #0f1a24; }
+  .detalle-hero .insignia { background: rgb(126 224 189 / 0.18); color: var(--menta); }
+  .detalle-hero .boton-borde, .boton-borde-oscuro { border-color: #f2f6f8; color: #f2f6f8; }
+}

@@ -20,8 +20,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Git hooks y pre-commit", "description": "Hooks de git en bash, sin dependencias, que validan tus commits y frenan secretos antes de que lleguen a GitHub.", "codeRepository": "https://github.com/carlosp5751258-lgtm/git-hooks-espanol", "license": "https://opensource.org/licenses/MIT", "inLanguage": "es", "isAccessibleForFree": true, "url": "https://ctrlia.dev/recursos/hooks.html", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=9537b7a5">
-<script src="../js/sitio.js?v=9537b7a5"></script>
+<link rel="stylesheet" href="../css/estilo.css?v=b9c6cfaf">
+<script src="../js/sitio.js?v=b9c6cfaf"></script>
 </head>
 <body>
 <header class="barra">
@@ -42,6 +42,7 @@
 </section>
 <section class="seccion detalle">
   <div class="detalle-col">
+    <h2>El problema</h2><p>Basta un descuido para subir a GitHub una llave de AWS, un .env o un archivo enorme. Borrarlo después no sirve: queda en el historial y hay que cambiar la llave. Estos hooks de git, en bash y sin dependencias, revisan cada commit antes de que salga de tu equipo: bloquean llaves de AWS, GitHub, Stripe y Slack, archivos .env, llaves privadas y archivos grandes, y validan el mensaje con Conventional Commits.</p>
     <h2>Qué incluye</h2>
     <ul class="lista"><li>commit-msg: valida Conventional Commits</li><li>pre-commit: bloquea llaves de AWS, GitHub, Stripe y Slack, .env, llaves privadas y archivos grandes</li><li>instalar-hooks.sh: los activa con un comando</li></ul>
     <h2>Instálala en un minuto</h2>
