@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
 <meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
 <meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
 <title>Git hooks y pre-commit gratis · Ctrl+IA</title>
@@ -14,19 +15,24 @@
 <meta property="og:image" content="https://ctrlia.dev/img/kit.webp">
 <link rel="icon" href="../img/byte.png">
 <link rel="canonical" href="https://ctrlia.dev/recursos/hooks.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/hooks.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/hooks.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recursos/hooks.html">
 <meta property="og:url" content="https://ctrlia.dev/recursos/hooks.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Git hooks y pre-commit", "description": "Hooks de git en bash, sin dependencias, que validan tus commits y frenan secretos antes de que lleguen a GitHub.", "codeRepository": "https://github.com/carlosp5751258-lgtm/git-hooks-espanol", "license": "https://opensource.org/licenses/MIT", "inLanguage": "es", "isAccessibleForFree": true, "url": "https://ctrlia.dev/recursos/hooks.html", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=b9c6cfaf">
-<script src="../js/sitio.js?v=b9c6cfaf"></script>
+<link rel="stylesheet" href="../css/estilo.css?v=fcc8835e">
+<script src="../js/sitio.js?v=fcc8835e"></script>
 </head>
 <body>
+<div class="aviso-idioma" lang="en" hidden><p>Prefer English? <a href="../en/recursos/hooks.html" hreflang="en">Read this page in English</a></p><button type="button" class="aviso-cerrar" aria-label="Close">×</button></div>
 <header class="barra">
   <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
   <nav aria-label="Secciones"><a href="../index.html#recursos">Herramientas</a><a href="../index.html#buscar">Encuentra la tuya</a><a href="../index.html#como">Cómo funciona</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recursos/hooks.html" hreflang="en" lang="en" aria-label="Read in English">EN</a>
   <a class="boton boton-oscuro boton-chico" href="../index.html#recursos">Explorar gratis</a>
 </header>
 

@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ctrlia.dev/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/kit.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/guia.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/plantillas.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/skills.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/prompts.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/actions.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/hooks.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/docker.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/docs.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://ctrlia.dev/recursos/scripts.html</loc><changefreq>weekly</changefreq></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://ctrlia.dev/</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/kit.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/kit.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/kit.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/kit.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/kit.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/kit.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/guia.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/guia.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/guia.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/guia.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/guia.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/guia.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/plantillas.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/plantillas.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/plantillas.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/plantillas.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/plantillas.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/plantillas.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/skills.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/skills.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/skills.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/skills.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/skills.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/skills.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/prompts.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/prompts.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/prompts.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/prompts.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/prompts.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/prompts.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/actions.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/actions.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/actions.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/actions.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/actions.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/actions.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/hooks.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/hooks.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/hooks.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/hooks.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/hooks.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/hooks.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/docker.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/docker.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/docker.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/docker.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/docker.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/docker.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/docs.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/docs.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/docs.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/docs.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/docs.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/docs.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/recursos/scripts.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/scripts.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/scripts.html"/><changefreq>weekly</changefreq></url>
+  <url><loc>https://ctrlia.dev/en/recursos/scripts.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://ctrlia.dev/recursos/scripts.html"/><xhtml:link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recursos/scripts.html"/><changefreq>weekly</changefreq></url>
 </urlset>

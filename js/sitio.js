@@ -6,6 +6,13 @@ if (window.top !== window.self) document.documentElement.classList.add("enmarcad
 document.addEventListener("DOMContentLoaded", () => {
   const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Aviso «Prefer English?»: solo en páginas en español, con el navegador en inglés y si no se cerró antes
+  const recuerda = (k, v) => { try { return v === undefined ? localStorage.getItem(k) : localStorage.setItem(k, v); } catch { return null; } };
+  const aviso = document.querySelector(".aviso-idioma");
+  if (aviso && /^en\b/i.test(navigator.languages?.[0] || navigator.language || "") && !recuerda("ctrlia-aviso-idioma")) aviso.hidden = false;
+  aviso?.querySelector(".aviso-cerrar").addEventListener("click", () => { aviso.hidden = true; recuerda("ctrlia-aviso-idioma", "no"); });
+  document.querySelectorAll(".idioma, .aviso-idioma a").forEach((a) => a.addEventListener("click", () => recuerda("ctrlia-aviso-idioma", "no")));
+
   // Buscador: eliges qué quieres resolver y aparece el recurso que lo arregla
   const chips = [...document.querySelectorAll(".chip")];
   const fichas = new Map([...document.querySelectorAll(".ficha")].map((f) => [f.id.replace(/^r-/, ""), f]));
@@ -58,8 +65,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const contador = document.querySelector('meta[name="ctrlia-visitas"]')?.content;
   if (contador && navigator.doNotTrack !== "1" && !navigator.globalPrivacyControl) {
     const ruta = location.pathname.replace(/index\.html$/, "");
-    const avisar = (e) => navigator.sendBeacon(contador, JSON.stringify({ p: ruta, e }));
-    avisar("vista");
+    const avisar = (e, o) => navigator.sendBeacon(contador, JSON.stringify({ p: ruta, e, o }));
+    // De dónde llega (solo el tipo de sitio, nunca la dirección completa); dentro de ctrlia.dev no cuenta como origen
+    let h = ""; try { h = new URL(document.referrer).hostname; } catch { /* sin referrer: directo */ }
+    const o = !h ? "directo" : h === location.hostname ? undefined : /(^|\.)instagram\.com$/.test(h) ? "instagram"
+      : /(^|\.)tiktok\.com$/.test(h) ? "tiktok" : /(^|\.)(facebook\.com|fb\.com|fb\.me)$/.test(h) ? "facebook"
+      : /(^|\.)google\./.test(h) ? "google" : /(^|\.)bing\.com$/.test(h) ? "bing" : /(^|\.)github\.com$/.test(h) ? "github"
+      : h === "dev.to" ? "devto" : "otro";
+    avisar("vista", o);
     document.addEventListener("click", (ev) => {
       const h = ev.target.closest("a[href]")?.hostname || "";
       const e = h.endsWith("gumroad.com") ? "clic-gumroad" : h === "github.com" ? "clic-github" : h === "dev.to" ? "clic-devto" : "";

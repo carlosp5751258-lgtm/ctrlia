@@ -309,3 +309,20 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
   .detalle-hero .insignia { background: rgb(126 224 189 / 0.18); color: var(--menta); }
   .detalle-hero .boton-borde, .boton-borde-oscuro { border-color: #f2f6f8; color: #f2f6f8; }
 }
+
+/* ===== Idiomas (ES en la raíz, EN en /en/) ===== */
+.idioma { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; border: 1px solid var(--linea); border-radius: 999px;
+  font-weight: 600; font-size: var(--t-chico); color: var(--texto); text-decoration: none; transition: border-color 160ms var(--ease); }
+.idioma:hover { border-color: var(--menta-osc); }
+.aviso-idioma { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 8px var(--margen); background: var(--menta-claro);
+  color: var(--texto); font-size: var(--t-chico); }
+.aviso-idioma[hidden] { display: none; }
+.aviso-idioma p { margin: 0; }
+.aviso-idioma a { color: inherit; font-weight: 600; }
+.aviso-cerrar { min-width: 44px; min-height: 44px; border: 0; background: none; color: inherit; font-size: 1.25rem; cursor: pointer; }
+@media (max-width: 960px) {
+  .barra { gap: 12px; }
+  .barra .boton-chico { white-space: nowrap; }
+  .barra .idioma { margin-left: auto; }
+  .barra .idioma + .boton { margin-left: 0; }
+}

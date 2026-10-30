@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Ctrl+IA · Free tools for coding with AI</title>
+<meta name="description" content="10 free, open-source tools for Claude Code and AI: hooks, skills, templates, workflows and scripts.">
+<meta property="og:title" content="Ctrl+IA · Free tools for coding with AI">
+<meta property="og:description" content="10 free, open-source tools for Claude Code and AI: hooks, skills, templates, workflows and scripts.">
+<meta property="og:image" content="https://ctrlia.dev/img/kit.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/">
+<meta property="og:url" content="https://ctrlia.dev/en/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Ctrl+IA", "url": "https://ctrlia.dev/en/", "inLanguage": "en"}, {"@type": "ItemList", "name": "Free tools for coding with AI", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://ctrlia.dev/en/recursos/kit.html", "name": "Kit Claude Code en Español"}, {"@type": "ListItem", "position": 2, "url": "https://ctrlia.dev/en/recursos/guia.html", "name": "Guía Claude Code de cero a experto"}, {"@type": "ListItem", "position": 3, "url": "https://ctrlia.dev/en/recursos/plantillas.html", "name": "15 plantillas CLAUDE.md por stack"}, {"@type": "ListItem", "position": 4, "url": "https://ctrlia.dev/en/recursos/skills.html", "name": "8 skills avanzadas para Claude Code"}, {"@type": "ListItem", "position": 5, "url": "https://ctrlia.dev/en/recursos/prompts.html", "name": "100 prompts para programadores"}, {"@type": "ListItem", "position": 6, "url": "https://ctrlia.dev/en/recursos/actions.html", "name": "8 workflows de GitHub Actions"}, {"@type": "ListItem", "position": 7, "url": "https://ctrlia.dev/en/recursos/hooks.html", "name": "Git hooks y pre-commit"}, {"@type": "ListItem", "position": 8, "url": "https://ctrlia.dev/en/recursos/docker.html", "name": "Dockerfiles optimizados"}, {"@type": "ListItem", "position": 9, "url": "https://ctrlia.dev/en/recursos/docs.html", "name": "Plantillas de documentación para GitHub"}, {"@type": "ListItem", "position": 10, "url": "https://ctrlia.dev/en/recursos/scripts.html", "name": "12 scripts Bash para Linux"}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=fcc8835e">
+<script src="../js/sitio.js?v=fcc8835e"></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../en/index.html#recursos">Tools</a><a href="../en/index.html#buscar">Find yours</a><a href="../en/index.html#como">How it works</a><a href="../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../index.html" hreflang="es" lang="es" aria-label="Leer en español">ES</a>
+  <a class="boton boton-oscuro boton-chico" href="../en/index.html#recursos">Explore for free</a>
+</header>
+
+<main id="inicio">
+<section class="hero portada" id="buscar" aria-labelledby="t-buscar">
+  <h1 id="t-buscar">What do you want to solve today?</h1>
+  <p class="entrada">Free, open-source tools for coding with AI. Pick your problem and we will give you the tool that fixes it.</p>
+  <ul class="chips"><li><a class="chip activo" href="#r-kit" data-id="kit">Claude empieza de cero en cada proyecto</a></li><li><a class="chip" href="#r-guia" data-id="guia">Uso Claude Code pero hace cosas raras</a></li><li><a class="chip" href="#r-plantillas" data-id="plantillas">Claude no sabe cómo correr mis tests</a></li><li><a class="chip" href="#r-skills" data-id="skills">Necesito que Claude trabaje con método</a></li><li><a class="chip" href="#r-prompts" data-id="prompts">Mis prompts dan respuestas genéricas</a></li><li><a class="chip" href="#r-actions" data-id="actions">Mi proyecto no tiene CI</a></li><li><a class="chip" href="#r-hooks" data-id="hooks">Se me cuelan secretos en los commits</a></li><li><a class="chip" href="#r-docker" data-id="docker">Mi imagen de Docker pesa 1 GB</a></li><li><a class="chip" href="#r-docs" data-id="docs">Mi repo no tiene documentación</a></li><li><a class="chip" href="#r-scripts" data-id="scripts">Repito las mismas tareas en la terminal</a></li></ul>
+  <div class="fichas" aria-live="polite"><article class="ficha" id="r-kit">
+  <img src="../img/kit.webp" width="960" height="540" alt="">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">Kit Claude Code en Español</h3>
+    <ul class="lista"><li>hooks/: bloquea rm -rf, git push --force, curl | sh y la lectura de .env o llaves SSH</li><li>skills/: revisión de código y commits convencionales</li><li>comandos/plan.md: el comando /plan</li><li>plantillas-claude-md/: Node/TypeScript y Python</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/kit.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-guia">
+  <img src="../img/guia.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">Guía Claude Code de cero a experto</h3>
+    <ul class="lista"><li>Capítulo 0: antes de empezar</li><li>Capítulo 1: instalación y primeros pasos</li><li>Capítulo 2: cómo pedir tareas</li><li>Capítulo 3: CLAUDE.md, la memoria de tu proyecto</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/guia.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-plantillas">
+  <img src="../img/plantillas.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">15 plantillas CLAUDE.md por stack</h3>
+    <ul class="lista"><li>5 plantillas: Go, FastAPI, Express, Laravel y Astro</li><li>Cómo correr un solo test en cada stack</li><li>Sección «No hacer» con las acciones peligrosas</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/plantillas.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-skills">
+  <img src="../img/skills.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">8 skills avanzadas para Claude Code</h3>
+    <ul class="lista"><li>tdd: ciclos rojo-verde-refactor reales</li><li>changelog-release: Keep a Changelog + SemVer, sin publicar nada sin permiso</li><li>accesibilidad-web: checklist WCAG 2.2 AA</li><li>instalar.sh: las instala sin sobrescribir nada</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/skills.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-prompts">
+  <img src="../img/prompts.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">100 prompts para programadores</h3>
+    <ul class="lista"><li>30 prompts: 3 de cada una de las 10 categorías</li><li>Marcadores como [LENGUAJE] o [CÓDIGO] para adaptarlos</li><li>Cuándo usar cada uno</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/prompts.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-actions">
+  <img src="../img/actions.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">8 workflows de GitHub Actions</h3>
+    <ul class="lista"><li>node-ci.yml: lint y tests en Node 20 y 22 con caché de npm</li><li>python-ci.yml: ruff y pytest con uv en 3.11–3.13</li><li>auditoria-dependencias.yml: revisión semanal de vulnerabilidades</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/actions.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-hooks">
+  <img src="../img/hooks.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">Git hooks y pre-commit</h3>
+    <ul class="lista"><li>commit-msg: valida Conventional Commits</li><li>pre-commit: bloquea llaves de AWS, GitHub, Stripe y Slack, .env, llaves privadas y archivos grandes</li><li>instalar-hooks.sh: los activa con un comando</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/hooks.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-docker">
+  <img src="../img/docker.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">Dockerfiles optimizados</h3>
+    <ul class="lista"><li>go/: Dockerfile distroless multi-arquitectura</li><li>node-express/: alpine, tini y healthcheck sin curl</li><li>.dockerignore para cada uno</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/docker.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-docs">
+  <img src="../img/docs.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">Plantillas de documentación para GitHub</h3>
+    <ul class="lista"><li>README para librería</li><li>CONTRIBUTING.md con flujo de ramas y Conventional Commits</li><li>Formulario de issues para errores</li><li>Plantilla de pull request con checklist</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/docs.html">Get the free tool</a>
+    </div>
+  </div>
+</article><article class="ficha" id="r-scripts">
+  <img src="../img/scripts.webp" width="960" height="540" alt="" loading="lazy">
+  <div>
+    <p class="insignia">Free</p>
+    <h3 tabindex="-1">12 scripts Bash para Linux</h3>
+    <ul class="lista"><li>Limpiar node_modules y cachés (con vista previa)</li><li>Ver y liberar puertos ocupados</li><li>Actualizar todos tus repos con pull --ff-only</li><li>Generar .gitignore sin internet</li><li>Borrar ramas ya fusionadas (dry-run por defecto)</li></ul>
+    <div class="recurso-acciones">
+      <a class="boton boton-menta" href="recursos/scripts.html">Get the free tool</a>
+    </div>
+  </div>
+</article></div>
+  <ul class="hero-datos"><li><strong>10</strong> tools</li><li><strong>100 %</strong> free</li><li><strong>Open</strong> source</li><li><a href="#recursos">See all 10 tools ↓</a></li></ul>
+</section>
+
+<section class="seccion" id="recursos" aria-labelledby="t-recursos">
+  <div class="cabecera"><h2 id="t-recursos">All 10 tools</h2><p>All free and on GitHub. Open the one you need: we show you how to install it in a minute.</p></div>
+  <div class="grupo"><h3 class="grupo-titulo">For Claude Code</h3><div class="rejilla"><article class="recurso">
+  <a class="recurso-img" href="recursos/kit.html" tabindex="-1" aria-hidden="true"><img src="../img/kit.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/kit.html">Kit Claude Code en Español</a></h3>
+    <p>Hooks de seguridad, skills, un comando y plantillas CLAUDE.md para que Claude Code trabaje con reglas desde el primer día.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/kit.html">View tool</a></div>
+  </div>
+</article><article class="recurso">
+  <a class="recurso-img" href="recursos/guia.html" tabindex="-1" aria-hidden="true"><img src="../img/guia.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/guia.html">Guía Claude Code de cero a experto</a></h3>
+    <p>Los primeros capítulos de la guía «Claude Code de cero a experto»: instalación, cómo pedir tareas y CLAUDE.md.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/guia.html">View tool</a></div>
+  </div>
+</article><article class="recurso">
+  <a class="recurso-img" href="recursos/plantillas.html" tabindex="-1" aria-hidden="true"><img src="../img/plantillas.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/plantillas.html">15 plantillas CLAUDE.md por stack</a></h3>
+    <p>CLAUDE.md listos para copiar: comandos exactos, convenciones y lo que Claude nunca debe tocar en tu stack.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/plantillas.html">View tool</a></div>
+  </div>
+</article><article class="recurso">
+  <a class="recurso-img" href="recursos/skills.html" tabindex="-1" aria-hidden="true"><img src="../img/skills.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/skills.html">8 skills avanzadas para Claude Code</a></h3>
+    <p>Skills que le enseñan a Claude Code a trabajar con método donde un error cuesta caro.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/skills.html">View tool</a></div>
+  </div>
+</article><article class="recurso">
+  <a class="recurso-img" href="recursos/prompts.html" tabindex="-1" aria-hidden="true"><img src="../img/prompts.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/prompts.html">100 prompts para programadores</a></h3>
+    <p>Prompts probados para depurar, refactorizar, probar y documentar con cualquier asistente de IA.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/prompts.html">View tool</a></div>
+  </div>
+</article></div></div><div class="grupo"><h3 class="grupo-titulo">For your repository</h3><div class="rejilla"><article class="recurso">
+  <a class="recurso-img" href="recursos/actions.html" tabindex="-1" aria-hidden="true"><img src="../img/actions.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/actions.html">8 workflows de GitHub Actions</a></h3>
+    <p>Workflows de CI comentados línea por línea en español, con permisos mínimos y caché.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/actions.html">View tool</a></div>
+  </div>
+</article><article class="recurso">
+  <a class="recurso-img" href="recursos/hooks.html" tabindex="-1" aria-hidden="true"><img src="../img/hooks.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/hooks.html">Git hooks y pre-commit</a></h3>
+    <p>Hooks de git en bash, sin dependencias, que validan tus commits y frenan secretos antes de que lleguen a GitHub.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/hooks.html">View tool</a></div>
+  </div>
+</article><article class="recurso">
+  <a class="recurso-img" href="recursos/docker.html" tabindex="-1" aria-hidden="true"><img src="../img/docker.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/docker.html">Dockerfiles optimizados</a></h3>
+    <p>Dockerfiles multi-stage, sin root y comentados en español: imágenes pequeñas y builds rápidos.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/docker.html">View tool</a></div>
+  </div>
+</article><article class="recurso">
+  <a class="recurso-img" href="recursos/docs.html" tabindex="-1" aria-hidden="true"><img src="../img/docs.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/docs.html">Plantillas de documentación para GitHub</a></h3>
+    <p>Lo básico para que tu repositorio dé confianza: README, guía de contribución y formularios de issues.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/docs.html">View tool</a></div>
+  </div>
+</article><article class="recurso">
+  <a class="recurso-img" href="recursos/scripts.html" tabindex="-1" aria-hidden="true"><img src="../img/scripts.webp" width="960" height="540" alt="" loading="lazy"></a>
+  <div class="recurso-cuerpo">
+    <p class="insignia">Free · open source</p>
+    <h3><a href="recursos/scripts.html">12 scripts Bash para Linux</a></h3>
+    <p>Scripts seguros y comentados en español: vista previa antes de borrar y confirmación en todo lo destructivo.</p>
+    
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/scripts.html">View tool</a></div>
+  </div>
+</article></div></div>
+</section>
+
+<section class="seccion" id="como" aria-labelledby="t-como">
+  <div class="cabecera"><h2 id="t-como">How it works</h2></div>
+  <div class="bento">
+    <div class="caja caja-grande caja-menta"><h3>Truly free</h3><p>No sign-up, no email, no expiring trials. MIT license: use it in your projects and your clients’ projects.</p></div>
+    <div class="caja caja-azul"><h3>Pick and copy</h3><p>Each tool has its own repository with one-minute instructions.</p></div>
+    <div class="caja caja-lila"><h3>Secure by default</h3><p>Minimal permissions, no secrets in the code and a confirmation before any destructive action.</p></div>
+    <div class="caja caja-arena"><h3>Want more?</h3><p>If a tool helps you, its page shows the Pro version with the full pack. It is optional and helps us keep publishing for free.</p></div>
+  </div>
+</section>
+
+<section class="seccion seccion-suave" aria-labelledby="t-byte">
+  <div class="byte">
+    <div class="byte-texto">
+      <img class="byte-img" src="../img/byte.png" width="234" height="276" alt="Byte, the Ctrl+IA mascot">
+      <h2 id="t-byte">Learn with Byte in one minute</h2>
+      <p>Every week we post short Claude Code and AI tips on Instagram, narrated by Byte (in Spanish).</p>
+      <a class="boton boton-oscuro" href="https://www.instagram.com/carlosp5751258/">Watch the Reels</a>
+    </div>
+    <a class="byte-video" href="https://www.instagram.com/carlosp5751258/"><img src="../img/reel.webp" width="540" height="960" alt="Ctrl+IA Reel: Byte explains how to block dangerous commands with a hook" loading="lazy"></a>
+  </div>
+</section>
+
+<section class="seccion" id="preguntas" aria-labelledby="t-faq">
+  <div class="cabecera"><h2 id="t-faq">Frequently asked questions</h2></div>
+  <div class="faq">
+    <details><summary>Is it really free?</summary><p>Yes. All 10 tools are on GitHub under the MIT license. No sign-up or email required.</p></details>
+    <details><summary>How do I install it?</summary><p>Open the tool and follow the steps: it is almost always cloning the repository and copying one or two files into your project.</p></details>
+    <details><summary>What is the Pro version?</summary><p>The full pack for each tool (more templates, more workflows, the PDF guide…). It is optional: the free version works on its own. It is sold on Gumroad and you pay what you want from 2 or 3 USD.</p></details>
+    <details><summary>Does it work on Windows?</summary><p>Yes, with WSL or Git Bash. The Bash scripts are designed for Linux and macOS.</p></details>
+    <details><summary>Does this site store my data?</summary><p>No. It has no forms, cookies or trackers.</p></details>
+  </div>
+</section>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Free tools for coding with AI.</p></div>
+    <nav aria-label="Links"><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a><a href="https://claudecodees.gumroad.com">Pro versions</a></nav>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>
