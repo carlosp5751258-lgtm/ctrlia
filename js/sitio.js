@@ -1,6 +1,18 @@
 // Ctrl+IA. Sin dependencias; nada de innerHTML ni datos del usuario.
 "use strict";
 document.documentElement.classList.add("js");
+
+// Tema: «auto» sigue al sistema; «claro» u «oscuro» los elige la persona y se recuerdan en este navegador.
+// Se aplica aquí (el script va en <head>) para que no parpadee el tema equivocado al cargar.
+const sistemaOscuro = window.matchMedia("(prefers-color-scheme: dark)");
+const TEMAS = ["auto", "claro", "oscuro"];
+let tema = "auto";
+try { tema = TEMAS.includes(localStorage.getItem("ctrlia-tema")) ? localStorage.getItem("ctrlia-tema") : "auto"; } catch { /* sin almacenamiento: auto */ }
+const aplicarTema = () => {
+  document.documentElement.dataset.tema = tema === "auto" ? (sistemaOscuro.matches ? "oscuro" : "claro") : tema;
+};
+aplicarTema();
+sistemaOscuro.addEventListener("change", aplicarTema);
 if (window.top !== window.self) document.documentElement.classList.add("enmarcado");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -68,6 +80,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     filtrar();
   }
+
+  // Botón de tema: automático → claro → oscuro
+  const botonTema = document.querySelector(".tema");
+  if (botonTema) {
+    const en = document.documentElement.lang === "en";
+    const NOMBRE = en ? { auto: "automatic", claro: "light", oscuro: "dark" } : { auto: "automático", claro: "claro", oscuro: "oscuro" };
+    const pintar = () => {
+      botonTema.dataset.estado = tema;   // el CSS muestra el icono que toca
+      botonTema.setAttribute("aria-label", (en ? "Theme: " : "Tema: ") + NOMBRE[tema] + (en ? " (change)" : " (cambiar)"));
+      botonTema.title = botonTema.getAttribute("aria-label");
+    };
+    botonTema.hidden = false; pintar();
+    botonTema.addEventListener("click", () => {
+      tema = TEMAS[(TEMAS.indexOf(tema) + 1) % TEMAS.length];
+      try { localStorage.setItem("ctrlia-tema", tema); } catch { /* se aplica solo en esta página */ }
+      aplicarTema(); pintar();
+    });
+  }
+
+  // «Nuevo» durante los 14 días siguientes al alta del recurso
+  document.querySelectorAll(".nuevo[data-alta]").forEach((n) => {
+    const dias = (Date.now() - Date.parse(n.dataset.alta + "T00:00:00Z")) / 864e5;
+    n.hidden = !(dias >= 0 && dias < 14);
+  });
+
+  // Botón «Copiar» en cada bloque de código; el aviso también llega a los lectores de pantalla
+  const ingles = document.documentElement.lang === "en";
+  const anuncio = document.createElement("p");
+  anuncio.className = "solo-lector"; anuncio.setAttribute("role", "status");
+  document.body.append(anuncio);
+  document.querySelectorAll("pre").forEach((pre) => {
+    const caja = document.createElement("div"), boton = document.createElement("button");
+    caja.className = "codigo"; pre.before(caja); caja.append(pre, boton);
+    boton.type = "button"; boton.className = "copiar"; boton.textContent = ingles ? "Copy" : "Copiar";
+    boton.addEventListener("click", async () => {
+      let ok = true;
+      try { await navigator.clipboard.writeText(pre.innerText.trimEnd()); } catch { ok = false; }
+      boton.textContent = anuncio.textContent = ok ? (ingles ? "Copied" : "Copiado") : (ingles ? "Could not copy" : "No se pudo copiar");
+      setTimeout(() => { boton.textContent = ingles ? "Copy" : "Copiar"; anuncio.textContent = ""; }, 2000);
+    });
+  });
 
   // El Reel solo corre cuando se ve, y nunca con movimiento reducido
   const video = document.querySelector(".byte-video video");

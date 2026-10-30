@@ -294,21 +294,22 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
 .detalle-hero .boton-borde { border-color: var(--navy); color: var(--navy); }
 .detalle-hero .boton-github { box-shadow: var(--sombra); }
 
-@media (prefers-color-scheme: dark) {
-  :root { --fondo: #12202c; --superficie: #22364d; --fondo-2: #172735; --texto: #e8eef3; --suave: #a9b8c8; --linea: #33506d;
+/* Modo oscuro: lo activa sitio.js (automático según el sistema, o elegido con el botón de tema) */
+:root[data-tema="oscuro"] { --fondo: #12202c; --superficie: #22364d; --fondo-2: #172735; --texto: #e8eef3; --suave: #a9b8c8; --linea: #33506d;
     --menta-osc: #7ee0bd; --menta-claro: #365b66; --azul-claro: #17283d; --lila-claro: #241f38; --arena-claro: #33291a; }
-  .hero, .detalle-hero { background: #1b2c3f; color: #f2f6f8; border-color: #33506d; }
-  .portada .chip { background: transparent; color: #f2f6f8; border-color: #3a5370; }
-  .portada .hero-datos a, .logo, .logo-claro, .barra nav a:hover, .plan-destacado, .pie nav a:hover { color: #f2f6f8; }
-  .hero-datos strong { color: var(--menta); }
-  .boton-oscuro { background: var(--menta); color: #0b1520; }
-  .boton-oscuro:hover { background: #9ee8cd; }
-  .ficha, .recurso, .faq details, .plan, .pro { box-shadow: 0 10px 30px rgb(0 0 0 / 0.35); }
-  .pie { background: #0a121a; }
-  .detalle pre { background: #0f1a24; }
-  .detalle-hero .insignia { background: rgb(126 224 189 / 0.18); color: var(--menta); }
-  .detalle-hero .boton-borde, .boton-borde-oscuro { border-color: #f2f6f8; color: #f2f6f8; }
-}
+:root[data-tema="oscuro"] .hero, :root[data-tema="oscuro"] .detalle-hero { background: #1b2c3f; color: #f2f6f8; border-color: #33506d; }
+:root[data-tema="oscuro"] .portada .chip { background: transparent; color: #f2f6f8; border-color: #3a5370; }
+:root[data-tema="oscuro"] .portada .hero-datos a, :root[data-tema="oscuro"] .logo, :root[data-tema="oscuro"] .logo-claro, :root[data-tema="oscuro"] .barra nav a:hover, :root[data-tema="oscuro"] .plan-destacado, :root[data-tema="oscuro"] .pie nav a:hover { color: #f2f6f8; }
+:root[data-tema="oscuro"] .hero-datos strong { color: var(--menta); }
+:root[data-tema="oscuro"] .boton-oscuro { background: var(--menta); color: #0b1520; }
+:root[data-tema="oscuro"] .boton-oscuro:hover { background: #9ee8cd; }
+:root[data-tema="oscuro"] .ficha, :root[data-tema="oscuro"] .recurso, :root[data-tema="oscuro"] .faq details, :root[data-tema="oscuro"] .plan, :root[data-tema="oscuro"] .pro { box-shadow: 0 10px 30px rgb(0 0 0 / 0.35); }
+:root[data-tema="oscuro"] .pie { background: #0a121a; }
+:root[data-tema="oscuro"] .detalle pre { background: #0f1a24; }
+:root[data-tema="oscuro"] .detalle-hero .insignia { background: rgb(126 224 189 / 0.18); color: var(--menta); }
+:root[data-tema="oscuro"] .detalle-hero .boton-borde, :root[data-tema="oscuro"] .boton-borde-oscuro { border-color: #f2f6f8; color: #f2f6f8; }
+:root[data-tema="oscuro"] { color-scheme: dark; }
+:root[data-tema="claro"] { color-scheme: light; }
 
 /* ===== Idiomas (ES en la raíz, EN en /en/) ===== */
 .idioma { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; border: 1px solid var(--linea); border-radius: 999px;
@@ -324,7 +325,7 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
   .barra { gap: 12px; }
   .barra .boton-chico { white-space: nowrap; }
   .barra .idioma { margin-left: auto; }
-  .barra .idioma + .boton { margin-left: 0; }
+  .barra .idioma ~ .boton { margin-left: 0; }
 }
 
 /* ===== Biblioteca: tipos (categorías), búsqueda y filtros por tema ===== */
@@ -359,3 +360,25 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
 .volver { text-align: center; margin-top: 40px; }
 .tipos .chip.activo { background: var(--menta); border-color: var(--menta); color: #0b1520; }
 .tipos .chip.activo .cuenta { background: #0b1520; color: var(--menta); }
+
+/* ===== Botón «Copiar» en los bloques de código (lo añade sitio.js) ===== */
+.codigo { position: relative; }
+.copiar { position: absolute; top: 10px; right: 10px; min-height: 36px; padding: 0 14px; border: 1px solid rgb(255 255 255 / 0.25); border-radius: 999px;
+  background: rgb(255 255 255 / 0.08); color: #e8eef3; font: inherit; font-size: var(--t-chico); font-weight: 600; cursor: pointer; }
+.copiar:hover { background: rgb(255 255 255 / 0.16); }
+.copiar:focus-visible { outline: 3px solid var(--menta); outline-offset: 2px; }
+.codigo pre { padding-top: 54px; }
+.solo-lector { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.nuevo { display: inline-block; margin-right: 6px; padding: 0 8px; border-radius: 999px; background: var(--menta-osc); color: var(--superficie); font-weight: 700; }
+.nuevo[hidden] { display: none; }
+
+/* ===== Botón de tema (automático / claro / oscuro; lo muestra sitio.js) ===== */
+.tema { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; border: 1px solid var(--linea); border-radius: 999px;
+  background: transparent; color: var(--texto); font: inherit; font-size: 1.1rem; cursor: pointer; transition: border-color 160ms var(--ease); }
+.tema:hover { border-color: var(--menta-osc); }
+.tema[hidden] { display: none; }
+.tema svg { display: none; }
+.tema[data-estado="auto"] .i-auto, .tema[data-estado="claro"] .i-claro, .tema[data-estado="oscuro"] .i-oscuro { display: block; }
+@media (max-width: 420px) { .barra .boton-chico { display: none; } }
+.licencia { color: var(--suave); font-size: var(--t-chico); }
+.cabecera .insignia, .recurso-cuerpo .insignia { color: var(--menta-osc); }   /* que .cabecera p no le baje el contraste */
