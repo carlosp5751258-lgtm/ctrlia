@@ -326,3 +326,36 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
   .barra .idioma { margin-left: auto; }
   .barra .idioma + .boton { margin-left: 0; }
 }
+
+/* ===== Biblioteca: tipos (categorías), búsqueda y filtros por tema ===== */
+.tipos { margin: 0 auto 28px; max-width: 980px; }
+.tipos .chips { justify-content: center; }
+.tipos .chip { color: var(--texto); }
+.cuenta { display: inline-block; min-width: 1.6em; margin-left: 4px; padding: 0 6px; border-radius: 999px; background: var(--menta-claro);
+  color: var(--menta-osc); font-size: 0.8em; font-weight: 600; text-align: center; }
+.chip.activo .cuenta { background: var(--superficie); color: var(--navy); }
+.insignia .tipo { color: inherit; font-weight: 700; }
+.biblioteca { max-width: 980px; margin: 0 auto 40px; display: grid; gap: 16px; }
+.busca { display: grid; gap: 6px; font-weight: 600; }
+.busca input { font: inherit; font-weight: 400; min-height: 48px; padding: 0 16px; border: 1px solid var(--linea); border-radius: 12px;
+  background: var(--superficie); color: var(--texto); }
+.busca input:focus-visible, .filtro:focus-within { outline: 3px solid var(--menta-osc); outline-offset: 2px; }
+.filtros { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.filtros legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
+.filtro { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border: 1px solid var(--linea); border-radius: 999px;
+  background: var(--superficie); cursor: pointer; font-size: var(--t-chico); }
+.filtro:has(input:checked) { font-weight: 700; }   /* opción E elegida el 30-oct: el botón no cambia de color, solo la casilla y la negrita */
+.filtro:hover { border-color: var(--menta-osc); }
+.filtro input { appearance: none; display: grid; place-content: center; width: 18px; height: 18px; margin: 0; flex: none;
+  border: 1.5px solid var(--suave); border-radius: 6px; background: transparent; cursor: pointer; }
+.filtro input::before { content: ""; width: 10px; height: 10px; transform: scale(0); transition: transform 120ms var(--ease);
+  background: var(--menta); clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
+.filtro input:checked { background: #0b1520; border-color: #0b1520; }
+.filtro input:checked::before { transform: scale(1); }
+.filtro input:focus-visible { outline: none; }
+.resultado { margin: 0; color: var(--suave); font-size: var(--t-chico); }
+.sin-resultados { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+#recursos [hidden], .biblioteca[hidden] { display: none !important; }
+.volver { text-align: center; margin-top: 40px; }
+.tipos .chip.activo { background: var(--menta); border-color: var(--menta); color: #0b1520; }
+.tipos .chip.activo .cuenta { background: #0b1520; color: var(--menta); }

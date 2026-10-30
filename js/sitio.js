@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".idioma, .aviso-idioma a").forEach((a) => a.addEventListener("click", () => recuerda("ctrlia-aviso-idioma", "no")));
 
   // Buscador: eliges qué quieres resolver y aparece el recurso que lo arregla
-  const chips = [...document.querySelectorAll(".chip")];
+  const chips = [...document.querySelectorAll(".portada .chip")];   // solo los del buscador (los de .tipos son enlaces normales)
   const fichas = new Map([...document.querySelectorAll(".ficha")].map((f) => [f.id.replace(/^r-/, ""), f]));
   const elegir = (id, foco) => {
     if (!fichas.has(id)) return;
@@ -39,6 +39,35 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("hashchange", desdeHash);
   if (chips.length) elegir(chips[0].dataset.id, false);
   desdeHash();
+
+  // Biblioteca: búsqueda por texto (sin acentos) y filtros por tema que se combinan (deben cumplirse todos)
+  const bib = document.querySelector(".biblioteca");
+  if (bib) {
+    bib.hidden = false;
+    const tarjetas = [...document.querySelectorAll("#recursos .recurso")];
+    const caja = bib.querySelector("#busca"), marcas = [...bib.querySelectorAll(".filtros input")];
+    const res = bib.querySelector(".resultado"), nada = bib.querySelector(".sin-resultados");
+    const plano = (s) => s.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");   // igual que plano() en web.py
+    const filtrar = () => {
+      const palabras = plano(caja.value).split(/\s+/).filter(Boolean);
+      const elegidas = marcas.filter((m) => m.checked).map((m) => m.value);
+      let n = 0;
+      tarjetas.forEach((c) => {
+        const temas = c.dataset.etiquetas.split(" ");
+        const si = elegidas.every((x) => temas.includes(x)) && palabras.every((w) => c.dataset.buscar.includes(w));
+        c.hidden = !si; n += si;
+      });
+      document.querySelectorAll("#recursos .grupo").forEach((g) => { g.hidden = !g.querySelector(".recurso:not([hidden])"); });
+      res.textContent = res.dataset.plantilla.replace("{n}", n).replace("{total}", tarjetas.length);
+      nada.hidden = n > 0;
+    };
+    caja.addEventListener("input", filtrar);
+    marcas.forEach((m) => m.addEventListener("change", filtrar));
+    bib.querySelector(".limpiar").addEventListener("click", () => {
+      caja.value = ""; marcas.forEach((m) => { m.checked = false; }); filtrar(); caja.focus();
+    });
+    filtrar();
+  }
 
   // El Reel solo corre cuando se ve, y nunca con movimiento reducido
   const video = document.querySelector(".byte-video video");
