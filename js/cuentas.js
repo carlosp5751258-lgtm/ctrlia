@@ -46,7 +46,8 @@
     if (prefer) h.Prefer = prefer;
     const r = await fetch(`${URL_SB}${ruta}`, { method: metodo, headers: h, body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo) });
     if (!r.ok) throw new Error((await r.json().catch(() => ({}))).message || r.statusText);
-    return r.status === 204 ? null : r.json();
+    const texto = await r.text();                       // POST/PATCH sin «return=representation» responden 201/204 sin cuerpo
+    return texto ? JSON.parse(texto) : null;
   }
 
   const entrar = (proveedor) => {
