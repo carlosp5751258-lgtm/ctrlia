@@ -23,11 +23,14 @@
   async function iniciar() {
     raiz.querySelector(".sin-sesion").hidden = !!C.usuario();
     if (!C.usuario()) return decir("");
-    if (aal(await C.token()) !== "aal2") return dosPasos();
+    if (aal(await C.token()) !== "aal2") { decir(""); return dosPasos(); }
     if (!(await rpc("es_admin"))) return decir(tx("Esta cuenta no es de administración.", "This account is not an admin account."), true);
     decir("");
     panel();
   }
+
+  // Supabase devuelve el QR como SVG en texto (a veces ya como data:); <img> necesita un data: URI.
+  const qrUri = (q) => (q.startsWith("data:") ? q : "data:image/svg+xml;charset=utf-8," + encodeURIComponent(q));
 
   // ── Dos pasos (ADM-01): TOTP de Supabase Auth por REST ─────────────────────────────────────────────
   async function dosPasos() {
@@ -46,7 +49,7 @@
         } catch (e) { activar.disabled = false; return decir(e.message, true); }
         activar.replaceWith(el("p", { textContent: tx("Escanea este código con tu app de autenticación (Google Authenticator, Aegis, 1Password…) y escribe el código que te muestre.",
                                                       "Scan this code with your authenticator app (Google Authenticator, Aegis, 1Password…) and type the code it shows.") }),
-          el("img", { className: "admin-qr", src: factor.totp.qr_code, width: 200, height: 200, alt: tx("Código QR para la app de autenticación", "QR code for the authenticator app") }),
+          el("img", { className: "admin-qr", src: qrUri(factor.totp.qr_code), width: 200, height: 200, alt: tx("Código QR para la app de autenticación", "QR code for the authenticator app") }),
           el("p", {}, tx("¿No puedes escanear? Escribe esta clave: ", "Can't scan? Type this key: "), el("code", { textContent: factor.totp.secret })));
         f.hidden = false; campo.focus();
       });
