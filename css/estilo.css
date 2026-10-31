@@ -382,3 +382,55 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
 @media (max-width: 420px) { .barra .boton-chico { display: none; } }
 .licencia { color: var(--suave); font-size: var(--t-chico); }
 .cabecera .insignia, .recurso-cuerpo .insignia { color: var(--menta-osc); }   /* que .cabecera p no le baje el contraste */
+
+/* ===== Páginas legales y pie ===== */
+.prosa { max-width: 760px; margin: 0 auto; }
+.prosa h1 { margin-bottom: 4px; }
+.prosa h2 { font-size: 1.2rem; margin: 32px 0 8px; }
+.prosa p, .prosa li { line-height: 1.7; }
+.prosa .nota { color: var(--suave); font-size: var(--t-chico); }
+.prosa a { color: var(--menta-osc); }
+.pie-legal { display: flex; flex-wrap: wrap; gap: 20px; padding: 12px 0 0; font-size: var(--t-chico); }
+.pie-legal a { color: inherit; opacity: 0.85; }
+
+/* ===== Cuentas (fase 2): menú de la cabecera, «Guardar», Mi cuenta y Peticiones ===== */
+.cuenta { position: relative; }
+.cuenta[hidden], .cuenta-fuera[hidden], .cuenta-dentro[hidden], .cuenta-menu[hidden] { display: none; }
+.cuenta-menu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; width: min(300px, 86vw); display: grid; gap: 10px; padding: 16px;
+  background: var(--superficie); color: var(--texto); border: 1px solid var(--linea); border-radius: 16px; box-shadow: var(--sombra); }
+.cuenta-menu p { margin: 0; font-size: var(--t-chico); color: var(--suave); }
+.cuenta-menu a { color: var(--texto); }
+.cuenta-menu .boton { width: 100%; justify-content: center; }
+.cuenta-inicial { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; border: 0; cursor: pointer;
+  background: var(--menta); color: #0b1520; font: inherit; font-weight: 700; }
+.cuenta-nombre { font-weight: 600; color: var(--texto) !important; }
+.boton-texto { background: none; border: 0; padding: 0; font: inherit; color: var(--menta-osc); text-decoration: underline; cursor: pointer; text-align: left; }
+.favorito { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border: 1px solid var(--linea); border-radius: 999px;
+  background: transparent; color: var(--texto); font: inherit; font-size: var(--t-chico); cursor: pointer; }
+.favorito[hidden] { display: none; }
+.favorito[aria-pressed="true"] { font-weight: 700; border-color: var(--menta-osc); }
+.favorito[aria-pressed="true"] > span:first-child { color: var(--menta-osc); }
+.favorito:focus-visible, .cuenta button:focus-visible, .voto:focus-visible { outline: 3px solid var(--menta-osc); outline-offset: 2px; }
+.pagina-cuenta form, .pagina-peticiones form { display: grid; gap: 12px; margin: 12px 0 24px; }
+.pagina-cuenta label, .pagina-peticiones label { display: grid; gap: 6px; font-weight: 600; }
+.pagina-cuenta input:not([type=checkbox]), .pagina-cuenta select, .pagina-peticiones input, .pagina-peticiones textarea {
+  font: inherit; font-weight: 400; min-height: 44px; padding: 8px 12px; border: 1px solid var(--linea); border-radius: 10px; background: var(--superficie); color: var(--texto); }
+.fila-form { grid-template-columns: 1fr auto; align-items: end; }
+.cuenta-acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+.lista-recursos { list-style: none; padding: 0; display: grid; gap: 8px; }
+.lista-recursos li { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--linea); border-radius: 12px; }
+.lista-recursos li a { flex: 1 1 200px; font-weight: 600; }
+.ranking { padding: 0; list-style: none; display: grid; gap: 10px; }
+.peticion { display: flex; gap: 14px; align-items: flex-start; padding: 12px; border: 1px solid var(--linea); border-radius: 12px; }
+.peticion p { margin: 4px 0 0; color: var(--suave); }
+.voto { min-width: 56px; min-height: 44px; border: 1px solid var(--linea); border-radius: 10px; background: transparent; color: var(--texto); font: inherit; font-weight: 700; cursor: pointer; }
+.voto[aria-pressed="true"] { border-color: var(--menta-osc); color: var(--menta-osc); }
+.borrar-confirmar { margin-top: 12px; padding: 16px; border: 2px solid #c0392b; border-radius: 12px; display: grid; gap: 10px; justify-items: start; }
+.borrar-confirmar[hidden] { display: none; }
+.boton.peligro { background: #c0392b; color: #fff; border: 0; }
+.avance { margin: 24px 0; }
+.lista-avance { list-style: none; padding: 0; display: grid; gap: 6px; }
+.suave { color: var(--suave); }
+@media (max-width: 960px) { .cuenta-fuera > .boton { padding: 0 14px; } }
+@media (max-width: 420px) { .barra .cuenta-fuera > .boton { padding: 0 10px; font-size: 0.8rem; } }
+.cuenta .boton-borde, .pagina-cuenta .boton-borde, .pagina-peticiones .boton-borde, .recurso-acciones .boton-borde { border-color: var(--texto); color: var(--texto); }

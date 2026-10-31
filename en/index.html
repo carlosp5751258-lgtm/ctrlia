@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
 <meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
@@ -24,8 +24,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Ctrl+IA", "url": "https://ctrlia.dev/en/", "inLanguage": "en"}, {"@type": "ItemList", "name": "Free tools for coding with AI", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://ctrlia.dev/en/recursos/kit.html", "name": "Claude Code Starter Kit"}, {"@type": "ListItem", "position": 2, "url": "https://ctrlia.dev/en/recursos/guia.html", "name": "Claude Code Guide: Zero to Expert"}, {"@type": "ListItem", "position": 3, "url": "https://ctrlia.dev/en/recursos/plantillas.html", "name": "15 CLAUDE.md templates by stack"}, {"@type": "ListItem", "position": 4, "url": "https://ctrlia.dev/en/recursos/skills.html", "name": "8 advanced skills for Claude Code"}, {"@type": "ListItem", "position": 5, "url": "https://ctrlia.dev/en/recursos/prompts.html", "name": "100 prompts for developers"}, {"@type": "ListItem", "position": 6, "url": "https://ctrlia.dev/en/recursos/actions.html", "name": "8 GitHub Actions workflows"}, {"@type": "ListItem", "position": 7, "url": "https://ctrlia.dev/en/recursos/hooks.html", "name": "Git hooks and pre-commit"}, {"@type": "ListItem", "position": 8, "url": "https://ctrlia.dev/en/recursos/docker.html", "name": "Optimized Dockerfiles"}, {"@type": "ListItem", "position": 9, "url": "https://ctrlia.dev/en/recursos/docs.html", "name": "Documentation templates for GitHub"}, {"@type": "ListItem", "position": 10, "url": "https://ctrlia.dev/en/recursos/scripts.html", "name": "12 Bash scripts for Linux"}]}]}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=f7cd8242">
-<script src="../js/sitio.js?v=f7cd8242"></script>
+<link rel="stylesheet" href="../css/estilo.css?v=60d949f8">
+<script src="../js/sitio.js?v=60d949f8"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=60d949f8" defer></script>
 </head>
 <body>
 <header class="barra">
@@ -33,7 +35,28 @@
   <nav aria-label="Sections"><a href="../en/index.html#recursos">Tools</a><a href="../en/index.html#buscar">Find yours</a><a href="../en/index.html#como">How it works</a><a href="../en/index.html#preguntas">FAQ</a></nav>
   <a class="idioma" href="../index.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
   <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../en/cuenta.html">My resources and settings</a>
+        <a href="../en/peticiones.html">Request a resource</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
   <a class="boton boton-oscuro boton-chico" href="../en/index.html#recursos">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
 </header>
 
 <main id="inicio">
@@ -50,6 +73,7 @@
     <ul class="lista"><li>hooks/: blocks rm -rf, git push --force, curl | sh and reading .env files or SSH keys</li><li>skills/: code review and conventional commits</li><li>comandos/plan.md: the /plan command</li><li>plantillas-claude-md/: Node/TypeScript and Python</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/kit.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="kit" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-guia">
@@ -60,6 +84,7 @@
     <ul class="lista"><li>Chapter 0: before you start</li><li>Chapter 1: installation and first steps</li><li>Chapter 2: how to ask for tasks</li><li>Chapter 3: CLAUDE.md, your project&#x27;s memory</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/guia.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="guia" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-plantillas">
@@ -70,6 +95,7 @@
     <ul class="lista"><li>5 templates: Go, FastAPI, Express, Laravel and Astro</li><li>How to run a single test in each stack</li><li>A “Don&#x27;t do” section with the dangerous actions</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/plantillas.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="plantillas" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-skills">
@@ -80,6 +106,7 @@
     <ul class="lista"><li>tdd: real red-green-refactor cycles</li><li>changelog-release: Keep a Changelog + SemVer, never publishing anything without permission</li><li>accesibilidad-web: WCAG 2.2 AA checklist</li><li>instalar.sh: installs them without overwriting anything</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/skills.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="skills" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-prompts">
@@ -90,6 +117,7 @@
     <ul class="lista"><li>30 prompts: 3 from each of the 10 categories</li><li>Placeholders to adapt them to your code</li><li>When to use each one</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/prompts.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="prompts" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-actions">
@@ -100,6 +128,7 @@
     <ul class="lista"><li>node-ci.yml: lint and tests on Node 20 and 22 with npm caching</li><li>python-ci.yml: ruff and pytest with uv on 3.11–3.13</li><li>auditoria-dependencias.yml: weekly vulnerability check</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/actions.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="actions" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-hooks">
@@ -110,6 +139,7 @@
     <ul class="lista"><li>commit-msg: validates Conventional Commits</li><li>pre-commit: blocks AWS, GitHub, Stripe and Slack keys, .env, private keys and large files</li><li>instalar-hooks.sh: enables them with one command</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/hooks.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="hooks" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-docker">
@@ -120,6 +150,7 @@
     <ul class="lista"><li>go/: multi-architecture distroless Dockerfile</li><li>node-express/: alpine, tini and a healthcheck without curl</li><li>A .dockerignore for each one</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/docker.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="docker" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-docs">
@@ -130,6 +161,7 @@
     <ul class="lista"><li>Library README</li><li>CONTRIBUTING.md with a branching workflow and Conventional Commits</li><li>Issue form for bugs</li><li>Pull request template with a checklist</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/docs.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="docs" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article><article class="ficha" id="r-scripts">
@@ -140,6 +172,7 @@
     <ul class="lista"><li>Clean node_modules and caches (with a preview)</li><li>See and free busy ports</li><li>Update all your repos with pull --ff-only</li><li>Generate .gitignore offline</li><li>Delete merged branches (dry-run by default)</li></ul>
     <div class="recurso-acciones">
       <a class="boton boton-menta" href="recursos/scripts.html">Get the free tool</a>
+      <button type="button" class="favorito" data-recurso="scripts" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button>
     </div>
   </div>
 </article></div>
@@ -164,7 +197,7 @@
     <h3><a href="recursos/kit.html">Claude Code Starter Kit</a></h3>
     <p>Security hooks, skills, a command and CLAUDE.md templates so Claude Code works with rules from day one.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/kit.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/kit.html">View tool</a><button type="button" class="favorito" data-recurso="kit" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article><article class="recurso" data-etiquetas="claude-code" data-buscar="claude code guide: zero to expert i use claude code but it does weird things the first chapters of the “claude code: zero to expert” guide: installation, how to ask for tasks and claude.md. guides chapter 0: before you start chapter 1: installation and first steps chapter 2: how to ask for tasks chapter 3: claude.md, your project&#x27;s memory claude code">
   <a class="recurso-img" href="recursos/guia.html" tabindex="-1" aria-hidden="true"><img src="../img/en/guia.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -173,7 +206,7 @@
     <h3><a href="recursos/guia.html">Claude Code Guide: Zero to Expert</a></h3>
     <p>The first chapters of the “Claude Code: Zero to Expert” guide: installation, how to ask for tasks and CLAUDE.md.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/guia.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/guia.html">View tool</a><button type="button" class="favorito" data-recurso="guia" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article><article class="recurso" data-etiquetas="claude-code tests" data-buscar="15 claude.md templates by stack claude doesn&#x27;t know how to run my tests ready-to-copy claude.md files: exact commands, conventions and what claude must never touch in your stack. templates 5 templates: go, fastapi, express, laravel and astro how to run a single test in each stack a “don&#x27;t do” section with the dangerous actions claude code testing">
   <a class="recurso-img" href="recursos/plantillas.html" tabindex="-1" aria-hidden="true"><img src="../img/en/plantillas.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -182,7 +215,7 @@
     <h3><a href="recursos/plantillas.html">15 CLAUDE.md templates by stack</a></h3>
     <p>Ready-to-copy CLAUDE.md files: exact commands, conventions and what Claude must never touch in your stack.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/plantillas.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/plantillas.html">View tool</a><button type="button" class="favorito" data-recurso="plantillas" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article><article class="recurso" data-etiquetas="claude-code tests accesibilidad" data-buscar="8 advanced skills for claude code i need claude to work methodically skills that teach claude code to work methodically where a mistake is costly. skills `tdd`: real red-green-refactor cycles `changelog-release`: keep a changelog + semver, never publishing anything without permission `accesibilidad-web`: wcag 2.2 aa checklist `instalar.sh`: installs them without overwriting anything claude code testing accessibility">
   <a class="recurso-img" href="recursos/skills.html" tabindex="-1" aria-hidden="true"><img src="../img/en/skills.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -191,7 +224,7 @@
     <h3><a href="recursos/skills.html">8 advanced skills for Claude Code</a></h3>
     <p>Skills that teach Claude Code to work methodically where a mistake is costly.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/skills.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/skills.html">View tool</a><button type="button" class="favorito" data-recurso="skills" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article><article class="recurso" data-etiquetas="tests documentacion depuracion" data-buscar="100 prompts for developers my prompts get generic answers tested prompts for debugging, refactoring, testing and documenting with any ai assistant. prompts 30 prompts: 3 from each of the 10 categories placeholders to adapt them to your code when to use each one testing documentation debugging">
   <a class="recurso-img" href="recursos/prompts.html" tabindex="-1" aria-hidden="true"><img src="../img/en/prompts.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -200,7 +233,7 @@
     <h3><a href="recursos/prompts.html">100 prompts for developers</a></h3>
     <p>Tested prompts for debugging, refactoring, testing and documenting with any AI assistant.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/prompts.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/prompts.html">View tool</a><button type="button" class="favorito" data-recurso="prompts" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article></div></div><div class="grupo"><h3 class="grupo-titulo">For your repository</h3><div class="rejilla"><article class="recurso" data-etiquetas="github seguridad tests" data-buscar="8 github actions workflows my project has no ci ci workflows commented line by line, with minimal permissions and caching. ci/cd `node-ci.yml`: lint and tests on node 20 and 22 with npm caching `python-ci.yml`: ruff and pytest with uv on 3.11–3.13 `auditoria-dependencias.yml`: weekly vulnerability check github security testing">
   <a class="recurso-img" href="recursos/actions.html" tabindex="-1" aria-hidden="true"><img src="../img/en/actions.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -209,7 +242,7 @@
     <h3><a href="recursos/actions.html">8 GitHub Actions workflows</a></h3>
     <p>CI workflows commented line by line, with minimal permissions and caching.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/actions.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/actions.html">View tool</a><button type="button" class="favorito" data-recurso="actions" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article><article class="recurso" data-etiquetas="git seguridad" data-buscar="git hooks and pre-commit secrets keep slipping into my commits bash git hooks with no dependencies that validate your commits and stop secrets before they reach github. hooks `commit-msg`: validates conventional commits `pre-commit`: blocks aws, github, stripe and slack keys, `.env`, private keys and large files `instalar-hooks.sh`: enables them with one command git security">
   <a class="recurso-img" href="recursos/hooks.html" tabindex="-1" aria-hidden="true"><img src="../img/en/hooks.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -218,7 +251,7 @@
     <h3><a href="recursos/hooks.html">Git hooks and pre-commit</a></h3>
     <p>Bash git hooks with no dependencies that validate your commits and stop secrets before they reach GitHub.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/hooks.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/hooks.html">View tool</a><button type="button" class="favorito" data-recurso="hooks" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article><article class="recurso" data-etiquetas="seguridad docker" data-buscar="optimized dockerfiles my docker image weighs 1 gb multi-stage, non-root, commented dockerfiles: small images and fast builds. docker `go/`: multi-architecture distroless dockerfile `node-express/`: alpine, tini and a healthcheck without curl a `.dockerignore` for each one security docker">
   <a class="recurso-img" href="recursos/docker.html" tabindex="-1" aria-hidden="true"><img src="../img/en/docker.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -227,7 +260,7 @@
     <h3><a href="recursos/docker.html">Optimized Dockerfiles</a></h3>
     <p>Multi-stage, non-root, commented Dockerfiles: small images and fast builds.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/docker.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/docker.html">View tool</a><button type="button" class="favorito" data-recurso="docker" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article><article class="recurso" data-etiquetas="github documentacion" data-buscar="documentation templates for github my repo has no documentation the basics to make your repository trustworthy: readme, contributing guide and issue forms. templates library readme contributing.md with a branching workflow and conventional commits issue form for bugs pull request template with a checklist github documentation">
   <a class="recurso-img" href="recursos/docs.html" tabindex="-1" aria-hidden="true"><img src="../img/en/docs.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -236,7 +269,7 @@
     <h3><a href="recursos/docs.html">Documentation templates for GitHub</a></h3>
     <p>The basics to make your repository trustworthy: README, contributing guide and issue forms.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/docs.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/docs.html">View tool</a><button type="button" class="favorito" data-recurso="docs" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article><article class="recurso" data-etiquetas="git terminal" data-buscar="12 bash scripts for linux i keep repeating the same terminal tasks safe, commented scripts: a preview before deleting and confirmation for anything destructive. scripts clean node_modules and caches (with a preview) see and free busy ports update all your repos with `pull --ff-only` generate `.gitignore` offline delete merged branches (dry-run by default) git terminal">
   <a class="recurso-img" href="recursos/scripts.html" tabindex="-1" aria-hidden="true"><img src="../img/en/scripts.webp" width="960" height="540" alt="" loading="lazy"></a>
@@ -245,7 +278,7 @@
     <h3><a href="recursos/scripts.html">12 Bash scripts for Linux</a></h3>
     <p>Safe, commented scripts: a preview before deleting and confirmation for anything destructive.</p>
     
-    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/scripts.html">View tool</a></div>
+    <div class="recurso-acciones"><a class="boton boton-oscuro" href="recursos/scripts.html">View tool</a><button type="button" class="favorito" data-recurso="scripts" aria-pressed="false" hidden><span aria-hidden="true">★</span> <span class="favorito-texto">Save</span></button></div>
   </div>
 </article></div></div>
 </section>
@@ -287,6 +320,8 @@
   <div class="pie-arriba">
     <div><a class="logo logo-claro" href="../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Free tools for coding with AI.</p></div>
     <nav aria-label="Links"><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a><a href="https://claudecodees.gumroad.com">Pro versions</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../en/privacidad.html">Privacy notice</a><a href="../en/terminos.html">Terms of use</a><a href="../en/peticiones.html">Request a resource</a>
   </div>
   <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
 </footer>
