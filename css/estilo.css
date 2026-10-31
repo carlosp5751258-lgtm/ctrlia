@@ -411,9 +411,10 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
 .favorito[aria-pressed="true"] { font-weight: 700; border-color: var(--menta-osc); }
 .favorito[aria-pressed="true"] > span:first-child { color: var(--menta-osc); }
 .favorito:focus-visible, .cuenta button:focus-visible, .voto:focus-visible { outline: 3px solid var(--menta-osc); outline-offset: 2px; }
-.pagina-cuenta form, .pagina-peticiones form { display: grid; gap: 12px; margin: 12px 0 24px; }
-.pagina-cuenta label, .pagina-peticiones label { display: grid; gap: 6px; font-weight: 600; }
-.pagina-cuenta input:not([type=checkbox]), .pagina-cuenta select, .pagina-peticiones input, .pagina-peticiones textarea {
+.pagina-cuenta form, .pagina-peticiones form, .pagina-admin form { display: grid; gap: 12px; margin: 12px 0 24px; }
+.pagina-cuenta label, .pagina-peticiones label, .pagina-admin label { display: grid; gap: 6px; font-weight: 600; }
+.pagina-cuenta input:not([type=checkbox]), .pagina-cuenta select, .pagina-peticiones input, .pagina-peticiones textarea,
+.pagina-admin input:not([type=checkbox]), .pagina-admin select, .pagina-admin textarea {
   font: inherit; font-weight: 400; min-height: 44px; padding: 8px 12px; border: 1px solid var(--linea); border-radius: 10px; background: var(--superficie); color: var(--texto); }
 .fila-form { grid-template-columns: 1fr auto; align-items: end; }
 .cuenta-acciones { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -433,4 +434,23 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
 .suave { color: var(--suave); }
 @media (max-width: 960px) { .cuenta-fuera > .boton { padding: 0 14px; } }
 @media (max-width: 420px) { .barra .cuenta-fuera > .boton { padding: 0 10px; font-size: 0.8rem; } }
-.cuenta .boton-borde, .pagina-cuenta .boton-borde, .pagina-peticiones .boton-borde, .recurso-acciones .boton-borde { border-color: var(--texto); color: var(--texto); }
+.cuenta .boton-borde, .pagina-cuenta .boton-borde, .pagina-admin .boton-borde, .pagina-peticiones .boton-borde, .recurso-acciones .boton-borde { border-color: var(--texto); color: var(--texto); }
+/* Administración en línea (admin.html, fase 3) */
+.pagina-admin { max-width: 1000px; margin: 0 auto; }
+.pagina-admin form[hidden] { display: none; }
+.pagina-admin .filtros label, .pagina-admin label.fila { display: inline-flex; font-weight: 400; }
+.admin-nav { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 8px 0 16px; }
+.admin-nav a, .pagina-admin td a { color: var(--menta-osc); }
+.admin-msg:empty, .admin-salida:empty, .admin-estado:empty { display: none; }
+.pagina-admin .error { color: #c0392b; font-weight: 600; }
+.admin-scroll { overflow-x: auto; }
+.admin-tabla { border-collapse: collapse; width: 100%; font-size: var(--t-chico); }
+.admin-tabla th, .admin-tabla td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+.admin-cifras { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.admin-cifras div { padding: 10px 12px; border: 1px solid var(--linea); border-radius: 12px; }
+.admin-cifras dt { color: var(--suave); font-size: var(--t-chico); }
+.admin-cifras dd { margin: 0; font-size: 1.4rem; font-weight: 700; }
+.admin-qr { background: #fff; padding: 8px; border-radius: 8px; }
+.admin-form { border-top: 1px solid var(--linea); padding-top: 12px; }
+span.voto { display: inline-grid; place-items: center; cursor: default; }
+.peticion .respuesta { color: var(--texto); }

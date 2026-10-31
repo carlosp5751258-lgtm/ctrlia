@@ -45,7 +45,7 @@
     if (t) h.Authorization = `Bearer ${t}`;
     if (prefer) h.Prefer = prefer;
     const r = await fetch(`${URL_SB}${ruta}`, { method: metodo, headers: h, body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo) });
-    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).message || r.statusText);
+    if (!r.ok) { const d = await r.json().catch(() => ({})); throw new Error(d.message || d.msg || d.error_description || r.statusText); }
     const texto = await r.text();                       // POST/PATCH sin «return=representation» responden 201/204 sin cuerpo
     return texto ? JSON.parse(texto) : null;
   }
@@ -69,6 +69,8 @@
   };
   const aviso = document.querySelector(".cuenta-estado");                     // región role=status para lectores de pantalla
   const anunciar = (msg) => { if (aviso) aviso.textContent = msg; };
+  // Lo mínimo para admin.js (se carga después, solo en admin.html): espera el evento «ctrlia:listo».
+  window.CtrlIA = { api, token, guardar, el, tx, usuario: () => usuario };
 
   let usuario = null;                       // { id, email, nombre }
   let favoritos = new Map();                // recurso -> coleccion|null
@@ -242,7 +244,8 @@
         const estado = { "en-curso": tx("En curso", "In progress"), hecha: tx("Hecha", "Done") }[p.estado];
         lista.append(el("li", { className: "peticion" }, votar,
           el("div", {}, el("strong", { textContent: p.titulo }), estado ? el("span", { className: "insignia", textContent: " " + estado }) : "",
-             p.detalle ? el("p", { textContent: p.detalle }) : "")));
+             p.detalle ? el("p", { textContent: p.detalle }) : "",
+             p.respuesta ? el("p", { className: "respuesta" }, el("strong", { textContent: tx("Respuesta de Ctrl+IA: ", "Ctrl+IA's reply: ") }), p.respuesta) : "")));
       }
     }
     const f = raiz.querySelector(".nueva-peticion");
@@ -296,9 +299,11 @@
       if (usuario) favoritos = new Map((await api("/rest/v1/favoritos?select=recurso,coleccion")).map((f) => [f.recurso, f.coleccion]));
     } catch (e) {
       console.warn("Cuentas no disponibles:", e.message);              // RNF-08: la web sigue igual, sin botones de cuenta
+      document.dispatchEvent(new CustomEvent("ctrlia:listo", { detail: { error: e.message } }));
       return;
     }
     pintarCabecera(); pintarFavoritos();
+    document.dispatchEvent(new CustomEvent("ctrlia:listo", { detail: {} }));
     const c = document.querySelector(".pagina-cuenta"); if (c) paginaCuenta(c).catch((e) => anunciar(e.message));
     const p = document.querySelector(".pagina-peticiones"); if (p) paginaPeticiones(p).catch((e) => anunciar(e.message));
     document.querySelectorAll(".avance[data-guia]").forEach((a) => avance(a).catch((e) => anunciar(e.message)));
