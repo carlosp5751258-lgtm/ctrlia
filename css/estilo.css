@@ -454,3 +454,41 @@ html:not(.js) .ficha { grid-area: auto; margin-bottom: 16px; }
 .admin-form { border-top: 1px solid var(--linea); padding-top: 12px; }
 span.voto { display: inline-grid; place-items: center; cursor: default; }
 .peticion .respuesta { color: var(--texto); }
+
+/* ===== Recetas y novedades (web/contenido/): portada «Lo último», índices y páginas ===== */
+.portada-pregunta { margin-top: 44px; font-size: var(--t-h3); }
+.portada .portada-pregunta + .chips { margin-top: 18px; }
+.seccion-ultimo { padding-top: clamp(48px, 6vw, 80px); padding-bottom: 0; }
+.bloque + .bloque { margin-top: 56px; }
+.bloque-cabeza { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; margin-bottom: 20px; }
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+.nota-tarjeta { display: grid; gap: 10px; align-content: start; padding: 24px; background: var(--superficie); border: 1px solid var(--linea);
+  border-radius: var(--radio); box-shadow: var(--sombra); }
+.nota-tarjeta h2, .nota-tarjeta h3 { font-size: var(--t-h3); }
+.nota-tarjeta h2 a, .nota-tarjeta h3 a { text-decoration: none; }
+.nota-tarjeta h2 a:hover, .nota-tarjeta h3 a:hover { color: var(--menta-osc); text-decoration: underline; }
+.nota-tarjeta > p:last-child { color: var(--suave); font-size: 0.9375rem; }
+.vacio { text-align: center; color: var(--suave); }
+.contenido { overflow-wrap: break-word; }
+.contenido h1 { font-size: var(--t-h2); text-wrap: balance; }
+.contenido .entrada { margin-top: 16px; max-width: none; }
+.probado { padding: 10px 14px; border-radius: 12px; background: var(--menta-claro); color: var(--texto); font-size: var(--t-chico); }
+.contenido h2 { font-size: 1.5rem; margin: 48px 0 12px; }
+.contenido h3 { font-size: 1.15rem; margin: 28px 0 8px; }
+.contenido p, .contenido ul, .contenido ol { margin: 12px 0; }
+.contenido ul { list-style: disc; padding-left: 1.4em; }
+.contenido ol { padding-left: 1.6em; }
+.contenido li + li { margin-top: 6px; }
+.contenido .codigo { margin: 16px 0; }
+.contenido pre { margin: 0; padding: 22px; overflow-x: auto; border-radius: 16px; background: var(--navy); color: #d6e2dc; font-size: 0.875rem; line-height: 1.6; }
+.contenido .codigo pre { padding-top: 54px; }
+.contenido :not(pre) > code { padding: 1px 6px; border-radius: 6px; background: var(--fondo-2); font-size: 0.9em; overflow-wrap: anywhere; }
+.tabla { overflow-x: auto; margin: 16px 0; }
+.contenido table { border-collapse: collapse; width: 100%; font-size: 0.9375rem; }
+.contenido th, .contenido td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+.mas { margin-top: 56px; padding-top: 8px; border-top: 1px solid var(--linea); }
+.detalle-solo { grid-template-columns: minmax(0, 820px); justify-content: center; }   /* sin la caja Pro (PRO_VISIBLE = False en web.py) */
+:root[data-tema="oscuro"] .contenido pre { background: #0f1a24; }
+:root[data-tema="oscuro"] .nota-tarjeta { box-shadow: 0 10px 30px rgb(0 0 0 / 0.35); }
+:root[data-tema="oscuro"] .probado { background: rgb(126 224 189 / 0.12); }
+.pagina-cuenta label[hidden] { display: none; }

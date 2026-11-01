@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code in VS Code: extension or terminal, how to install · Ctrl+IA</title>
+<meta name="description" content="Install the official Claude Code extension for VS Code (anthropic.claude-code), compare it with the terminal CLI and use it safely in Cursor.">
+<meta property="og:title" content="Claude Code in VS Code: extension or terminal, how to install · Ctrl+IA">
+<meta property="og:description" content="Install the official Claude Code extension for VS Code (anthropic.claude-code), compare it with the terminal CLI and use it safely in Cursor.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/kit.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/claude-code-vs-code.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/claude-code-vs-code.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/claude-code-vs-code.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/claude-code-vs-code.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/claude-code-vs-code.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code in VS Code: extension or terminal, how to install", "description": "Install the official Claude Code extension for VS Code (anthropic.claude-code), compare it with the terminal CLI and use it safely in Cursor.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html", "totalTime": "PT10M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Check the requirements", "text": "According to the official documentation:", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html"}, {"@type": "HowToStep", "position": 2, "name": "Install the official extension", "text": "The official identifier is anthropic.claude-code and the publisher is Anthropic. Install it from the terminal:", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html"}, {"@type": "HowToStep", "position": 3, "name": "Check it comes from the official publisher", "text": "The name is not enough: the tampered copy in Cursor used the same identifier, anthropic.claude-code. Check three things:", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html"}, {"@type": "HowToStep", "position": 4, "name": "Open it and learn the shortcuts", "text": "To open Claude Code you have the Spark icon at the top right of the editor (it only appears when a file is open), the Activity Bar icon, ✻ Claude Code in the Status Bar, or the Command Palette (Ctrl+Shift+P, type \"Claude Code\").", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html"}, {"@type": "HowToStep", "position": 5, "name": "Use mentions and diffs", "text": "- Automatic context: Claude sees the open file and any text you have selected. - Mentions: Alt+K inserts something like @app.ts#5-10 (file and line range). You can also type @auth to search by name or @src/components/ for a folder. @terminal:name adds a terminal's output. - Images and files: paste an image from the clipboard, or hold Shift and drag files into the prompt box. - Diffs: in Manual mode, each change opens in a side-by-side diff to accept or reject. Since version 2.1.275 there are Accept this change and Reject this change buttons under each change (not shown for diffs with more than 100 changes). If you edit the proposed content in the diff, Claude knows you changed it. - Checkpoints: hover over a message to fork the conversation, rewind the code changes, or both. - Mode: the prompt box footer shows the permission mode (Auto, Manual, Plan, Edit automatically). To set the starting one, use claudeCode.initialPermissionMode in your user settings.", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html"}, {"@type": "HowToStep", "position": 6, "name": "Decide: extension, CLI or both", "text": "The extension bundles its own CLI for the chat panel, but it does not add claude to your PATH. If you want the CLI in the integrated terminal, install it separately:", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html"}, {"@type": "HowToStep", "position": 7, "name": "Cursor, Windsurf and other forks", "text": "- Cursor: the documentation gives the link cursor:extension/anthropic.claude-code. Before installing, check the publisher as in step 3 and the version with cursor --list-extensions --show-versions | grep -i claude. - Other VS Code forks: search their Extensions view or install from Open VSX. The documentation does not name Windsurf; if its extension search does not show the one from the verified Anthropic publisher, do not install another one. - Editors that cannot install the extension: install the CLI and run claude in the integrated terminal.", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html"}, {"@type": "HowToStep", "position": 8, "name": "Security notice: the tampered copy in Cursor", "text": "This is what the Cursor security notice and StepSecurity confirm:", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-code.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Claude Code for VS Code free?", "acceptedAnswer": {"@type": "Answer", "text": "The extension is free to install, but to use it you need a paid Claude plan (Pro or higher) or a Claude Console account, which bills by usage."}}, {"@type": "Question", "name": "Do I need to install the CLI if I already have the extension?", "acceptedAnswer": {"@type": "Answer", "text": "Not for the chat panel: the extension bundles its own CLI. Yes if you want to run claude in the terminal, which gives you every command and the ! shortcut."}}, {"@type": "Question", "name": "Does it work in Cursor and Windsurf?", "acceptedAnswer": {"@type": "Answer", "text": "In Cursor, yes, with the official link cursor:extension/anthropic.claude-code. For other forks the documentation points to Open VSX; either way, check that the publisher is the verified Anthropic one."}}, {"@type": "Question", "name": "Is the 2.1.312 version I have in VS Code dangerous?", "acceptedAnswer": {"@type": "Answer", "text": "According to Cursor and Anthropic, the tampered copy was only served from the Cursor marketplace. On the test machine, VS Code's 2.1.312 came from the Visual Studio Marketplace. Even so, update to 2.1.314 or later."}}, {"@type": "Question", "name": "Can I move a conversation from the extension to the terminal?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. They share history: run claude --resume in the terminal and pick the conversation."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=4f5d9179">
+<script src="../../js/sitio.js?v=4f5d9179"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=4f5d9179" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#recursos">Tools</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/claude-code-vs-code.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My resources and settings</a>
+        <a href="../../en/peticiones.html">Request a resource</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/index.html#recursos">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Basic · 10 min</p>
+  <h1 id="t-art">Claude Code in VS Code: extension or terminal, how to install</h1>
+  <p class="entrada">Install the official Claude Code extension for VS Code (anthropic.claude-code), compare it with the terminal CLI and use it safely in Cursor.</p>
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-10-31">2026-10-31</time></p>
+<h2>The problem</h2>
+<p>Most of us code in VS Code, and it is not obvious how to bring Claude Code into it: the extension, the CLI in the integrated terminal, or both? Is it free? Does it work in Cursor or Windsurf? And there is a new worry: on October 29, 2026, the Cursor marketplace served a tampered copy of the extension. This recipe leaves you with the official extension installed, verified and set up properly.</p>
+<h2>The solution</h2>
+<h3>1. Check the requirements</h3>
+<p>According to the <a href="https://code.claude.com/docs/en/vs-code" rel="noopener">official documentation</a>:</p>
+<ul><li><strong>VS Code 1.94.0 or later.</strong> Check with <code>code --version</code>.</li><li><strong>An account:</strong> any paid Claude plan (Pro, Max, Ultra, Team or Enterprise) or a Claude Console account. No API key is needed: you sign in the first time you open the extension.</li><li>It also works with Amazon Bedrock, Google Cloud or Microsoft Foundry: turn on the <code>claudeCode.disableLoginPrompt</code> setting and follow your provider&#x27;s guide.</li></ul>
+<h3>2. Install the official extension</h3>
+<p>The official identifier is <strong><code>anthropic.claude-code</code></strong> and the publisher is <strong>Anthropic</strong>. Install it from the terminal:</p>
+<pre><code class="language-bash">code --install-extension anthropic.claude-code</code></pre>
+<p>Or in VS Code: open Extensions (<code>Ctrl+Shift+X</code>; on Mac <code>Cmd+Shift+X</code>), search for &quot;Claude Code&quot; and pick the one from publisher <strong>Anthropic</strong>. If it does not show up after installing, restart VS Code or run <strong>Developer: Reload Window</strong> from the Command Palette.</p>
+<h3>3. Check it comes from the official publisher</h3>
+<p>The name is not enough: the tampered copy in Cursor used the same identifier, <code>anthropic.claude-code</code>. Check three things:</p>
+<ol><li>On the extension page, the publisher is <strong>Anthropic</strong> with the verified badge and the <code>anthropic.com</code> domain. On the Visual Studio Marketplace, the <code>anthropic</code> publisher has a verified domain; on <a href="https://open-vsx.org/extension/Anthropic/claude-code" rel="noopener">Open VSX</a> the <code>Anthropic</code> namespace is shown as verified.</li><li>The installed version:</li></ol>
+<pre><code class="language-bash">code --list-extensions --show-versions | grep -i claude</code></pre>
+<p>This is the output on the machine where this recipe was tested (VS Code 1.136.1 on Linux):</p>
+<pre><code class="language-text">anthropic.claude-code@2.1.312</code></pre>
+<ol start="3"><li>The publisher the extension itself declares:</li></ol>
+<pre><code class="language-bash">grep &#x27;&quot;publisher&quot;&#x27; ~/.vscode/extensions/anthropic.claude-code-*/package.json</code></pre>
+<p>It must say <code>&quot;publisher&quot;: &quot;Anthropic&quot;</code>. And never install a <code>.vsix</code> someone sends you by chat, email or a link: use your editor&#x27;s marketplace.</p>
+<h3>4. Open it and learn the shortcuts</h3>
+<p>To open Claude Code you have the Spark icon at the top right of the editor (it only appears when a file is open), the Activity Bar icon, <strong>✻ Claude Code</strong> in the Status Bar, or the Command Palette (<code>Ctrl+Shift+P</code>, type &quot;Claude Code&quot;).</p>
+<div class="tabla"><table><thead><tr><th scope="col">Action</th><th scope="col">Windows/Linux</th><th scope="col">Mac</th></tr></thead><tbody><tr><td>Toggle focus between the editor and Claude</td><td><code>Ctrl+Esc</code></td><td><code>Cmd+Esc</code></td></tr><tr><td>Open in a new tab</td><td><code>Ctrl+Shift+Esc</code></td><td><code>Cmd+Shift+Esc</code></td></tr><tr><td>Insert a mention of the current file and selection</td><td><code>Alt+K</code></td><td><code>Option+K</code></td></tr><tr><td>Reopen a closed session</td><td><code>Ctrl+Shift+T</code></td><td><code>Cmd+Shift+T</code></td></tr><tr><td>New conversation (turn on <code>enableNewConversationShortcut</code> first)</td><td><code>Ctrl+N</code></td><td><code>Cmd+N</code></td></tr><tr><td>New line in the prompt</td><td><code>Shift+Enter</code></td><td><code>Shift+Enter</code></td></tr></tbody></table></div>
+<h3>5. Use mentions and diffs</h3>
+<ul><li><strong>Automatic context:</strong> Claude sees the open file and any text you have selected.</li><li><strong>Mentions:</strong> <code>Alt+K</code> inserts something like <code>@app.ts#5-10</code> (file and line range). You can also type <code>@auth</code> to search by name or <code>@src/components/</code> for a folder. <code>@terminal:name</code> adds a terminal&#x27;s output.</li><li><strong>Images and files:</strong> paste an image from the clipboard, or hold <code>Shift</code> and drag files into the prompt box.</li><li><strong>Diffs:</strong> in Manual mode, each change opens in a side-by-side diff to accept or reject. Since version 2.1.275 there are <strong>Accept this change</strong> and <strong>Reject this change</strong> buttons under each change (not shown for diffs with more than 100 changes). If you edit the proposed content in the diff, Claude knows you changed it.</li><li><strong>Checkpoints:</strong> hover over a message to fork the conversation, rewind the code changes, or both.</li><li><strong>Mode:</strong> the prompt box footer shows the permission mode (Auto, Manual, Plan, Edit automatically). To set the starting one, use <code>claudeCode.initialPermissionMode</code> in your user settings.</li></ul>
+<h3>6. Decide: extension, CLI or both</h3>
+<p>The extension bundles its own CLI for the chat panel, but it <strong>does not add <code>claude</code> to your PATH</strong>. If you want the CLI in the integrated terminal, install it separately:</p>
+<pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash
+claude --version</code></pre>
+<p>The differences according to the official documentation:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Feature</th><th scope="col">CLI in the terminal</th><th scope="col">VS Code extension</th></tr></thead><tbody><tr><td>Commands and skills</td><td>All</td><td>A subset (type <code>/</code> to see them)</td></tr><tr><td>MCP configuration</td><td>Yes</td><td>Yes (<code>/mcp</code> in the panel)</td></tr><tr><td>Checkpoints</td><td>Yes</td><td>Yes</td></tr><tr><td><code>!</code> Bash shortcut</td><td>Yes</td><td>No</td></tr><tr><td>Tab completion</td><td>Yes</td><td>No</td></tr></tbody></table></div>
+<p>You do not have to choose forever: <strong>both share history</strong>. Start in the panel and continue in the terminal with <code>claude --resume</code>. If you run <code>claude</code> in an external terminal, run <code>/ide</code> to connect it to VS Code and see diffs in the editor.</p>
+<p>Our recommendation: the extension for day-to-day work (diffs, <code>Alt+K</code> mentions) and the CLI when you need every command, the <code>!</code> shortcut or scripts.</p>
+<h3>7. Cursor, Windsurf and other forks</h3>
+<ul><li><strong>Cursor:</strong> the documentation gives the link <code>cursor:extension/anthropic.claude-code</code>. Before installing, check the publisher as in step 3 and the version with <code>cursor --list-extensions --show-versions | grep -i claude</code>.</li><li><strong>Other VS Code forks:</strong> search their Extensions view or install from <a href="https://open-vsx.org/extension/Anthropic/claude-code" rel="noopener">Open VSX</a>. The documentation does not name Windsurf; if its extension search does not show the one from the verified Anthropic publisher, do not install another one.</li><li><strong>Editors that cannot install the extension:</strong> install the CLI and run <code>claude</code> in the integrated terminal.</li></ul>
+<p>Anthropic publishes the extension on the Visual Studio Marketplace and Open VSX, and warns that it <strong>does not endorse or audit</strong> third-party marketplaces.</p>
+<h3>8. Security notice: the tampered copy in Cursor</h3>
+<p>This is what the <a href="https://cursor.com/blog/claude-code-extension-security-notice" rel="noopener">Cursor security notice</a> and <a href="https://www.stepsecurity.io/blog/claude-code-extension-trojanized" rel="noopener">StepSecurity</a> confirm:</p>
+<ul><li>On October 29, 2026, between 2:27am and 1:35pm Pacific time, the <strong>Cursor</strong> extension marketplace served tampered versions <strong>2.1.312 and 2.1.313</strong> of <code>anthropic.claude-code</code> for macOS and Windows. Cursor says those versions &quot;were not developed by Anthropic&quot;.</li><li>The added code tried to add an attacker SSH key labeled <code>svc-telemetry</code>, open a reverse SSH tunnel, persist across reboots and send machine data.</li><li>Anthropic stated there was no compromise of its systems and that its official channels are not affected. StepSecurity verified the Open VSX 2.1.312 build as clean; 2.1.313 was never published on Open VSX or the Visual Studio Marketplace.</li></ul>
+<p>If you use Cursor and it updated that day, look for the key (macOS and Linux):</p>
+<pre><code class="language-bash">grep -qs svc-telemetry ~/.ssh/authorized_keys &amp;&amp; echo &quot;svc-telemetry key found&quot; || echo &quot;No key: machine not affected&quot;</code></pre>
+<p>If it shows up, uninstalling the extension is not enough: follow the steps in our <a href="/en/novedades/2026-10-30-extension-claude-code-cursor.html">news post about the incident</a> and in Cursor&#x27;s notice.</p>
+<h2>Check it</h2>
+<ol><li>Open a folder with code, open a file and press <code>Ctrl+Esc</code> (<code>Cmd+Esc</code> on Mac). The Claude Code panel opens.</li><li>Select a few lines, press <code>Alt+K</code> and you will see something like <code>@app.ts#5-10</code> in the prompt box.</li><li>Ask for a small change (&quot;add a comment to this function&quot;). In Manual mode a diff opens with buttons to accept or reject.</li><li>If you installed the CLI, in the integrated terminal (menu <strong>Terminal &gt; New Terminal</strong>):</li></ol>
+<pre><code class="language-bash">claude --version</code></pre>
+<pre><code class="language-text">2.1.316 (Claude Code)</code></pre>
+<h2>Why it works</h2>
+<p>The extension runs Claude Code inside VS Code and also starts a local MCP server called <code>ide</code> that listens only on <code>127.0.0.1</code>, on a random port, with a new token each time it starts. The CLI connects to it to open diffs in the editor, read your selection and see diagnostics. That is why the extension and the terminal complement each other and share history. It is explained in the <a href="https://code.claude.com/docs/en/vs-code" rel="noopener">VS Code documentation</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li><strong>The Spark icon does not appear</strong> → no file is open, VS Code is older than 1.94, or the folder is in Restricted Mode → open a file, update VS Code, trust the folder and run <strong>Developer: Reload Window</strong>.</li><li><strong><code>claude: command not found</code> in the integrated terminal</strong> → the extension does not add the CLI to PATH → install the CLI separately (step 6) and open a new terminal.</li><li><strong>The panel is blank</strong> → old version → update to 2.1.309 or later, reload the window and check <strong>Claude Code: Show Logs</strong>.</li><li><strong><code>ANTHROPIC_API_KEY</code> is ignored</strong> → VS Code does not inherit your terminal&#x27;s variables → launch it with <code>code .</code> from the terminal or sign in with your Claude account.</li><li><strong>The extension reinstalls itself after you uninstall it</strong> → running <code>claude</code> in the VS Code terminal installs it again → turn off <strong>Auto-install IDE extension</strong> in <code>/config</code> or set <code>CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL=1</code>.</li><li><strong><code>Cmd+Esc</code> does nothing on macOS Tahoe</strong> → the system Game Overlay captures it → clear it under System Settings &gt; Keyboard &gt; Keyboard Shortcuts &gt; Game Controllers, or rebind &quot;Claude Code: Focus input&quot;.</li></ul>
+<h2>FAQ</h2>
+<h3>Is Claude Code for VS Code free?</h3>
+<p>The extension is free to install, but to use it you need a paid Claude plan (Pro or higher) or a Claude Console account, which bills by usage.</p>
+<h3>Do I need to install the CLI if I already have the extension?</h3>
+<p>Not for the chat panel: the extension bundles its own CLI. Yes if you want to run <code>claude</code> in the terminal, which gives you every command and the <code>!</code> shortcut.</p>
+<h3>Does it work in Cursor and Windsurf?</h3>
+<p>In Cursor, yes, with the official link <code>cursor:extension/anthropic.claude-code</code>. For other forks the documentation points to Open VSX; either way, check that the publisher is the verified Anthropic one.</p>
+<h3>Is the 2.1.312 version I have in VS Code dangerous?</h3>
+<p>According to Cursor and Anthropic, the tampered copy was only served from the Cursor marketplace. On the test machine, VS Code&#x27;s 2.1.312 came from the Visual Studio Marketplace. Even so, update to 2.1.314 or later.</p>
+<h3>Can I move a conversation from the extension to the terminal?</h3>
+<p>Yes. They share history: run <code>claude --resume</code> in the terminal and pick the conversation.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">More recipes</h2>
+    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li><li><a href="claude-code-precio-gratis.html">Is Claude Code free? Pricing and which plan to pick (2026)</a></li><li><a href="claude-md-que-funciona.html">How to write a CLAUDE.md that Claude Code actually follows</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="index.html">All recipes</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code — in Spanish.</p></div>
+    <nav aria-label="Links"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a resource</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

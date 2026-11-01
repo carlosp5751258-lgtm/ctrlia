@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code errors: 529, 401, 403, limits and how to fix them · Ctrl+IA</title>
+<meta name="description" content="The exact message, the cause and the fix for the most common Claude Code errors: 529 Overloaded, 401, 403, usage limits, full context, PATH and MCP.">
+<meta property="og:title" content="Claude Code errors: 529, 401, 403, limits and how to fix them · Ctrl+IA">
+<meta property="og:description" content="The exact message, the cause and the fix for the most common Claude Code errors: 529 Overloaded, 401, 403, usage limits, full context, PATH and MCP.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/kit.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/errores-comunes-claude-code.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/errores-comunes-claude-code.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code errors: 529, 401, 403, limits and how to fix them", "description": "The exact message, the cause and the fix for the most common Claude Code errors: 529 Overloaded, 401, 403, usage limits, full context, PATH and MCP.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html", "totalTime": "PT5M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "First: check which credential and state you have", "text": "Three commands solve half the cases because they tell you where the failure is:", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}, {"@type": "HowToStep", "position": 2, "name": "API Error: Repeated 529 Overloaded errors", "text": "Exact message (official documentation):", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}, {"@type": "HowToStep", "position": 3, "name": "Usage limit reached: You've hit your session limit", "text": "Exact messages (official documentation):", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}, {"@type": "HowToStep", "position": 4, "name": "401 and login errors", "text": "Reproduced with 2.1.316 (with no credential at all):", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}, {"@type": "HowToStep", "position": 5, "name": "API Error: 403 Request not allowed", "text": "Exact message (official documentation): API Error: 403 Request not allowed, right after logging in.", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}, {"@type": "HowToStep", "position": 6, "name": "Full context: Context limit reached and compaction errors", "text": "Exact messages (official documentation):", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}, {"@type": "HowToStep", "position": 7, "name": "claude: command not found after installing", "text": "Reproduced with 2.1.316 (with a PATH without ~/.local/bin):", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}, {"@type": "HowToStep", "position": 8, "name": "Permissions and sandbox: denied or blocked commands", "text": "In claude -p and the Agent SDK. Since version 2.1.302, a -p run with no permission mode starts in Manual mode (default): anything that needs approval is denied, because nobody is there to answer. Fix, pick one:", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}, {"@type": "HowToStep", "position": 9, "name": "An MCP server won't connect", "text": "Reproduced with 2.1.316 (a stdio server whose command doesn't exist and an HTTP server on a closed port):", "url": "https://ctrlia.dev/en/recetas/errores-comunes-claude-code.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does a 529 error use up my usage limit?", "acceptedAnswer": {"@type": "Answer", "text": "No. According to the official documentation, a 529 means the API is at capacity for everyone and it doesn't count against your quota."}}, {"@type": "Question", "name": "How do I know if Claude Code is down for everyone?", "acceptedAnswer": {"@type": "Answer", "text": "Check status.claude.com. If error messages end with a different status URL, that's your provider's (Bedrock, Google Cloud, Microsoft Foundry or your gateway)."}}, {"@type": "Question", "name": "Do I lose the conversation if I close Claude Code because of an error?", "acceptedAnswer": {"@type": "Answer", "text": "No. Run claude --resume in the same folder to pick the session back up."}}, {"@type": "Question", "name": "What do I do with an error that isn't listed here?", "acceptedAnswer": {"@type": "Answer", "text": "Search for the exact text in the official error reference, which has a table of messages, and run /doctor. If it persists with no posted incident, send /feedback so Anthropic can investigate with your request details."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=4f5d9179">
+<script src="../../js/sitio.js?v=4f5d9179"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=4f5d9179" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#recursos">Tools</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/errores-comunes-claude-code.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My resources and settings</a>
+        <a href="../../en/peticiones.html">Request a resource</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/index.html#recursos">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Basic · 5 min</p>
+  <h1 id="t-art">Claude Code errors: 529, 401, 403, limits and how to fix them</h1>
+  <p class="entrada">The exact message, the cause and the fix for the most common Claude Code errors: 529 Overloaded, 401, 403, usage limits, full context, PATH and MCP.</p>
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-10-31">2026-10-31</time></p>
+<h2>The problem</h2>
+<p>You&#x27;re in the middle of a task and Claude Code stops with a message: <code>API Error: Repeated 529 Overloaded errors</code>, <code>Not logged in · Please run /login</code>, <code>Context limit reached</code>... Each one has a different cause and a different fix, and retrying blindly doesn&#x27;t always help. This page collects the most frequent errors with the <strong>literal message</strong> (so you can find it with Ctrl+F), what causes it and what to do, step by step.</p>
+<p>Messages marked <strong>Reproduced with 2.1.316</strong> were triggered on Linux with a temporary home folder (without touching the real configuration). The rest were copied verbatim from the official <a href="https://code.claude.com/docs/en/errors" rel="noopener">error reference</a> and the <a href="https://code.claude.com/docs/en/troubleshoot-install" rel="noopener">installation and login</a> guide.</p>
+<h2>The solution</h2>
+<h3>1. First: check which credential and state you have</h3>
+<p>Three commands solve half the cases because they tell you where the failure is:</p>
+<pre><code class="language-bash"># From your terminal, if claude doesn&#x27;t even start properly
+claude doctor</code></pre>
+<p>And inside a session:</p>
+<pre><code class="language-text">/status    # which account, organization and credential are active
+/doctor    # checks installation, settings, extensions and context usage
+/mcp       # status of each MCP server</code></pre>
+<p>If the error comes from the server (500, 529), also check <a href="https://status.claude.com" rel="noopener">status.claude.com</a> before changing anything on your machine.</p>
+<h3>2. <code>API Error: Repeated 529 Overloaded errors</code></h3>
+<p>Exact message (official documentation):</p>
+<pre><code class="language-text">API Error: Repeated 529 Overloaded errors. The API is at capacity — this is usually temporary. Try again in a moment. If it persists, check https://status.claude.com.</code></pre>
+<p><strong>Cause:</strong> the API is temporarily at capacity across all users. Claude Code has already retried several times before showing the message. <strong>It is not your usage limit and doesn&#x27;t count against your quota.</strong></p>
+<p><strong>Fix:</strong></p>
+<ol><li>Check <a href="https://status.claude.com" rel="noopener">status.claude.com</a> for capacity notices.</li><li>Wait a few minutes and try again. Your message is still in the conversation, so you can just type <code>try again</code>.</li><li>If you&#x27;re in a hurry, switch models with <code>/model</code>: capacity is tracked per model. Claude Code sometimes suggests this itself with a notice such as <code>Opus is experiencing high load, please use /model to switch to Sonnet</code>.</li></ol>
+<p>Its close cousin is <code>API Error: 500 Internal server error. This is a server-side issue, usually temporary — try again in a moment.</code> A 5xx from the API is an internal failure of the service, not of your prompt or account: same fix (status, wait, retry). If it persists with no posted incident, use <code>/feedback</code>.</p>
+<h3>3. Usage limit reached: <code>You&#x27;ve hit your session limit</code></h3>
+<p>Exact messages (official documentation):</p>
+<pre><code class="language-text">You&#x27;ve hit your session limit · resets 3:45pm
+You&#x27;ve hit your weekly limit · resets Mon 12:00am
+You&#x27;ve hit your Opus limit · resets 3:45pm
+You&#x27;ve hit your Sonnet limit · resets 3:45pm</code></pre>
+<p><strong>Cause:</strong> subscription plans include a rolling allowance. The session, weekly or model-family allowance ran out.</p>
+<p><strong>Fix:</strong></p>
+<ol><li>Run <code>/usage</code> to see your limits and when they reset.</li><li>If the notice is about <strong>Opus</strong> or <strong>Sonnet</strong>, switch with <code>/model</code> to a model from another family and keep working. If it&#x27;s the <strong>session</strong> or <strong>weekly</strong> limit, switching models doesn&#x27;t help: those limits are shared across all models.</li><li>Wait for the time shown in the message. In an interactive session signed in with a claude.ai subscription, Claude Code can wait and continue the task on its own after the reset (the <strong>Continue automatically at usage limit</strong> option in <code>/config</code>).</li><li>If you need more, <code>/usage-credits</code> buys additional usage on Pro, Max and Ultra, or requests it from your admin on Team and Enterprise.</li></ol>
+<p>Two similar errors that are <strong>not</strong> your plan quota:</p>
+<ul><li><code>API Error: Server is temporarily limiting requests (not your usage limit)</code>: a short-lived server throttle. Wait briefly and retry.</li><li><code>API Error: Request rejected (429) · this may be a temporary capacity issue.</code>: you hit the rate limit of your API key or cloud project. Run <code>/status</code>: a stray <code>ANTHROPIC_API_KEY</code> in your environment can route requests through a low-tier key instead of your subscription.</li></ul>
+<h3>4. 401 and login errors</h3>
+<p><strong>Reproduced with 2.1.316</strong> (with no credential at all):</p>
+<pre><code class="language-text">$ claude -p &quot;hello&quot;
+Not logged in · Please run /login</code></pre>
+<p><strong>Reproduced with 2.1.316</strong> (with a made-up key in <code>ANTHROPIC_API_KEY</code>):</p>
+<pre><code class="language-text">$ ANTHROPIC_API_KEY=sk-ant-api03-claveinventada claude -p &quot;hello&quot;
+Invalid API key · Fix external API key</code></pre>
+<p>Other messages in the same family (official documentation):</p>
+<pre><code class="language-text">OAuth token revoked · Please run /login
+Please run /login · API Error: 401 OAuth token has expired ...
+Please run /login · API Error: 401 Invalid authentication credentials
+Login expired · Please run /login</code></pre>
+<p><strong>Cause:</strong> Claude Code can&#x27;t prove who you are. Either there&#x27;s no credential, the key is wrong or revoked, or your claude.ai login expired and couldn&#x27;t be renewed. <code>401 Invalid authentication credentials</code> means the API recognized the credential but rejected the account or organization behind it (revoked, deactivated or without access).</p>
+<p><strong>Fix:</strong></p>
+<ol><li>Run <code>/status</code> to see which credential is active.</li><li>If you use your subscription, run <code>/login</code>. If it keeps failing, do a clean reset: <code>/logout</code>, close Claude Code, start it with <code>claude</code> and sign in again.</li><li>If you see <code>Invalid API key</code>, look for stray keys in your environment. direnv, <code>.env</code> shell plugins and editor terminals can load an old key without you noticing:</li></ol>
+<pre><code class="language-bash">env | grep ANTHROPIC</code></pre>
+<ol start="4"><li>If you don&#x27;t want to use that key, unset it and sign in with your subscription. An approved <code>ANTHROPIC_API_KEY</code> takes precedence over your login, so <code>/login</code> alone doesn&#x27;t replace it:</li></ol>
+<pre><code class="language-bash">unset ANTHROPIC_API_KEY
+claude</code></pre>
+<ol start="5"><li>If you&#x27;re asked to log in again and again, check that your system clock is accurate: token validation depends on it.</li><li>In automation (CI, <code>-p</code>) where you can&#x27;t sign in interactively, use <code>ANTHROPIC_API_KEY</code> or generate a long-lived token with <code>claude setup-token</code>.</li></ol>
+<h3>5. <code>API Error: 403 Request not allowed</code></h3>
+<p>Exact message (official documentation): <code>API Error: 403 Request not allowed</code>, right after logging in.</p>
+<p><strong>Cause:</strong> the account signed in but isn&#x27;t allowed to use Claude Code, or a corporate proxy is interfering.</p>
+<p><strong>Fix:</strong></p>
+<ol><li><strong>Pro, Max or Ultra:</strong> confirm your subscription is active at <a href="https://claude.ai/settings" rel="noopener">claude.ai/settings</a>.</li><li><strong>Console account:</strong> your user needs the &quot;Claude Code&quot; or &quot;Developer&quot; role. An admin assigns it at <a href="https://platform.claude.com/settings/members" rel="noopener">platform.claude.com/settings/members</a>.</li><li><strong>Behind a proxy:</strong> review the <a href="https://code.claude.com/docs/en/network-config" rel="noopener">network configuration</a>.</li></ol>
+<p>If the 403 shows up while <strong>installing</strong> (<code>curl: (22) The requested URL returned error: 403</code>), it&#x27;s usually a proxy or network filter blocking the download, or Claude Code <a href="https://www.anthropic.com/supported-countries" rel="noopener">isn&#x27;t available in your country</a>.</p>
+<h3>6. Full context: <code>Context limit reached</code> and compaction errors</h3>
+<p>Exact messages (official documentation):</p>
+<pre><code class="language-text">Context limit reached · /compact or /clear to continue
+Prompt is too long
+Prompt is too long · automatic compaction failed: &lt;the underlying error&gt;
+Autocompact is thrashing: the context refilled to the limit...</code></pre>
+<p><strong>Cause:</strong> the conversation plus attached files exceed the model&#x27;s context window. Auto-compaction normally prevents this; when it&#x27;s off or fails, you get this error.</p>
+<p><strong>Fix:</strong></p>
+<ol><li>Run <code>/compact</code> to summarize earlier turns and free space, or <code>/clear</code> to start fresh.</li><li>Run <code>/context</code> to see what fills the window: system prompt, tools, memory files and messages.</li><li>Disable the MCP servers you aren&#x27;t using, because their tool definitions take context on every request:</li></ol>
+<pre><code class="language-text">/mcp disable &lt;name&gt;</code></pre>
+<ol start="4"><li>Trim large <code>CLAUDE.md</code> files or move instructions into path-scoped rules that only load when relevant.</li><li>If <code>/compact</code> answers <code>Not enough messages to compact.</code>, the conversation is a single exchange and there&#x27;s nothing to summarize: run <code>/clear</code> and resend with less pasted text or smaller files.</li><li>If you see <code>automatic compaction failed: ...</code>, fix the error named after the colon first (for example, an authentication error); <code>/compact</code> fails the same way until you do.</li><li>If you see <code>Autocompact is thrashing</code>, a file or tool output refills the context right after compacting. Ask Claude to read that file in chunks (a line range or a function), compact with a focus (<code>/compact keep only the plan and the diff</code>) or move that work to a <a href="https://code.claude.com/docs/en/sub-agents" rel="noopener">subagent</a>.</li><li>If you turned auto-compact off in <code>/config</code>, turn it back on.</li></ol>
+<h3>7. <code>claude: command not found</code> after installing</h3>
+<p><strong>Reproduced with 2.1.316</strong> (with a PATH without <code>~/.local/bin</code>):</p>
+<pre><code class="language-text">bash: claude: command not found</code></pre>
+<p>The message varies by platform (official documentation):</p>
+<div class="tabla"><table><thead><tr><th scope="col">Platform</th><th scope="col">Message</th></tr></thead><tbody><tr><td>macOS</td><td><code>zsh: command not found: claude</code></td></tr><tr><td>Linux</td><td><code>bash: claude: command not found</code></td></tr><tr><td>Windows CMD</td><td><code>&#x27;claude&#x27; is not recognized as an internal or external command</code></td></tr><tr><td>PowerShell</td><td><code>claude : The term &#x27;claude&#x27; is not recognized as the name of a cmdlet</code></td></tr></tbody></table></div>
+<p><strong>Cause:</strong> the install finished, but the folder holding the program (<code>~/.local/bin</code> on macOS and Linux, <code>%USERPROFILE%\.local\bin</code> on Windows) isn&#x27;t in your PATH. The installer reports it under <code>Setup notes:</code> but doesn&#x27;t change PATH for you.</p>
+<p><strong>Fix on Linux and macOS:</strong></p>
+<ol><li>Check the program exists:</li></ol>
+<pre><code class="language-bash">ls -la ~/.local/bin/claude</code></pre>
+<ol start="2"><li>Check whether the folder is in your PATH (no output means it isn&#x27;t):</li></ol>
+<pre><code class="language-bash">echo $PATH | tr &#x27;:&#x27; &#x27;\n&#x27; | grep -Fx &quot;$HOME/.local/bin&quot;</code></pre>
+<ol start="3"><li>Add it. For Bash on Linux:</li></ol>
+<pre><code class="language-bash">echo &#x27;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#x27; &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
+<p>For Zsh (the macOS default), replace <code>~/.bashrc</code> with <code>~/.zshrc</code>. For Bash on macOS, use <code>~/.bash_profile</code>.</p>
+<ol start="4"><li>Verify:</li></ol>
+<pre><code class="language-bash">claude --version</code></pre>
+<p><strong>Fix on Windows (PowerShell):</strong></p>
+<pre><code class="language-powershell">$currentPath = [Environment]::GetEnvironmentVariable(&#x27;PATH&#x27;, &#x27;User&#x27;)
+[Environment]::SetEnvironmentVariable(&#x27;PATH&#x27;, &quot;$currentPath;$env:USERPROFILE\.local\bin&quot;, &#x27;User&#x27;)</code></pre>
+<p>Close and reopen the terminal. If you use an editor&#x27;s terminal (VS Code, Cursor), quit and reopen the whole editor: it inherits the editor&#x27;s PATH. Note: the VS Code extension bundles its own copy of Claude Code and doesn&#x27;t put <code>claude</code> on your PATH; to use it from a terminal you need the standalone install.</p>
+<h3>8. Permissions and sandbox: denied or blocked commands</h3>
+<p><strong>In <code>claude -p</code> and the Agent SDK.</strong> Since version 2.1.302, a <code>-p</code> run with no permission mode starts in Manual mode (<code>default</code>): anything that needs approval is <strong>denied</strong>, because nobody is there to answer. Fix, pick one:</p>
+<pre><code class="language-bash"># Allow only what it needs
+claude -p &quot;Run the test suite and fix any failures&quot; --allowedTools &quot;Bash(npm test)&quot;
+
+# Or let the auto mode classifier review each action
+claude -p &quot;Run the test suite and fix any failures&quot; --permission-mode auto</code></pre>
+<p><strong>With the sandbox on Linux or WSL2.</strong> The sandbox needs <code>bubblewrap</code> and <code>socat</code>. If one is missing, the Dependencies tab in <code>/sandbox</code> says so. On Ubuntu or Debian:</p>
+<pre><code class="language-bash">sudo apt-get install bubblewrap socat</code></pre>
+<p>Restart Claude Code after installing them: the check runs at startup. On Ubuntu 24.04 and later, if <code>sysctl kernel.apparmor_restrict_unprivileged_userns</code> returns <code>1</code>, AppArmor stops bubblewrap from working; the <a href="https://code.claude.com/docs/en/sandboxing#set-up-linux-and-wsl2" rel="noopener">sandbox guide</a> has the exact profile to add.</p>
+<p>If you required the sandbox (<code>sandbox.failIfUnavailable</code>) and it couldn&#x27;t start, each command is refused with <code>Sandbox is required but failed to initialize: &lt;reason&gt;</code>. Fix what the reason names and restart.</p>
+<p>Other known failures inside the sandbox: <code>docker</code> is incompatible (take it out with an <code>excludedCommands</code> pattern such as <code>docker compose *</code>) and <code>jest</code> hangs because of <code>watchman</code> (use <code>jest --no-watchman</code>).</p>
+<h3>9. An MCP server won&#x27;t connect</h3>
+<p><strong>Reproduced with 2.1.316</strong> (a stdio server whose command doesn&#x27;t exist and an HTTP server on a closed port):</p>
+<pre><code class="language-text">$ claude mcp list
+Checking MCP server health…
+
+fantasma: /ruta/que/no/existe/servidor  - ✘ Failed to connect — ENOENT: no such file or directory, posix_spawn &#x27;/ruta/que/no/existe/servidor&#x27;
+remoto: http://127.0.0.1:9/mcp (HTTP) - ✘ Failed to connect — ECONNREFUSED: Unable to connect. Is the computer able to access the url?</code></pre>
+<p><strong>Reproduced with 2.1.316</strong> (a server that starts and exits right away):</p>
+<pre><code class="language-text">$ claude mcp get sale
+sale:
+  Scope: Local config (private to you in this project)
+  Status: ✘ Failed to connect
+  Issue: CONNECTION_CLOSED: Connection closed</code></pre>
+<p><strong>Reproduced with 2.1.316</strong> (from another folder, or with a malformed <code>.mcp.json</code>):</p>
+<pre><code class="language-text">No MCP servers configured. Use `claude mcp add` to add a server.
+
+[Failed to parse] Project config (shared via .mcp.json)
+ └ [Error] MCP config is not a valid JSON</code></pre>
+<p><strong>Cause and fix by message:</strong></p>
+<ol><li><code>ENOENT</code>: the server command doesn&#x27;t exist at that path or isn&#x27;t installed. Run the same command yourself in the terminal (for example <code>npx -y @playwright/mcp@latest</code>) to see the real error. If it works there but not in Claude Code, check with <code>claude mcp get &lt;name&gt;</code> that the saved command matches; the usual culprit is a missing <code>--</code> before the command in <code>claude mcp add</code>.</li><li><code>ECONNREFUSED</code> or no response: the URL is wrong or the server isn&#x27;t running. Test it with <code>curl -I &lt;url&gt;</code>. A <code>404</code> or <code>405</code> means the server answers; a <code>401</code> or <code>403</code> means you need to authenticate.</li><li><code>CONNECTION_CLOSED</code>: the process started and exited. It&#x27;s almost always missing an environment variable (an API key). Pass it with <code>--env KEY=value</code> on <code>claude mcp add</code>.</li><li><code>No MCP servers configured</code>: local-scoped servers are tied to the project where you added them. Add it again in this project or use <code>--scope user</code>. Claude Code only reads <code>~/.claude.json</code> and <code>&lt;project&gt;/.mcp.json</code>, not paths such as <code>~/.claude/mcp.json</code>.</li><li><code>MCP config is not a valid JSON</code>: fix the <code>.mcp.json</code> syntax. Claude Code reads it at session start, so restart the session after editing it.</li><li>Timeout at startup: the first <code>npx</code> run can take longer than the 30-second default. Raise the limit:</li></ol>
+<pre><code class="language-bash">MCP_TIMEOUT=60000 claude</code></pre>
+<p>To remove a broken server: <code>claude mcp remove &lt;name&gt; -s local</code>.</p>
+<h2>Check it</h2>
+<p>After each fix, confirm from the terminal:</p>
+<pre><code class="language-bash">claude --version
+claude mcp list</code></pre>
+<p>Expected output: the version (for example <code>2.1.316 (Claude Code)</code>) and each MCP server with <code>✔ Connected</code>. Inside a session, <code>/status</code> should show the account or key you expect, and <code>/context</code> should leave free room in the window.</p>
+<h2>Why it works</h2>
+<p>Almost all of these errors come from three different places, and the fix depends on which: <strong>the service</strong> (500, 529, temporary throttling; fixed by waiting or switching models), <strong>your account or credential</strong> (401, 403, usage limits; fixed with <code>/status</code>, <code>/login</code> and checking <code>ANTHROPIC_API_KEY</code>) or <strong>your machine</strong> (PATH, sandbox, MCP, context; fixed with local configuration). Identifying the source first saves you from reinstalling when the API is just overloaded, or waiting when there&#x27;s actually an old key in your environment. The full, up-to-date list of messages is in the <a href="https://code.claude.com/docs/en/errors" rel="noopener">error reference</a>, and installation errors are in <a href="https://code.claude.com/docs/en/troubleshoot-install" rel="noopener">Troubleshoot installation and login</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li>Reinstalling Claude Code because of a 529 → it&#x27;s service overload, not your machine → wait, check status.claude.com or use <code>/model</code>.</li><li><code>/login</code> doesn&#x27;t fix the 401 → an <code>ANTHROPIC_API_KEY</code> in your environment takes precedence → <code>env | grep ANTHROPIC</code> and <code>unset ANTHROPIC_API_KEY</code>.</li><li>You switch models and the usage limit remains → session and weekly limits are shared across all models → wait for the reset or use <code>/usage-credits</code>.</li><li>You added <code>~/.local/bin</code> to PATH and still get <code>command not found</code> → the terminal was already open or belongs to an editor → open a new window or restart the editor.</li><li>The MCP server works in one project but not in another → you added it with local scope → run <code>claude mcp add</code> again in the other project or use <code>--scope user</code>.</li><li><code>claude -p</code> doesn&#x27;t run anything in CI since you updated → since 2.1.302 it starts in Manual mode and denies what needs approval → <code>--allowedTools</code> or <code>--permission-mode auto</code>.</li></ul>
+<h2>FAQ</h2>
+<h3>Does a 529 error use up my usage limit?</h3>
+<p>No. According to the official documentation, a 529 means the API is at capacity for everyone and it doesn&#x27;t count against your quota.</p>
+<h3>How do I know if Claude Code is down for everyone?</h3>
+<p>Check <a href="https://status.claude.com" rel="noopener">status.claude.com</a>. If error messages end with a different status URL, that&#x27;s your provider&#x27;s (Bedrock, Google Cloud, Microsoft Foundry or your gateway).</p>
+<h3>Do I lose the conversation if I close Claude Code because of an error?</h3>
+<p>No. Run <code>claude --resume</code> in the same folder to pick the session back up.</p>
+<h3>What do I do with an error that isn&#x27;t listed here?</h3>
+<p>Search for the exact text in the official <a href="https://code.claude.com/docs/en/errors" rel="noopener">error reference</a>, which has a table of messages, and run <code>/doctor</code>. If it persists with no posted incident, send <code>/feedback</code> so Anthropic can investigate with your request details.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">More recipes</h2>
+    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li><li><a href="claude-code-precio-gratis.html">Is Claude Code free? Pricing and which plan to pick (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code in VS Code: extension or terminal, how to install</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="index.html">All recipes</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code — in Spanish.</p></div>
+    <nav aria-label="Links"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a resource</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

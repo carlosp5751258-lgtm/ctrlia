@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code gratis con Ollama u OpenRouter: qué funciona · Ctrl+IA</title>
+<meta name="description" content="Cómo conectar Claude Code a Ollama u OpenRouter con ANTHROPIC_BASE_URL, qué falla con modelos que no son Claude y la opción legal y barata.">
+<meta property="og:title" content="Claude Code gratis con Ollama u OpenRouter: qué funciona · Ctrl+IA">
+<meta property="og:description" content="Cómo conectar Claude Code a Ollama u OpenRouter con ANTHROPIC_BASE_URL, qué falla con modelos que no son Claude y la opción legal y barata.">
+<meta property="og:image" content="https://ctrlia.dev/img/kit.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/claude-code-ollama-openrouter.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code gratis con Ollama u OpenRouter: qué funciona", "description": "Cómo conectar Claude Code a Ollama u OpenRouter con ANTHROPIC_BASE_URL, qué falla con modelos que no son Claude y la opción legal y barata.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html", "totalTime": "PT15M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Entiende qué cambias y qué no", "text": "Claude Code habla con la API de Anthropic. Con la variable ANTHROPIC_BASE_URL le dices que mande las peticiones a otro servidor que «hable» el mismo formato (la API Messages, /v1/messages). Hoy lo hacen los dos:", "url": "https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html"}, {"@type": "HowToStep", "position": 2, "name": "Opción A: Ollama en tu PC", "text": "Instala Ollama desde ollama.com y descarga un modelo que admita herramientas (tools). La guía oficial de Ollama usa qwen3.5 como ejemplo:", "url": "https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html"}, {"@type": "HowToStep", "position": 3, "name": "Opción B: OpenRouter", "text": "Crea una cuenta en openrouter.ai, genera una clave y elige en su catálogo un modelo con el sufijo :free que admita herramientas. Las variables vienen de la guía oficial de OpenRouter para Claude Code:", "url": "https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html"}, {"@type": "HowToStep", "position": 4, "name": "Guarda la configuración sin filtrar la clave", "text": "Para no exportar todo en cada terminal, pon las variables en el bloque env de ~/.claude/settings.json (para todos tus proyectos) o de .claude/settings.local.json (solo un proyecto):", "url": "https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html"}, {"@type": "HowToStep", "position": 5, "name": "Vuelve a Claude cuando quieras", "text": "Quita las variables y Claude Code vuelve a tu sesión de claude.ai, que sigue guardada:", "url": "https://ctrlia.dev/recetas/claude-code-ollama-openrouter.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Entonces Claude Code es gratis con Ollama?", "acceptedAnswer": {"@type": "Answer", "text": "El programa sí, y el modelo local también, pero ya no estás usando Claude. Obtienes la interfaz y las herramientas de Claude Code con un modelo abierto, normalmente bastante menos capaz en tareas largas de programación."}}, {"@type": "Question", "name": "¿Puedo usar Claude (el modelo de Anthropic) gratis por OpenRouter?", "acceptedAnswer": {"@type": "Answer", "text": "No. OpenRouter también ofrece los modelos de Anthropic, pero se pagan con créditos al precio por token. Lo gratis de OpenRouter son modelos de otros fabricantes con el sufijo :free y límite diario."}}, {"@type": "Question", "name": "¿Mi código sale de mi PC?", "acceptedAnswer": {"@type": "Answer", "text": "Con Ollama en local (http://localhost:11434), las peticiones al modelo no salen de tu equipo; Claude Code sí puede seguir enviando tráfico no esencial (actualizaciones, telemetría), que se apaga con CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1. Con OpenRouter tu código viaja a OpenRouter y al proveedor del modelo; OpenRouter dice que no guarda prompts salvo que lo actives, y que no enruta a proveedores que registran o entrenan con datos a menos que lo permitas en su pestaña de privacidad."}}, {"@type": "Question", "name": "¿Cuál es la opción legal más barata para usar Claude de verdad?", "acceptedAnswer": {"@type": "Answer", "text": "Claude Code funciona con una suscripción Pro, Max o Ultra (el plan gratuito de claude.ai no aparece entre las cuentas admitidas) o con una clave de la Claude Console pagando por uso. Con la clave de API pagas solo lo que usas: elige un modelo pequeño (/model haiku) y mira el gasto de la sesión con /usage. Compara con el precio de los planes en claude.com/pricing."}}, {"@type": "Question", "name": "¿Es mejor ollama launch claude o configurarlo a mano?", "acceptedAnswer": {"@type": "Answer", "text": "ollama launch claude pone las variables por ti y deja elegir el modelo; es lo más rápido para probar. A mano tienes control total y lo puedes guardar en settings.json, pero recuerda quitar las variables para volver a Claude."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=4f5d9179">
+<script src="../js/sitio.js?v=4f5d9179"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=4f5d9179" defer></script>
+</head>
+<body>
+<div class="aviso-idioma" lang="en" hidden><p>Prefer English? <a href="../en/recetas/claude-code-ollama-openrouter.html" hreflang="en">Read this page in English</a></p><button type="button" class="aviso-cerrar" aria-label="Close">×</button></div>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#recursos">Herramientas</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/claude-code-ollama-openrouter.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda recursos, pide nuevos y recibe avisos.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis recursos y ajustes</a>
+        <a href="../peticiones.html">Pedir un recurso</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../index.html#recursos">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Receta · Intermedio · 15 min</p>
+  <h1 id="t-art">Claude Code gratis con Ollama u OpenRouter: qué funciona</h1>
+  <p class="entrada">Cómo conectar Claude Code a Ollama u OpenRouter con ANTHROPIC_BASE_URL, qué falla con modelos que no son Claude y la opción legal y barata.</p>
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-10-31">2026-10-31</time></p>
+<h2>El problema</h2>
+<p>Quieres probar Claude Code sin pagar y en internet lees que «funciona gratis con Ollama». Es verdad a medias: el programa <code>claude</code> se puede conectar a otros servidores, pero entonces el que responde ya no es Claude, sino un modelo abierto que corre en tu PC o en un servicio de terceros. Aquí tienes lo que dice la documentación oficial de cada parte, cómo configurarlo paso a paso y dónde se rompe.</p>
+<p><strong>Aviso honesto:</strong> la configuración está verificada con la documentación oficial de Claude Code, Ollama y OpenRouter (31-oct-2026); no se probó con Ollama en este equipo.</p>
+<h2>La solución</h2>
+<h3>1. Entiende qué cambias y qué no</h3>
+<p>Claude Code habla con la API de Anthropic. Con la variable <code>ANTHROPIC_BASE_URL</code> le dices que mande las peticiones a otro servidor que «hable» el mismo formato (la API Messages, <code>/v1/messages</code>). Hoy lo hacen los dos:</p>
+<div class="tabla"><table><thead><tr><th scope="col"></th><th scope="col">Ollama</th><th scope="col">OpenRouter</th></tr></thead><tbody><tr><td>Dónde corre el modelo</td><td>En tu PC (o en Ollama Cloud)</td><td>En los servidores de los proveedores que OpenRouter elige</td></tr><tr><td>Compatibilidad con la API de Anthropic</td><td>«Un subconjunto» de la API Messages</td><td>La llama «Anthropic Skin», compatible con la API Messages</td></tr><tr><td>Coste</td><td>Gratis en local (pagas con tu hardware)</td><td>Modelos <code>:free</code> con límite diario; el resto, con créditos</td></tr><tr><td>¿Es Claude?</td><td>No, nunca</td><td>Solo si eliges un modelo de Anthropic (y entonces pagas)</td></tr></tbody></table></div>
+<p>La documentación de Claude Code es clara: Anthropic «no respalda, mantiene ni audita» pasarelas de terceros y <strong>no da soporte a usar Claude Code con modelos que no son Claude</strong> a través de ninguna pasarela. Funciona, pero si algo falla, estás por tu cuenta.</p>
+<h3>2. Opción A: Ollama en tu PC</h3>
+<p>Instala Ollama desde <a href="https://ollama.com" rel="noopener">ollama.com</a> y descarga un modelo que admita herramientas (tools). La guía oficial de Ollama usa <code>qwen3.5</code> como ejemplo:</p>
+<pre><code class="language-bash">ollama pull qwen3.5</code></pre>
+<p>Lo más fácil es dejar que Ollama lance Claude Code ya configurado:</p>
+<pre><code class="language-bash">ollama launch claude</code></pre>
+<p>Si prefieres hacerlo a mano, exporta estas variables (son las de la guía oficial de Ollama) y arranca con el modelo:</p>
+<pre><code class="language-bash">export ANTHROPIC_AUTH_TOKEN=ollama
+export ANTHROPIC_API_KEY=&quot;&quot;
+export ANTHROPIC_BASE_URL=http://localhost:11434
+claude --model qwen3.5</code></pre>
+<p><code>ANTHROPIC_AUTH_TOKEN</code> es obligatorio pero Ollama lo ignora; <code>ANTHROPIC_API_KEY</code> vacío evita que Claude Code use una clave de Anthropic que tengas guardada.</p>
+<p><strong>Sube el contexto.</strong> Ollama asigna por defecto 4k de contexto si tu tarjeta tiene menos de 24 GiB de VRAM, y eso no alcanza para un agente. Su documentación pide al menos 64000 para herramientas de programación:</p>
+<pre><code class="language-bash">OLLAMA_CONTEXT_LENGTH=64000 ollama serve</code></pre>
+<p>Más contexto gasta más memoria: con 8 GB de RAM y sin tarjeta gráfica potente, un modelo local útil irá muy lento o no cabrá.</p>
+<p><strong>Opcional:</strong> para que las tareas de fondo (títulos de sesión y similares usan el alias <code>haiku</code>) y los alias <code>sonnet</code>/<code>opus</code> no pidan un modelo que Ollama no tiene, apúntalos al mismo modelo local:</p>
+<pre><code class="language-bash">export ANTHROPIC_DEFAULT_HAIKU_MODEL=qwen3.5
+export ANTHROPIC_DEFAULT_SONNET_MODEL=qwen3.5
+export ANTHROPIC_DEFAULT_OPUS_MODEL=qwen3.5</code></pre>
+<h3>3. Opción B: OpenRouter</h3>
+<p>Crea una cuenta en <a href="https://openrouter.ai" rel="noopener">openrouter.ai</a>, genera una clave y elige en su catálogo un modelo con el sufijo <code>:free</code> que admita herramientas. Las variables vienen de la guía oficial de OpenRouter para Claude Code:</p>
+<pre><code class="language-bash">export OPENROUTER_API_KEY=&quot;tu-clave-de-openrouter&quot;
+export ANTHROPIC_BASE_URL=&quot;https://openrouter.ai/api&quot;
+export ANTHROPIC_AUTH_TOKEN=&quot;$OPENROUTER_API_KEY&quot;
+export ANTHROPIC_API_KEY=&quot;&quot;
+export ANTHROPIC_DEFAULT_SONNET_MODEL=&quot;&lt;modelo&gt;:free&quot;
+export ANTHROPIC_DEFAULT_HAIKU_MODEL=&quot;&lt;modelo&gt;:free&quot;
+claude</code></pre>
+<p>Cambia <code>&lt;modelo&gt;:free</code> por el identificador exacto que copies del catálogo. <code>ANTHROPIC_API_KEY</code> tiene que estar <strong>vacío a propósito</strong>: según OpenRouter, así Claude Code no intenta autenticarse directamente con Anthropic.</p>
+<p>Límites de los modelos gratis según OpenRouter: 20 peticiones por minuto y <strong>50 al día</strong> si has comprado menos de 10 créditos; 1000 al día si has comprado 10 o más. Claude Code hace varias peticiones por tarea (cada lectura, edición o comando es un turno), así que 50 se acaban rápido.</p>
+<h3>4. Guarda la configuración sin filtrar la clave</h3>
+<p>Para no exportar todo en cada terminal, pon las variables en el bloque <code>env</code> de <code>~/.claude/settings.json</code> (para todos tus proyectos) o de <code>.claude/settings.local.json</code> (solo un proyecto):</p>
+<pre><code class="language-json">{
+  &quot;env&quot;: {
+    &quot;ANTHROPIC_BASE_URL&quot;: &quot;https://openrouter.ai/api&quot;,
+    &quot;ANTHROPIC_AUTH_TOKEN&quot;: &quot;tu-clave-de-openrouter&quot;,
+    &quot;ANTHROPIC_API_KEY&quot;: &quot;&quot;
+  }
+}</code></pre>
+<p><strong>Nunca</strong> la pongas en <code>.claude/settings.json</code> del proyecto: ese archivo se sube al repositorio y lo ve todo el que lo clone. Si creas <code>settings.local.json</code> a mano, añádelo antes a <code>.gitignore</code>.</p>
+<h3>5. Vuelve a Claude cuando quieras</h3>
+<p>Quita las variables y Claude Code vuelve a tu sesión de claude.ai, que sigue guardada:</p>
+<pre><code class="language-bash">unset ANTHROPIC_BASE_URL ANTHROPIC_AUTH_TOKEN ANTHROPIC_API_KEY
+unset ANTHROPIC_DEFAULT_HAIKU_MODEL ANTHROPIC_DEFAULT_SONNET_MODEL ANTHROPIC_DEFAULT_OPUS_MODEL</code></pre>
+<p>Si las pusiste en un <code>settings.json</code>, bórralas también de ahí.</p>
+<h2>Compruébalo</h2>
+<p>Antes de abrir Claude Code, prueba el servidor con una petición mínima (es la prueba de la documentación de Claude Code, con tu URL):</p>
+<pre><code class="language-bash">curl -sS -w &#x27;\n%{http_code}\n&#x27; -X POST &quot;$ANTHROPIC_BASE_URL/v1/messages&quot; \
+  -H &quot;Authorization: Bearer $ANTHROPIC_AUTH_TOKEN&quot; \
+  -H &quot;anthropic-version: 2023-06-01&quot; \
+  -H &quot;content-type: application/json&quot; \
+  -d &#x27;{&quot;model&quot;: &quot;qwen3.5&quot;, &quot;max_tokens&quot;: 16, &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;hola&quot;}]}&#x27;</code></pre>
+<p>Cambia <code>qwen3.5</code> por tu modelo de OpenRouter si usas esa opción. Una respuesta JSON con un campo <code>&quot;content&quot;</code> y el código <code>200</code> al final indica que funciona; un <code>401</code> es una clave mal puesta.</p>
+<p>Después abre <code>claude</code> desde la misma terminal y escribe <code>/status</code>. Debes ver algo así (ejemplo de OpenRouter):</p>
+<pre><code class="language-text">Auth token: ANTHROPIC_AUTH_TOKEN
+Anthropic base URL: https://openrouter.ai/api</code></pre>
+<p>Si la línea <code>Anthropic base URL</code> no aparece, la variable no llegó a la sesión: abre una terminal nueva y vuelve a lanzar <code>claude</code>.</p>
+<h2>Por qué funciona</h2>
+<p>Claude Code envía cada turno como una petición a <code>$ANTHROPIC_BASE_URL/v1/messages</code>, con la credencial de <code>ANTHROPIC_AUTH_TOKEN</code> en la cabecera <code>Authorization: Bearer</code>. Ollama y OpenRouter aceptan ese mismo formato y traducen la petición a su modelo. Las piezas de Claude Code (herramientas, permisos, <code>CLAUDE.md</code>, hooks) siguen siendo las mismas; lo que cambia es el «cerebro» que decide.</p>
+<p>Por eso no todo encaja. Según la <a href="https://docs.ollama.com/api/anthropic-compatibility" rel="noopener">tabla de compatibilidad de Ollama</a>, no admite el conteo de tokens (<code>/v1/messages/count_tokens</code>), el caché de prompts (<code>cache_control</code>), los PDF ni <code>tool_choice</code>; su <a href="https://docs.ollama.com/integrations/claude-code" rel="noopener">guía para Claude Code</a> avisa de que «la búsqueda web alojada y los controles avanzados de herramientas no están del todo soportados». OpenRouter, por su parte, advierte en su <a href="https://openrouter.ai/docs/guides/guides/claude-code-integration" rel="noopener">guía</a> que Claude Code «está optimizado para modelos de Anthropic y puede no funcionar bien con otros proveedores».</p>
+<p>Fuentes oficiales de Claude Code: <a href="https://code.claude.com/docs/en/llm-gateway" rel="noopener">Otras pasarelas LLM</a>, <a href="https://code.claude.com/docs/en/llm-gateway-connect" rel="noopener">Conectar a una pasarela</a> y <a href="https://code.claude.com/docs/en/env-vars" rel="noopener">Variables de entorno</a>.</p>
+<h2>Errores típicos</h2>
+<ul><li><strong>Responde sin sentido u olvida lo que hacía</strong> → el contexto de Ollama se quedó en 4k → arranca con <code>OLLAMA_CONTEXT_LENGTH=64000 ollama serve</code> y comprueba la columna CONTEXT con <code>ollama ps</code>.</li><li><strong>No edita archivos ni ejecuta comandos, solo «habla»</strong> → el modelo no admite herramientas (tools) → elige otro que las admita; sin herramientas no hay agente.</li><li><strong><code>401</code> en la prueba con <code>curl</code> o en Claude Code</strong> → la clave está en la variable equivocada o mal copiada → para Ollama y OpenRouter va en <code>ANTHROPIC_AUTH_TOKEN</code>, con <code>ANTHROPIC_API_KEY=&quot;&quot;</code>.</li><li><strong><code>400</code> con <code>Extra inputs are not permitted</code> o campos desconocidos</strong> → el servidor rechaza funciones en beta que manda Claude Code → <code>export CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1</code>.</li><li><strong>Sigue usando tu plan de Claude o te pide iniciar sesión</strong> → solo pusiste <code>ANTHROPIC_BASE_URL</code>, sin credencial → añade <code>ANTHROPIC_AUTH_TOKEN</code>; la URL sola no reemplaza tu login.</li><li><strong>OpenRouter deja de responder a media tarde</strong> → llegaste al límite diario de los modelos <code>:free</code> (50 sin créditos comprados) → espera al día siguiente o compra créditos.</li><li><strong>Peticiones que caducan con un modelo local lento</strong> → el PC tarda más que el tiempo de espera → sube <code>API_TIMEOUT_MS</code> (por defecto 600000, 10 minutos).</li></ul>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Entonces Claude Code es gratis con Ollama?</h3>
+<p>El programa sí, y el modelo local también, pero ya no estás usando Claude. Obtienes la interfaz y las herramientas de Claude Code con un modelo abierto, normalmente bastante menos capaz en tareas largas de programación.</p>
+<h3>¿Puedo usar Claude (el modelo de Anthropic) gratis por OpenRouter?</h3>
+<p>No. OpenRouter también ofrece los modelos de Anthropic, pero se pagan con créditos al precio por token. Lo gratis de OpenRouter son modelos de otros fabricantes con el sufijo <code>:free</code> y límite diario.</p>
+<h3>¿Mi código sale de mi PC?</h3>
+<p>Con Ollama en local (<code>http://localhost:11434</code>), las peticiones al modelo no salen de tu equipo; Claude Code sí puede seguir enviando tráfico no esencial (actualizaciones, telemetría), que se apaga con <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1</code>. Con OpenRouter tu código viaja a OpenRouter y al proveedor del modelo; OpenRouter dice que no guarda prompts salvo que lo actives, y que no enruta a proveedores que registran o entrenan con datos a menos que lo permitas en su pestaña de privacidad.</p>
+<h3>¿Cuál es la opción legal más barata para usar Claude de verdad?</h3>
+<p>Claude Code funciona con una suscripción Pro, Max o Ultra (el plan gratuito de claude.ai no aparece entre las cuentas admitidas) o con una clave de la <a href="https://platform.claude.com" rel="noopener">Claude Console</a> pagando por uso. Con la clave de API pagas solo lo que usas: elige un modelo pequeño (<code>/model haiku</code>) y mira el gasto de la sesión con <code>/usage</code>. Compara con el precio de los planes en <a href="https://claude.com/pricing" rel="noopener">claude.com/pricing</a>.</p>
+<h3>¿Es mejor <code>ollama launch claude</code> o configurarlo a mano?</h3>
+<p><code>ollama launch claude</code> pone las variables por ti y deja elegir el modelo; es lo más rápido para probar. A mano tienes control total y lo puedes guardar en <code>settings.json</code>, pero recuerda quitar las variables para volver a Claude.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Más recetas</h2>
+    <ul><li><a href="claude-code-precio-gratis.html">¿Claude Code es gratis? Precio y qué plan elegir (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code en VS Code: extensión o terminal y cómo instalarlo</a></li><li><a href="claude-md-que-funciona.html">Cómo hacer un CLAUDE.md que Claude Code sí respete</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="index.html">Todas las recetas</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro, en español.</p></div>
+    <nav aria-label="Enlaces"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un recurso</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

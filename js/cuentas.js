@@ -174,15 +174,22 @@
     const fAvisos = raiz.querySelector(".avisos");
     const cajas = fAvisos.querySelector(".avisos-categorias");
     for (const [id, nombre] of catalogo.categorias) cajas.append(el("label", { className: "filtro" }, el("input", { type: "checkbox", name: "cat", value: id }), " " + nombre));
-    const [pref] = await api("/rest/v1/avisos_pref?select=activo,categorias,idioma");
+    // «boletin» solo existe tras aplicar 008_boletin.sql: si la columna aún no está, se lee sin ella y no se envía
+    const [pref] = await api("/rest/v1/avisos_pref?select=activo,categorias,idioma,boletin")
+      .catch(() => api("/rest/v1/avisos_pref?select=activo,categorias,idioma"));
+    const hayBoletin = !!pref && "boletin" in pref;
+    fAvisos.elements.boletin.closest("label").hidden = !hayBoletin;
     if (pref) {
       fAvisos.elements.activo.checked = pref.activo;
+      fAvisos.elements.boletin.checked = pref.boletin === true;
       fAvisos.querySelectorAll("input[name=cat]").forEach((c) => { c.checked = pref.categorias.includes(c.value); });
     }
     fAvisos.addEventListener("submit", async (ev) => {
       ev.preventDefault();
       const cats = [...fAvisos.querySelectorAll("input[name=cat]:checked")].map((c) => c.value);
-      try { await api(`/rest/v1/avisos_pref?usuario=eq.${usuario.id}`, { metodo: "PATCH", cuerpo: { activo: fAvisos.elements.activo.checked, categorias: cats, idioma: EN ? "en" : "es", cambiado: new Date().toISOString() } });
+      const cuerpo = { activo: fAvisos.elements.activo.checked, categorias: cats, idioma: EN ? "en" : "es", cambiado: new Date().toISOString() };
+      if (hayBoletin) cuerpo.boletin = fAvisos.elements.boletin.checked;
+      try { await api(`/rest/v1/avisos_pref?usuario=eq.${usuario.id}`, { metodo: "PATCH", cuerpo });
             anunciar(tx("Preferencias de aviso guardadas", "Alert preferences saved")); }
       catch (e) { anunciar(tx("No se guardó: ", "Not saved: ") + e.message); }
     });

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Install Claude Code on Windows: native, WSL and common errors · Ctrl+IA</title>
+<meta name="description" content="How to install Claude Code on Windows 10 or 11 from PowerShell, CMD or WSL, fix your PATH, log in and solve the most common install errors.">
+<meta property="og:title" content="Install Claude Code on Windows: native, WSL and common errors · Ctrl+IA">
+<meta property="og:description" content="How to install Claude Code on Windows 10 or 11 from PowerShell, CMD or WSL, fix your PATH, log in and solve the most common install errors.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/kit.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/instalar-claude-code-windows.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/instalar-claude-code-windows.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Install Claude Code on Windows: native, WSL and common errors", "description": "How to install Claude Code on Windows 10 or 11 from PowerShell, CMD or WSL, fix your PATH, log in and solve the most common install errors.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html", "totalTime": "PT10M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Check the requirements", "text": "- Windows 10 1809 or later, or Windows Server 2019 or later, 64-bit. - 4 GB of RAM or more, an x64 or ARM64 processor and an internet connection. - A Pro, Max, Ultra, Team, Enterprise or Console account. The free claude.ai plan doesn't include Claude Code. - Being in a country Anthropic supports.", "url": "https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 2, "name": "Choose: native Windows or WSL", "text": "If in doubt, start with native Windows.", "url": "https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 3, "name": "3a. Native Windows: open the right terminal", "text": "Search for \"PowerShell\" in the Start menu and open Windows PowerShell, not the entry ending in (x86). To tell which terminal you're in, look at the start of the line: PS C:\\Users\\YourName> is PowerShell, and C:\\Users\\YourName> (no PS) is CMD.", "url": "https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 4, "name": "3b. WSL: install inside Linux", "text": "Open your WSL distribution (for example, Ubuntu) and run the Linux installer inside that terminal, not in PowerShell:", "url": "https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 5, "name": "(Native Windows) Install Git for Windows if you want Bash", "text": "Without Git for Windows, Claude Code runs commands with its PowerShell tool. If you install Git for Windows, select \"Add to PATH\" during setup. Claude Code can then use Git Bash for its Bash tool, which the Monitor tool also needs. If Git is installed in an unusual folder and Claude Code can't find it, set the path in %USERPROFILE%\\.claude\\settings.json:", "url": "https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 6, "name": "Log in", "text": "Open a terminal in your project folder and run:", "url": "https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is there Claude Code for Windows?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It runs on 64-bit Windows 10 (1809 or later) and Windows 11, natively from PowerShell or CMD, or inside WSL. If you'd rather not use the terminal, there's also the desktop app."}}, {"@type": "Question", "name": "Should I install it in PowerShell or in WSL?", "acceptedAnswer": {"@type": "Answer", "text": "If your projects and tools are Windows-based, install it natively. If you work with Linux tools or want sandboxed commands, use WSL 2, which is the only Windows option with a sandbox."}}, {"@type": "Question", "name": "Do I need Node.js or npm?", "acceptedAnswer": {"@type": "Answer", "text": "No. The native installer downloads its own executable. npm is still an option, but it causes more trouble on Windows, such as execution policy errors or the Windows Node.js leaking into WSL."}}, {"@type": "Question", "name": "Do I need to be an administrator?", "acceptedAnswer": {"@type": "Answer", "text": "No. The native installer installs into your user folder and doesn't ask for administrator rights."}}, {"@type": "Question", "name": "Can I use Claude Code on the free plan?", "acceptedAnswer": {"@type": "Answer", "text": "No. The free claude.ai plan doesn't include Claude Code. You need Pro, Max, Ultra, Team, Enterprise, a Console account or a provider like Amazon Bedrock."}}, {"@type": "Question", "name": "How do I update it?", "acceptedAnswer": {"@type": "Answer", "text": "The native install updates itself. To update right away, run claude update. If you installed with WinGet, run winget upgrade Anthropic.ClaudeCode."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=4f5d9179">
+<script src="../../js/sitio.js?v=4f5d9179"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=4f5d9179" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#recursos">Tools</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/instalar-claude-code-windows.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My resources and settings</a>
+        <a href="../../en/peticiones.html">Request a resource</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/index.html#recursos">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Basic · 10 min</p>
+  <h1 id="t-art">Install Claude Code on Windows: native, WSL and common errors</h1>
+  <p class="entrada">How to install Claude Code on Windows 10 or 11 from PowerShell, CMD or WSL, fix your PATH, log in and solve the most common install errors.</p>
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-10-31">2026-10-31</time></p>
+<h2>The problem</h2>
+<p>Claude Code runs on Windows, but there are three ways to install it (PowerShell, CMD or WSL), and each one uses a different command. If you paste the wrong one, you get errors like <code>&#x27;irm&#x27; is not recognized</code> or <code>The token &#x27;&amp;&amp;&#x27; is not a valid statement separator</code>. If the installer finishes but its folder isn&#x27;t on your PATH, you get <code>&#x27;claude&#x27; is not recognized</code>. This recipe tells you which option to pick, which command to paste and how to fix each error.</p>
+<p><strong>How this was checked:</strong> the commands and error messages come from the <a href="https://code.claude.com/docs/en/setup" rel="noopener">official setup docs</a> and the <a href="https://code.claude.com/docs/en/troubleshoot-install" rel="noopener">official install troubleshooting guide</a>, reviewed on 2026-10-31. <code>claude --version</code> and <code>claude doctor</code> were tested on Linux with version 2.1.316. We couldn&#x27;t test on a real Windows machine: if something doesn&#x27;t match on yours, follow the official install troubleshooting guide.</p>
+<h2>The solution</h2>
+<h3>1. Check the requirements</h3>
+<ul><li>Windows 10 1809 or later, or Windows Server 2019 or later, <strong>64-bit</strong>.</li><li>4 GB of RAM or more, an x64 or ARM64 processor and an internet connection.</li><li>A Pro, Max, Ultra, Team, Enterprise or Console account. <strong>The free claude.ai plan doesn&#x27;t include Claude Code.</strong></li><li>Being in a <a href="https://www.anthropic.com/supported-countries" rel="noopener">country Anthropic supports</a>.</li></ul>
+<p>You don&#x27;t need Node.js or administrator rights.</p>
+<h3>2. Choose: native Windows or WSL</h3>
+<div class="tabla"><table><thead><tr><th scope="col">Option</th><th scope="col">What you need</th><th scope="col">Sandbox</th><th scope="col">When to use it</th></tr></thead><tbody><tr><td>Native Windows</td><td>Nothing; Git for Windows is optional</td><td>No</td><td>Windows projects and tools</td></tr><tr><td>WSL 2</td><td>WSL 2 enabled</td><td>Yes</td><td>Linux toolchains or sandboxed commands</td></tr><tr><td>WSL 1</td><td>WSL 1 enabled</td><td>No</td><td>Only if you can&#x27;t use WSL 2</td></tr></tbody></table></div>
+<p>If in doubt, start with native Windows.</p>
+<h3>3a. Native Windows: open the right terminal</h3>
+<p>Search for &quot;PowerShell&quot; in the Start menu and open <strong>Windows PowerShell</strong>, not the entry ending in <strong>(x86)</strong>. To tell which terminal you&#x27;re in, look at the start of the line: <code>PS C:\Users\YourName&gt;</code> is PowerShell, and <code>C:\Users\YourName&gt;</code> (no <code>PS</code>) is CMD.</p>
+<p>In <strong>PowerShell</strong>:</p>
+<pre><code class="language-powershell">irm https://claude.ai/install.ps1 | iex</code></pre>
+<p>In <strong>CMD</strong>:</p>
+<pre><code class="language-batch">curl -fsSL https://claude.ai/install.cmd -o install.cmd &amp;&amp; install.cmd &amp;&amp; del install.cmd</code></pre>
+<p>The installer shows no progress while it downloads, so wait for it to finish. When it&#x27;s done, <strong>close the terminal and open a new one</strong>. The window you installed from keeps the old PATH.</p>
+<p>Another option is WinGet. Keep in mind that this install doesn&#x27;t update itself:</p>
+<pre><code class="language-powershell">winget install Anthropic.ClaudeCode</code></pre>
+<h3>3b. WSL: install inside Linux</h3>
+<p>Open your WSL distribution (for example, Ubuntu) and run the Linux installer <strong>inside that terminal</strong>, not in PowerShell:</p>
+<pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+<p>In WSL, you install and run <code>claude</code> inside the Linux terminal. You don&#x27;t need Git for Windows.</p>
+<h3>4. (Native Windows) Install Git for Windows if you want Bash</h3>
+<p>Without Git for Windows, Claude Code runs commands with its PowerShell tool. If you install <a href="https://git-scm.com/downloads/win" rel="noopener">Git for Windows</a>, select &quot;Add to PATH&quot; during setup. Claude Code can then use Git Bash for its Bash tool, which the Monitor tool also needs. If Git is installed in an unusual folder and Claude Code can&#x27;t find it, set the path in <code>%USERPROFILE%\.claude\settings.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;env&quot;: {
+    &quot;CLAUDE_CODE_GIT_BASH_PATH&quot;: &quot;C:\\Program Files\\Git\\bin\\bash.exe&quot;
+  }
+}</code></pre>
+<p>The path must end in <code>bash.exe</code>, <code>sh.exe</code>, <code>bash</code> or <code>sh</code>. If you point it at <code>git-bash.exe</code>, Claude Code doesn&#x27;t use it. To find where your Git is, run <code>where.exe git</code> in PowerShell.</p>
+<h3>5. Log in</h3>
+<p>Open a terminal in your project folder and run:</p>
+<pre><code class="language-powershell">claude</code></pre>
+<p>The browser opens so you can log in. If it doesn&#x27;t open, press <code>c</code> to copy the login URL and paste it into your browser. On WSL2, if the browser can&#x27;t get back to <code>localhost</code>, it shows you a code instead: paste it into the terminal where it says <code>Paste code here</code>. If pasting doesn&#x27;t work, try right-click or Shift+Insert in Windows Terminal, or use <code>claude auth login</code>.</p>
+<p>On Windows, credentials are saved in <code>%USERPROFILE%\.claude\.credentials.json</code>.</p>
+<h2>Check it</h2>
+<p>In a <strong>new</strong> terminal:</p>
+<pre><code class="language-powershell">claude --version</code></pre>
+<p>If everything is fine, you&#x27;ll see the version number. This is the real output on our machine (Linux):</p>
+<pre><code class="language-text">2.1.316 (Claude Code)</code></pre>
+<p>For a fuller check, without opening a session:</p>
+<pre><code class="language-powershell">claude doctor</code></pre>
+<p>This is the real output on Linux. On Windows the platform and path change, but the layout is the same:</p>
+<pre><code class="language-text">Claude Code doctor
+
+Running: native (2.1.316)
+Commit: cd7ceb459c68
+Platform: linux-x64
+Path: /home/jahir/.local/share/claude/versions/2.1.316
+Config install method: native
+Search: OK (bundled)
+Auto-updates: enabled
+Auto-update channel: latest
+Last update attempt: success → 2.1.316 (2026-10-31)
+...
+No installation issues found.
+
+For a full setup checkup that can also fix issues, run /doctor in a Claude Code session.</code></pre>
+<p>If <code>doctor</code> finds a problem, it shows it as a warning and suggests a fix. Inside a session, <code>/doctor</code> runs a broader check and <code>/status</code> shows which account you&#x27;re logged in with.</p>
+<h2>Why it works</h2>
+<p>The native installer downloads a single executable, <code>claude.exe</code>, to <code>%USERPROFILE%\.local\bin</code>. On macOS, Linux and WSL it goes to <code>~/.local/bin/claude</code>. It doesn&#x27;t use Node.js or npm, and it updates itself in the background. The installer <strong>doesn&#x27;t change your PATH</strong>: if the folder isn&#x27;t on it, the installer says so under <code>Setup notes:</code> and shows the fix. That causes almost every <code>&#x27;claude&#x27; is not recognized</code>. Details in <a href="https://code.claude.com/docs/en/setup" rel="noopener">Advanced setup</a> and <a href="https://code.claude.com/docs/en/troubleshoot-install" rel="noopener">Troubleshoot installation</a>.</p>
+<h2>Common mistakes</h2>
+<p>The fix for each error comes from the official documentation.</p>
+<div class="tabla"><table><thead><tr><th scope="col">Message you see</th><th scope="col">Cause</th><th scope="col">Fix</th></tr></thead><tbody><tr><td><code>&#x27;irm&#x27; is not recognized as an internal or external command</code></td><td>You&#x27;re in CMD and pasted the PowerShell command</td><td>Use the CMD command or open PowerShell</td></tr><tr><td><code>The token &#x27;&amp;&amp;&#x27; is not a valid statement separator</code></td><td>You&#x27;re in PowerShell and pasted the CMD command</td><td>Use the PowerShell command</td></tr><tr><td><code>A parameter cannot be found that matches parameter name &#x27;fsSL&#x27;</code></td><td>You pasted the Linux <code>curl</code> command into PowerShell, where <code>curl</code> is a different command</td><td>Use the PowerShell command</td></tr><tr><td><code>&#x27;bash&#x27; is not recognized as the name of a cmdlet</code></td><td>You pasted the macOS/Linux installer on Windows</td><td>Use the PowerShell command</td></tr><tr><td>The command prints the script text and installs nothing</td><td>You ran only <code>irm ...</code> without <code>iex</code>, or <code>curl</code> without <code>-o</code> in CMD</td><td>Paste the full command</td></tr><tr><td><code>&#x27;claude&#x27; is not recognized</code></td><td><code>%USERPROFILE%\.local\bin</code> isn&#x27;t on your PATH</td><td>See &quot;Fix your PATH&quot; below</td></tr><tr><td><code>Claude Code does not support 32-bit Windows</code></td><td>You opened &quot;Windows PowerShell (x86)&quot;</td><td>Open &quot;Windows PowerShell&quot; without (x86). If <code>[Environment]::Is64BitOperatingSystem</code> prints <code>False</code>, your Windows is 32-bit and isn&#x27;t supported</td></tr><tr><td><code>Failed to download binary: The process cannot access the file ... because it is being used by another process</code></td><td>Another installer is still open, or antivirus is scanning the download</td><td>Close the other windows, delete the downloads folder (see below) and retry</td></tr><tr><td><code>Claude Code on Windows requires either Git for Windows (for bash) or PowerShell</code></td><td>It can&#x27;t find PowerShell or Git Bash</td><td>Add <code>C:\Windows\System32\WindowsPowerShell\v1.0\</code> to PATH, install PowerShell 7, or install Git for Windows with &quot;Add to PATH&quot;</td></tr><tr><td><code>The term &#x27;System.Xml.XmlDocument&#x27; is not recognized</code>, <code>&lt; was unexpected at this time</code> or <code>curl: (22) The requested URL returned error: 403</code></td><td>You downloaded a web page instead of the script. This can be caused by your region, a proxy or a temporary outage</td><td>Wait a few minutes and retry, or use <code>winget install Anthropic.ClaudeCode</code></td></tr><tr><td><code>npm.ps1 cannot be loaded because running scripts is disabled on this system</code></td><td>You installed with npm and PowerShell blocks <code>.ps1</code> scripts</td><td><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code>, or better, use the native installer</td></tr><tr><td><code>cannot execute binary file: Exec format error</code> (in WSL)</td><td>You&#x27;re on WSL1 (<a href="https://github.com/anthropics/claude-code/issues/38788" rel="noopener">issue #38788</a>)</td><td><code>wsl --set-version &lt;DistroName&gt; 2</code> in PowerShell</td></tr><tr><td><code>exec: node: not found</code> (in WSL, npm install)</td><td>WSL is using the Windows Node.js (paths starting with <code>/mnt/c/</code>)</td><td>Install Node.js inside Linux or, better, use the native installer</td></tr><tr><td>Typing <code>claude</code> opens the desktop app</td><td>An old version of Claude Desktop registered its own <code>Claude.exe</code></td><td>Update Claude Desktop</td></tr><tr><td><code>&#x27;claude&#x27; is not recognized</code> right after an update</td><td>The update didn&#x27;t finish putting <code>claude.exe</code> back in place</td><td>Restore the backup (see below)</td></tr><tr><td><code>API Error: 403 Request not allowed</code> after logging in</td><td>Your subscription isn&#x27;t active, or your Console account lacks the right role</td><td>Check <a href="https://claude.ai/settings" rel="noopener">claude.ai/settings</a> or ask for the &quot;Claude Code&quot; or &quot;Developer&quot; role</td></tr><tr><td><code>OAuth error: Invalid code. Please make sure the full code was copied</code></td><td>The code expired or was copied incompletely</td><td>Log in again and press <code>c</code> to copy the full URL</td></tr></tbody></table></div>
+<h3>Fix your PATH (PowerShell)</h3>
+<p>First check that the executable exists:</p>
+<pre><code class="language-powershell">Test-Path &quot;$env:USERPROFILE\.local\bin\claude.exe&quot;</code></pre>
+<p>If it prints <code>True</code>, add the folder to your user PATH. This change is permanent:</p>
+<pre><code class="language-powershell">$currentPath = [Environment]::GetEnvironmentVariable(&#x27;PATH&#x27;, &#x27;User&#x27;)
+[Environment]::SetEnvironmentVariable(&#x27;PATH&#x27;, &quot;$currentPath;$env:USERPROFILE\.local\bin&quot;, &#x27;User&#x27;)</code></pre>
+<p>Close the terminal, open a new one and run <code>claude --version</code>. If you use the terminal in VS Code or another editor, quit the editor completely and reopen it, because its terminal takes the PATH from the editor. In CMD, add <code>%USERPROFILE%\.local\bin</code> to your user PATH variable from <em>Environment Variables</em>. If <code>Test-Path</code> prints <code>False</code>, there&#x27;s no native install: go back to step 3a.</p>
+<h3>Delete the downloads folder and reinstall</h3>
+<pre><code class="language-powershell">Remove-Item -Recurse -Force &quot;$env:USERPROFILE\.claude\downloads&quot;
+irm https://claude.ai/install.ps1 | iex</code></pre>
+<h3>Restore <code>claude.exe</code> after a failed update</h3>
+<pre><code class="language-powershell">Get-ChildItem &quot;$env:USERPROFILE\.local\bin\claude.exe.old.*&quot; | Sort-Object Name | Select-Object -Last 1 | Rename-Item -NewName claude.exe</code></pre>
+<p>If there&#x27;s no <code>claude.exe.old.*</code> file, reinstall with <code>irm https://claude.ai/install.ps1 | iex</code>.</p>
+<h2>FAQ</h2>
+<h3>Is there Claude Code for Windows?</h3>
+<p>Yes. It runs on 64-bit Windows 10 (1809 or later) and Windows 11, natively from PowerShell or CMD, or inside WSL. If you&#x27;d rather not use the terminal, there&#x27;s also the <a href="https://claude.com/download" rel="noopener">desktop app</a>.</p>
+<h3>Should I install it in PowerShell or in WSL?</h3>
+<p>If your projects and tools are Windows-based, install it natively. If you work with Linux tools or want sandboxed commands, use WSL 2, which is the only Windows option with a sandbox.</p>
+<h3>Do I need Node.js or npm?</h3>
+<p>No. The native installer downloads its own executable. npm is still an option, but it causes more trouble on Windows, such as execution policy errors or the Windows Node.js leaking into WSL.</p>
+<h3>Do I need to be an administrator?</h3>
+<p>No. The native installer installs into your user folder and doesn&#x27;t ask for administrator rights.</p>
+<h3>Can I use Claude Code on the free plan?</h3>
+<p>No. The free claude.ai plan doesn&#x27;t include Claude Code. You need Pro, Max, Ultra, Team, Enterprise, a Console account or a provider like Amazon Bedrock.</p>
+<h3>How do I update it?</h3>
+<p>The native install updates itself. To update right away, run <code>claude update</code>. If you installed with WinGet, run <code>winget upgrade Anthropic.ClaudeCode</code>.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">More recipes</h2>
+    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li><li><a href="claude-code-precio-gratis.html">Is Claude Code free? Pricing and which plan to pick (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code in VS Code: extension or terminal, how to install</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="index.html">All recipes</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code — in Spanish.</p></div>
+    <nav aria-label="Links"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a resource</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

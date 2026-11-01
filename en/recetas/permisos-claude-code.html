@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code permissions: stop approving every command · Ctrl+IA</title>
+<meta name="description" content="Set up permission modes and allow, ask and deny rules in settings.json so Claude Code stops asking about everything, without letting risky commands in.">
+<meta property="og:title" content="Claude Code permissions: stop approving every command · Ctrl+IA">
+<meta property="og:description" content="Set up permission modes and allow, ask and deny rules in settings.json so Claude Code stops asking about everything, without letting risky commands in.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/kit.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/permisos-claude-code.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/permisos-claude-code.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/permisos-claude-code.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/permisos-claude-code.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/permisos-claude-code.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code permissions: stop approving every command", "description": "Set up permission modes and allow, ask and deny rules in settings.json so Claude Code stops asking about everything, without letting risky commands in.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/permisos-claude-code.html", "totalTime": "PT10M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Pick the right permission mode", "text": "The mode decides what gets approved without asking you. Change it with Shift+Tab in the terminal, or at startup with claude --permission-mode <mode>.", "url": "https://ctrlia.dev/en/recetas/permisos-claude-code.html"}, {"@type": "HowToStep", "position": 2, "name": "Write allow, ask and deny rules", "text": "Rules go under the permissions key of a settings.json:", "url": "https://ctrlia.dev/en/recetas/permisos-claude-code.html"}, {"@type": "HowToStep", "position": 3, "name": "Put each setting in the right file", "text": "When a key appears in several places, the highest level wins: your organization's managed settings, then --settings on the command line, then local, then project, and finally user. The allow, ask and deny lists don't override each other, they merge. And a deny at any level blocks even if another level allows it.", "url": "https://ctrlia.dev/en/recetas/permisos-claude-code.html"}, {"@type": "HowToStep", "position": 4, "name": "Know what is approved automatically", "text": "You don't need to allow what is already read-only. In every mode, Claude Code runs a fixed set of commands without asking, such as ls, cat, echo, pwd, head, tail, grep, find, wc, which, diff, stat, du, cd and the read-only forms of git (git status, git diff, git log). Reading files inside the project doesn't ask either. That list can't be edited: if you want one of those commands to ask, add an ask or deny rule for it.", "url": "https://ctrlia.dev/en/recetas/permisos-claude-code.html"}, {"@type": "HowToStep", "position": 5, "name": "Copy this safe template (Node and Python)", "text": "Save it as .claude/settings.json at the project root. Delete the lines for the language you don't use.", "url": "https://ctrlia.dev/en/recetas/permisos-claude-code.html"}, {"@type": "HowToStep", "position": 6, "name": "Never allow wildcards that amount to running code", "text": "Some commands run whatever you put after them. Allowing them with is the same as allowing all of Bash:", "url": "https://ctrlia.dev/en/recetas/permisos-claude-code.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What's the difference between auto and bypassPermissions?", "acceptedAnswer": {"@type": "Answer", "text": "Both run without asking, but auto sends every command and network request through a classifier that blocks risky ones (for example curl | bash, a force push or mass deletion on cloud storage). bypassPermissions checks nothing, which is why it should only be used in isolated containers."}}, {"@type": "Question", "name": "Where does Claude Code save what I approve with \"Yes, and don't ask again\"?", "acceptedAnswer": {"@type": "Answer", "text": "In the project's .claude/settings.local.json, as an allow rule. That file stays out of git, so your approvals don't reach the team."}}, {"@type": "Question", "name": "Does a deny in my user file beat a project allow?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. deny rules from any level are evaluated before allow rules, so a deny always blocks, wherever it comes from."}}, {"@type": "Question", "name": "Can I allow a whole MCP server at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, with mcp__<server>__, for example mcp__github__. In allow, wildcards without a server name such as mcp__ aren't accepted: they're ignored. In deny they do work and block every MCP tool."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=4f5d9179">
+<script src="../../js/sitio.js?v=4f5d9179"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=4f5d9179" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#recursos">Tools</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/permisos-claude-code.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My resources and settings</a>
+        <a href="../../en/peticiones.html">Request a resource</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/index.html#recursos">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Intermediate · 10 min</p>
+  <h1 id="t-art">Claude Code permissions: stop approving every command</h1>
+  <p class="entrada">Set up permission modes and allow, ask and deny rules in settings.json so Claude Code stops asking about everything, without letting risky commands in.</p>
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-10-31">2026-10-31</time></p>
+<h2>The problem</h2>
+<p>Claude Code asks for permission on almost every command: <code>npm test</code>, <code>pytest</code>, <code>git commit</code>... In the end you approve without reading, or you switch to <code>--dangerously-skip-permissions</code> and let everything through. Both are bad options. What you want is for safe, repetitive work to run on its own, for risky actions to ask first, and for your secrets to stay untouched.</p>
+<h2>The solution</h2>
+<h3>1. Pick the right permission mode</h3>
+<p>The mode decides what gets approved without asking you. Change it with <code>Shift+Tab</code> in the terminal, or at startup with <code>claude --permission-mode &lt;mode&gt;</code>.</p>
+<div class="tabla"><table><thead><tr><th scope="col">Mode</th><th scope="col">What runs without asking</th><th scope="col">When to use it</th></tr></thead><tbody><tr><td><code>default</code> (labeled &quot;Manual&quot; in the UI)</td><td>Reads only</td><td>New projects or code you don&#x27;t know</td></tr><tr><td><code>acceptEdits</code></td><td>Reads, file edits and common file commands (<code>mkdir</code>, <code>touch</code>, <code>mv</code>, <code>cp</code>) inside the project</td><td>When you review the changes with <code>git diff</code> at the end</td></tr><tr><td><code>plan</code></td><td>Reads and read-only commands; it doesn&#x27;t edit your code</td><td>To explore and plan before touching anything</td></tr><tr><td><code>auto</code></td><td>Everything, but a classifier reviews each command and network request in the background</td><td>Long sessions with few interruptions</td></tr><tr><td><code>dontAsk</code></td><td>Reads and whatever is in <code>allow</code>; everything else is denied without asking</td><td>Scripts and CI with a closed list of tools</td></tr><tr><td><code>bypassPermissions</code></td><td>Everything (same as <code>--dangerously-skip-permissions</code>)</td><td>Only inside an isolated container or virtual machine</td></tr></tbody></table></div>
+<p>Since version 2.1.283, if your account and model support <code>auto</code> mode, it is the mode interactive sessions start in. To pin a different one, set it in <code>~/.claude/settings.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;defaultMode&quot;: &quot;acceptEdits&quot;
+  }
+}</code></pre>
+<p><strong>Don&#x27;t use <code>bypassPermissions</code> on your own machine.</strong> The official docs limit it to &quot;isolated environments like containers, VMs, or dev containers without internet access&quot;. It offers no protection against prompt injection (a README or web page with hidden instructions) and it allows writes to protected paths such as <code>.git</code>, <code>.claude</code> or <code>.bashrc</code>. If you want fewer prompts without losing the safety net, use <code>auto</code>.</p>
+<h3>2. Write allow, ask and deny rules</h3>
+<p>Rules go under the <code>permissions</code> key of a <code>settings.json</code>:</p>
+<ul><li><strong><code>allow</code></strong>: runs without asking.</li><li><strong><code>ask</code></strong>: always asks, even if another rule allows it.</li><li><strong><code>deny</code></strong>: always blocked.</li></ul>
+<p>They are evaluated in this order: <strong>deny → ask → allow</strong>. The first match wins, and a more specific rule doesn&#x27;t change the order. That&#x27;s why <code>allow: Bash(git push origin dev)</code> does nothing if <code>deny: Bash(git push *)</code> exists.</p>
+<p>The syntax is <code>Tool</code> or <code>Tool(specifier)</code>:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Rule</th><th scope="col">What it covers</th></tr></thead><tbody><tr><td><code>Bash(npm run build)</code></td><td>Exactly <code>npm run build</code></td></tr><tr><td><code>Bash(git log *)</code></td><td><code>git log</code> and any variant (<code>git log --oneline -5</code>)</td></tr><tr><td><code>Bash(git *)</code></td><td>Every git command, including <code>git push</code></td></tr><tr><td><code>Bash(ls *)</code></td><td><code>ls</code> and <code>ls -la</code>, but not <code>lsof</code> (the space before <code>*</code> matters)</td></tr><tr><td><code>Read(./.env)</code></td><td>Reading the <code>.env</code> in the current directory</td></tr><tr><td><code>Edit(/src/**)</code></td><td>Editing inside the project&#x27;s <code>src/</code></td></tr><tr><td><code>Read(~/.ssh/**)</code></td><td>Your <code>~/.ssh</code> folder</td></tr><tr><td><code>Read(//etc/**)</code></td><td>The absolute path <code>/etc</code> (note the two slashes)</td></tr><tr><td><code>WebFetch(domain:github.com)</code></td><td>Fetching pages from github.com</td></tr><tr><td><code>mcp__github__*</code></td><td>Every tool from the <code>github</code> MCP server</td></tr><tr><td><code>mcp__github__get_issue</code></td><td>A single tool from that server</td></tr></tbody></table></div>
+<p>Put the <code>*</code> <strong>after the subcommand</strong>: everything before the first <code>*</code> is what limits the rule. Claude Code understands <code>&amp;&amp;</code>, <code>|</code>, <code>;</code> and similar operators, so <code>Bash(npm test *)</code> doesn&#x27;t approve <code>npm test &amp;&amp; rm -rf build</code>: each part of the command has to be allowed on its own.</p>
+<h3>3. Put each setting in the right file</h3>
+<div class="tabla"><table><thead><tr><th scope="col">File</th><th scope="col">Who it affects</th><th scope="col">What to put there</th></tr></thead><tbody><tr><td><code>~/.claude/settings.json</code></td><td>You, in all your projects</td><td><code>defaultMode</code>, your personal rules and the <code>deny</code> rules you want everywhere</td></tr><tr><td><code>.claude/settings.json</code></td><td>The whole team (commit it to git)</td><td>The project&#x27;s rules: tests, lint, build and its secrets</td></tr><tr><td><code>.claude/settings.local.json</code></td><td>Only you, in this project (kept out of git)</td><td>Personal exceptions; Claude Code saves here what you approve with &quot;Yes, and don&#x27;t ask again&quot;</td></tr></tbody></table></div>
+<p>When a key appears in several places, the highest level wins: your organization&#x27;s managed settings, then <code>--settings</code> on the command line, then local, then project, and finally user. The <code>allow</code>, <code>ask</code> and <code>deny</code> lists don&#x27;t override each other, <strong>they merge</strong>. And a <code>deny</code> at any level blocks even if another level allows it.</p>
+<p>Two details that trip people up:</p>
+<ul><li><code>defaultMode: &quot;auto&quot;</code> or <code>&quot;bypassPermissions&quot;</code> has no effect in <code>.claude/settings.json</code> or <code>.claude/settings.local.json</code>. Put them in your user file.</li><li><code>allow</code> rules in the project&#x27;s <code>.claude/settings.json</code> only apply after you accept the folder&#x27;s trust dialog. <code>deny</code> and <code>ask</code> rules apply right away.</li></ul>
+<h3>4. Know what is approved automatically</h3>
+<p>You don&#x27;t need to allow what is already read-only. In every mode, Claude Code runs a fixed set of commands without asking, such as <code>ls</code>, <code>cat</code>, <code>echo</code>, <code>pwd</code>, <code>head</code>, <code>tail</code>, <code>grep</code>, <code>find</code>, <code>wc</code>, <code>which</code>, <code>diff</code>, <code>stat</code>, <code>du</code>, <code>cd</code> and the read-only forms of <code>git</code> (<code>git status</code>, <code>git diff</code>, <code>git log</code>). Reading files inside the project doesn&#x27;t ask either. That list can&#x27;t be edited: if you want one of those commands to ask, add an <code>ask</code> or <code>deny</code> rule for it.</p>
+<h3>5. Copy this safe template (Node and Python)</h3>
+<p>Save it as <code>.claude/settings.json</code> at the project root. Delete the lines for the language you don&#x27;t use.</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://json.schemastore.org/claude-code-settings.json&quot;,
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [
+      &quot;Bash(npm test *)&quot;,
+      &quot;Bash(npm run test *)&quot;,
+      &quot;Bash(npm run lint *)&quot;,
+      &quot;Bash(npm run build *)&quot;,
+      &quot;Bash(npx tsc --noEmit)&quot;,
+      &quot;Bash(npx eslint .)&quot;,
+      &quot;Bash(python3 -m pytest *)&quot;,
+      &quot;Bash(pytest *)&quot;,
+      &quot;Bash(ruff check *)&quot;,
+      &quot;Bash(ruff format *)&quot;,
+      &quot;Bash(mypy *)&quot;,
+      &quot;Bash(git add *)&quot;,
+      &quot;Bash(git commit *)&quot;
+    ],
+    &quot;ask&quot;: [
+      &quot;Bash(git push *)&quot;,
+      &quot;Bash(npm install *)&quot;,
+      &quot;Bash(pip install *)&quot;,
+      &quot;Bash(docker *)&quot;
+    ],
+    &quot;deny&quot;: [
+      &quot;Read(./.env)&quot;,
+      &quot;Read(./.env.*)&quot;,
+      &quot;Read(./secrets/**)&quot;,
+      &quot;Read(~/.ssh/**)&quot;,
+      &quot;Read(~/.aws/**)&quot;,
+      &quot;Bash(curl *)&quot;,
+      &quot;Bash(wget *)&quot;,
+      &quot;Bash(sudo *)&quot;,
+      &quot;Bash(rm -rf *)&quot;
+    ]
+  }
+}</code></pre>
+<p>And in your <code>~/.claude/settings.json</code>, the default mode plus a lock that stops you from starting in <code>bypassPermissions</code> by accident:</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://json.schemastore.org/claude-code-settings.json&quot;,
+  &quot;permissions&quot;: {
+    &quot;defaultMode&quot;: &quot;acceptEdits&quot;,
+    &quot;disableBypassPermissionsMode&quot;: &quot;disable&quot;
+  }
+}</code></pre>
+<h3>6. Never allow wildcards that amount to running code</h3>
+<p>Some commands run whatever you put after them. Allowing them with <code>*</code> is the same as allowing all of <code>Bash</code>:</p>
+<ul><li><code>Bash(python3 *)</code>, <code>Bash(node *)</code>: they approve <code>python3 -c &quot;import os; os.system(&#x27;...&#x27;)&quot;</code>.</li><li><code>Bash(bash *)</code>, <code>Bash(sh *)</code>: they approve <code>bash -c &#x27;anything&#x27;</code>.</li><li><code>Bash(npx *)</code>, <code>Bash(uvx *)</code>: they download and run any package from the internet.</li><li><code>Bash(docker exec *)</code>, <code>Bash(make *)</code>, <code>Bash(* --version)</code>: the <code>*</code> covers the program or the inner command.</li><li><code>Bash(git *)</code>: includes <code>git -c core.fsmonitor=&lt;script&gt;</code>, which runs the program you name.</li></ul>
+<p>Write the exact command with the program and its fixed argument (<code>Bash(npx tsc --noEmit)</code>, <code>Bash(python3 -m pytest *)</code>), one rule each.</p>
+<h2>Check it</h2>
+<p>Create a test folder with a fake <code>.env</code> and a <code>deny</code> rule:</p>
+<pre><code class="language-bash">mkdir -p /tmp/receta-permisos/.claude &amp;&amp; cd /tmp/receta-permisos
+printf &#x27;API_KEY=falsa-de-prueba-123\n&#x27; &gt; .env
+cat &gt; .claude/settings.json &lt;&lt;&#x27;JSON&#x27;
+{
+  &quot;permissions&quot;: {
+    &quot;deny&quot;: [&quot;Read(./.env)&quot;, &quot;Read(./.env.*)&quot;]
+  }
+}
+JSON
+claude -p &quot;This is a permissions test: use the Read tool on ./.env and then try &#x27;cat .env&#x27;. Tell me what each attempt returned.&quot; --setting-sources project --output-format json</code></pre>
+<p>Real output with Claude Code 2.1.316 (<code>result</code> field, summarized):</p>
+<pre><code class="language-text">1. Read tool on ./.env:
+   File is in a directory that is denied by your permission settings.
+2. Bash cat .env:
+   Permission to use Bash with command cat .env has been denied.</code></pre>
+<p>The JSON&#x27;s <code>permission_denials</code> lists both blocked calls: <code>Read</code> with <code>file_path</code> <code>.../receta-permisos/.env</code> and <code>Bash</code> with <code>cat .env</code>. The <code>Read</code> rule also stopped <code>cat</code>, because Claude Code recognizes file commands in Bash. In an interactive session, <code>/permissions</code> shows every rule and which file it comes from, and <code>/status</code> shows which settings files were loaded.</p>
+<h2>Why it works</h2>
+<p>Claude Code enforces the rules, not the model: before each tool call it checks <code>deny</code>, then <code>ask</code>, then <code>allow</code>, and only then looks at the mode. That&#x27;s why a <code>deny</code> blocks even in <code>bypassPermissions</code>, while an instruction in <code>CLAUDE.md</code> only shapes what Claude tries to do. More detail in the official docs: <a href="https://code.claude.com/docs/en/permissions" rel="noopener">Configure permissions</a>, <a href="https://code.claude.com/docs/en/permission-modes" rel="noopener">Permission modes</a> and <a href="https://code.claude.com/docs/en/settings" rel="noopener">Settings</a>.</p>
+<p>Know the limit: a <code>Bash</code> rule compares the command text. <code>deny: Bash(curl *)</code> stops <code>curl https://...</code> but not <code>/usr/bin/curl</code> or <code>sh -c &#x27;curl ...&#x27;</code>, and <code>Read(./.env)</code> doesn&#x27;t stop a Python script from opening the file itself. If you need a real system-level barrier, turn on the <a href="https://code.claude.com/docs/en/sandboxing" rel="noopener">sandbox</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li>Your project <code>allow</code> rule does nothing and <code>claude doctor</code> says &quot;Ignoring 13 permissions.allow entries from .claude/settings.json: this workspace has not been trusted&quot; → you haven&#x27;t accepted the folder&#x27;s trust dialog (<code>claude -p</code> never shows it) → open <code>claude</code> interactively and accept, or put the rule in <code>.claude/settings.local.json</code>.</li><li>A <code>deny</code> in <code>~/.claude/settings.json</code> like <code>Read(/secrets/**)</code> doesn&#x27;t protect your project → with one slash, the path starts at <code>~/.claude/</code> when the rule lives in the user file → use <code>Read(~/path/**)</code> or <code>Read(//absolute/path/**)</code>.</li><li><code>Bash(ls*)</code> also approves <code>lsof</code> → the space before <code>*</code> is missing → write <code>Bash(ls *)</code>.</li><li>It asks about <code>npm test &amp;&amp; npm run lint</code> even though you have <code>Bash(npm test *)</code> → each part of a compound command needs its own rule → also add <code>Bash(npm run lint *)</code>.</li><li><code>defaultMode: &quot;auto&quot;</code> in <code>.claude/settings.json</code> does nothing → that value only counts in user or managed settings → move it to <code>~/.claude/settings.json</code> or start with <code>--permission-mode auto</code>.</li><li>Claude can no longer read <code>.env.example</code> → <code>Read(./.env.*)</code> covers it too → if you need it, rename it (for example, <code>env.example</code>) or drop that rule and block each file by name.</li><li>It starts with &quot;Settings Error&quot; → the JSON has a <code>//</code> comment or a trailing comma → <code>settings.json</code> files are strict JSON; remove them.</li></ul>
+<h2>FAQ</h2>
+<h3>What&#x27;s the difference between <code>auto</code> and <code>bypassPermissions</code>?</h3>
+<p>Both run without asking, but <code>auto</code> sends every command and network request through a classifier that blocks risky ones (for example <code>curl | bash</code>, a force push or mass deletion on cloud storage). <code>bypassPermissions</code> checks nothing, which is why it should only be used in isolated containers.</p>
+<h3>Where does Claude Code save what I approve with &quot;Yes, and don&#x27;t ask again&quot;?</h3>
+<p>In the project&#x27;s <code>.claude/settings.local.json</code>, as an <code>allow</code> rule. That file stays out of git, so your approvals don&#x27;t reach the team.</p>
+<h3>Does a <code>deny</code> in my user file beat a project <code>allow</code>?</h3>
+<p>Yes. <code>deny</code> rules from any level are evaluated before <code>allow</code> rules, so a <code>deny</code> always blocks, wherever it comes from.</p>
+<h3>Can I allow a whole MCP server at once?</h3>
+<p>Yes, with <code>mcp__&lt;server&gt;__*</code>, for example <code>mcp__github__*</code>. In <code>allow</code>, wildcards without a server name such as <code>mcp__*</code> aren&#x27;t accepted: they&#x27;re ignored. In <code>deny</code> they do work and block every MCP tool.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">More recipes</h2>
+    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li><li><a href="claude-code-precio-gratis.html">Is Claude Code free? Pricing and which plan to pick (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code in VS Code: extension or terminal, how to install</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="index.html">All recipes</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code — in Spanish.</p></div>
+    <nav aria-label="Links"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a resource</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

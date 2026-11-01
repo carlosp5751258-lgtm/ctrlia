@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>How to write a CLAUDE.md that Claude Code actually follows · Ctrl+IA</title>
+<meta name="description" content="What to put in CLAUDE.md and what to leave out, where each file goes, @path imports, /init and /memory, plus a tested template for a web project.">
+<meta property="og:title" content="How to write a CLAUDE.md that Claude Code actually follows · Ctrl+IA">
+<meta property="og:description" content="What to put in CLAUDE.md and what to leave out, where each file goes, @path imports, /init and /memory, plus a tested template for a web project.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/kit.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/claude-md-que-funciona.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/claude-md-que-funciona.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/claude-md-que-funciona.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/claude-md-que-funciona.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/claude-md-que-funciona.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "How to write a CLAUDE.md that Claude Code actually follows", "description": "What to put in CLAUDE.md and what to leave out, where each file goes, @path imports, /init and /memory, plus a tested template for a web project.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/claude-md-que-funciona.html", "totalTime": "PT15M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Generate a draft with /init and start deleting", "text": "Open Claude Code inside your project and type:", "url": "https://ctrlia.dev/en/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 2, "name": "Keep only what Claude can't see in the code", "text": "Include:", "url": "https://ctrlia.dev/en/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 3, "name": "Put each thing at its level", "text": "Claude Code concatenates (doesn't override) all of these files, from broadest to most specific:", "url": "https://ctrlia.dev/en/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 4, "name": "Split into files with @path imports", "text": "Write @path/to/file anywhere in CLAUDE.md and that file loads along with it. Relative paths resolve from the importing file (not from the folder where you launch Claude), and nested imports go up to four hops deep. Importing organizes, but it doesn't save context: the imported file loads in full next to the CLAUDE.md. To mention a path without importing it, wrap it in backticks. The first time a project CLAUDE.md imports something from outside the project (for example @~/.claude/my-notes.md), Claude Code asks you to approve it.", "url": "https://ctrlia.dev/en/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 5, "name": "Move procedures to skills", "text": "A multi-step workflow (cutting a release, preparing a migration) weighs on every session if it lives in CLAUDE.md. In a skill (.claude/skills/<name>/SKILL.md) Claude only sees the name and description until the task needs it. If the workflow has side effects (deploying, publishing), add disable-model-invocation: true to its frontmatter so it only runs when you type /<name>.", "url": "https://ctrlia.dev/en/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 6, "name": "Move mandatory rules to hooks and permissions", "text": "CLAUDE.md is context, not enforced configuration: Claude follows it almost every time, but it may decide an instruction doesn't apply. If something must always or never happen, have Claude Code enforce it. For example, \"never read .env\" as a permission rule in .claude/settings.json:", "url": "https://ctrlia.dev/en/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 7, "name": "Copy this template for a web project", "text": "Save it as CLAUDE.md at the root and swap the commands for yours:", "url": "https://ctrlia.dev/en/recetas/claude-md-que-funciona.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Where does the CLAUDE.md file go?", "acceptedAnswer": {"@type": "Answer", "text": "At the project root (./CLAUDE.md or ./.claude/CLAUDE.md) for the team, and in ~/.claude/CLAUDE.md for your preferences across all projects. Both load together."}}, {"@type": "Question", "name": "How many lines should a CLAUDE.md have?", "acceptedAnswer": {"@type": "Answer", "text": "The official docs recommend under 200 per file. Splitting it with imports doesn't reduce the cost, because imported files load anyway."}}, {"@type": "Question", "name": "What's the difference between CLAUDE.md and CLAUDE.local.md?", "acceptedAnswer": {"@type": "Answer", "text": "CLAUDE.md goes into git and is shared by the team; CLAUDE.local.md is yours only, is read after the CLAUDE.md in the same folder, and belongs in .gitignore."}}, {"@type": "Question", "name": "Does my AGENTS.md work?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: Claude Code reads AGENTS.md when there's no CLAUDE.md or CLAUDE.local.md in your folder or above it. If you have both, put @AGENTS.md inside your CLAUDE.md."}}, {"@type": "Question", "name": "Does writing \"IMPORTANT\" or \"ALWAYS\" help?", "acceptedAnswer": {"@type": "Answer", "text": "Not much. If a line keeps being ignored, either the file is too long or the rule allows no exceptions and should be a hook or a permission rule."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=4f5d9179">
+<script src="../../js/sitio.js?v=4f5d9179"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=4f5d9179" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#recursos">Tools</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/claude-md-que-funciona.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My resources and settings</a>
+        <a href="../../en/peticiones.html">Request a resource</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/index.html#recursos">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Basic · 15 min</p>
+  <h1 id="t-art">How to write a CLAUDE.md that Claude Code actually follows</h1>
+  <p class="entrada">What to put in CLAUDE.md and what to leave out, where each file goes, @path imports, /init and /memory, plus a tested template for a web project.</p>
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-10-31">2026-10-31</time></p>
+<h2>The problem</h2>
+<p>You write a huge CLAUDE.md with everything you know about the project and Claude Code skips half of it. Or the opposite: you have none, and every session you explain again how to run the tests. Both have the same fix: a short file holding only what Claude can&#x27;t work out from the code, in the right place, with the rules that allow no exceptions moved out of it.</p>
+<h2>The solution</h2>
+<h3>1. Generate a draft with /init and start deleting</h3>
+<p>Open Claude Code inside your project and type:</p>
+<pre><code class="language-text">/init</code></pre>
+<p>Claude analyzes the code and creates a <code>CLAUDE.md</code> with the build commands, test instructions and conventions it discovers. If you already have one, it suggests improvements instead of overwriting it. From there the work is mostly <strong>removing lines</strong>: the official docs recommend staying under <strong>200 lines</strong> per file, because longer files use more context and are followed less reliably.</p>
+<h3>2. Keep only what Claude can&#x27;t see in the code</h3>
+<p>Include:</p>
+<ul><li>How to check the work: the exact test, typecheck and lint commands, and how to run a single test file.</li><li>Where the code is misleading: an old pattern that&#x27;s everywhere but must not be copied, or a folder that looks dead but isn&#x27;t.</li><li>Decisions that aren&#x27;t in the repo: which error helper to use, how deploys work, what needs review.</li><li>Anything you&#x27;ve already corrected twice.</li></ul>
+<p>Leave out:</p>
+<ul><li>The folder tree, the dependency list or an architecture summary: Claude reads those from the code (<code>/doctor</code> proposes cutting them).</li><li>Vague rules like &quot;write good code&quot; or &quot;format properly&quot;. Write checkable rules: &quot;2-space indentation&quot;, &quot;run <code>npm test</code> before committing&quot;.</li><li>Long multi-step procedures (they go in a skill, step 5).</li><li>Prohibitions that allow no exceptions (they go in hooks or permissions, step 6).</li><li>Your personal preferences (they go in <code>CLAUDE.local.md</code>, step 3).</li></ul>
+<h3>3. Put each thing at its level</h3>
+<p>Claude Code concatenates (doesn&#x27;t override) all of these files, from broadest to most specific:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Level</th><th scope="col">Path</th><th scope="col">For</th><th scope="col">Shared with</th></tr></thead><tbody><tr><td>Organization</td><td>Linux/WSL: <code>/etc/claude-code/CLAUDE.md</code> · macOS: <code>/Library/Application Support/ClaudeCode/CLAUDE.md</code></td><td>Company standards</td><td>The whole organization</td></tr><tr><td>User</td><td><code>~/.claude/CLAUDE.md</code></td><td>Your preferences across all projects</td><td>Only you</td></tr><tr><td>Project</td><td><code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code></td><td>Team commands and conventions</td><td>The team, via git</td></tr><tr><td>Local</td><td><code>./CLAUDE.local.md</code></td><td>Your sandbox URLs, sample data</td><td>Only you (add it to <code>.gitignore</code>)</td></tr><tr><td>Subfolder</td><td><code>src/payments/CLAUDE.md</code></td><td>Rules for that part of the code</td><td>The team</td></tr></tbody></table></div>
+<p>Files in the directory where you launch Claude and the ones above it load at startup; the closest one is read last. <strong>Subfolder</strong> <code>CLAUDE.md</code> files load on demand, when Claude reads or edits a file in that folder. To keep <code>CLAUDE.local.md</code> out of the repo:</p>
+<pre><code class="language-bash">echo &quot;CLAUDE.local.md&quot; &gt;&gt; .gitignore</code></pre>
+<p>If a rule only matters for certain files, a better option than a subfolder is a rule with <code>paths</code> in <code>.claude/rules/</code>, which only enters the context when Claude touches matching files:</p>
+<pre><code class="language-markdown">---
+paths:
+  - &quot;src/api/**/*.ts&quot;
+---
+- Validate request bodies with the schemas in src/api/schemas/</code></pre>
+<h3>4. Split into files with @path imports</h3>
+<p>Write <code>@path/to/file</code> anywhere in CLAUDE.md and that file loads along with it. Relative paths resolve from the importing file (not from the folder where you launch Claude), and nested imports go up to four hops deep. Importing organizes, but it <strong>doesn&#x27;t save context</strong>: the imported file loads in full next to the CLAUDE.md. To mention a path without importing it, wrap it in backticks. The first time a project CLAUDE.md imports something from outside the project (for example <code>@~/.claude/my-notes.md</code>), Claude Code asks you to approve it.</p>
+<h3>5. Move procedures to skills</h3>
+<p>A multi-step workflow (cutting a release, preparing a migration) weighs on every session if it lives in CLAUDE.md. In a skill (<code>.claude/skills/&lt;name&gt;/SKILL.md</code>) Claude only sees the name and description until the task needs it. If the workflow has side effects (deploying, publishing), add <code>disable-model-invocation: true</code> to its frontmatter so it only runs when you type <code>/&lt;name&gt;</code>.</p>
+<h3>6. Move mandatory rules to hooks and permissions</h3>
+<p>CLAUDE.md is context, not enforced configuration: Claude follows it almost every time, but it may decide an instruction doesn&#x27;t apply. If something must <strong>always</strong> or <strong>never</strong> happen, have Claude Code enforce it. For example, &quot;never read .env&quot; as a permission rule in <code>.claude/settings.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;deny&quot;: [&quot;Read(./.env)&quot;, &quot;Read(./.env.local)&quot;, &quot;Read(./secrets/**)&quot;]
+  }
+}</code></pre>
+<p><code>deny</code> rules hold in every permission mode and also block <code>cat .env</code>. For &quot;run the formatter after every edit&quot; or &quot;don&#x27;t touch <code>migrations/</code>&quot; use a <code>PostToolUse</code> or <code>PreToolUse</code> hook (see the <a href="https://code.claude.com/docs/en/hooks-guide" rel="noopener">official hooks guide</a>). If you catch yourself adding &quot;IMPORTANT&quot; to a line Claude keeps ignoring, that line is a hook.</p>
+<h3>7. Copy this template for a web project</h3>
+<p>Save it as <code>CLAUDE.md</code> at the root and swap the commands for yours:</p>
+<pre><code class="language-markdown"># Project: web-shop (Vite + React + TypeScript)
+
+## Commands
+- Install: `npm ci`
+- Dev server: `npm run dev` (http://localhost:5173)
+- One test: `npx vitest run src/path/file.test.ts`
+- All tests: `npm test`
+- Types: `npx tsc --noEmit`
+- Lint: `npm run lint`
+
+## When something counts as done
+- `npx tsc --noEmit` and the tests for the file you touched pass.
+- UI changes: check them in the browser, not only with tests.
+
+## Conventions (what the code doesn&#x27;t show)
+- Style: @docs/style.md
+- API calls only from `src/api/client.ts`; never a bare `fetch` in components.
+- `src/legacy/` is still in production, but don&#x27;t copy its patterns into new code.
+
+## Known gotchas
+- Integration tests need `VITE_API_URL`; copy `.env.example` to `.env.local`.
+- `npm run build` fails if there are circular imports in `src/store/`.
+
+## Git
+- Branches `feat/…` or `fix/…`; commit messages in the imperative.</code></pre>
+<p>And the imported file, <code>docs/style.md</code>:</p>
+<pre><code class="language-markdown"># Code style
+- 2-space indentation, single quotes, no semicolons.
+- Components in PascalCase, one component per file, named exports (no `export default`).
+- User-facing text in plain, neutral English.</code></pre>
+<h2>Check it</h2>
+<p>Inside a session, <code>/context</code> shows the <strong>Memory files</strong> list with the CLAUDE.md files that loaded, and <code>/memory</code> lists them all (including ones that don&#x27;t exist yet) so you can open and edit them. From the terminal you can ask directly:</p>
+<pre><code class="language-bash">claude -p &quot;What style rules does this project have? Answer in one line&quot;</code></pre>
+<p>Real output with the template above and Claude Code 2.1.316 (our <code>~/.claude/CLAUDE.md</code> asks for replies in Spanish, so it answered in Spanish; translated here, which also shows the user and project levels being combined):</p>
+<pre><code class="language-text">According to `docs/style.md`: 2-space indentation, single quotes, no semicolons, components in PascalCase with one component per file and named exports (no `export default`), and user-facing text in plain, neutral English.</code></pre>
+<p>The style rules live only in <code>docs/style.md</code>, and <code>--output-format stream-json --verbose</code> shows Claude used no tool to read it: it arrived through the <code>@docs/style.md</code> import.</p>
+<h2>Why it works</h2>
+<p>Claude Code reads the CLAUDE.md files at the start of every session and delivers them as a message after the system prompt, so they compete for attention with everything else: the shorter and more concrete, the better they&#x27;re followed. Imports are expanded before reaching the model, <code>paths</code> rules and subfolder CLAUDE.md files only enter when needed, and hooks and permissions are run by Claude Code, not the model, so they don&#x27;t depend on it &quot;remembering&quot;. Sources: <a href="https://code.claude.com/docs/en/memory" rel="noopener">Claude Code memory</a> and <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">best practices</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li>Claude ignores rules near the end of the file → the CLAUDE.md is over 200 lines → remove what can be derived from the code or move it to <code>.claude/rules/</code> with <code>paths</code>.</li><li>Claude follows a rule some times and the opposite other times → two instructions contradict each other (for example, the user one and the project one) → review every level; <code>/doctor prompt-audit</code> looks for contradictions.</li><li>The import doesn&#x27;t load → the path has spaces or is wrapped in quotes or backticks → escape spaces with <code>\</code> and don&#x27;t quote it.</li><li>A subfolder <code>CLAUDE.md</code> doesn&#x27;t show up in <code>/context</code> → that&#x27;s expected: it loads when Claude reads a file in that folder.</li><li>A rule disappears after <code>/compact</code> → you only gave it in the conversation → move it to the root CLAUDE.md, which is re-read after compaction.</li><li>Your personal notes end up in the repo → you put them in <code>CLAUDE.md</code> → move them to <code>CLAUDE.local.md</code> and add it to <code>.gitignore</code>.</li></ul>
+<h2>FAQ</h2>
+<h3>Where does the CLAUDE.md file go?</h3>
+<p>At the project root (<code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code>) for the team, and in <code>~/.claude/CLAUDE.md</code> for your preferences across all projects. Both load together.</p>
+<h3>How many lines should a CLAUDE.md have?</h3>
+<p>The official docs recommend under 200 per file. Splitting it with imports doesn&#x27;t reduce the cost, because imported files load anyway.</p>
+<h3>What&#x27;s the difference between CLAUDE.md and CLAUDE.local.md?</h3>
+<p><code>CLAUDE.md</code> goes into git and is shared by the team; <code>CLAUDE.local.md</code> is yours only, is read after the CLAUDE.md in the same folder, and belongs in <code>.gitignore</code>.</p>
+<h3>Does my AGENTS.md work?</h3>
+<p>Yes: Claude Code reads <code>AGENTS.md</code> when there&#x27;s no <code>CLAUDE.md</code> or <code>CLAUDE.local.md</code> in your folder or above it. If you have both, put <code>@AGENTS.md</code> inside your CLAUDE.md.</p>
+<h3>Does writing &quot;IMPORTANT&quot; or &quot;ALWAYS&quot; help?</h3>
+<p>Not much. If a line keeps being ignored, either the file is too long or the rule allows no exceptions and should be a hook or a permission rule.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">More recipes</h2>
+    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li><li><a href="claude-code-precio-gratis.html">Is Claude Code free? Pricing and which plan to pick (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code in VS Code: extension or terminal, how to install</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="index.html">All recipes</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code — in Spanish.</p></div>
+    <nav aria-label="Links"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a resource</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

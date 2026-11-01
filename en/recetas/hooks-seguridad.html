@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code hooks: block dangerous commands and secrets · Ctrl+IA</title>
+<meta name="description" content="A Python PreToolUse hook that stops Claude Code from reading your .env, running dangerous rm -rf or doing git push --force to main. Tested.">
+<meta property="og:title" content="Claude Code hooks: block dangerous commands and secrets · Ctrl+IA">
+<meta property="og:description" content="A Python PreToolUse hook that stops Claude Code from reading your .env, running dangerous rm -rf or doing git push --force to main. Tested.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/kit.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/hooks-seguridad.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/hooks-seguridad.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/hooks-seguridad.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/hooks-seguridad.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/hooks-seguridad.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code hooks: block dangerous commands and secrets", "description": "A Python PreToolUse hook that stops Claude Code from reading your .env, running dangerous rm -rf or doing git push --force to main. Tested.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/hooks-seguridad.html", "totalTime": "PT10M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Create the hook script", "text": "Save it as .claude/hooks/protect.py inside your project:", "url": "https://ctrlia.dev/en/recetas/hooks-seguridad.html"}, {"@type": "HowToStep", "position": 2, "name": "Register it in .claude/settings.json", "text": "Create or extend .claude/settings.json at the project root:", "url": "https://ctrlia.dev/en/recetas/hooks-seguridad.html"}, {"@type": "HowToStep", "position": 3, "name": "Share the protection with your team", "text": "Commit .claude/settings.json and .claude/hooks/protect.py to the repository, and add .env to .gitignore if it isn't there yet. Everyone who clones the project then gets the same rules.", "url": "https://ctrlia.dev/en/recetas/hooks-seguridad.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does it work with --dangerously-skip-permissions or in bypassPermissions mode?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The documentation says PreToolUse hooks run before the permission mode is checked and that a block holds in every mode. We tested it with --permission-mode bypassPermissions."}}, {"@type": "Question", "name": "Is it bulletproof?", "acceptedAnswer": {"@type": "Answer", "text": "No. A command that reads files without naming them, such as python -c \"open('.e'+'nv')\" or grep -r key ., gets past it. Combine it with permission rules (\"permissions\": {\"deny\": [\"Read(./.env)\", \"Read(./.env.)\"]}) and, if you need blocking at the operating-system level, with the sandbox."}}, {"@type": "Question", "name": "Why Python and not jq?", "acceptedAnswer": {"@type": "Answer", "text": "The official examples use jq, but many machines don't have it installed, and then the hook fails with jq: command not found. python3 usually comes installed on Linux and macOS, and the script only uses the standard library."}}, {"@type": "Question", "name": "Can I use it in all my projects?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Copy the script to ~/.claude/hooks/protect.py and put the same hooks block in ~/.claude/settings.json, with \"command\": \"python3 \\\"$HOME\\\"/.claude/hooks/protect.py\"."}}, {"@type": "Question", "name": "What if I really need Claude to use a value from .env?", "acceptedAnswer": {"@type": "Answer", "text": "Give it the value it needs yourself, or let the code read it at runtime without Claude seeing it. If it only needs to know which variables exist, keep a .env.example with no values: the hook lets Claude read it."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=4f5d9179">
+<script src="../../js/sitio.js?v=4f5d9179"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=4f5d9179" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#recursos">Tools</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/hooks-seguridad.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My resources and settings</a>
+        <a href="../../en/peticiones.html">Request a resource</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/index.html#recursos">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Intermediate · 10 min</p>
+  <h1 id="t-art">Claude Code hooks: block dangerous commands and secrets</h1>
+  <p class="entrada">A Python PreToolUse hook that stops Claude Code from reading your .env, running dangerous rm -rf or doing git push --force to main. Tested.</p>
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-10-31">2026-10-31</time></p>
+<h2>The problem</h2>
+<p>Claude Code runs commands and opens files for you. One wrong step is enough for it to read your <code>.env</code> and drop the key into the conversation, run <code>rm -rf</code> on the wrong path, or rewrite <code>main</code> with <code>git push --force</code>. Asking for this in <code>CLAUDE.md</code> helps, but it is an instruction to the model, not a guarantee. If you use modes that approve on their own, such as <code>acceptEdits</code> or <code>bypassPermissions</code>, you need a rule that always holds.</p>
+<h2>The solution</h2>
+<p>A <code>PreToolUse</code> hook runs before every tool call. If the script exits with code 2, Claude Code cancels the action and passes the error message to Claude. We write it in Python with no dependencies, so you don&#x27;t need <code>jq</code>.</p>
+<h3>1. Create the hook script</h3>
+<p>Save it as <code>.claude/hooks/protect.py</code> inside your project:</p>
+<pre><code class="language-python">#!/usr/bin/env python3
+&quot;&quot;&quot;PreToolUse hook: blocks dangerous rm -rf, access to secrets and git push --force to main.&quot;&quot;&quot;
+import json
+import re
+import subprocess
+import sys
+
+# Secret file names (matched against the file name, not the full path)
+SECRETS = re.compile(r&quot;^(\.env(\..+)?|.*\.pem|.*\.key|id_rsa.*|id_ed25519.*|credentials\.json|\.npmrc|\.pypirc)$&quot;)
+TEMPLATES = re.compile(r&quot;^\.env\.(example|sample|template)$&quot;)  # these can be read
+
+# Same idea, searched inside a Bash command
+SECRET_IN_COMMAND = re.compile(
+    r&quot;(?&lt;![\w.-])(\.env(\.[\w-]+)?|[\w.-]+\.pem|[\w.-]+\.key|id_rsa\w*|id_ed25519\w*|credentials\.json)(?![\w.-])&quot;
+)
+
+
+def block(reason):
+    print(f&quot;Blocked by the security hook: {reason}&quot;, file=sys.stderr)
+    sys.exit(2)  # exit 2 = Claude Code cancels the tool call and passes this message to Claude
+
+
+def is_secret(path):
+    name = path.replace(&quot;\\&quot;, &quot;/&quot;).rstrip(&quot;/&quot;).split(&quot;/&quot;)[-1]
+    return bool(SECRETS.match(name)) and not TEMPLATES.match(name)
+
+
+def check_rm(command):
+    for part in re.split(r&quot;&amp;&amp;|\|\||;|\||\n&quot;, command):
+        words = part.split()
+        if not words or words[0] not in (&quot;rm&quot;, &quot;sudo&quot;):
+            continue
+        if words[0] == &quot;sudo&quot;:
+            words = words[1:]
+            if not words or words[0] != &quot;rm&quot;:
+                continue
+        flags = &quot;&quot;.join(w.lstrip(&quot;-&quot;) for w in words[1:] if w.startswith(&quot;-&quot;) and not w.startswith(&quot;--&quot;))
+        long_flags = [w for w in words[1:] if w.startswith(&quot;--&quot;)]
+        recursive = &quot;r&quot; in flags.lower() or &quot;--recursive&quot; in long_flags
+        forced = &quot;f&quot; in flags or &quot;--force&quot; in long_flags
+        if not (recursive and forced):
+            continue
+        for target in (w.strip(&quot;&#x27;\&quot;&quot;) for w in words[1:] if not w.startswith(&quot;-&quot;)):
+            # Root, home, the whole current directory or any absolute path
+            if target in (&quot;/&quot;, &quot;/*&quot;, &quot;~&quot;, &quot;~/&quot;, &quot;~/*&quot;, &quot;.&quot;, &quot;./&quot;, &quot;..&quot;, &quot;*&quot;, &quot;./*&quot;) \
+                    or target.startswith((&quot;/&quot;, &quot;~&quot;, &quot;$HOME&quot;, &quot;${HOME}&quot;, &quot;..&quot;)):
+                block(f&quot;&#x27;rm -rf {target}&#x27; is too dangerous. Delete specific paths inside the project.&quot;)
+
+
+def check_push(command, cwd):
+    for part in re.split(r&quot;&amp;&amp;|\|\||;|\n&quot;, command):
+        if not re.search(r&quot;\bgit\s+(-C\s+\S+\s+)?push\b&quot;, part):
+            continue
+        if not re.search(r&quot;(\s--force(-with-lease)?\b|\s-[a-zA-Z]*f\b|\s\+\S+)&quot;, part):
+            continue
+        if re.search(r&quot;\b(main|master)\b&quot;, part):
+            block(&quot;&#x27;git push --force&#x27; to main/master is not allowed. Use a branch and a pull request.&quot;)
+        # No explicit branch: check which branch the repository is on
+        try:
+            branch = subprocess.run([&quot;git&quot;, &quot;-C&quot;, cwd, &quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;],
+                                    capture_output=True, text=True, timeout=5).stdout.strip()
+        except (OSError, subprocess.SubprocessError):
+            branch = &quot;&quot;
+        if branch in (&quot;main&quot;, &quot;master&quot;):
+            block(f&quot;you are on &#x27;{branch}&#x27; and &#x27;git push --force&#x27; would rewrite it. Use a branch.&quot;)
+
+
+def main():
+    data = json.load(sys.stdin)
+    tool = data.get(&quot;tool_name&quot;, &quot;&quot;)
+    tool_input = data.get(&quot;tool_input&quot;, {})
+
+    if tool in (&quot;Read&quot;, &quot;Edit&quot;, &quot;Write&quot;):
+        path = tool_input.get(&quot;file_path&quot;, &quot;&quot;)
+        if is_secret(path):
+            block(f&quot;&#x27;{path}&#x27; contains secrets. Ask the user for the value you need.&quot;)
+    elif tool == &quot;Grep&quot;:
+        path = tool_input.get(&quot;path&quot;, &quot;&quot;) or &quot;&quot;
+        if is_secret(path) or is_secret(tool_input.get(&quot;glob&quot;, &quot;&quot;) or &quot;&quot;):
+            block(f&quot;searching inside secret files is not allowed (&#x27;{path or tool_input.get(&#x27;glob&#x27;)}&#x27;).&quot;)
+    elif tool == &quot;Bash&quot;:
+        command = tool_input.get(&quot;command&quot;, &quot;&quot;)
+        for m in SECRET_IN_COMMAND.finditer(command):
+            if not TEMPLATES.match(m.group(1)):
+                block(f&quot;the command touches &#x27;{m.group(1)}&#x27;, which contains secrets.&quot;)
+        check_rm(command)
+        check_push(command, data.get(&quot;cwd&quot;, &quot;.&quot;))
+
+    sys.exit(0)  # no objection: the normal permission flow continues
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+<p>What it blocks:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Tool</th><th scope="col">Blocked</th><th scope="col">Allowed</th></tr></thead><tbody><tr><td><code>Read</code>, <code>Edit</code>, <code>Write</code></td><td><code>.env</code>, <code>.env.*</code>, <code>*.pem</code>, <code>*.key</code>, <code>id_rsa*</code>, <code>id_ed25519*</code>, <code>credentials.json</code>, <code>.npmrc</code>, <code>.pypirc</code></td><td><code>.env.example</code>, <code>.env.sample</code>, <code>.env.template</code></td></tr><tr><td><code>Grep</code></td><td>searching inside those files</td><td>the rest of the project</td></tr><tr><td><code>Bash</code></td><td>commands that name those files (<code>cat .env</code>, <code>cp x .env</code>…)</td><td><code>process.env</code>, <code>.envrc</code></td></tr><tr><td><code>Bash</code></td><td><code>rm -rf</code> (or <code>-fr</code>, <code>-Rf</code>, with <code>sudo</code>) on <code>/</code>, <code>~</code>, <code>$HOME</code>, <code>.</code>, <code>..</code>, <code>*</code> or any absolute path</td><td><code>rm -rf node_modules dist</code></td></tr><tr><td><code>Bash</code></td><td><code>git push --force</code>, <code>-f</code>, <code>--force-with-lease</code> or <code>+branch</code> to <code>main</code>/<code>master</code>, or with no branch while you are on <code>main</code></td><td><code>git push --force origin feature/x</code></td></tr></tbody></table></div>
+<h3>2. Register it in <code>.claude/settings.json</code></h3>
+<p>Create or extend <code>.claude/settings.json</code> at the project root:</p>
+<pre><code class="language-json">{
+  &quot;hooks&quot;: {
+    &quot;PreToolUse&quot;: [
+      {
+        &quot;matcher&quot;: &quot;Bash|Read|Edit|Write|Grep&quot;,
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;python3 \&quot;$CLAUDE_PROJECT_DIR\&quot;/.claude/hooks/protect.py&quot;
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+<p>The <code>matcher</code> is a list of exact tool names separated by <code>|</code>, and it is case-sensitive. <code>$CLAUDE_PROJECT_DIR</code> is the project root, so the hook still works when Claude changes directory. Calling the script through <code>python3</code> means you don&#x27;t have to make it executable.</p>
+<h3>3. Share the protection with your team</h3>
+<p>Commit <code>.claude/settings.json</code> and <code>.claude/hooks/protect.py</code> to the repository, and add <code>.env</code> to <code>.gitignore</code> if it isn&#x27;t there yet. Everyone who clones the project then gets the same rules.</p>
+<h2>Check it</h2>
+<p>First test the script on its own by simulating the JSON input Claude Code sends it:</p>
+<pre><code class="language-bash">echo &#x27;{&quot;tool_name&quot;:&quot;Read&quot;,&quot;tool_input&quot;:{&quot;file_path&quot;:&quot;/tmp/demo/.env&quot;}}&#x27; | python3 .claude/hooks/protect.py; echo &quot;exit $?&quot;
+echo &#x27;{&quot;tool_name&quot;:&quot;Bash&quot;,&quot;tool_input&quot;:{&quot;command&quot;:&quot;rm -rf node_modules&quot;}}&#x27; | python3 .claude/hooks/protect.py; echo &quot;exit $?&quot;
+echo &#x27;{&quot;tool_name&quot;:&quot;Bash&quot;,&quot;tool_input&quot;:{&quot;command&quot;:&quot;git push --force origin main&quot;}}&#x27; | python3 .claude/hooks/protect.py; echo &quot;exit $?&quot;</code></pre>
+<p>Expected output:</p>
+<pre><code class="language-text">Blocked by the security hook: &#x27;/tmp/demo/.env&#x27; contains secrets. Ask the user for the value you need.
+exit 2
+exit 0
+Blocked by the security hook: &#x27;git push --force&#x27; to main/master is not allowed. Use a branch and a pull request.
+exit 2</code></pre>
+<p>Then test it with real Claude Code. We did it in <code>bypassPermissions</code>, the most permissive mode:</p>
+<pre><code class="language-bash">claude -p &quot;Hook test: try to read .env with Read and then with &#x27;cat .env&#x27;. Don&#x27;t show any values; copy the exact error.&quot; --permission-mode bypassPermissions &lt; /dev/null</code></pre>
+<p>This is what Claude received, copied from a real run with version 2.1.316 (with the Spanish version of the script, which prints the same messages in Spanish):</p>
+<pre><code class="language-text">PreToolUse:Read hook error: [python3 &quot;$CLAUDE_PROJECT_DIR&quot;/.claude/hooks/proteger.py]: Bloqueado por el hook de seguridad: &#x27;/tmp/claude-1000/receta-hooks/.env&#x27; contiene secretos. Pídele al usuario el valor que necesites.
+PreToolUse:Bash hook error: [python3 &quot;$CLAUDE_PROJECT_DIR&quot;/.claude/hooks/proteger.py]: Bloqueado por el hook de seguridad: el comando toca &#x27;.env&#x27;, que contiene secretos.</code></pre>
+<p>With <code>protect.py</code> the message reads <code>Blocked by the security hook: ...</code>. For <code>rm -rf /tmp/claude-1000/receta-hooks-basura</code> and <code>git push --force origin main</code> Claude also got the block error, and the folder stayed where it was. In an interactive session, type <code>/hooks</code> to confirm the hook is listed under <code>PreToolUse</code>.</p>
+<h2>Why it works</h2>
+<p>Claude Code runs <code>PreToolUse</code> hooks before it checks permissions, and it does so in every permission mode, including <code>bypassPermissions</code> and <code>dontAsk</code>. The hook gets a JSON object on stdin with <code>tool_name</code> and <code>tool_input</code>, which holds <code>command</code> for <code>Bash</code>, <code>file_path</code> for <code>Read</code>, <code>Edit</code> and <code>Write</code>, and <code>path</code> for <code>Grep</code>. Claude Code makes the file tools&#x27; paths absolute before it calls the hook. With exit 2 the action is blocked and the stderr text reaches Claude as the reason it was denied. Exit 0 approves nothing: the action goes through the normal permission flow. Any other exit code is a non-blocking error, and the action runs anyway. More in the <a href="https://code.claude.com/docs/en/hooks" rel="noopener">hooks reference</a> and the <a href="https://code.claude.com/docs/en/hooks-guide" rel="noopener">hooks guide</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li><strong>Every tool is blocked with <code>can&#x27;t open file</code></strong> → the script path is wrong, and <code>python3</code> exits with code 2 when it can&#x27;t find the file, so it blocks everything → fix the path in <code>settings.json</code>. It must be <code>&quot;$CLAUDE_PROJECT_DIR&quot;/.claude/hooks/protect.py</code>, quotes included.</li><li><strong>The hook never runs</strong> → the JSON in <code>settings.json</code> is invalid (trailing commas, comments), the file isn&#x27;t at <code>.claude/settings.json</code>, or the <code>matcher</code> is lowercase (<code>bash</code>) → validate the JSON with <code>python3 -m json.tool .claude/settings.json</code> and type <code>/hooks</code>. If you edited the file during a session and the hook doesn&#x27;t show up, restart the session.</li><li><strong><code>python3: command not found</code></strong> (on Windows it is often called <code>python</code>) → in <code>command</code>, replace <code>python3</code> with the name of your interpreter.</li><li><strong>Your script catches the problem but the action runs anyway</strong> → it exits with <code>exit 1</code> or raises an exception, and Claude Code treats that as a non-blocking error → you have to use <code>sys.exit(2)</code> to block. Note: if the input JSON is broken, this script fails with code 1 and the action goes through.</li><li><strong>It blocks <code>cp .env.example .env</code></strong> → this is on purpose, because the command writes to <code>.env</code> → run it yourself in your terminal.</li></ul>
+<h2>FAQ</h2>
+<h3>Does it work with <code>--dangerously-skip-permissions</code> or in <code>bypassPermissions</code> mode?</h3>
+<p>Yes. The documentation says <code>PreToolUse</code> hooks run before the permission mode is checked and that a block holds in every mode. We tested it with <code>--permission-mode bypassPermissions</code>.</p>
+<h3>Is it bulletproof?</h3>
+<p>No. A command that reads files without naming them, such as <code>python -c &quot;open(&#x27;.e&#x27;+&#x27;nv&#x27;)&quot;</code> or <code>grep -r key .</code>, gets past it. Combine it with permission rules (<code>&quot;permissions&quot;: {&quot;deny&quot;: [&quot;Read(./.env)&quot;, &quot;Read(./.env.*)&quot;]}</code>) and, if you need blocking at the operating-system level, with the <a href="https://code.claude.com/docs/en/sandboxing" rel="noopener">sandbox</a>.</p>
+<h3>Why Python and not <code>jq</code>?</h3>
+<p>The official examples use <code>jq</code>, but many machines don&#x27;t have it installed, and then the hook fails with <code>jq: command not found</code>. <code>python3</code> usually comes installed on Linux and macOS, and the script only uses the standard library.</p>
+<h3>Can I use it in all my projects?</h3>
+<p>Yes. Copy the script to <code>~/.claude/hooks/protect.py</code> and put the same <code>hooks</code> block in <code>~/.claude/settings.json</code>, with <code>&quot;command&quot;: &quot;python3 \&quot;$HOME\&quot;/.claude/hooks/protect.py&quot;</code>.</p>
+<h3>What if I really need Claude to use a value from <code>.env</code>?</h3>
+<p>Give it the value it needs yourself, or let the code read it at runtime without Claude seeing it. If it only needs to know which variables exist, keep a <code>.env.example</code> with no values: the hook lets Claude read it.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">More recipes</h2>
+    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li><li><a href="claude-code-precio-gratis.html">Is Claude Code free? Pricing and which plan to pick (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code in VS Code: extension or terminal, how to install</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="index.html">All recipes</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code — in Spanish.</p></div>
+    <nav aria-label="Links"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a resource</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>
