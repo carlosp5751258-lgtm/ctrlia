@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
 <meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
@@ -27,10 +27,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code skills vs hooks, MCP, subagents and plugins", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/que-pieza-usar.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "CLAUDE.md, skills, commands, subagents, hooks, MCP and plugins in Claude Code: what each is for, when to use it, where it goes and its context cost.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/que-pieza-usar.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What's the difference between a skill and a command in .claude/commands?", "acceptedAnswer": {"@type": "Answer", "text": "In practice, none today: commands were merged into skills and both create /name. A skill adds a folder for supporting files, more frontmatter fields and the option for Claude to load it on its own. If both exist with the same name, the skill wins."}}, {"@type": "Question", "name": "Can I put a security rule in CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "You can, but it's a request, not a guarantee. For what must always hold, use a PreToolUse hook or a deny rule in permissions (see security hooks and permissions)."}}, {"@type": "Question", "name": "Does a subagent use fewer tokens?", "acceptedAnswer": {"@type": "Answer", "text": "Not necessarily in total: it uses its own window with its own input and output tokens. What it saves is context in your main conversation, which only gets the summary."}}, {"@type": "Question", "name": "Do I need a plugin to use my skills?", "acceptedAnswer": {"@type": "Answer", "text": "No. Skills in .claude/skills/ or ~/.claude/skills/ work on their own. A plugin is for packaging several pieces and taking them to other repositories or other people."}}, {"@type": "Question", "name": "What is a mod and how is it different from a hook?", "acceptedAnswer": {"@type": "Answer", "text": "A settings hook runs a command, an HTTP request or a prompt outside Claude Code. A mod is a plugin with JavaScript or TypeScript functions that run inside Claude Code and can draw interface or step into tool calls. Available since 2.1.287."}}, {"@type": "Question", "name": "Where do I start if I have nothing?", "acceptedAnswer": {"@type": "Answer", "text": "With a CLAUDE.md holding the project's commands and conventions. If your team already uses AGENTS.md, see AGENTS.md vs CLAUDE.md. Then add each piece when its trigger shows up (see the \"If this happens, use this\" section)."}}]}]}</script>
-<link rel="stylesheet" href="../../css/estilo.css?v=40c1f359">
-<script src="../../js/sitio.js?v=40c1f359"></script>
+<link rel="stylesheet" href="../../css/estilo.css?v=d20fe08f">
+<script src="../../js/sitio.js?v=d20fe08f"></script>
 <meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
-<script src="../../js/cuentas.js?v=40c1f359" defer></script>
+<script src="../../js/cuentas.js?v=d20fe08f" defer></script>
 </head>
 <body>
 <header class="barra">

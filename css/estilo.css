@@ -582,3 +582,19 @@ span.voto { display: inline-grid; place-items: center; cursor: default; }
 /* «Empieza aquí» en modo claro: tarjeta clara como la portada (borde + sombra) sobre el fondo blanco, con una franja menta a la izquierda */
 :root:not([data-tema="oscuro"]) .destacado { background: var(--superficie); border: 1px solid var(--linea); box-shadow: var(--sombra); border-left: 6px solid var(--menta); }
 :root:not([data-tema="oscuro"]) .destacado .insignia { background: var(--menta-claro); }
+
+/* Reel incrustado (2-nov): portada con ▶; al pulsar se reproduce aquí (sitio.js); sin JS abre el MP4 */
+.video-reel { margin: 24px 0 20px; }
+.video-reel .portada-img { margin: 0; display: block; }
+.video-play { position: relative; display: block; border-radius: 16px; }
+.video-play:focus-visible { outline: 3px solid var(--menta-osc); outline-offset: 3px; }
+.video-boton { position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%;
+  background: rgb(27 44 63 / 0.82); border: 3px solid #7ee0bd; box-shadow: 0 8px 24px rgb(0 0 0 / 0.35); transition: transform 160ms var(--ease); }
+.video-boton::after { content: ""; position: absolute; left: 32px; top: 24px; border-style: solid; border-width: 18px 0 18px 28px; border-color: transparent transparent transparent #7ee0bd; }
+.video-play:hover .video-boton { transform: scale(1.08); }
+.video-dur { position: absolute; right: 12px; bottom: 12px; background: rgb(11 21 32 / 0.8); color: #fff; font-size: var(--t-chico); font-weight: 600;
+  padding: 4px 10px; border-radius: 99px; }
+.video-reproductor { display: block; height: min(80vh, 760px); max-width: 100%; aspect-ratio: 9 / 16; margin: 0 auto; background: #000; border-radius: 16px; }
+.video-reel figcaption { margin-top: 8px; font-size: var(--t-chico); color: var(--suave); text-align: center; }
+.video-reel figcaption a { color: var(--menta-osc); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .video-boton { transition: none; } }

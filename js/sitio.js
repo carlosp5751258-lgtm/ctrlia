@@ -65,6 +65,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (chips.length) elegir(chips[0].dataset.id, false);
   desdeHash();
 
+  // Reel incrustado: no se descarga nada hasta el clic; entonces se reproduce aquí mismo, con sonido
+  document.querySelectorAll(".video-reel .video-play").forEach((a) => a.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    const v = document.createElement("video");
+    Object.assign(v, { src: a.href, controls: true, autoplay: true, playsInline: true, preload: "auto", className: "video-reproductor" });
+    v.setAttribute("aria-label", a.getAttribute("aria-label"));
+    a.replaceWith(v); v.focus();
+    v.play().catch(() => {});                                      // si el navegador no deja reproducir solo, quedan los controles
+  }));
+
   // Biblioteca: búsqueda por texto (sin acentos) + un formato + un tema; el estado va en la URL (?q=&formato=&tema=)
   const bib = document.querySelector(".biblioteca");
   if (bib) {

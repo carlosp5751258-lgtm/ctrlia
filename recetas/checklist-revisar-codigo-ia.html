@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
 <meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
@@ -27,10 +27,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Antes de fusionar código de Claude Code: checklist de revisión", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/recetas/checklist-revisar-codigo-ia.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Ocho comprobaciones antes de fusionar código escrito por Claude Code: tests reales, secretos, dependencias, licencias, alcance, revisión y un script.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/checklist-revisar-codigo-ia.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿/code-review sustituye la revisión humana?", "acceptedAnswer": {"@type": "Answer", "text": "No. Encuentra errores de corrección con un subagente que no vio la conversación, lo que lo hace útil, pero la documentación deja la responsabilidad de revisar en ti. Úsalo como primer filtro y deja la aprobación final a una persona, sobre todo en autenticación, dinero, datos y despliegue."}}, {"@type": "Question", "name": "¿Qué diferencia hay entre /code-review y la revisión de PR en GitHub Actions?", "acceptedAnswer": {"@type": "Answer", "text": "/code-review corre en tu sesión, en local, y cuenta en tu plan como el resto de la sesión. La receta de GitHub Actions (claude-code-action) revisa cada PR en GitHub de forma automática. También existe el servicio gestionado Code Review para planes Team y Enterprise. Puedes combinarlos: local antes de abrir el PR, automático en el PR."}}, {"@type": "Question", "name": "¿/code-review lee mi CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, sigue tu CLAUDE.md, también en una ejecución con -p. No lee REVIEW.md, que solo configura el servicio gestionado de Code Review en GitHub."}}, {"@type": "Question", "name": "¿Por qué el script no encontró un secreto que sí hay?", "acceptedAnswer": {"@type": "Answer", "text": "Porque solo busca palabras típicas en las líneas añadidas: una clave guardada en una variable con otro nombre o codificada se le escapa. Es un aviso rápido, no un escáner. Para eso, añade una herramienta de detección de secretos al CI."}}, {"@type": "Question", "name": "¿Cómo evito que Claude debilite los tests para que pasen?", "acceptedAnswer": {"@type": "Answer", "text": "Díselo en CLAUDE.md («no cambies ni saltes tests existentes sin preguntar»), revisa el diff de tests/ en cada PR y pide al revisor que señale tests borrados, saltados o con aserciones aflojadas, como hace la skill /preparar-pr de la plantilla de proyecto."}}]}]}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=40c1f359">
-<script src="../js/sitio.js?v=40c1f359"></script>
+<link rel="stylesheet" href="../css/estilo.css?v=d20fe08f">
+<script src="../js/sitio.js?v=d20fe08f"></script>
 <meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
-<script src="../js/cuentas.js?v=40c1f359" defer></script>
+<script src="../js/cuentas.js?v=d20fe08f" defer></script>
 </head>
 <body>
 <header class="barra">
