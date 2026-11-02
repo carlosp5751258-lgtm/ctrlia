@@ -4,7 +4,7 @@
 "use strict";
 (() => {
   const meta = document.querySelector('meta[name="ctrlia-supabase"]')?.content.split("|");
-  if (!meta) return;
+  if (!meta || window.top !== window.self) return;   // en un iframe ajeno no hay cuentas: GitHub Pages no admite frame-ancestors (anti clickjacking)
   const [URL_SB, CLAVE] = meta;
   const EN = document.documentElement.lang === "en";
   const tx = (es, en) => (EN ? en : es);

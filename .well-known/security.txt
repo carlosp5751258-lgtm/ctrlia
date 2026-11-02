@@ -1,0 +1,5 @@
+Contact: https://github.com/carlosp5751258-lgtm/ctrlia/security/advisories/new
+Expires: 2027-11-01T00:00:00.000Z
+Preferred-Languages: es, en
+Canonical: https://ctrlia.dev/.well-known/security.txt
+Policy: https://github.com/carlosp5751258-lgtm/ctrlia/blob/main/SECURITY.md
