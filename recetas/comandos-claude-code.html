@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Comandos de Claude Code: chuleta de slash, atajos y flags · Ctrl+IA</title>
+<meta name="description" content="Chuleta de Claude Code al día: comandos /, atajos de teclado y flags de terminal por grupos, con qué hace cada uno y cuándo usarlo. Lista para copiar.">
+<meta property="og:title" content="Comandos de Claude Code: chuleta de slash, atajos y flags · Ctrl+IA">
+<meta property="og:description" content="Chuleta de Claude Code al día: comandos /, atajos de teclado y flags de terminal por grupos, con qué hace cada uno y cuándo usarlo. Lista para copiar.">
+<meta property="og:image" content="https://ctrlia.dev/img/comandos-claude-code.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/comandos-claude-code.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/comandos-claude-code.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/comandos-claude-code.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/comandos-claude-code.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/comandos-claude-code.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/comandos-claude-code.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Comandos de Claude Code: chuleta de slash, atajos y flags", "datePublished": "2026-11-02", "mainEntityOfPage": "https://ctrlia.dev/recetas/comandos-claude-code.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Chuleta de Claude Code al día: comandos /, atajos de teclado y flags de terminal por grupos, con qué hace cada uno y cuándo usarlo. Lista para copiar.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/comandos-claude-code.html", "dateModified": "2026-11-02", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cómo veo todos los comandos de Claude Code?", "acceptedAnswer": {"@type": "Answer", "text": "Escribe / en una sesión: aparece la lista completa de tu versión, incluidas tus skills y las de tus plugins, y puedes filtrar escribiendo. /help muestra la ayuda, y claude --help las opciones de terminal."}}, {"@type": "Question", "name": "¿Qué diferencia hay entre /clear y /compact?", "acceptedAnswer": {"@type": "Answer", "text": "/clear empieza una conversación nueva con el contexto vacío; /compact resume la actual para liberar espacio y seguir con la misma tarea. Lo explicamos con ejemplos en /clear vs /compact."}}, {"@type": "Question", "name": "¿Puedo crear mis propios comandos?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: cualquier skill en .claude/skills/<nombre>/SKILL.md (o un archivo en .claude/commands/) crea /nombre. Tienes cinco listos para copiar en el pack de comandos y el paso a paso en primera skill."}}, {"@type": "Question", "name": "¿Cómo retomo una conversación anterior?", "acceptedAnswer": {"@type": "Answer", "text": "claude -c carga la más reciente de la carpeta actual y claude -r abre el selector o retoma una por ID o nombre. Dentro de una sesión, /resume hace lo mismo."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=d20fe08f">
+<script src="../js/sitio.js?v=d20fe08f"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=d20fe08f" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/comandos-claude-code.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Referencia · Básico · 8 min</p>
+  <h1 id="t-art">Comandos de Claude Code: chuleta de slash, atajos y flags</h1>
+  <p class="entrada">Chuleta de Claude Code al día: comandos /, atajos de teclado y flags de terminal por grupos, con qué hace cada uno y cuándo usarlo. Lista para copiar.</p>
+  <img class="portada-img" src="../img/comandos-claude-code.webp" width="960" height="540" alt="Portada: Comandos de Claude Code: chuleta de slash, atajos y flags">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-02">2026-11-02</time></p>
+  
+  
+  
+<h2>Resumen</h2>
+<p>Claude Code tiene más de cien comandos <code>/</code>, decenas de atajos y otras tantas opciones de terminal. Esta chuleta reúne los que de verdad se usan en el día a día, agrupados por para qué sirven: <strong>sesión y contexto</strong>, <strong>modelo y coste</strong>, <strong>permisos y modos</strong>, <strong>proyecto y memoria</strong>, <strong>extensiones</strong>, <strong>diagnóstico</strong>, <strong>atajos de teclado</strong> y <strong>flags de línea de comandos</strong>. Cada fila dice qué hace en una frase y cuándo te conviene.</p>
+<p>Todo está comprobado contra la documentación oficial y contra <code>claude --help</code> en Claude Code 2.1.316. Escribe <code>/</code> en una sesión para ver la lista completa de tu versión (incluidas tus skills), y <code>?</code> con el cuadro vacío para ver los atajos.</p>
+<h2>Sesión y contexto</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th><th scope="col">Cuándo usarlo</th></tr></thead><tbody><tr><td><code>/clear [nombre]</code></td><td>Empieza una conversación nueva con el contexto vacío (alias <code>/reset</code> y <code>/new</code>)</td><td>Al cambiar de tarea; el nombre etiqueta la anterior en <code>/resume</code></td></tr><tr><td><code>/compact [instrucciones]</code></td><td>Resume la conversación para liberar contexto sin salir de ella</td><td>Cuando el contexto se llena pero quieres seguir con la misma tarea</td></tr><tr><td><code>/context</code></td><td>Muestra en una cuadrícula qué ocupa la ventana de contexto, con sugerencias</td><td>Antes de decidir entre <code>/clear</code> y <code>/compact</code>, o si Claude va lento</td></tr><tr><td><code>/resume [sesión]</code></td><td>Retoma una conversación por ID o nombre, o abre el selector</td><td>Para volver a una tarea de ayer</td></tr><tr><td><code>/rename [nombre]</code></td><td>Pone nombre a la sesión actual (sin nombre, lo genera)</td><td>Para encontrarla luego con <code>/resume</code> o <code>claude -r</code></td></tr><tr><td><code>/branch [nombre]</code></td><td>Crea una rama de la conversación en este punto y te cambia a ella</td><td>Para probar otro enfoque sin perder lo que llevas</td></tr><tr><td><code>/rewind</code></td><td>Vuelve la conversación y/o el código a un punto anterior (alias <code>/checkpoint</code>, <code>/undo</code>)</td><td>Cuando Claude tomó un mal camino y quieres deshacer sus cambios</td></tr><tr><td><code>/btw [pregunta]</code></td><td>Hace una pregunta lateral sin añadirla a la conversación</td><td>Para una duda rápida que no debe ensuciar el contexto</td></tr><tr><td><code>/copy [N]</code></td><td>Copia la última respuesta (o la N-ésima) al portapapeles</td><td>Para pegar un bloque de código o una respuesta fuera</td></tr><tr><td><code>/export [archivo]</code></td><td>Exporta la conversación como texto plano</td><td>Para guardar o compartir una sesión</td></tr><tr><td><code>/recap</code></td><td>Genera un resumen de una línea de la sesión</td><td>Al volver de una pausa</td></tr><tr><td><code>/exit</code></td><td>Sale de Claude Code (alias <code>/quit</code>)</td><td>Al terminar</td></tr></tbody></table></div>
+<pre><code class="language-text">/context
+/compact conserva solo la decisión sobre la API y los archivos tocados
+/clear arreglo-login
+/resume arreglo-login</code></pre>
+<p>La diferencia entre limpiar y compactar, y la compactación en reposo, están en <a href="/recetas/clear-vs-compact.html">/clear vs /compact</a>.</p>
+<h2>Modelo y coste</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th><th scope="col">Cuándo usarlo</th></tr></thead><tbody><tr><td><code>/model [modelo]</code></td><td>Cambia el modelo y lo guarda como predeterminado; en el selector, <code>s</code> lo cambia solo para esta sesión</td><td>Para pasar a un modelo más capaz o más barato según la tarea</td></tr><tr><td><code>/effort [nivel]</code></td><td>Fija el nivel de esfuerzo: de <code>low</code> a <code>xhigh</code>, <code>max</code> o <code>auto</code>; <code>status</code> lo muestra</td><td>Más esfuerzo para problemas difíciles, menos para tareas mecánicas</td></tr><tr><td><code>/fast [on|off]</code></td><td>Activa o desactiva el modo rápido</td><td>Cuando la velocidad importa más que el coste</td></tr><tr><td><code>/usage</code></td><td>Muestra coste de la sesión, límites del plan y estadísticas (alias <code>/cost</code> y <code>/stats</code>)</td><td>Para saber cuánto te queda antes del límite</td></tr><tr><td><code>/rate-limit-options</code></td><td>Muestra cómo seguir trabajando cuando un límite de uso bloquea una petición</td><td>Al chocar con el límite de tu plan</td></tr></tbody></table></div>
+<pre><code class="language-text">/model sonnet
+/effort high
+/usage</code></pre>
+<p>Qué modelo elegir para cada tarea está en <a href="/recetas/opus-sonnet-haiku.html">Opus vs Sonnet vs Haiku</a>, el modo rápido en <a href="/recetas/opus-48-modo-rapido.html">Opus 4.8 y el modo rápido</a> y cómo estirar tu cuota en <a href="/recetas/limite-uso-claude-code.html">Límite de uso</a>.</p>
+<h2>Permisos y modos</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th><th scope="col">Cuándo usarlo</th></tr></thead><tbody><tr><td><code>/permissions</code></td><td>Abre las reglas allow, ask y deny por ámbito, y las denegaciones recientes del modo automático (alias <code>/allowed-tools</code>)</td><td>Para dejar de aprobar el mismo comando una y otra vez</td></tr><tr><td><code>/plan [descripción]</code></td><td>Entra en modo plan desde el cuadro, opcionalmente con la tarea</td><td>Antes de un cambio grande: acordar el enfoque sin tocar código</td></tr><tr><td><code>/sandbox</code></td><td>Activa o desactiva el modo sandbox (solo en plataformas compatibles)</td><td>Para aislar los comandos de Bash del resto del sistema</td></tr><tr><td><code>/fewer-permission-prompts</code></td><td>Skill incluida: revisa tus transcripciones y propone una lista de permitidos para <code>.claude/settings.json</code></td><td>Cuando aprobar comandos de solo lectura te frena</td></tr><tr><td><code>/add-dir &lt;ruta&gt;</code></td><td>Añade otra carpeta de trabajo a la sesión</td><td>Cuando la tarea toca un repositorio vecino</td></tr></tbody></table></div>
+<pre><code class="language-text">/plan migra el login a OAuth sin tocar la base de datos
+/permissions</code></pre>
+<p>Las reglas a fondo están en <a href="/recetas/permisos-claude-code.html">Permisos de Claude Code</a>, el modo plan en <a href="/recetas/modo-plan.html">Modo plan</a> y el clasificador en <a href="/recetas/auto-mode.html">Modo automático</a>.</p>
+<h2>Proyecto, memoria y revisión</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th><th scope="col">Cuándo usarlo</th></tr></thead><tbody><tr><td><code>/init</code></td><td>Crea un <code>CLAUDE.md</code> inicial para el proyecto</td><td>La primera vez que abres Claude Code en un repositorio</td></tr><tr><td><code>/memory</code></td><td>Edita los <code>CLAUDE.md</code>, activa o desactiva la memoria automática y muestra sus entradas</td><td>Cuando Claude repite un error que una línea en CLAUDE.md evitaría</td></tr><tr><td><code>/diff</code></td><td>Revisa los cambios del árbol de trabajo, incluidas las ediciones de Claude</td><td>Antes de hacer commit</td></tr><tr><td><code>/code-review [nivel] [objetivo]</code></td><td>Skill incluida: revisa el diff actual, un PR, una rama o una ruta en busca de errores (alias <code>/review</code>)</td><td>Antes de fusionar; <code>--fix</code> aplica lo que encuentra</td></tr><tr><td><code>/security-review</code></td><td>Analiza los cambios de tu rama frente a la rama principal de <code>origin</code> en busca de vulnerabilidades</td><td>Antes de subir código que toca autenticación, entradas o datos</td></tr><tr><td><code>/cd &lt;ruta&gt;</code></td><td>Mueve la sesión a otra carpeta conservando la conversación</td><td>Para seguir la misma tarea en otro directorio</td></tr></tbody></table></div>
+<pre><code class="language-text">/init
+/diff
+/code-review
+/security-review</code></pre>
+<p>Cómo recortar el CLAUDE.md que genera <code>/init</code> está en <a href="/recetas/claude-md-que-funciona.html">Un CLAUDE.md que funciona</a>, y qué revisar a mano en <a href="/recetas/checklist-revisar-codigo-ia.html">el checklist de revisión</a>.</p>
+<h2>Extensiones: skills, plugins, MCP y hooks</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th><th scope="col">Cuándo usarlo</th></tr></thead><tbody><tr><td><code>/skills</code></td><td>Lista las skills disponibles; <code>t</code> ordena por tokens</td><td>Para ver qué tienes instalado y qué pesa</td></tr><tr><td><code>/reload-skills</code></td><td>Vuelve a leer las carpetas de skills y comandos sin reiniciar</td><td>Tras crear o editar una skill durante la sesión</td></tr><tr><td><code>/skill-doctor</code></td><td>Muestra cuánto contexto cuesta cada skill y cuánto se usa</td><td>Para decidir cuáles desactivar</td></tr><tr><td><code>/plugin [subcomando]</code></td><td>Abre el gestor de plugins o actúa directo (<code>list</code>, <code>install</code>, <code>enable</code>, <code>disable</code>)</td><td>Para instalar o apagar un plugin</td></tr><tr><td><code>/reload-plugins</code></td><td>Recarga los plugins activos para aplicar cambios sin reiniciar</td><td>Tras instalar o modificar un plugin</td></tr><tr><td><code>/mcp</code></td><td>Gestiona las conexiones y la autenticación de los servidores MCP; <code>reconnect all</code> reintenta los caídos</td><td>Cuando un servidor MCP no responde o pide login</td></tr><tr><td><code>/hooks</code></td><td>Muestra la configuración de hooks</td><td>Para comprobar qué se ejecuta en cada evento</td></tr><tr><td><code>/agents</code></td><td>En 2.1.316 solo recuerda que pidas a Claude crear el subagente o edites <code>.claude/agents/</code></td><td>Para no buscar el menú antiguo, que desapareció tras la 2.1.197</td></tr><tr><td><code>/statusline</code></td><td>Configura la barra de estado, describiéndola o copiando tu prompt de shell</td><td>Para ver modelo, contexto y límites siempre a la vista</td></tr><tr><td><code>/output-style [estilo]</code></td><td>Lista los estilos de salida o cambia a uno</td><td>Para respuestas más breves o más didácticas</td></tr></tbody></table></div>
+<p>Desde la terminal, sin abrir sesión:</p>
+<pre><code class="language-bash"># Añadir un servidor MCP remoto y listar los configurados
+claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
+claude mcp list
+# Instalar un plugin y ver qué trae y cuánto contexto cuesta
+claude plugin install &lt;plugin&gt;
+claude plugin details &lt;plugin&gt;</code></pre>
+<p>Cada pieza tiene su receta: <a href="/recetas/primera-skill.html">primera skill</a>, <a href="/recetas/crear-plugin-claude-code.html">crear un plugin</a>, <a href="/recetas/mcp-para-programadores.html">MCP para programadores</a>, <a href="/recetas/hooks-seguridad.html">hooks de seguridad</a>, <a href="/recetas/subagentes.html">subagentes</a> y <a href="/recetas/statusline.html">statusline</a>. Si dudas cuál usar, mira <a href="/recetas/que-pieza-usar.html">qué pieza usar</a>.</p>
+<h2>Diagnóstico</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Comando</th><th scope="col">Qué hace</th><th scope="col">Cuándo usarlo</th></tr></thead><tbody><tr><td><code>/doctor</code></td><td>Skill incluida: revisa instalación, settings, extensiones y CLAUDE.md, y propone arreglos que aplica si confirmas (alias <code>/checkup</code>)</td><td>Cuando algo falla y no sabes por qué</td></tr><tr><td><code>/debug [descripción]</code></td><td>Skill incluida: activa el registro de depuración y lo analiza</td><td>Para un fallo concreto que puedes reproducir</td></tr><tr><td><code>/status</code></td><td>Muestra versión, modelo, cuenta y conectividad</td><td>Para confirmar con qué cuenta y modelo trabajas</td></tr><tr><td><code>/config</code></td><td>Abre los ajustes (tema, modelo, estilo…); acepta <code>clave=valor</code></td><td>Para cambiar una preferencia sin editar JSON</td></tr><tr><td><code>/tasks</code></td><td>Muestra y gestiona el trabajo en segundo plano de la sesión (alias <code>/bashes</code>)</td><td>Para ver o parar un comando o subagente en segundo plano</td></tr><tr><td><code>/release-notes</code></td><td>Abre el changelog por versión</td><td>Tras actualizar, para ver qué cambió</td></tr><tr><td><code>/bug [informe]</code></td><td>Reporta un error o comparte la conversación, con pantalla de consentimiento</td><td>Para avisar a Anthropic de un fallo</td></tr><tr><td><code>/help</code></td><td>Muestra la ayuda y los comandos disponibles</td><td>Cuando no recuerdas un comando</td></tr></tbody></table></div>
+<pre><code class="language-bash"># Desde la terminal, sin abrir sesión
+claude --version
+claude doctor
+claude auth status --text
+claude update</code></pre>
+<p>Los errores más frecuentes (529, 401, 403, límites) y su arreglo están en <a href="/recetas/errores-comunes-claude-code.html">Errores comunes de Claude Code</a>.</p>
+<h2>Atajos de teclado</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Atajo</th><th scope="col">Qué hace</th><th scope="col">Cuándo usarlo</th></tr></thead><tbody><tr><td><code>Esc</code></td><td>Interrumpe a Claude o cierra un diálogo, conservando lo hecho</td><td>Cuando va por mal camino y quieres redirigirlo</td></tr><tr><td><code>Esc</code> <code>Esc</code></td><td>Con texto, borra el borrador; con el cuadro vacío, abre el menú de rebobinado</td><td>Para deshacer sin escribir <code>/rewind</code></td></tr><tr><td><code>Shift+Tab</code></td><td>Cambia de modo de permisos: Manual, <code>acceptEdits</code>, <code>plan</code> y, si están disponibles, <code>bypassPermissions</code> y <code>auto</code></td><td>Para entrar en modo plan o aceptar ediciones en un segundo</td></tr><tr><td><code>Ctrl+C</code></td><td>Interrumpe; sin nada en marcha, borra el cuadro y una segunda pulsación sale</td><td>Para parar o salir</td></tr><tr><td><code>Ctrl+R</code></td><td>Busca hacia atrás en el historial de prompts</td><td>Para repetir un prompt largo</td></tr><tr><td><code>Ctrl+O</code></td><td>Abre el visor de la transcripción con el detalle de herramientas</td><td>Para ver qué ejecutó exactamente</td></tr><tr><td><code>Ctrl+B</code></td><td>Pasa a segundo plano los comandos de Bash y agentes en marcha (en tmux, dos veces)</td><td>Con un servidor o tests largos que no quieres esperar</td></tr><tr><td><code>Ctrl+T</code></td><td>Muestra u oculta la lista de tareas de Claude</td><td>Para seguir el avance de una tarea larga</td></tr><tr><td><code>Ctrl+G</code></td><td>Abre el prompt en tu editor de texto</td><td>Para escribir un prompt largo con calma</td></tr><tr><td><code>Ctrl+V</code></td><td>Pega una imagen del portapapeles (<code>Alt+V</code> en Windows y WSL)</td><td>Para enseñarle una captura de un error</td></tr><tr><td><code>Ctrl+J</code> o <code>\</code> + <code>Enter</code></td><td>Salto de línea sin enviar, en cualquier terminal</td><td>Para prompts de varias líneas</td></tr><tr><td><code>Alt+P</code></td><td>Cambia de modelo sin borrar lo escrito (<code>Option+P</code> en macOS)</td><td>A mitad de un prompt</td></tr><tr><td><code>Alt+T</code></td><td>Activa o desactiva el pensamiento extendido (<code>Option+T</code> en macOS); no afecta a los modelos 5.5 ni Fable, que siempre lo usan</td><td>Con modelos anteriores</td></tr><tr><td><code>!</code> al inicio</td><td>Modo shell: ejecuta el comando y añade su salida a la sesión</td><td>Para que Claude vea la salida de <code>git status</code> o tus tests</td></tr><tr><td><code>@</code></td><td>Autocompleta rutas de archivo para mencionarlas</td><td>Para señalar el archivo exacto</td></tr><tr><td><code>?</code> con el cuadro vacío</td><td>Muestra u oculta el panel de atajos</td><td>Para descubrir el resto</td></tr></tbody></table></div>
+<pre><code class="language-text">! git status
+Revisa @src/auth/login.ts y explica por qué falla el test</code></pre>
+<p>En macOS, los atajos con <code>Alt</code> necesitan configurar Option como Meta en tu terminal. Si <code>Shift+Enter</code> no hace salto de línea en tu editor, <code>/terminal-setup</code> lo instala en VS Code, Cursor, Alacritty o Zed, y <code>/keybindings</code> abre tu archivo de atajos para cambiarlos.</p>
+<h2>Flags de línea de comandos más usados</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Flag</th><th scope="col">Qué hace</th><th scope="col">Cuándo usarlo</th></tr></thead><tbody><tr><td><code>-p</code>, <code>--print</code></td><td>Responde y sale, sin modo interactivo</td><td>En scripts, cron y tuberías</td></tr><tr><td><code>-c</code>, <code>--continue</code></td><td>Carga la conversación más reciente de esta carpeta</td><td>Para seguir donde lo dejaste</td></tr><tr><td><code>-r</code>, <code>--resume [sesión]</code></td><td>Retoma una sesión por ID o nombre, o abre el selector</td><td>Para volver a una sesión concreta</td></tr><tr><td><code>-n</code>, <code>--name &lt;nombre&gt;</code></td><td>Pone nombre a la sesión</td><td>Para retomarla luego con <code>claude -r &lt;nombre&gt;</code></td></tr><tr><td><code>--model &lt;modelo&gt;</code></td><td>Elige el modelo de esta sesión (<code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>fable</code> o un nombre completo)</td><td>Para empezar ya con el modelo adecuado</td></tr><tr><td><code>--effort &lt;nivel&gt;</code></td><td>Fija el esfuerzo de esta sesión, sin guardarlo</td><td>Para un script que no necesita pensar mucho</td></tr><tr><td><code>--permission-mode &lt;modo&gt;</code></td><td>Empieza en un modo de permisos (<code>default</code>, <code>acceptEdits</code>, <code>plan</code>, <code>auto</code>, <code>dontAsk</code>, <code>bypassPermissions</code>)</td><td>Para abrir directamente en modo plan</td></tr><tr><td><code>-w</code>, <code>--worktree [nombre]</code></td><td>Abre la sesión en un git worktree aislado</td><td>Para varias tareas en paralelo sin pisarse</td></tr><tr><td><code>--add-dir &lt;rutas&gt;</code></td><td>Da acceso a carpetas adicionales</td><td>Cuando la tarea cruza dos repositorios</td></tr><tr><td><code>--allowedTools &lt;herramientas&gt;</code></td><td>Herramientas que se ejecutan sin pedir permiso</td><td>En <code>-p</code>, para que el script no se quede esperando</td></tr><tr><td><code>--output-format &lt;formato&gt;</code></td><td>Salida <code>text</code>, <code>json</code> o <code>stream-json</code> (solo con <code>-p</code>)</td><td>Para procesar la respuesta con otro programa</td></tr><tr><td><code>--max-turns &lt;n&gt;</code></td><td>Limita los turnos del agente (solo con <code>-p</code>)</td><td>Para que un script no se alargue sin control</td></tr><tr><td><code>--max-budget-usd &lt;importe&gt;</code></td><td>Para cuando el gasto estimado llega al tope (solo con <code>-p</code>)</td><td>Al pagar por uso con clave de API</td></tr><tr><td><code>--append-system-prompt &lt;texto&gt;</code></td><td>Añade texto al final del prompt de sistema</td><td>Para una regla puntual sin tocar CLAUDE.md</td></tr><tr><td><code>--debug [filtro]</code></td><td>Activa el modo depuración, con filtro opcional (<code>--debug=hooks,mcp</code>)</td><td>Cuando un hook o un MCP no se comporta</td></tr><tr><td><code>--safe-mode</code></td><td>Arranca con todas las personalizaciones desactivadas</td><td>Para saber si el fallo viene de tu configuración</td></tr></tbody></table></div>
+<pre><code class="language-bash"># Una pregunta y salir
+claude -p &quot;explica qué hace este proyecto&quot;
+# Pasarle un archivo por tubería
+cat logs.txt | claude -p &quot;explica el error&quot;
+# Seguir la última conversación de esta carpeta
+claude -c
+# Retomar una sesión por nombre con un prompt nuevo
+claude -r &quot;auth-refactor&quot; &quot;termina este PR&quot;
+# Empezar en modo plan con un modelo concreto
+claude --model opus --permission-mode plan
+# Script acotado con salida JSON
+claude -p &quot;lista los TODO del repo&quot; --output-format json --max-turns 3
+# Trabajo en paralelo en un worktree
+claude -w feature-auth</code></pre>
+<p><code>claude -p</code> en scripts y cron está en <a href="/recetas/claude-code-headless-cron.html">Claude Code headless</a>, los worktrees en <a href="/recetas/worktrees-paralelo.html">varios agentes en paralelo</a> y el control desde el móvil (<code>--remote-control</code> o <code>/remote-control</code>) en <a href="/recetas/remote-control-movil.html">Remote Control</a>.</p>
+<h2>Comandos que ya no existen</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Comando</th><th scope="col">Qué pasó</th><th scope="col">Qué usar ahora</th></tr></thead><tbody><tr><td><code>/vim</code></td><td>Eliminado en la 2.1.92</td><td><code>/config</code> → Editor mode</td></tr><tr><td><code>/pr-comments</code></td><td>Eliminado en la 2.1.91</td><td>Pídele a Claude que lea los comentarios del PR</td></tr><tr><td><code>/ultraplan</code></td><td>Eliminado</td><td>El modo plan (<code>/plan</code> o <code>Shift+Tab</code>)</td></tr><tr><td><code>--enable-auto-mode</code></td><td>Eliminado en la 2.1.111</td><td><code>--permission-mode auto</code></td></tr></tbody></table></div>
+<h2>Qué comprobamos</h2>
+<p>En Linux con Claude Code 2.1.316 contrastamos cada comando, atajo y flag con la documentación oficial (<a href="https://code.claude.com/docs/en/commands" rel="noopener">comandos</a>, <a href="https://code.claude.com/docs/en/interactive-mode" rel="noopener">modo interactivo</a> y <a href="https://code.claude.com/docs/en/cli-reference" rel="noopener">referencia de la CLI</a>) y con <code>claude --help</code>, <code>claude mcp --help</code> y <code>claude plugin --help</code>. Solo consultamos la ayuda: no ejecutamos los comandos que gastan uso. <code>--max-turns</code> está en la documentación pero no aparece en <code>claude --help</code> de esta versión. Los comandos <code>/</code> que no ves en tu menú pueden depender de tu plan, tu plataforma o tu versión.</p>
+<p>Revisado el 2-nov-2026 con Claude Code 2.1.316; fuente: documentación oficial.</p>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Cómo veo todos los comandos de Claude Code?</h3>
+<p>Escribe <code>/</code> en una sesión: aparece la lista completa de tu versión, incluidas tus skills y las de tus plugins, y puedes filtrar escribiendo. <code>/help</code> muestra la ayuda, y <code>claude --help</code> las opciones de terminal.</p>
+<h3>¿Qué diferencia hay entre /clear y /compact?</h3>
+<p><code>/clear</code> empieza una conversación nueva con el contexto vacío; <code>/compact</code> resume la actual para liberar espacio y seguir con la misma tarea. Lo explicamos con ejemplos en <a href="/recetas/clear-vs-compact.html">/clear vs /compact</a>.</p>
+<h3>¿Puedo crear mis propios comandos?</h3>
+<p>Sí: cualquier skill en <code>.claude/skills/&lt;nombre&gt;/SKILL.md</code> (o un archivo en <code>.claude/commands/</code>) crea <code>/nombre</code>. Tienes cinco listos para copiar en <a href="/recetas/pack-comandos.html">el pack de comandos</a> y el paso a paso en <a href="/recetas/primera-skill.html">primera skill</a>.</p>
+<h3>¿Cómo retomo una conversación anterior?</h3>
+<p><code>claude -c</code> carga la más reciente de la carpeta actual y <code>claude -r</code> abre el selector o retoma una por ID o nombre. Dentro de una sesión, <code>/resume</code> hace lo mismo.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="crear-plugin-claude-code.html">Crear un plugin de Claude Code: init, prueba, eval y marketplace</a></li><li><a href="pack-comandos.html">5 comandos de Claude Code imprescindibles, listos para copiar</a></li><li><a href="que-pieza-usar.html">Claude Code skills vs hooks, MCP, subagentes y plugins: cuál usar</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

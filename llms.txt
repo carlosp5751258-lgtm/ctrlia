@@ -6,6 +6,7 @@
 
 Contenido en español (raíz del sitio).
 
+- [Comandos de Claude Code: chuleta de slash, atajos y flags](https://ctrlia.dev/recetas/comandos-claude-code.html): Chuleta de Claude Code al día: comandos /, atajos de teclado y flags de terminal por grupos, con qué hace cada uno y cuándo usarlo. Lista para copiar.
 - [AGENTS.md vs CLAUDE.md en Claude Code: cuál lee y cómo usar ambos](https://ctrlia.dev/recetas/agents-md.html): Desde la 2.1.277 Claude Code lee AGENTS.md si no hay CLAUDE.md. Qué lee en cada caso, la trampa de CLAUDE.local.md y un solo archivo para todas tus IAs.
 - [Modo automático de Claude Code a fondo: clasificador y reglas](https://ctrlia.dev/recetas/auto-mode.html): Cómo decide el modo automático de Claude Code, qué bloquea, cómo enseñarle tu entorno con /auto-mode-setup o autoMode y por qué no olvidar "$defaults".
 - [Antes de darle permisos a Claude Code: checklist de seguridad](https://ctrlia.dev/recetas/checklist-permisos-claude-code.html): Diez comprobaciones antes de dar más permisos a Claude Code o abrirlo en un repo ajeno: modos, deny, ask y allow, confianza, sandbox y bypass.
@@ -55,6 +56,7 @@ Contenido en español (raíz del sitio).
 
 English content (under /en/).
 
+- [Claude Code commands cheat sheet: slash, shortcuts and flags](https://ctrlia.dev/en/recetas/comandos-claude-code.html): An up-to-date Claude Code cheat sheet: slash commands, keyboard shortcuts and CLI flags grouped by task, with what each does and when to reach for it.
 - [AGENTS.md vs CLAUDE.md in Claude Code: which one it reads](https://ctrlia.dev/en/recetas/agents-md.html): Since 2.1.277 Claude Code reads AGENTS.md when there's no CLAUDE.md. What it reads in each case, the CLAUDE.local.md trap and one file for all AI tools.
 - [Claude Code auto mode in depth: the classifier and its rules](https://ctrlia.dev/en/recetas/auto-mode.html): How Claude Code's auto mode decides, what it blocks, how to teach it your environment with /auto-mode-setup or autoMode, and why to keep "$defaults".
 - [Before you give Claude Code permissions: a security checklist](https://ctrlia.dev/en/recetas/checklist-permisos-claude-code.html): Ten checks before giving Claude Code more permissions or opening it in someone else's repo: modes, deny, ask and allow, trust, sandbox and bypass.
