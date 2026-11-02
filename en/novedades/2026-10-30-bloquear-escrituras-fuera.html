@@ -12,34 +12,37 @@
 <meta name="description" content="New blockWritesOutsideWorkingDirectories setting: Write, Edit and NotebookEdit refuse files outside your working directories, in every mode.">
 <meta property="og:title" content="Claude Code 2.1.314: block writes outside your project · Ctrl+IA">
 <meta property="og:description" content="New blockWritesOutsideWorkingDirectories setting: Write, Edit and NotebookEdit refuse files outside your working directories, in every mode.">
-<meta property="og:image" content="https://ctrlia.dev/img/en/kit.webp">
+<meta property="og:image" content="https://ctrlia.dev/img/en/portada.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/portada.webp">
 <link rel="icon" href="../../img/byte.png">
 <link rel="canonical" href="https://ctrlia.dev/en/novedades/2026-10-30-bloquear-escrituras-fuera.html">
 <link rel="alternate" hreflang="es" href="https://ctrlia.dev/novedades/2026-10-30-bloquear-escrituras-fuera.html">
 <link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/novedades/2026-10-30-bloquear-escrituras-fuera.html">
-<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/novedades/2026-10-30-bloquear-escrituras-fuera.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/novedades/2026-10-30-bloquear-escrituras-fuera.html">
 <meta property="og:url" content="https://ctrlia.dev/en/novedades/2026-10-30-bloquear-escrituras-fuera.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Claude Code 2.1.314: block writes outside your project", "description": "New blockWritesOutsideWorkingDirectories setting: Write, Edit and NotebookEdit refuse files outside your working directories, in every mode.", "datePublished": "2026-10-30", "dateModified": "2026-10-30", "inLanguage": "en", "url": "https://ctrlia.dev/en/novedades/2026-10-30-bloquear-escrituras-fuera.html", "mainEntityOfPage": "https://ctrlia.dev/en/novedades/2026-10-30-bloquear-escrituras-fuera.html", "isBasedOn": "https://github.com/anthropics/claude-code/releases/tag/v2.1.314", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}</script>
-<link rel="stylesheet" href="../../css/estilo.css?v=4f5d9179">
-<script src="../../js/sitio.js?v=4f5d9179"></script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
 <meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
-<script src="../../js/cuentas.js?v=4f5d9179" defer></script>
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
 </head>
 <body>
 <header class="barra">
   <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
-  <nav aria-label="Sections"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#recursos">Tools</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
   <a class="idioma" href="../../novedades/2026-10-30-bloquear-escrituras-fuera.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
   <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
   <div class="cuenta" hidden>
     <div class="cuenta-fuera">
       <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
       <div class="cuenta-menu" id="menu-entrar" hidden>
-        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
         <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
         <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
         <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
@@ -49,13 +52,13 @@
       <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
       <div class="cuenta-menu" id="menu-cuenta" hidden>
         <p class="cuenta-nombre"></p>
-        <a href="../../en/cuenta.html">My resources and settings</a>
-        <a href="../../en/peticiones.html">Request a resource</a>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
         <button type="button" class="boton-texto" data-salir>Sign out</button>
       </div>
     </div>
   </div>
-  <a class="boton boton-oscuro boton-chico" href="../../en/index.html#recursos">Explore for free</a>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
   <p class="cuenta-estado solo-lector" role="status"></p>
 </header>
 
@@ -64,7 +67,11 @@
   <p class="insignia">News · <time datetime="2026-10-30">2026-10-30</time></p>
   <h1 id="t-art">Claude Code 2.1.314: block writes outside your project</h1>
   <p class="entrada">New blockWritesOutsideWorkingDirectories setting: Write, Edit and NotebookEdit refuse files outside your working directories, in every mode.</p>
+  <img class="portada-img" src="../../img/en/portada.webp" width="960" height="540" alt="Cover: Claude Code 2.1.314: block writes outside your project">
   <p class="probado">Claude Code <strong>2.1.314</strong> · Source: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" rel="noopener">github.com</a></p>
+  
+  
+  
 <h2>What changes</h2>
 <p>Claude Code 2.1.314 adds the <code>permissions.blockWritesOutsideWorkingDirectories</code> setting. When it is on, the Write, Edit and NotebookEdit tools refuse paths outside the working directories, in every permission mode.</p>
 <p>Until now, a permission rule or a permissive mode could let Claude edit files outside the project (your <code>~/.bashrc</code>, another repository, global configuration). With this setting, the folder sets the boundary, no matter what you have approved.</p>
@@ -85,17 +92,17 @@
 <p>Tested with 2.1.316: with an <code>Edit(//tmp/…/**)</code> rule that allows the write, the file is created; with the same rule and the setting on, Write refuses it with the message above, and files inside the project are still created.</p>
 <h2>Does it affect you?</h2>
 <ul><li><strong>Yes, if you let Claude work with broad permissions</strong> (accept-edits mode, generous <code>Edit</code> rules): it is a cheap safety net so it touches nothing outside the project.</li><li><strong>Note:</strong> the setting covers Write, Edit and NotebookEdit. Shell commands (Bash) are not mentioned in the release note; to limit them, use permission rules or the sandbox.</li><li>Nothing changes unless you turn it on: it is off by default.</li></ul>
-  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">More news</h2>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
     <ul><li><a href="2026-10-30-extension-claude-code-cursor.html">Tampered Claude Code extension on Cursor: check your machine</a></li></ul></nav>
   <p class="volver"><a class="boton boton-oscuro" href="index.html">All news</a></p>
 </article>
 </main>
 <footer class="pie">
   <div class="pie-arriba">
-    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code — in Spanish.</p></div>
-    <nav aria-label="Links"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
   </div>
-  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a resource</a>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
   </div>
   <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
 </footer>

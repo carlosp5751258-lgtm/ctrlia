@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>AGENTS.md vs CLAUDE.md in Claude Code: which one it reads · Ctrl+IA</title>
+<meta name="description" content="Since 2.1.277 Claude Code reads AGENTS.md when there&#x27;s no CLAUDE.md. What it reads in each case, the CLAUDE.local.md trap and one file for all AI tools.">
+<meta property="og:title" content="AGENTS.md vs CLAUDE.md in Claude Code: which one it reads · Ctrl+IA">
+<meta property="og:description" content="Since 2.1.277 Claude Code reads AGENTS.md when there&#x27;s no CLAUDE.md. What it reads in each case, the CLAUDE.local.md trap and one file for all AI tools.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/agents-md.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/agents-md.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/agents-md.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/agents-md.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/agents-md.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/agents-md.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/agents-md.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "AGENTS.md vs CLAUDE.md in Claude Code: which one it reads", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/agents-md.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Since 2.1.277 Claude Code reads AGENTS.md when there's no CLAUDE.md. What it reads in each case, the CLAUDE.local.md trap and one file for all AI tools.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/agents-md.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "If I have CLAUDE.md and AGENTS.md, which one wins?", "acceptedAnswer": {"@type": "Answer", "text": "By default only CLAUDE.md is read. It's not that they merge with a priority: AGENTS.md simply isn't loaded. To use both, import @AGENTS.md from the CLAUDE.md or set Project instructions to claude-md-and-agents-md."}}, {"@type": "Question", "name": "Does my personal ~/.claude/CLAUDE.md block the project's AGENTS.md?", "acceptedAnswer": {"@type": "Answer", "text": "No. The user CLAUDE.md, the organization's managed one and .claude/rules/ don't count for that check and load alongside AGENTS.md. CLAUDE.md, .claude/CLAUDE.md and CLAUDE.local.md in your folder or its parents do block it."}}, {"@type": "Question", "name": "Can I set Project instructions for the whole team in the repo?", "acceptedAnswer": {"@type": "Answer", "text": "No: the pluginConfigs entry is ignored in project and local settings. The robust option for a team is a CLAUDE.md in git with @AGENTS.md."}}, {"@type": "Question", "name": "Does AGENTS.md work on Bedrock or with telemetry off?", "acceptedAnswer": {"@type": "Answer", "text": "Since 2.1.281, yes (also on Vertex, Foundry and gateways). On older versions, import @AGENTS.md from a CLAUDE.md or update."}}, {"@type": "Question", "name": "Does AGENTS.md have the same features as CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "Almost: it supports @path imports and claudeMdExcludes, but it doesn't fire InstructionsLoaded hooks or load from --add-dir folders. Path rules (.claude/rules/) and auto memory belong to Claude Code and keep working separately. To see where each piece fits, check which piece to use."}}, {"@type": "Question", "name": "What about .cursorrules or .cursor/rules?", "acceptedAnswer": {"@type": "Answer", "text": "Claude Code doesn't read them in every session. /init uses them to generate your CLAUDE.md, and /import cursor brings Cursor's setup over once."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/agents-md.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Reference · Intermediate · 10 min</p>
+  <h1 id="t-art">AGENTS.md vs CLAUDE.md in Claude Code: which one it reads</h1>
+  <p class="entrada">Since 2.1.277 Claude Code reads AGENTS.md when there&#x27;s no CLAUDE.md. What it reads in each case, the CLAUDE.local.md trap and one file for all AI tools.</p>
+  <img class="portada-img" src="../../img/en/agents-md.webp" width="960" height="540" alt="Cover: AGENTS.md vs CLAUDE.md in Claude Code: which one it reads">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-agents-md"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>Summary</h2>
+<p>Since 2.1.277 (18 Sep 2026) Claude Code reads AGENTS.md, the instructions file used by Codex, Cursor and other agents, when the project has no CLAUDE.md. If you have both, by default it only reads CLAUDE.md, and a personal CLAUDE.local.md is enough for it to ignore AGENTS.md.</p>
+<p>This reference explains what it reads in each combination, how to change it in <code>/config</code> &gt; <strong>Project instructions</strong>, how to keep a single file for all your AI tools, how to migrate from Codex or Cursor and how to check what was loaded. To write a good CLAUDE.md, see the <a href="../recetas/claude-md-que-funciona.html">CLAUDE.md that works</a> recipe.</p>
+<h2>What changed and what Claude reads depending on your files</h2>
+<p>AGENTS.md is a project instructions file shared by several coding agents. Asking for Claude Code to read it was the most upvoted issue in its history (#6235, 6,689 reactions) and it arrived in 2.1.277: &quot;in a project without CLAUDE.md, Claude Code reads AGENTS.md instead&quot;. The default rule, according to the <a href="https://code.claude.com/docs/en/memory" rel="noopener">official docs</a>:</p>
+<div class="tabla"><table><thead><tr><th scope="col">What you have in your folder or above</th><th scope="col">What Claude reads</th></tr></thead><tbody><tr><td>AGENTS.md and no CLAUDE.md or CLAUDE.local.md</td><td>Your AGENTS.md</td></tr><tr><td>AGENTS.md plus a CLAUDE.md or CLAUDE.local.md</td><td>Only your CLAUDE.md files</td></tr><tr><td>A CLAUDE.md that imports AGENTS.md with <code>@AGENTS.md</code></td><td>The CLAUDE.md, with AGENTS.md included through the import</td></tr></tbody></table></div>
+<p>What counts for that check: <code>CLAUDE.md</code>, <code>.claude/CLAUDE.md</code> or <code>CLAUDE.local.md</code> in your folder or any parent. What doesn&#x27;t count and still loads alongside AGENTS.md: your <code>~/.claude/CLAUDE.md</code>, your organization&#x27;s managed CLAUDE.md and the files in <code>.claude/rules/</code>. You need 2.1.277 or later; check yours with <code>claude --version</code>.</p>
+<h2>The CLAUDE.local.md trap</h2>
+<p>Many teams keep AGENTS.md in git and each person adds a <code>CLAUDE.local.md</code> for private notes (test URLs, sample data). Since CLAUDE.local.md counts as a CLAUDE.md, as soon as you create it Claude stops reading the team&#x27;s AGENTS.md, without warning you.</p>
+<p>We checked it with an AGENTS.md giving a project keyword: with nothing else, Claude answered with the keyword; after creating a one-line CLAUDE.local.md, it answered &quot;none&quot;. This is the test, to repeat it in a scratch folder with a cheap model (the repository&#x27;s <code>en/test-agents.sh</code> runs the same three cases):</p>
+<pre><code class="language-bash"># Reproducible test (in a scratch folder, with a cheap model)
+mkdir -p /tmp/test-agents &amp;&amp; cd /tmp/test-agents &amp;&amp; git init -q
+printf &#x27;# Project rules\nThe project keyword is APPLE.\n&#x27; &gt; AGENTS.md
+P=&quot;Reply only with the project keyword according to your project instructions, or NONE if you have none.&quot;
+
+# 1) Only AGENTS.md → it reads it
+claude -p --model haiku &quot;$P&quot;            # APPLE
+
+# 2) Add a CLAUDE.local.md → it stops reading AGENTS.md
+echo &#x27;I prefer short answers.&#x27; &gt; CLAUDE.local.md
+claude -p --model haiku &quot;$P&quot;            # NONE
+
+# 3) Remove the local file and create a CLAUDE.md that imports it → it reads it again
+rm CLAUDE.local.md
+printf &#x27;@AGENTS.md\n\n## Claude Code\nUse plan mode for big changes.\n&#x27; &gt; CLAUDE.md
+claude -p --model haiku &quot;$P&quot;            # APPLE</code></pre>
+<p>There are two ways out. The first: set <strong>Project instructions</strong> to <code>claude-md-and-agents-md</code> (next section), which loads both. The second: import AGENTS.md from your local file or from a project CLAUDE.md with <code>@AGENTS.md</code>.</p>
+<p>The same happens if someone commits a CLAUDE.md to the repo or if there&#x27;s one in a parent folder (for example, in your general work folder): Claude looks for CLAUDE.md, .claude/CLAUDE.md and CLAUDE.local.md along the whole path up to the root, except the one in <code>~/.claude/</code>.</p>
+<h2>/config &gt; Project instructions: the four values</h2>
+<p>Type <code>/config</code> in a session and look for <strong>Project instructions</strong>:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Value</th><th scope="col">What it loads</th></tr></thead><tbody><tr><td><code>claude-md-or-agents-md</code> (default)</td><td>Your CLAUDE.md files, or your AGENTS.md files when there&#x27;s no CLAUDE.md or CLAUDE.local.md</td></tr><tr><td><code>claude-md-and-agents-md</code></td><td>Both together: in each folder, CLAUDE.md files first and then its AGENTS.md. It doesn&#x27;t load twice an AGENTS.md your CLAUDE.md already imports or links</td></tr><tr><td><code>claude-md</code></td><td>Only CLAUDE.md</td></tr><tr><td><code>managed-only</code></td><td>Only the organization&#x27;s managed CLAUDE.md and auto memory at startup; it leaves out project, local and user CLAUDE.md files, <code>.claude/rules/</code> and every AGENTS.md (those in subfolders and path-scoped rules still load on demand)</td></tr></tbody></table></div>
+<p>The change applies from your next message and in every new session. You can also set it in a file: in <code>pluginConfigs</code>, under <code>cc-plugin-agents-md@builtin</code> (the built-in plugin that reads AGENTS.md), with <code>instructionFiles</code>. For example, in <code>~/.claude/settings.json</code>, to always read CLAUDE.md and AGENTS.md:</p>
+<pre><code class="language-json">{
+  &quot;pluginConfigs&quot;: {
+    &quot;cc-plugin-agents-md@builtin&quot;: {
+      &quot;options&quot;: { &quot;instructionFiles&quot;: &quot;claude-md-and-agents-md&quot; }
+    }
+  }
+}</code></pre>
+<p>It&#x27;s only read from <code>~/.claude/settings.json</code>, <code>--settings</code> or managed settings; in project settings it&#x27;s ignored. Before 2.1.285 the identifier was <code>agents-md@builtin</code>; newer versions accept both. We didn&#x27;t test the <code>/config</code> panel ourselves: the values come from the official docs.</p>
+<h2>When it loads and in which subfolders</h2>
+<p>At session start, Claude loads every <code>AGENTS.md</code> and <code>.claude/AGENTS.md</code> in your working directory and its parent folders. In an interactive session you&#x27;ll see a line like <code>no CLAUDE.md found; AGENTS.md loaded: /home/you/repo/AGENTS.md</code>.</p>
+<p>While it works, a subfolder&#x27;s AGENTS.md is added when Claude opens a file in that subfolder with the Read tool and that subfolder has none of the three CLAUDE.md files of its own. It&#x27;s useful in monorepos: <code>apps/web/AGENTS.md</code> and <code>apps/api/AGENTS.md</code> with different rules. 2.1.290 fixed a subfolder&#x27;s AGENTS.md not being attached when @-mentioning a file inside it.</p>
+<p>Inside each AGENTS.md, <code>@path</code> imports are expanded and <code>claudeMdExcludes</code> patterns apply. Subagents that start without project instructions (like the built-in Explore and Plan) also start without AGENTS.md. Before 2.1.281, some sessions (Bedrock, Vertex, Foundry, gateways or with telemetry off) didn&#x27;t read AGENTS.md: that was the 486-point HN thread. Update if you&#x27;re below it.</p>
+<p>We didn&#x27;t verify the on-screen load line or subfolder loading ourselves; they come from the official docs and the CHANGELOG.</p>
+<h2>One file for all your AI tools</h2>
+<p>If your team mixes Claude Code, Codex and Cursor, make AGENTS.md the source of truth: build and test commands, conventions, structure. For Claude-specific things (using plan mode in a certain folder, a skill), create a CLAUDE.md next to it that starts with <code>@AGENTS.md</code> and adds its own content below:</p>
+<pre><code class="language-markdown">@AGENTS.md
+
+## Claude Code
+
+Use plan mode for changes in src/billing/.</code></pre>
+<p>Claude reads the imported file first and then the rest. This is the most robust option: it works even if you have a CLAUDE.md, even if someone sets Project instructions to <code>claude-md</code>, and in sessions that can&#x27;t read AGENTS.md directly. Keeping the import never makes it load twice.</p>
+<p>If you don&#x27;t need anything Claude-specific, a symlink works:</p>
+<pre><code class="language-bash"># Alternative without Claude-specific content: a symlink (not for teams with Windows)
+ln -s AGENTS.md CLAUDE.md</code></pre>
+<p>It has two drawbacks: the Edit and Write tools refuse to write through the link and Claude edits AGENTS.md instead; and on Windows creating links requires admin rights or developer mode, and git checks them out as a one-line text file if <code>core.symlinks</code> isn&#x27;t enabled. With either option, check in the next session with <code>/context</code> that CLAUDE.md shows up under &quot;Memory files&quot;.</p>
+<h2>If you already had a workaround before 2.1.277</h2>
+<p>Many people built their own solution while there was no support. The official docs say what to do with each:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Your workaround</th><th scope="col">What to do</th></tr></thead><tbody><tr><td>A CLAUDE.md containing <code>@AGENTS.md</code></td><td>Keep it: it never loads twice. Delete it only if it contains nothing else and all your sessions can read AGENTS.md</td></tr><tr><td>A CLAUDE.md that says in words &quot;read AGENTS.md&quot;</td><td>Claude only sees it if it decides to open the file: delete it so AGENTS.md is read directly, or replace the sentence with the <code>@AGENTS.md</code> import</td></tr><tr><td>A CLAUDE.md symlinked to AGENTS.md</td><td>Nothing: the content is read once</td></tr><tr><td>A SessionStart hook that prints AGENTS.md</td><td>Remove it: now that Claude reads it on its own, the hook adds a second copy to the context and spends tokens every session</td></tr></tbody></table></div>
+<p>Differences worth knowing between an AGENTS.md read through the setting and a CLAUDE.md: it doesn&#x27;t fire <code>InstructionsLoaded</code> hooks, it doesn&#x27;t load from folders added with <code>--add-dir</code> even if you have <code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD</code>, and an import from outside the project only loads if you already approved external imports, without asking you.</p>
+<h2>Coming from Codex or Cursor: migrate and check</h2>
+<p>If you&#x27;re bringing setup from another tool, <code>/import</code> accepts <code>codex</code>, <code>gemini</code> or <code>cursor</code> and brings instruction files, MCP servers, commands, <a href="../recetas/subagentes.html">subagents</a> and <a href="../recetas/primera-skill.html">skills</a> into Claude Code; with <code>--dry-run</code> you see what it would bring without writing anything. Watch out: it adds a one-time copy of files like AGENTS.md to the matching CLAUDE.md, so from then on you have two files to maintain; if you want just one, the <code>@AGENTS.md</code> import is better. The version in which <code>/import</code> arrived isn&#x27;t listed in the CHANGELOG.</p>
+<p><code>/init</code>, when generating a starting CLAUDE.md, already reads Cursor rules (<code>.cursor/rules/</code> or <code>.cursorrules</code>) and Copilot&#x27;s (<code>.github/copilot-instructions.md</code>); with <code>CLAUDE_CODE_NEW_INIT=1</code> also AGENTS.md, <code>.windsurfrules</code>, <code>.clinerules</code> and Devin&#x27;s rules.</p>
+<pre><code class="language-bash"># Coming from Codex, Gemini CLI or Cursor? First see what it would bring (writes nothing)
+/import codex --dry-run
+/import cursor --dry-run
+# One-time copy of instructions (e.g. AGENTS.md → CLAUDE.md), MCP, commands, subagents and skills
+/import codex
+
+# /init also reads .cursor/rules/, .cursorrules and .github/copilot-instructions.md;
+# with this variable, also AGENTS.md, .windsurfrules, .clinerules…
+CLAUDE_CODE_NEW_INIT=1 claude
+
+# Check which instructions the session loaded
+/memory      # lists the paths of loaded CLAUDE.md / AGENTS.md files
+/context     # &quot;Memory files&quot; section</code></pre>
+<p>To check what Claude loaded, <code>/memory</code> lists the path of every instructions file it read (before 2.1.280 it didn&#x27;t list an AGENTS.md read directly). If it isn&#x27;t there, check in order:</p>
+<ol><li>A CLAUDE.md or CLAUDE.local.md along the path.</li><li>Your version.</li><li>The Project instructions value.</li></ol>
+<p>If that setting doesn&#x27;t even appear in <code>/config</code>, your session can&#x27;t read AGENTS.md (old version, built-in plugin disabled in <code>/plugin</code> or first session after updating). We didn&#x27;t test <code>/import</code> or <code>/memory</code> ourselves: they come from the official <a href="https://code.claude.com/docs/en/commands" rel="noopener">commands</a> and <a href="https://code.claude.com/docs/en/memory" rel="noopener">memory</a> docs.</p>
+<h2>What we checked</h2>
+<p>On 1 Nov 2026 on Linux with Claude Code 2.1.316, with <code>claude -p --model haiku</code> (3 calls, Spanish version of the test): only AGENTS.md → the keyword; with CLAUDE.local.md → &quot;none&quot;; with a CLAUDE.md containing <code>@AGENTS.md</code> → the keyword. The debug log confirmed the built-in <code>cc-plugin-agents-md</code> plugin. We didn&#x27;t test the <code>/config</code> &gt; Project instructions panel, the &quot;AGENTS.md loaded&quot; line on screen, subfolder loading, <code>/import</code> or <code>/memory</code>; those come from the <a href="https://code.claude.com/docs/en/memory" rel="noopener">official docs</a> and the <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>FAQ</h2>
+<h3>If I have CLAUDE.md and AGENTS.md, which one wins?</h3>
+<p>By default only CLAUDE.md is read. It&#x27;s not that they merge with a priority: AGENTS.md simply isn&#x27;t loaded. To use both, import <code>@AGENTS.md</code> from the CLAUDE.md or set Project instructions to <code>claude-md-and-agents-md</code>.</p>
+<h3>Does my personal ~/.claude/CLAUDE.md block the project&#x27;s AGENTS.md?</h3>
+<p>No. The user CLAUDE.md, the organization&#x27;s managed one and <code>.claude/rules/</code> don&#x27;t count for that check and load alongside AGENTS.md. CLAUDE.md, .claude/CLAUDE.md and CLAUDE.local.md in your folder or its parents do block it.</p>
+<h3>Can I set Project instructions for the whole team in the repo?</h3>
+<p>No: the <code>pluginConfigs</code> entry is ignored in project and local settings. The robust option for a team is a CLAUDE.md in git with <code>@AGENTS.md</code>.</p>
+<h3>Does AGENTS.md work on Bedrock or with telemetry off?</h3>
+<p>Since 2.1.281, yes (also on Vertex, Foundry and gateways). On older versions, import <code>@AGENTS.md</code> from a CLAUDE.md or update.</p>
+<h3>Does AGENTS.md have the same features as CLAUDE.md?</h3>
+<p>Almost: it supports <code>@path</code> imports and <code>claudeMdExcludes</code>, but it doesn&#x27;t fire <code>InstructionsLoaded</code> hooks or load from <code>--add-dir</code> folders. Path rules (<code>.claude/rules/</code>) and auto memory belong to Claude Code and keep working separately. To see where each piece fits, check <a href="../recetas/que-pieza-usar.html">which piece to use</a>.</p>
+<h3>What about .cursorrules or .cursor/rules?</h3>
+<p>Claude Code doesn&#x27;t read them in every session. <code>/init</code> uses them to generate your CLAUDE.md, and <code>/import cursor</code> brings Cursor&#x27;s setup over once.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="claude-code-espanol.html">Claude Code in Spanish, no fluff: language and the Concise style</a></li><li><a href="generador-claude-md.html">Free CLAUDE.md and AGENTS.md generator for Claude Code</a></li><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

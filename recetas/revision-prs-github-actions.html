@@ -12,35 +12,37 @@
 <meta name="description" content="Configura anthropics/claude-code-action@v1 para que revise tus PR solo, responda a @claude en comentarios y no dispare el gasto. Workflows listos.">
 <meta property="og:title" content="Revisa cada pull request con Claude Code en GitHub Actions · Ctrl+IA">
 <meta property="og:description" content="Configura anthropics/claude-code-action@v1 para que revise tus PR solo, responda a @claude en comentarios y no dispare el gasto. Workflows listos.">
-<meta property="og:image" content="https://ctrlia.dev/img/kit.webp">
+<meta property="og:image" content="https://ctrlia.dev/img/revision-prs-github-actions.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/revision-prs-github-actions.webp">
 <link rel="icon" href="../img/byte.png">
 <link rel="canonical" href="https://ctrlia.dev/recetas/revision-prs-github-actions.html">
 <link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/revision-prs-github-actions.html">
 <link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/revision-prs-github-actions.html">
-<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/revision-prs-github-actions.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/revision-prs-github-actions.html">
 <meta property="og:url" content="https://ctrlia.dev/recetas/revision-prs-github-actions.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Revisa cada pull request con Claude Code en GitHub Actions", "description": "Configura anthropics/claude-code-action@v1 para que revise tus PR solo, responda a @claude en comentarios y no dispare el gasto. Workflows listos.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html", "totalTime": "PT15M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Instala la app y el secreto (vía rápida)", "text": "Instala la GitHub CLI e inicia sesión. Luego, dentro de tu repositorio:", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}, {"@type": "HowToStep", "position": 2, "name": "O hazlo a mano", "text": "1. Instala la Claude GitHub App en el repositorio. 2. Crea el secreto en Settings → Secrets and variables → Actions → New repository secret: - ANTHROPIC_API_KEY: una clave de la Claude Console. - o CLAUDE_CODE_OAUTH_TOKEN: un token de tu suscripción (Pro, Max, Ultra, Team o Enterprise). Genéralo en tu PC:", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}, {"@type": "HowToStep", "position": 3, "name": "Revisión automática de cada PR", "text": "Guarda esto como .github/workflows/claude-code-review.yml. Usa el plugin oficial code-review (el mismo que instala la vía rápida) y añade control de coste: ignora cambios solo de documentación, salta los borradores, cancela la revisión anterior si llega un commit nuevo y limita turnos y minutos.", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}, {"@type": "HowToStep", "position": 4, "name": "Respuestas a @claude en comentarios", "text": "Guarda esto como .github/workflows/claude.yml:", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}, {"@type": "HowToStep", "position": 5, "name": "Sube los archivos", "text": "Los workflows de pull_request se ejecutan con el archivo de la rama del PR; los de comentarios, con el de la rama por defecto. Fusiona primero en main para que @claude funcione en todo el repositorio.", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cuánto cuesta?", "acceptedAnswer": {"@type": "Answer", "text": "Pagas minutos de GitHub Actions y tokens de la API según el tamaño del PR. Si usas CLAUDE_CODE_OAUTH_TOKEN, el consumo va contra tu suscripción de Claude en lugar de la facturación de la API."}}, {"@type": "Question", "name": "¿Clave de API o token OAuth?", "acceptedAnswer": {"@type": "Answer", "text": "Para un repositorio personal, el token de claude setup-token es cómodo. Para una organización con el secreto compartido, la documentación recomienda una clave de API, porque el token va ligado a la suscripción de quien lo generó."}}, {"@type": "Question", "name": "¿Puede Claude fusionar mis PR?", "acceptedAnswer": {"@type": "Answer", "text": "No con estos workflows: la revisión solo tiene permisos de lectura y comenta a través de la app. El de @claude puede hacer commits si se lo pides; revisa siempre sus cambios antes de fusionar."}}, {"@type": "Question", "name": "¿Cómo le digo qué revisar?", "acceptedAnswer": {"@type": "Answer", "text": "Pon tus normas (estilo, criterios de revisión, reglas del proyecto) en un CLAUDE.md en la raíz del repositorio; Claude lo lee en cada ejecución. Mantenlo corto: cuenta como tokens cada vez."}}, {"@type": "Question", "name": "¿Y si no quiero mantener un workflow?", "acceptedAnswer": {"@type": "Answer", "text": "Anthropic ofrece Code Review, que revisa cada PR sin archivo de workflow."}}]}]}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=4f5d9179">
-<script src="../js/sitio.js?v=4f5d9179"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Revisa cada pull request con Claude Code en GitHub Actions", "totalTime": "PT15M", "step": [{"@type": "HowToStep", "position": 1, "name": "Instala la app y el secreto (vía rápida)", "text": "Instala la GitHub CLI e inicia sesión. Luego, dentro de tu repositorio:", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}, {"@type": "HowToStep", "position": 2, "name": "O hazlo a mano", "text": "1. Instala la Claude GitHub App en el repositorio. 2. Crea el secreto en Settings → Secrets and variables → Actions → New repository secret: - ANTHROPIC_API_KEY: una clave de la Claude Console. - o CLAUDE_CODE_OAUTH_TOKEN: un token de tu suscripción (Pro, Max, Ultra, Team o Enterprise). Genéralo en tu PC:", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}, {"@type": "HowToStep", "position": 3, "name": "Revisión automática de cada PR", "text": "Guarda esto como .github/workflows/claude-code-review.yml. Usa el plugin oficial code-review (el mismo que instala la vía rápida) y añade control de coste: ignora cambios solo de documentación, salta los borradores, cancela la revisión anterior si llega un commit nuevo y limita turnos y minutos.", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}, {"@type": "HowToStep", "position": 4, "name": "Respuestas a @claude en comentarios", "text": "Guarda esto como .github/workflows/claude.yml:", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}, {"@type": "HowToStep", "position": 5, "name": "Sube los archivos", "text": "Los workflows de pull_request se ejecutan con el archivo de la rama del PR; los de comentarios, con el de la rama por defecto. Fusiona primero en main para que @claude funcione en todo el repositorio.", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html"}], "description": "Configura anthropics/claude-code-action@v1 para que revise tus PR solo, responda a @claude en comentarios y no dispare el gasto. Workflows listos.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/revision-prs-github-actions.html", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cuánto cuesta?", "acceptedAnswer": {"@type": "Answer", "text": "Pagas minutos de GitHub Actions y tokens de la API según el tamaño del PR. Si usas CLAUDE_CODE_OAUTH_TOKEN, el consumo va contra tu suscripción de Claude en lugar de la facturación de la API."}}, {"@type": "Question", "name": "¿Clave de API o token OAuth?", "acceptedAnswer": {"@type": "Answer", "text": "Para un repositorio personal, el token de claude setup-token es cómodo. Para una organización con el secreto compartido, la documentación recomienda una clave de API, porque el token va ligado a la suscripción de quien lo generó."}}, {"@type": "Question", "name": "¿Puede Claude fusionar mis PR?", "acceptedAnswer": {"@type": "Answer", "text": "No con estos workflows: la revisión solo tiene permisos de lectura y comenta a través de la app. El de @claude puede hacer commits si se lo pides; revisa siempre sus cambios antes de fusionar."}}, {"@type": "Question", "name": "¿Cómo le digo qué revisar?", "acceptedAnswer": {"@type": "Answer", "text": "Pon tus normas (estilo, criterios de revisión, reglas del proyecto) en un CLAUDE.md en la raíz del repositorio; Claude lo lee en cada ejecución. Mantenlo corto: cuenta como tokens cada vez."}}, {"@type": "Question", "name": "¿Y si no quiero mantener un workflow?", "acceptedAnswer": {"@type": "Answer", "text": "Anthropic ofrece Code Review, que revisa cada PR sin archivo de workflow."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
 <meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
-<script src="../js/cuentas.js?v=4f5d9179" defer></script>
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
 </head>
 <body>
-<div class="aviso-idioma" lang="en" hidden><p>Prefer English? <a href="../en/recetas/revision-prs-github-actions.html" hreflang="en">Read this page in English</a></p><button type="button" class="aviso-cerrar" aria-label="Close">×</button></div>
 <header class="barra">
   <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
-  <nav aria-label="Secciones"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#recursos">Herramientas</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
   <a class="idioma" href="../en/recetas/revision-prs-github-actions.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
   <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
   <div class="cuenta" hidden>
     <div class="cuenta-fuera">
       <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
       <div class="cuenta-menu" id="menu-entrar" hidden>
-        <p class="cuenta-invita">Opcional: guarda recursos, pide nuevos y recibe avisos.</p>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
         <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
         <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
         <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
@@ -50,13 +52,13 @@
       <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
       <div class="cuenta-menu" id="menu-cuenta" hidden>
         <p class="cuenta-nombre"></p>
-        <a href="../cuenta.html">Mis recursos y ajustes</a>
-        <a href="../peticiones.html">Pedir un recurso</a>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
         <button type="button" class="boton-texto" data-salir>Salir</button>
       </div>
     </div>
   </div>
-  <a class="boton boton-oscuro boton-chico" href="../index.html#recursos">Explorar gratis</a>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
   <p class="cuenta-estado solo-lector" role="status"></p>
 </header>
 
@@ -65,7 +67,11 @@
   <p class="insignia">Receta · Intermedio · 15 min</p>
   <h1 id="t-art">Revisa cada pull request con Claude Code en GitHub Actions</h1>
   <p class="entrada">Configura anthropics/claude-code-action@v1 para que revise tus PR solo, responda a @claude en comentarios y no dispare el gasto. Workflows listos.</p>
+  <img class="portada-img" src="../img/revision-prs-github-actions.webp" width="960" height="540" alt="Portada: Revisa cada pull request con Claude Code en GitHub Actions">
   <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-10-31">2026-10-31</time></p>
+  
+  
+  
 <h2>El problema</h2>
 <p>Revisar a mano cada pull request cuesta tiempo, y en equipos pequeños los PR se aprueban sin que nadie los lea a fondo. Quieres que Claude Code deje comentarios en el PR en cuanto se abre y poder preguntarle con <code>@claude</code> sin salir de GitHub. Y no quieres que se coma tus minutos de Actions ni tu saldo de API en cada cambio de un README.</p>
 <h2>La solución</h2>
@@ -181,17 +187,17 @@ git push</code></pre>
 <p>Pon tus normas (estilo, criterios de revisión, reglas del proyecto) en un <code>CLAUDE.md</code> en la raíz del repositorio; Claude lo lee en cada ejecución. Mantenlo corto: cuenta como tokens cada vez.</p>
 <h3>¿Y si no quiero mantener un workflow?</h3>
 <p>Anthropic ofrece <a href="https://code.claude.com/docs/en/code-review" rel="noopener">Code Review</a>, que revisa cada PR sin archivo de workflow.</p>
-  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Más recetas</h2>
-    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code gratis con Ollama u OpenRouter: qué funciona</a></li><li><a href="claude-code-precio-gratis.html">¿Claude Code es gratis? Precio y qué plan elegir (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code en VS Code: extensión o terminal y cómo instalarlo</a></li></ul></nav>
-  <p class="volver"><a class="boton boton-oscuro" href="index.html">Todas las recetas</a></p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="checklist-revisar-codigo-ia.html">Antes de fusionar código de Claude Code: checklist de revisión</a></li><li><a href="claude-code-headless-cron.html">Claude Code headless: claude -p en scripts y cron paso a paso</a></li><li><a href="clear-vs-compact.html">/clear vs /compact en Claude Code y la compactación en reposo</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
 </article>
 </main>
 <footer class="pie">
   <div class="pie-arriba">
-    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro, en español.</p></div>
-    <nav aria-label="Enlaces"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
   </div>
-  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un recurso</a>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
   </div>
   <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
 </footer>

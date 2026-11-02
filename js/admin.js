@@ -80,12 +80,11 @@
   // ── Utilidades de pintado ─────────────────────────────────────────────────────────────────────────
   const ETIQUETAS = {
     usuarios: ["Usuarios", "Users"], altas_semana: ["Altas por semana", "Sign-ups per week"], mas_guardados: ["Más guardados", "Most saved"],
-    avisos_activos: ["Avisos activos", "Active alerts"], licencias: ["Licencias Pro", "Pro licenses"], correos_mes: ["Correos este mes", "Emails this month"],
+    avisos_activos: ["Avisos activos", "Active alerts"], correos_mes: ["Correos este mes", "Emails this month"],
     vistas: ["Vistas por página", "Views per page"], clics: ["Clics por evento", "Clicks per event"], recursos: ["Recursos más vistos", "Most viewed resources"],
-    origenes: ["Orígenes", "Sources"], ventas: ["Ventas", "Sales"], total: ["Total", "Total"],
+    origenes: ["Orígenes", "Sources"], total: ["Total", "Total"],
     vistas_por_ruta: ["Vistas por página", "Views per page"], clics_por_evento: ["Clics por evento", "Clicks per event"],
-    recursos_mas_vistos: ["Recursos más vistos", "Most viewed resources"], por_producto: ["Por producto", "By product"],
-    total_usd: ["Total (USD)", "Total (USD)"], ultimas: ["Últimas ventas", "Latest sales"], dias: ["Días", "Days"], desde: ["Desde", "Since"],
+    recursos_mas_vistos: ["Recursos más vistos", "Most viewed resources"], dias: ["Días", "Days"], desde: ["Desde", "Since"],
     incompleto: ["Incompleto", "Incomplete"], error: ["Error", "Error"], semana: ["Semana", "Week"], recurso: ["Recurso", "Resource"],
     ruta: ["Página", "Page"], evento: ["Evento", "Event"], origen: ["Origen", "Source"], producto: ["Producto", "Product"],
   };
@@ -125,16 +124,9 @@
     const partes = [
       seccion("resumen", tx("Resumen", "Summary"), async (c) => c.replaceChildren(pintarJson(await rpc("admin_resumen")))),
       seccion("estadisticas", tx("Estadísticas", "Statistics"), estadisticas),
-      seccion("recursos", tx("Recursos", "Resources"), recursos),
       seccion("peticiones", tx("Peticiones", "Requests"), peticiones),
       seccion("calendario", tx("Calendario de publicaciones", "Publishing calendar"), calendario),
       seccion("auditoria", tx("Auditoría", "Audit log"), auditoria),
-      seccion("ventas", tx("Ventas", "Sales"), async (c) => {
-        const v = await rpc("admin_ventas");
-        c.replaceChildren(v?.configurado === false
-          ? el("p", { className: "suave", textContent: tx("Sin configurar: falta el secreto gumroad_token en Vault.", "Not configured: the gumroad_token secret is missing from Vault.") })
-          : pintarJson(v));
-      }),
       seccion("avisos", tx("Avisos por correo", "Email alerts"), avisos),
     ];
     const nav = el("nav", { className: "admin-nav", "aria-label": tx("Secciones de administración", "Admin sections") },
@@ -150,119 +142,6 @@
     elegir.addEventListener("change", () => pintar().catch((e) => datos.replaceChildren(el("p", { className: "error", textContent: e.message }))));
     c.replaceChildren(el("label", { className: "admin-periodo" }, tx("Periodo", "Period"), elegir), datos);
     await pintar();
-  }
-
-  // ── Recursos (ADM-03): la base en línea manda; la web se regenera sola ────────────────────────────
-  const GRUPOS = ["Para Claude Code", "Para tu repositorio"];
-  const EMOCIONES = ["normal", "feliz", "orgulloso", "pensando", "sorpresa", "alerta", "miedo", "enojado", "triste"];
-  // [columna, etiqueta ES, etiqueta EN, tipo, límites]; las vacías opcionales se guardan como null
-  const CAMPOS = [
-    ["id", "Identificador (a-z, 0-9, -)", "Identifier (a-z, 0-9, -)", "text", { pattern: "[a-z0-9-]{2,40}", required: true }],
-    ["nombre", "Nombre", "Name (Spanish)", "text", { minLength: 3, maxLength: 80, required: true }],
-    ["nombre_en", "Nombre en inglés", "Name in English", "text", { minLength: 3, maxLength: 80 }],
-    ["problema", "Problema (corto)", "Problem (short, Spanish)", "text", { minLength: 5, maxLength: 80, required: true }],
-    ["problema_en", "Problema en inglés", "Problem in English", "text", { minLength: 5, maxLength: 80 }],
-    ["problema_largo", "Problema largo", "Long problem (Spanish)", "area", { minLength: 150, maxLength: 600 }],
-    ["problema_largo_en", "Problema largo en inglés", "Long problem in English", "area", { minLength: 150, maxLength: 600 }],
-    ["frase", "Frase de Byte", "Byte's line", "text", { minLength: 10, maxLength: 200, required: true }],
-    ["emocion", "Emoción de Byte", "Byte's emotion", EMOCIONES, { required: true }],
-    ["grupo", "Grupo", "Group", GRUPOS, { required: true }],
-    ["categoria_id", "Categoría", "Category", "categoria", { required: true }],
-    ["precio_usd", "Precio Pro (USD)", "Pro price (USD)", "number", { min: 0, max: 100, required: true }],
-    ["muestra_txt", "Texto de la muestra", "Sample text", "text", { minLength: 5, maxLength: 80, required: true }],
-    ["muestra_url", "Enlace de la muestra (GitHub o dev.to)", "Sample link (GitHub or dev.to)", "url", { pattern: "https://(github\\.com|dev\\.to)/.+", required: true }],
-    ["gumroad", "Producto de Gumroad (a-z, 0-9, -)", "Gumroad product (a-z, 0-9, -)", "text", { pattern: "[a-z0-9-]{2,60}", required: true }],
-    ["portada_dir", "Carpeta de portada", "Cover folder", "text", { maxLength: 80, required: true }],
-    ["alta", "Fecha de alta", "Release date", "date", {}],
-  ];
-
-  async function recursos(c, avisar) {
-    const [prods, incluye, etiq, cats, etiquetas] = await Promise.all([
-      api("/rest/v1/producto?select=*&order=orden"), api("/rest/v1/producto_incluye?select=*&order=producto_id,orden"),
-      api("/rest/v1/producto_etiqueta?select=*"), api("/rest/v1/categoria?select=id,nombre&order=orden"), api("/rest/v1/etiqueta?select=id,nombre&order=orden")]);
-    const recargar = async (m) => { await recursos(c, avisar); avisar(m); };
-    const lista = el("ul", { className: "lista-recursos" });
-    prods.forEach((p, i) => {
-      const b = (txt, accion, desactivado = false) => {
-        const x = el("button", { type: "button", className: "boton-texto", textContent: txt, disabled: desactivado });
-        x.addEventListener("click", async () => { x.disabled = true; try { await accion(); } catch (e) { x.disabled = false; avisar(e.message, true); } });
-        return x;
-      };
-      const mover = async (otro) => {          // orden es único: pasa por un valor libre antes de intercambiar
-        const libre = Math.max(...prods.map((x) => x.orden)) + 1;
-        await api(`/rest/v1/producto?id=eq.${encodeURIComponent(p.id)}`, { metodo: "PATCH", cuerpo: { orden: libre } });
-        await api(`/rest/v1/producto?id=eq.${encodeURIComponent(otro.id)}`, { metodo: "PATCH", cuerpo: { orden: p.orden } });
-        await api(`/rest/v1/producto?id=eq.${encodeURIComponent(p.id)}`, { metodo: "PATCH", cuerpo: { orden: otro.orden } });
-        await recargar(tx("Orden cambiado.", "Order changed."));
-      };
-      lista.append(el("li", {}, el("strong", { textContent: p.nombre }), p.visible ? "" : el("span", { className: "insignia", textContent: tx("Oculto", "Hidden") }),
-        b(tx("Editar", "Edit"), async () => formulario(p)),
-        b(tx("Subir", "Move up"), () => mover(prods[i - 1]), i === 0),
-        b(tx("Bajar", "Move down"), () => mover(prods[i + 1]), i === prods.length - 1),
-        b(p.visible ? tx("Ocultar", "Hide") : tx("Mostrar", "Show"), async () => {
-          await api(`/rest/v1/producto?id=eq.${encodeURIComponent(p.id)}`, { metodo: "PATCH", cuerpo: { visible: !p.visible } });
-          await recargar(p.visible ? tx("Recurso oculto.", "Resource hidden.") : tx("Recurso visible.", "Resource visible."));
-        })));
-    });
-    const nuevo = el("button", { type: "button", className: "boton boton-borde boton-chico", textContent: tx("Nuevo recurso", "New resource") });
-    nuevo.addEventListener("click", () => formulario(null));
-    const editor = el("div");
-    c.replaceChildren(el("p", { className: "nota", textContent: tx("Los cambios llegan a la web en 30 minutos como mucho (la sincronización regenera y publica).",
-                                                                   "Changes reach the website within 30 minutes (the sync regenerates and publishes it).") }),
-                      lista, nuevo, editor);
-
-    function formulario(p) {
-      const f = el("form", { className: "admin-form" });
-      f.append(el("h3", { textContent: p ? tx("Editar: ", "Edit: ") + p.nombre : tx("Nuevo recurso", "New resource") }));
-      for (const [col, es, en, tipo, lim] of CAMPOS) {
-        let campo;
-        if (Array.isArray(tipo) || tipo === "categoria") {
-          const ops = tipo === "categoria" ? cats.map((x) => [x.id, x.nombre]) : tipo.map((x) => [x, x]);
-          campo = el("select", { name: col }, ...ops.map(([v, t]) => el("option", { value: v, textContent: t })));
-        } else campo = el(tipo === "area" ? "textarea" : "input", tipo === "area" ? { name: col, rows: 4 } : { name: col, type: tipo });
-        Object.assign(campo, lim);
-        if (p) campo.value = p[col] ?? "";
-        if (p && col === "id") campo.readOnly = true;          // el id es la clave: no se cambia
-        f.append(el("label", {}, tx(es, en), campo));
-      }
-      const inc = incluye.filter((x) => p && x.producto_id === p.id).map((x) => x.texto).join("\n");
-      f.append(el("label", {}, tx("Qué incluye (una línea por punto, máx. 10)", "What it includes (one line per item, max 10)"),
-                  el("textarea", { name: "incluye", rows: 5, value: inc })));
-      const suyas = new Set(etiq.filter((x) => p && x.producto_id === p.id).map((x) => x.etiqueta_id));
-      f.append(el("fieldset", { className: "filtros" }, el("legend", { textContent: tx("Etiquetas", "Tags") }),
-        ...etiquetas.map((x) => el("label", { className: "filtro" }, el("input", { type: "checkbox", name: "etiqueta", value: x.id, checked: suyas.has(x.id) }), " " + x.nombre))));
-      f.append(el("label", { className: "fila" }, el("input", { type: "checkbox", name: "visible", checked: p ? p.visible : true }), " " + tx("Visible en la web", "Visible on the website")));
-      const guardar = el("button", { className: "boton boton-oscuro boton-chico", textContent: tx("Guardar", "Save") });
-      const cancelar = el("button", { type: "button", className: "boton boton-borde boton-chico", textContent: tx("Cancelar", "Cancel") });
-      cancelar.addEventListener("click", () => { editor.replaceChildren(); nuevo.focus(); });
-      f.append(el("p", { className: "cuenta-acciones" }, guardar, cancelar));
-      f.addEventListener("submit", async (ev) => {
-        ev.preventDefault();
-        const lineas = f.elements.incluye.value.split("\n").map((x) => x.trim()).filter(Boolean);
-        const mal = lineas.find((x) => x.length < 3 || x.length > 120);
-        if (lineas.length > 10 || mal) { avisar(tx("«Qué incluye»: hasta 10 líneas de 3 a 120 caracteres.", "“What it includes”: up to 10 lines of 3 to 120 characters."), true); f.elements.incluye.focus(); return; }
-        const fila = { visible: f.elements.visible.checked };
-        for (const [col, , , tipo] of CAMPOS) {
-          const v = f.elements[col].value.trim();
-          fila[col] = tipo === "number" ? Number(v) : v || null;
-        }
-        guardar.disabled = true;
-        try {
-          const id = fila.id;
-          if (p) { delete fila.id; await api(`/rest/v1/producto?id=eq.${encodeURIComponent(id)}`, { metodo: "PATCH", cuerpo: fila }); }
-          else await api("/rest/v1/producto", { metodo: "POST", cuerpo: { ...fila, orden: Math.max(-1, ...prods.map((x) => x.orden)) + 1 } });
-          // shortcut: incluye y etiquetas se reemplazan con varias llamadas (no atómico); si falla a medias, volver a guardar lo arregla
-          await api(`/rest/v1/producto_incluye?producto_id=eq.${encodeURIComponent(id)}`, { metodo: "DELETE" });
-          if (lineas.length) await api("/rest/v1/producto_incluye", { metodo: "POST", cuerpo: lineas.map((texto, orden) => ({ producto_id: id, orden, texto })) });
-          await api(`/rest/v1/producto_etiqueta?producto_id=eq.${encodeURIComponent(id)}`, { metodo: "DELETE" });
-          const marcadas = [...f.querySelectorAll("input[name=etiqueta]:checked")].map((x) => ({ producto_id: id, etiqueta_id: x.value }));
-          if (marcadas.length) await api("/rest/v1/producto_etiqueta", { metodo: "POST", cuerpo: marcadas });
-          await recargar(tx("Recurso guardado.", "Resource saved."));
-        } catch (e) { guardar.disabled = false; avisar(tx("No se guardó: ", "Not saved: ") + e.message, true); }
-      });
-      editor.replaceChildren(f);
-      f.elements[p ? "nombre" : "id"].focus();
-    }
   }
 
   // ── Peticiones (ADM-04) ───────────────────────────────────────────────────────────────────────────

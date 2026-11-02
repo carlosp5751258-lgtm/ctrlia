@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Crear un plugin de Claude Code: init, prueba, eval y marketplace · Ctrl+IA</title>
+<meta name="description" content="Crea un plugin de Claude Code con plugin.json y una skill, valídalo, pruébalo con --plugin-dir, pásale un eval y publícalo en tu marketplace. Probado.">
+<meta property="og:title" content="Crear un plugin de Claude Code: init, prueba, eval y marketplace · Ctrl+IA">
+<meta property="og:description" content="Crea un plugin de Claude Code con plugin.json y una skill, valídalo, pruébalo con --plugin-dir, pásale un eval y publícalo en tu marketplace. Probado.">
+<meta property="og:image" content="https://ctrlia.dev/img/crear-plugin-claude-code.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/crear-plugin-claude-code.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/crear-plugin-claude-code.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/crear-plugin-claude-code.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/crear-plugin-claude-code.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/crear-plugin-claude-code.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/crear-plugin-claude-code.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Crear un plugin de Claude Code: init, prueba, eval y marketplace", "totalTime": "PT20M", "step": [{"@type": "HowToStep", "position": 1, "name": "Decide si necesitas un plugin", "text": "Si solo quieres una skill para ti o para un proyecto, no necesitas un plugin: basta con .claude/skills/<nombre>/SKILL.md (lo explicamos en la receta de la primera skill). Haz un plugin cuando quieras compartir la configuración con otras personas, instalarla en varios proyectos o publicar versiones.", "url": "https://ctrlia.dev/recetas/crear-plugin-claude-code.html"}, {"@type": "HowToStep", "position": 2, "name": "Crea la estructura y el manifiesto", "text": "La estructura final del plugin:", "url": "https://ctrlia.dev/recetas/crear-plugin-claude-code.html"}, {"@type": "HowToStep", "position": 3, "name": "Valídalo y pruébalo sin instalar nada", "text": "Valida el manifiesto y el frontmatter de cada skill:", "url": "https://ctrlia.dev/recetas/crear-plugin-claude-code.html"}, {"@type": "HowToStep", "position": 4, "name": "Comprueba que cambia el comportamiento: claude plugin eval", "text": "Que un plugin cargue no significa que Claude lo use bien. claude plugin eval (v2.1.269 o posterior; git 2.31 o posterior si tienes git) ejecuta casos de prueba con y sin el plugin y puntúa la diferencia. Cada caso es una carpeta en evals/ con un prompt.md (lo que escribiría un usuario) y uno o más evaluadores en graders/:", "url": "https://ctrlia.dev/recetas/crear-plugin-claude-code.html"}, {"@type": "HowToStep", "position": 5, "name": "Publícalo en tu propio marketplace", "text": "Un marketplace es un archivo .claude-plugin/marketplace.json en un repositorio git que lista tus plugins. Para publicar desde el mismo repositorio del plugin, guárdalo junto a plugin.json con una entrada cuyo source sea \"./\" y cuyo name sea el mismo que el del manifiesto (si no coinciden, la instalación falla):", "url": "https://ctrlia.dev/recetas/crear-plugin-claude-code.html"}, {"@type": "HowToStep", "position": 6, "name": "Revisa la seguridad: lo que un plugin puede hacer en tu máquina", "text": "Un plugin no es solo texto: sus hooks y servidores MCP ejecutan programas con tus permisos de usuario, y sus skills pueden traer allowed-tools que aprueban comandos. Antes de instalar uno ajeno, lee su hooks/hooks.json, su .mcp.json y los scripts que llame, igual que revisarías un paquete de npm (la página oficial Plugin security and trust detalla qué revisar).", "url": "https://ctrlia.dev/recetas/crear-plugin-claude-code.html"}], "description": "Crea un plugin de Claude Code con plugin.json y una skill, valídalo, pruébalo con --plugin-dir, pásale un eval y publícalo en tu marketplace. Probado.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/crear-plugin-claude-code.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Por qué mi skill se llama /commit-es:mensaje y no /mensaje?", "acceptedAnswer": {"@type": "Answer", "text": "Las skills de un plugin llevan el nombre del plugin delante para no chocar con las de otros. La excepción es el SKILL.md raíz que crea plugin init, que se invoca como /nombre."}}, {"@type": "Question", "name": "Puse skills/ dentro de .claude-plugin/ y no cargan.", "acceptedAnswer": {"@type": "Answer", "text": "Dentro de .claude-plugin/ solo va plugin.json. Mueve skills/, agents/ y hooks/ a la raíz del plugin y ejecuta /reload-plugins."}}, {"@type": "Question", "name": "«no marketplaces configured»: ¿qué significa?", "acceptedAnswer": {"@type": "Answer", "text": "Que todavía no has añadido ningún marketplace. Añade uno con claude plugin marketplace add owner/repo (o una ruta local) y vuelve a intentar la instalación."}}, {"@type": "Question", "name": "¿Cuánto cuesta un eval?", "acceptedAnswer": {"@type": "Answer", "text": "Cada ejecución es una llamada real al modelo con tus credenciales: por defecto, 3 con el plugin y 3 sin él por caso, más las del juez. Usa --runs 1 --ablation none --model haiku --max-cost-usd mientras iteras; nuestro caso costó menos de un céntimo estimado."}}, {"@type": "Question", "name": "El eval dice «Invalid regular expression» en mi grader regex.", "acceptedAnswer": {"@type": "Answer", "text": "Los patrones son JavaScript: no admiten (?m) ni (?i) en línea. Pon los modificadores en el campo flags, por ejemplo flags: m."}}, {"@type": "Question", "name": "¿Validate me avisa de README, LICENSE e icono aunque dice «Validation passed»?", "acceptedAnswer": {"@type": "Answer", "text": "Son comprobaciones del directorio oficial de Anthropic: solo hacen falta si vas a enviarlo allí. Para un marketplace propio no son obligatorias, aunque un README con la línea de instalación ayuda a tus usuarios."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/crear-plugin-claude-code.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Receta · Intermedio · 20 min</p>
+  <h1 id="t-art">Crear un plugin de Claude Code: init, prueba, eval y marketplace</h1>
+  <p class="entrada">Crea un plugin de Claude Code con plugin.json y una skill, valídalo, pruébalo con --plugin-dir, pásale un eval y publícalo en tu marketplace. Probado.</p>
+  <img class="portada-img" src="../img/crear-plugin-claude-code.webp" width="960" height="540" alt="Portada: Crear un plugin de Claude Code: init, prueba, eval y marketplace">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-crear-plugin-claude-code"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Ver los archivos en GitHub</a> <span class="nota">Gratis · licencia MIT</span></p>
+  
+  
+<h2>El problema</h2>
+<p>Tienes skills, agentes o hooks que te funcionan y quieres usarlos en varios proyectos o pasárselos a tu equipo sin copiar carpetas a mano. Un plugin es justo eso: una carpeta con skills, agentes, hooks o servidores MCP y un manifiesto <code>plugin.json</code> que les pone nombre, para instalarlos de una vez y publicar versiones. El problema es que entre crear la estructura, validarla, comprobar que Claude la usa bien y publicarla hay varios pasos con trampas que la documentación no junta en un solo sitio.</p>
+<h2>La solución</h2>
+<p>Vamos a crear <code>commit-es</code>, un plugin que redacta mensajes de commit en español, lo validaremos, lo probaremos sin instalarlo, le pasaremos un eval automático y lo publicaremos en un marketplace propio. Todo probado con Claude Code 2.1.316 en Linux. El plugin completo está en el repositorio gratuito <code>ctrlia-crear-plugin-claude-code</code>.</p>
+<h3>1. Decide si necesitas un plugin</h3>
+<p>Si solo quieres una skill para ti o para un proyecto, no necesitas un plugin: basta con <code>.claude/skills/&lt;nombre&gt;/SKILL.md</code> (lo explicamos en la receta de <a href="../recetas/primera-skill.html">la primera skill</a>). Haz un plugin cuando quieras compartir la configuración con otras personas, instalarla en varios proyectos o publicar versiones.</p>
+<p>Un plugin puede llevar skills (<code>skills/</code>), subagentes (<code>agents/</code>), hooks (<code>hooks/hooks.json</code>), servidores MCP (<code>.mcp.json</code>) y estilos de salida, todo en la raíz del plugin; solo <code>plugin.json</code> va dentro de <code>.claude-plugin/</code>. Al pasar a plugin cambian los nombres: las skills llevan el nombre del plugin delante, como <code>/commit-es:mensaje</code>, para que dos plugins puedan tener una skill <code>mensaje</code> sin chocar.</p>
+<p>Hay dos maneras de empezar. <code>claude plugin init &lt;nombre&gt;</code> crea un plugin en <code>~/.claude/skills/&lt;nombre&gt;/</code> que se carga solo en todas tus sesiones (útil para ti). Para algo que vas a publicar, la documentación crea la carpeta a mano y la prueba con <code>--plugin-dir</code>; es lo que haremos.</p>
+<h3>2. Crea la estructura y el manifiesto</h3>
+<p>La estructura final del plugin:</p>
+<pre><code class="language-text">commit-es/
+├── .claude-plugin/
+│   ├── plugin.json
+│   └── marketplace.json        (paso 5)
+├── skills/
+│   └── mensaje/
+│       └── SKILL.md
+└── evals/                      (paso 4)</code></pre>
+<p>Crea <code>commit-es/.claude-plugin/plugin.json</code> con <code>name</code> (obligatorio, sin espacios: será el prefijo de las skills), <code>description</code>, <code>version</code>, <code>author</code> y <code>license</code>:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;commit-es&quot;,
+  &quot;description&quot;: &quot;Redacta mensajes de commit en español con Conventional Commits&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;author&quot;: { &quot;name&quot;: &quot;Ctrl+IA&quot; },
+  &quot;license&quot;: &quot;MIT&quot;
+}</code></pre>
+<p>Después crea <code>commit-es/skills/mensaje/SKILL.md</code>. La <code>description</code> de la skill es lo que Claude compara con lo que pide el usuario, así que incluye frases reales como «escribe el commit» o «mensaje de commit». Con <code>allowed-tools</code> (una lista YAML) la skill puede ejecutar <code>git diff</code> y <code>git status</code> sin pedir permiso durante ese turno. Las instrucciones son pasos cortos:</p>
+<pre><code class="language-markdown">---
+name: mensaje
+description: Redacta el mensaje de commit de los cambios preparados (git diff --cached) en español y con formato Conventional Commits. Úsala cuando el usuario pida «escribe el commit», «mensaje de commit» o «haz el commit».
+allowed-tools:
+  - Bash(git diff *)
+  - Bash(git status *)
+---
+1. Ejecuta `git diff --cached --stat` y `git diff --cached`.
+2. Si no hay nada preparado pero el usuario describe el cambio, usa su descripción; si no hay ni una cosa ni la otra, dilo y para.
+3. Escribe UNA línea de título de ≤ 72 caracteres: `tipo(ámbito): resumen` en español, en imperativo
+   (tipos: feat, fix, docs, refactor, test, chore).
+4. Deja una línea en blanco y, solo si el cambio no es obvio, 1-3 viñetas con el porqué.
+5. Devuelve solo el mensaje, sin comentarios antes ni después. No ejecutes `git commit`.</code></pre>
+<p>Si prefieres que te genere el esqueleto, <code>claude plugin init commit-es --with skills</code> crea el manifiesto (con <code>&quot;skills&quot;: [&quot;./&quot;]</code>), un <code>SKILL.md</code> raíz y uno de ejemplo, con TODO en la descripción. Recuerda que lo crea en <code>~/.claude/skills/</code>, no en tu carpeta actual.</p>
+<h3>3. Valídalo y pruébalo sin instalar nada</h3>
+<p>Valida el manifiesto y el frontmatter de cada skill:</p>
+<pre><code class="language-bash">claude plugin validate ./commit-es</code></pre>
+<p>Termina con <code>✔ Validation passed</code>. En la 2.1.316 también pasa las comprobaciones del directorio de plugins de Anthropic y avisa de lo que faltaría para enviarlo allí: en nuestra prueba pidió un README.md de al menos 40 palabras, un LICENSE (o <code>license</code> en plugin.json) y un icono cuadrado PNG de 512 a 2048 px. Esos avisos no hacen fallar la validación.</p>
+<p>Luego cárgalo solo para una sesión y pruébalo con algún cambio preparado con <code>git add</code>:</p>
+<pre><code class="language-bash"># Sesión interactiva con el plugin cargado solo esta vez
+claude --plugin-dir ./commit-es
+# &gt; /commit-es:mensaje
+
+# O sin interfaz, desde un repo con cambios preparados (git add)
+claude -p --plugin-dir ../commit-es --output-format json &quot;/commit-es:mensaje&quot; &lt; /dev/null | jq -r &#x27;.result&#x27;</code></pre>
+<p>Si editas archivos del plugin con la sesión abierta, <code>/reload-plugins</code> los recarga. En nuestro repositorio de prueba, <code>claude -p --plugin-dir ../commit-es &quot;/commit-es:mensaje&quot;</code> devolvió <code>feat(calc): añadir función resta y documentar suma</code> en unos 10 segundos. Si algo no aparece, <code>/plugin</code> tiene una pestaña Errors con el motivo, y <code>claude plugin list</code> muestra qué cargó. Si nunca has usado <code>claude -p</code>, la receta de <a href="../recetas/claude-code-headless-cron.html">Claude Code headless</a> lo explica.</p>
+<h3>4. Comprueba que cambia el comportamiento: claude plugin eval</h3>
+<p>Que un plugin cargue no significa que Claude lo use bien. <code>claude plugin eval</code> (v2.1.269 o posterior; git 2.31 o posterior si tienes git) ejecuta casos de prueba con y sin el plugin y puntúa la diferencia. Cada caso es una carpeta en <code>evals/</code> con un <code>prompt.md</code> (lo que escribiría un usuario) y uno o más evaluadores en <code>graders/</code>:</p>
+<ul><li><code>regex</code> comprueba un patrón en la respuesta.</li><li><code>tool_used</code> comprueba si se usó tu skill.</li><li><code>llm</code> es una rúbrica PASS/FAIL que juzga otro modelo.</li></ul>
+<p><code>claude plugin eval init</code> te los propone en una sesión; <code>claude plugin eval init --bare nombre</code> crea una plantilla vacía. Este es nuestro caso, con cada archivo marcado por un comentario:</p>
+<pre><code class="language-markdown">&lt;!-- evals/commit-renombrado/prompt.md --&gt;
+---
+max_turns: 6
+allowed_tools: [Read, Glob, Grep, Skill]
+---
+Escríbeme el mensaje de commit para este cambio: renombré getUser a fetchUser y actualicé las tres llamadas.
+
+&lt;!-- evals/commit-renombrado/graders/formato.md --&gt;
+---
+type: regex
+flags: m
+pattern: &#x27;^refactor(\([^)]+\))?: .*fetchUser&#x27;
+---
+
+&lt;!-- evals/commit-renombrado/graders/skill-usada.md --&gt;
+---
+type: tool_used
+tool: Skill
+input_match: &#x27;&quot;skill&quot;\s*:\s*&quot;(?:[\w-]+:)?mensaje&quot;&#x27;
+---
+
+&lt;!-- evals/commit-renombrado/graders/criteria.md --&gt;
+---
+type: llm
+---
+PASS si la respuesta es un único mensaje de commit en español cuyo título usa el tipo refactor y menciona fetchUser.
+FAIL si está en inglés, si incluye texto antes o después del mensaje o si dice que ha ejecutado git commit.</code></pre>
+<p>Por defecto cada caso se ejecuta 3 veces con el plugin y 3 sin él, y cada ejecución es una llamada real al modelo que gasta de tu plan. Para iterar barato:</p>
+<pre><code class="language-bash">cd commit-es
+claude plugin eval . --runs 1 --ablation none --model haiku --max-cost-usd 0.5 --no-publish
+# Antes de fiarte del resultado: con las 3 ejecuciones y la comparación sin plugin
+claude plugin eval .
+# Añade evals/results/ a .gitignore</code></pre>
+<p>Nuestro primer eval suspendió (0,33) y nos enseñó dos cosas. El regex con <code>(?m)</code> falló porque los patrones son de JavaScript: los flags van en <code>flags:</code>, como en el archivo de arriba. Y el juez rechazó la respuesta porque, sin Bash en <code>allowed_tools</code>, la skill explicaba que no podía leer el diff antes de dar el mensaje: justo el tipo de fallo que un eval tiene que encontrar.</p>
+<h3>5. Publícalo en tu propio marketplace</h3>
+<p>Un marketplace es un archivo <code>.claude-plugin/marketplace.json</code> en un repositorio git que lista tus plugins. Para publicar desde el mismo repositorio del plugin, guárdalo junto a <code>plugin.json</code> con una entrada cuyo <code>source</code> sea <code>&quot;./&quot;</code> y cuyo <code>name</code> sea el mismo que el del manifiesto (si no coinciden, la instalación falla):</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;ctrlia&quot;,
+  &quot;description&quot;: &quot;Plugins en español de Ctrl+IA para Claude Code&quot;,
+  &quot;owner&quot;: { &quot;name&quot;: &quot;Ctrl+IA&quot; },
+  &quot;plugins&quot;: [
+    { &quot;name&quot;: &quot;commit-es&quot;, &quot;source&quot;: &quot;./&quot; }
+  ]
+}</code></pre>
+<p>Elige para el marketplace un nombre poco común, porque nadie puede tener dos marketplaces con el mismo nombre. La <code>description</code> es opcional, pero sin ella <code>claude plugin validate</code> avisa de que falta. Ejecuta <code>claude plugin validate .</code>, haz commit y súbelo a GitHub. Esto es lo que harán tus usuarios:</p>
+<pre><code class="language-bash">claude plugin marketplace add tu-usuario/commit-es
+claude plugin install commit-es@ctrlia
+# o en un solo paso (v2.1.292 o posterior)
+claude plugin install commit-es --marketplace tu-usuario/commit-es
+# actualizar cuando subas la versión
+claude plugin update commit-es@ctrlia</code></pre>
+<p>Las actualizaciones llegan con <code>claude plugin update</code> cuando cambias <code>version</code>. Lo probamos con una carpeta local en lugar de GitHub y funcionó: <code>marketplace add</code> y <code>install</code> con alcance de usuario. Si antes usaste <code>plugin init</code> con el mismo nombre, <code>claude plugin list</code> avisa de que la copia de <code>~/.claude/skills</code> no se carga porque el nombre ya lo tiene el plugin instalado: cambia uno de los dos nombres.</p>
+<h3>6. Revisa la seguridad: lo que un plugin puede hacer en tu máquina</h3>
+<p>Un plugin no es solo texto: sus hooks y servidores MCP ejecutan programas con tus permisos de usuario, y sus skills pueden traer <code>allowed-tools</code> que aprueban comandos. Antes de instalar uno ajeno, lee su <code>hooks/hooks.json</code>, su <code>.mcp.json</code> y los scripts que llame, igual que revisarías un paquete de npm (la página oficial <a href="https://code.claude.com/docs/en/plugins/security" rel="noopener">Plugin security and trust</a> detalla qué revisar).</p>
+<p>Ni <code>claude plugin validate</code> ni <code>claude plugin eval</code> son una revisión de seguridad: la propia ayuda de eval dice que su aislamiento limita lo que un plugin malicioso puede alcanzar, pero no es una garantía, y que solo evalúes plugins en los que confías. En tus plugins, da el mínimo: <code>allowed-tools</code> con comandos concretos (<code>Bash(git diff *)</code>, no <code>Bash</code>), sin secretos en el repositorio y con una versión en <code>plugin.json</code> para que tus usuarios no reciban cambios sin querer. Para quitar un plugin: <code>claude plugin disable</code> o <code>claude plugin uninstall</code>, y para los creados con <code>plugin init</code>, borra su carpeta de <code>~/.claude/skills</code>. Si tu plugin lleva hooks, la receta de <a href="../recetas/hooks-seguridad.html">hooks de seguridad</a> explica cómo funcionan.</p>
+<h2>Compruébalo</h2>
+<p>Con Claude Code 2.1.316 en Linux, y con <code>HOME</code> y <code>CLAUDE_CONFIG_DIR</code> temporales para no tocar la configuración real, esto es lo que obtuvimos (extracto):</p>
+<pre><code class="language-text">$ claude plugin validate ./commit-es
+...
+✔ Validation passed
+
+$ claude plugin marketplace add ./commit-es
+✔ Successfully added marketplace: ctrlia (declared in user settings)
+
+$ claude plugin install commit-es@ctrlia
+✔ Successfully installed plugin: commit-es@ctrlia (scope: user)
+
+$ claude plugin list
+Installed plugins:
+
+  ❯ commit-es@ctrlia
+    Version: 0.1.0
+    Scope: user
+    Status: ✔ enabled</code></pre>
+<p>Con el plugin cargado, <code>/commit-es:mensaje</code> sobre cambios preparados devolvió <code>feat(calc): añadir función resta y documentar suma</code>. <code>claude plugin eval . --runs 1 --ablation none --model haiku</code> ejecutó el caso de prueba y la primera vez dio 0,33 por los dos fallos del paso 4. No hemos probado todavía a publicar en GitHub de verdad ni el envío al directorio de Anthropic.</p>
+<h2>Por qué funciona</h2>
+<p>Claude Code busca el manifiesto en <code>.claude-plugin/plugin.json</code> y carga desde la raíz del plugin las carpetas que conoce (<code>skills/</code>, <code>agents/</code>, <code>hooks/</code>…), poniendo el <code>name</code> del manifiesto delante de cada skill para que no choquen. <code>--plugin-dir</code> carga esa carpeta solo para una sesión, sin instalar nada. Un marketplace es solo un catálogo en git: <code>marketplace add</code> lo registra, <code>install</code> instala el plugin que lista y <code>update</code> lo trae de nuevo cuando cambia <code>version</code>. <code>plugin eval</code> ejecuta el mismo prompt con y sin el plugin y puntúa la diferencia, así que mide si el plugin cambia el comportamiento, no solo si carga. Más detalles en <a href="https://code.claude.com/docs/es/plugins/create" rel="noopener">crear plugins</a>, <a href="https://code.claude.com/docs/en/plugins/publish" rel="noopener">publicar plugins</a>, <a href="https://code.claude.com/docs/en/plugin-evals" rel="noopener">evals de plugins</a>, la <a href="https://code.claude.com/docs/en/plugins/cli-reference" rel="noopener">referencia de la CLI de plugins</a> y la página de <a href="https://code.claude.com/docs/en/skills" rel="noopener">skills</a>.</p>
+<h2>Errores típicos</h2>
+<ul><li><strong>Las skills no cargan</strong> → pusiste <code>skills/</code> dentro de <code>.claude-plugin/</code> → dentro de <code>.claude-plugin/</code> solo va <code>plugin.json</code>; mueve <code>skills/</code>, <code>agents/</code> y <code>hooks/</code> a la raíz del plugin y ejecuta <code>/reload-plugins</code>.</li><li><strong>La skill se llama <code>/commit-es:mensaje</code> y no <code>/mensaje</code></strong> → las skills de un plugin llevan su nombre delante → es lo esperado; solo el <code>SKILL.md</code> raíz de <code>plugin init</code> se invoca como <code>/nombre</code>.</li><li><strong><code>no marketplaces configured</code></strong> → todavía no has añadido ningún marketplace → <code>claude plugin marketplace add owner/repo</code> (o una ruta local).</li><li><strong>La instalación falla</strong> → el <code>name</code> de la entrada de <code>marketplace.json</code> no coincide con el de <code>plugin.json</code> → usa el mismo nombre en los dos.</li><li><strong><code>Invalid regular expression</code> en un grader regex</strong> → los patrones son de JavaScript y no admiten <code>(?m)</code> ni <code>(?i)</code> en línea → pon los modificadores en <code>flags</code>, por ejemplo <code>flags: m</code>.</li><li><strong><code>claude plugin list</code> dice que una copia no se carga</strong> → tienes un plugin de <code>plugin init</code> en <code>~/.claude/skills</code> con el mismo nombre que el instalado → cambia uno de los dos nombres.</li></ul>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Por qué mi skill se llama /commit-es:mensaje y no /mensaje?</h3>
+<p>Las skills de un plugin llevan el nombre del plugin delante para no chocar con las de otros. La excepción es el SKILL.md raíz que crea plugin init, que se invoca como /nombre.</p>
+<h3>Puse skills/ dentro de .claude-plugin/ y no cargan.</h3>
+<p>Dentro de .claude-plugin/ solo va plugin.json. Mueve skills/, agents/ y hooks/ a la raíz del plugin y ejecuta /reload-plugins.</p>
+<h3>«no marketplaces configured»: ¿qué significa?</h3>
+<p>Que todavía no has añadido ningún marketplace. Añade uno con <code>claude plugin marketplace add owner/repo</code> (o una ruta local) y vuelve a intentar la instalación.</p>
+<h3>¿Cuánto cuesta un eval?</h3>
+<p>Cada ejecución es una llamada real al modelo con tus credenciales: por defecto, 3 con el plugin y 3 sin él por caso, más las del juez. Usa <code>--runs 1 --ablation none --model haiku --max-cost-usd</code> mientras iteras; nuestro caso costó menos de un céntimo estimado.</p>
+<h3>El eval dice «Invalid regular expression» en mi grader regex.</h3>
+<p>Los patrones son JavaScript: no admiten <code>(?m)</code> ni <code>(?i)</code> en línea. Pon los modificadores en el campo <code>flags</code>, por ejemplo <code>flags: m</code>.</p>
+<h3>¿Validate me avisa de README, LICENSE e icono aunque dice «Validation passed»?</h3>
+<p>Son comprobaciones del directorio oficial de Anthropic: solo hacen falta si vas a enviarlo allí. Para un marketplace propio no son obligatorias, aunque un README con la línea de instalación ayuda a tus usuarios.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="pack-comandos.html">5 comandos de Claude Code imprescindibles, listos para copiar</a></li><li><a href="que-pieza-usar.html">Claude Code skills vs hooks, MCP, subagentes y plugins: cuál usar</a></li><li><a href="skills-que-instalar.html">Skills de Claude Code: cuáles instalar, cómo y cuáles evitar</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

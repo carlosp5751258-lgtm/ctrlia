@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code plan mode: plan before touching any code · Ctrl+IA</title>
+<meta name="description" content="Use Claude Code plan mode: enter with Shift+Tab or /plan, edit the plan with Ctrl+G, save it in your repo and plan with Opus using opusplan.">
+<meta property="og:title" content="Claude Code plan mode: plan before touching any code · Ctrl+IA">
+<meta property="og:description" content="Use Claude Code plan mode: enter with Shift+Tab or /plan, edit the plan with Ctrl+G, save it in your repo and plan with Opus using opusplan.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/modo-plan.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/modo-plan.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/modo-plan.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/modo-plan.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/modo-plan.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/modo-plan.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/modo-plan.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code plan mode: plan before touching any code", "totalTime": "PT10M", "step": [{"@type": "HowToStep", "position": 1, "name": "What plan mode does exactly", "text": "In plan mode Claude can read files, run commands to explore and write a plan, but it does not edit your source code: edits stay blocked until you approve the plan. The only documented exception is interactive terminal sessions that have bypassPermissions available in the mode cycle; since 2.1.299 Claude Code warns once in that case.", "url": "https://ctrlia.dev/en/recetas/modo-plan.html"}, {"@type": "HowToStep", "position": 2, "name": "Enter and exit: Shift+Tab, /plan and --permission-mode plan", "text": "There are four ways in:", "url": "https://ctrlia.dev/en/recetas/modo-plan.html"}, {"@type": "HowToStep", "position": 3, "name": "Approve, keep planning or edit the plan with Ctrl+G", "text": "When the plan is ready, Claude presents it and asks how to continue:", "url": "https://ctrlia.dev/en/recetas/modo-plan.html"}, {"@type": "HowToStep", "position": 4, "name": "Where the plan is saved and why it matters", "text": "Plans are Markdown files. By default they are saved in ~/.claude/plans (in our test: ~/.claude/plans/crea-el-archivo-nuevo-txt-silly-dream.md). With the plansDirectory key you can save them inside the project, with a path relative to the root. If the path leaves the root or uses backslashes on Linux or macOS, Claude Code falls back to ~/.claude/plans; write docs/plans, which also works on Windows.", "url": "https://ctrlia.dev/en/recetas/modo-plan.html"}, {"@type": "HowToStep", "position": 5, "name": "Plan with Opus and execute with Sonnet: opusplan", "text": "The opusplan model alias uses opus while you are in plan mode and switches automatically to sonnet when executing. Turn it on with /model opusplan or claude --model opusplan. That way you reason about the architecture with the most capable model and write the code with a cheaper one.", "url": "https://ctrlia.dev/en/recetas/modo-plan.html"}, {"@type": "HowToStep", "position": 6, "name": "When to use it and when not (and how to ask for a good plan)", "text": "Use it for changes across several files, code you don't know, migrations, refactors and anything where a wrong direction is expensive. The costs documentation recommends it precisely to avoid redoing work when the initial approach is wrong. You don't need it for a one-line change, renaming a variable or fixing an obvious bug: there the plan adds a round trip.", "url": "https://ctrlia.dev/en/recetas/modo-plan.html"}], "description": "Use Claude Code plan mode: enter with Shift+Tab or /plan, edit the plan with Ctrl+G, save it in your repo and plan with Opus using opusplan.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/modo-plan.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I turn on plan mode?", "acceptedAnswer": {"@type": "Answer", "text": "Shift+Tab until you see \"⏸ plan mode on\", /plan <task>, or claude --permission-mode plan. On some Windows setups the shortcut is Alt+M."}}, {"@type": "Question", "name": "How do I leave plan mode without approving?", "acceptedAnswer": {"@type": "Answer", "text": "Press Shift+Tab again to move to the next mode in the cycle."}}, {"@type": "Question", "name": "Where is the plan saved?", "acceptedAnswer": {"@type": "Answer", "text": "In ~/.claude/plans by default; change it with plansDirectory (a path relative to the project root)."}}, {"@type": "Question", "name": "Can I edit the plan before it starts?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: Ctrl+G opens it in your editor. Or choose \"No, keep planning\" and tell it what to change."}}, {"@type": "Question", "name": "What happened to ultraplan?", "acceptedAnswer": {"@type": "Answer", "text": "It was removed in 2.1.222; the documentation says to use plan mode instead."}}, {"@type": "Question", "name": "Can Claude run commands in plan mode?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, to explore. With auto mode available, the classifier decides; otherwise it asks you about anything that is not read-only. Code edits stay blocked until you approve (except with bypass available in the terminal)."}}, {"@type": "Question", "name": "Is opusplan cheaper?", "acceptedAnswer": {"@type": "Answer", "text": "Usually, because execution runs on Sonnet, but each switch between planning and executing is a model switch that empties the cache. It pays off with little back and forth."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/modo-plan.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Basic · 10 min</p>
+  <h1 id="t-art">Claude Code plan mode: plan before touching any code</h1>
+  <p class="entrada">Use Claude Code plan mode: enter with Shift+Tab or /plan, edit the plan with Ctrl+G, save it in your repo and plan with Opus using opusplan.</p>
+  <img class="portada-img" src="../../img/en/modo-plan.webp" width="960" height="540" alt="Cover: Claude Code plan mode: plan before touching any code">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-modo-plan"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>The problem</h2>
+<p>You ask Claude Code for a change that touches several files and it starts editing before understanding the code. By the time you see the approach was wrong, there is work to undo and you have used up limit. In code you don&#x27;t know, migrations or refactors, a wrong direction is expensive.</p>
+<h2>The solution</h2>
+<p>Plan mode makes Claude investigate and propose changes without applying them: it reads files, runs exploration commands and writes a plan, but does not edit your code until you approve it. Here you will see how to enter and exit, how to approve, reject or edit the plan (Ctrl+G), where it is saved, how to combine it with <code>opusplan</code> and with the option to clear context on approval, and when it is not worth it.</p>
+<h3>1. What plan mode does exactly</h3>
+<p>In plan mode Claude can read files, run commands to explore and write a plan, but it does not edit your source code: edits stay blocked until you approve the plan. The only documented exception is interactive terminal sessions that have <code>bypassPermissions</code> available in the mode cycle; since 2.1.299 Claude Code warns once in that case.</p>
+<p>What about shell commands while planning? If auto mode is available and <code>useAutoModeDuringPlan</code> is on (it is by default), the classifier reviews commands instead of asking you: approved ones run and rejected ones are blocked, except deletions of critical paths, which always ask. If auto mode is not available or you set <code>useAutoModeDuringPlan</code> to <code>false</code>, it will ask permission for any command that is not in the built-in read-only set (more on modes in <a href="../recetas/permisos-claude-code.html">Claude Code permissions</a>).</p>
+<p>In the documentation&#x27;s mode table, plan is listed as &quot;Reads, plus classifier-approved commands&quot; and its recommended use is &quot;Exploring a codebase before changing it&quot;.</p>
+<h3>2. Enter and exit: Shift+Tab, /plan and --permission-mode plan</h3>
+<p>There are four ways in:</p>
+<ol><li><strong>Shift+Tab</strong> cycles through modes; from auto, the first press goes to manual (<code>default</code>) and then the cycle continues <code>default</code> → <code>acceptEdits</code> → <code>plan</code>. You know you are in because the bar shows &quot;⏸ plan mode on&quot;. On Windows, if the runtime does not enable VT input mode, the shortcut is Alt+M.</li><li><strong><code>/plan</code> followed by the task</strong> enters and starts planning in one step: <code>/plan fix the authentication bug</code>.</li><li><strong>From the command line</strong>: <code>claude --permission-mode plan</code> (also with <code>-p</code> for runs without an interface).</li><li><strong>As a project default</strong>: <code>&quot;permissions&quot;: {&quot;defaultMode&quot;: &quot;plan&quot;}</code> in <code>.claude/settings.json</code>. VS Code sessions do not read that setting and use <code>claudeCode.initialPermissionMode</code> in your VS Code user settings.</li></ol>
+<pre><code class="language-bash">claude --permission-mode plan          # the whole session starts in plan
+claude --model opusplan                # plan with Opus, execute with Sonnet
+# inside the session:
+#   Shift+Tab (Alt+M on some Windows)  -&gt; ⏸ plan mode on
+#   /plan fix the authentication bug
+#   Ctrl+G  -&gt; edit the proposed plan in your editor</code></pre>
+<p>To exit without approving anything, press Shift+Tab again. If you are looking for ultraplan: the <code>/ultraplan</code> command was removed (2.1.222) and the documentation says to use plan mode instead.</p>
+<h3>3. Approve, keep planning or edit the plan with Ctrl+G</h3>
+<p>When the plan is ready, Claude presents it and asks how to continue:</p>
+<ul><li><strong>&quot;Yes, and use auto mode&quot;</strong>: approves and continues in auto mode; if your session doesn&#x27;t have it, it shows as &quot;Yes, auto-accept edits&quot;.</li><li><strong>&quot;Yes, manually approve edits&quot;</strong>: approves and you review each edit one by one.</li><li><strong>&quot;No, keep planning&quot;</strong>: you stay in plan mode and tell it what to change.</li></ul>
+<p>Approving leaves plan mode and switches the session to the mode the chosen option indicates. To plan again, go back with Shift+Tab or start the next message with <code>/plan</code>.</p>
+<p>The trick almost nobody uses: <strong>Ctrl+G</strong> opens the proposed plan in your default text editor so you can fix it directly (remove steps, reorder, add &quot;don&#x27;t touch the migration&quot;) before Claude starts. When you accept a plan, the session also gets a title generated from the plan, unless you have already named it. Tip: if you choose &quot;manually approve edits&quot; the first time you work in a repository, you will see each change before it is written.</p>
+<h3>4. Where the plan is saved and why it matters</h3>
+<p>Plans are Markdown files. By default they are saved in <code>~/.claude/plans</code> (in our test: <code>~/.claude/plans/crea-el-archivo-nuevo-txt-silly-dream.md</code>). With the <code>plansDirectory</code> key you can save them inside the project, with a path relative to the root. If the path leaves the root or uses backslashes on Linux or macOS, Claude Code falls back to <code>~/.claude/plans</code>; write <code>docs/plans</code>, which also works on Windows.</p>
+<p>Project <code>.claude/settings.json</code> to always start in plan and save plans in the repo:</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;defaultMode&quot;: &quot;plan&quot;
+  },
+  &quot;plansDirectory&quot;: &quot;./docs/plans&quot;
+}</code></pre>
+<p>Having it on disk has two advantages. First: the plan survives compaction, because the documentation says it is re-injected from disk when compacting, so it is not lost in long sessions (see <a href="../recetas/clear-vs-compact.html">/clear vs /compact</a>). Second: you can version it with git next to the code, review it with your team or reuse it as a lightweight spec. Recent versions also restore plan mode when resuming with <code>--continue</code>, <code>--resume</code> or from the <code>/resume</code> picker.</p>
+<h3>5. Plan with Opus and execute with Sonnet: opusplan</h3>
+<p>The <code>opusplan</code> model alias uses opus while you are in plan mode and switches automatically to sonnet when executing. Turn it on with <code>/model opusplan</code> or <code>claude --model opusplan</code>. That way you reason about the architecture with the most capable model and write the code with a cheaper one.</p>
+<p>There is a hidden cost the documentation explains: each model has its own cache, so each entry into or exit from plan mode with <code>opusplan</code> is a model switch and starts with an empty cache. Use it when there is little back and forth (you plan once, implement for a good while), not if you enter and leave plan mode every few minutes (see <a href="../recetas/limite-uso-claude-code.html">usage limits</a>). If your organization restricts models with <code>availableModels</code>, <code>opusplan</code> uses the most recent allowed Opus.</p>
+<p>Another option so you don&#x27;t drag along what was explored: turn on <code>showClearContextOnPlanAccept</code> in <code>~/.claude/settings.json</code> and the approval menu will have &quot;Yes, clear context and …&quot; first, which approves, clears the conversation and starts implementing with only the plan, showing how much context planning used.</p>
+<pre><code class="language-json">{
+  &quot;showClearContextOnPlanAccept&quot;: true
+}</code></pre>
+<h3>6. When to use it and when not (and how to ask for a good plan)</h3>
+<p>Use it for changes across several files, code you don&#x27;t know, migrations, refactors and anything where a wrong direction is expensive. The costs documentation recommends it precisely to avoid redoing work when the initial approach is wrong. You don&#x27;t need it for a one-line change, renaming a variable or fixing an obvious bug: there the plan adds a round trip.</p>
+<p>To ask for a good plan, give context and exit criteria: what you want, what must not be touched, how it is checked (tests, command) and to ask if anything is unclear.</p>
+<pre><code class="language-text">/plan I want &lt;goal&gt;.
+Context: &lt;files or modules involved&gt;.
+Don&#x27;t touch: &lt;what cannot change&gt;.
+Done when: &lt;tests or command that must pass&gt;.
+Before proposing the plan, read the relevant code and ask me anything that is unclear.
+The plan must list files to change, steps in order, risks and how to verify each step.</code></pre>
+<p>Watch out with agent teams: according to the costs documentation, they use about 7 times more tokens when teammates work in plan mode, because each one keeps its own context (see <a href="../recetas/subagentes.html">subagents</a>). And if Claude is already heading the wrong way after you approve, press Esc to stop it and <code>/rewind</code> (or Esc twice) to go back to an earlier point in the conversation and the code.</p>
+<h2>Check it</h2>
+<p>Quick test in a throwaway repository, to check that nothing is written in plan mode:</p>
+<pre><code class="language-bash">mkdir -p /tmp/plan-test &amp;&amp; cd /tmp/plan-test &amp;&amp; git init -q
+claude -p --permission-mode plan --model haiku &quot;Create the file new.txt with the text hello.&quot;
+ls            # new.txt does NOT exist
+ls ~/.claude/plans | tail -1   # the plan is saved</code></pre>
+<p>We did it on 1 Nov 2026 with Claude Code 2.1.316 on Linux: Claude wrote the plan, did not create the file and the plan was saved in <code>~/.claude/plans/&lt;name&gt;.md</code>. We have not recorded the interactive part yet (Shift+Tab with the indicator, Ctrl+G, the three approval options, <code>showClearContextOnPlanAccept</code> and <code>opusplan</code>), and we could not check Alt+M on Windows: we describe those as the documentation does.</p>
+<h2>Why it works</h2>
+<p>Plan mode is one more permission mode: Claude Code blocks the editing tools while it is active and lets through reading and the commands the classifier or you approve. The plan is written to a file, so it doesn&#x27;t depend on the conversation: it survives compaction and you can edit it with Ctrl+G. Sources: <a href="https://code.claude.com/docs/en/permission-modes#analyze-before-you-edit-with-plan-mode" rel="noopener">plan mode in permission modes</a>, <a href="https://code.claude.com/docs/en/settings-reference#plansdirectory" rel="noopener">plansDirectory</a>, <a href="https://code.claude.com/docs/en/settings-reference#showclearcontextonplanaccept" rel="noopener">showClearContextOnPlanAccept</a>, <a href="https://code.claude.com/docs/en/model-config#opusplan-model-setting" rel="noopener">opusplan</a>, <a href="https://code.claude.com/docs/en/prompt-caching#switching-models" rel="noopener">caching when switching models</a>, <a href="https://code.claude.com/docs/en/interactive-mode" rel="noopener">interactive mode</a>, <a href="https://code.claude.com/docs/en/commands" rel="noopener">commands</a> and the <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li><strong>Shift+Tab never reaches &quot;plan mode on&quot; on Windows</strong> → the runtime does not enable VT input mode → use Alt+M or <code>/plan</code>.</li><li><strong><code>defaultMode: &quot;plan&quot;</code> does not apply in VS Code</strong> → VS Code sessions don&#x27;t read that setting → use <code>claudeCode.initialPermissionMode</code> in your VS Code user settings.</li><li><strong>Plans don&#x27;t show up in your project folder</strong> → the <code>plansDirectory</code> path leaves the root or uses backslashes on Linux or macOS → write <code>docs/plans</code>.</li><li><strong>With <code>opusplan</code> spending goes up instead of down</strong> → each entry into and exit from plan mode is a model switch with an empty cache → use it with little back and forth.</li><li><strong><code>/ultraplan</code> does not exist</strong> → it was removed in 2.1.222 → use plan mode.</li><li><strong>Claude heads the wrong way after you approve</strong> → the approved approach was not the right one → Esc to stop it, <code>/rewind</code> to go back and ask for the plan again with context and &quot;done&quot; criteria (the template in step 6).</li></ul>
+<h2>FAQ</h2>
+<h3>How do I turn on plan mode?</h3>
+<p>Shift+Tab until you see &quot;⏸ plan mode on&quot;, <code>/plan &lt;task&gt;</code>, or <code>claude --permission-mode plan</code>. On some Windows setups the shortcut is Alt+M.</p>
+<h3>How do I leave plan mode without approving?</h3>
+<p>Press Shift+Tab again to move to the next mode in the cycle.</p>
+<h3>Where is the plan saved?</h3>
+<p>In <code>~/.claude/plans</code> by default; change it with <code>plansDirectory</code> (a path relative to the project root).</p>
+<h3>Can I edit the plan before it starts?</h3>
+<p>Yes: Ctrl+G opens it in your editor. Or choose &quot;No, keep planning&quot; and tell it what to change.</p>
+<h3>What happened to ultraplan?</h3>
+<p>It was removed in 2.1.222; the documentation says to use plan mode instead.</p>
+<h3>Can Claude run commands in plan mode?</h3>
+<p>Yes, to explore. With auto mode available, the classifier decides; otherwise it asks you about anything that is not read-only. Code edits stay blocked until you approve (except with bypass available in the terminal).</p>
+<h3>Is opusplan cheaper?</h3>
+<p>Usually, because execution runs on Sonnet, but each switch between planning and executing is a model switch that empties the cache. It pays off with little back and forth.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="checklist-revisar-codigo-ia.html">Before merging Claude Code&#x27;s code: a review checklist</a></li><li><a href="claude-code-headless-cron.html">Claude Code headless: claude -p in scripts and cron, step by step</a></li><li><a href="clear-vs-compact.html">/clear vs /compact in Claude Code, and idle compaction</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

@@ -194,26 +194,6 @@
       catch (e) { anunciar(tx("No se guardó: ", "Not saved: ") + e.message); }
     });
 
-    // Packs Pro (USU-09): la verificación la hace el servidor contra Gumroad.
-    const fPro = raiz.querySelector(".pro-licencia");
-    async function pintarPro() {
-      const lic = await api("/rest/v1/licencias_pro?select=producto,verificada");
-      const ul = raiz.querySelector(".mis-pro"); ul.replaceChildren();
-      for (const l of lic) {
-        const info = catalogo.pro[l.producto] || { nombre: l.producto, url: "#" };
-        ul.append(el("li", {}, el("a", { href: info.url, textContent: info.nombre })));
-      }
-      if (!lic.length) ul.append(el("li", { className: "suave", textContent: tx("Ninguno todavía.", "None yet.") }));
-    }
-    fPro?.addEventListener("submit", async (ev) => {
-      ev.preventDefault();
-      try {
-        const ok = await api("/rest/v1/rpc/verificar_licencia", { metodo: "POST", cuerpo: { producto: fPro.elements.producto.value, licencia: fPro.elements.licencia.value.trim() } });
-        anunciar(ok ? tx("Licencia verificada", "License verified") : tx("Esa licencia no es válida para ese pack", "That license is not valid for that pack"));
-        if (ok) { fPro.elements.licencia.value = ""; pintarPro(); }
-      } catch (e) { anunciar(tx("No se pudo verificar: ", "Could not verify: ") + e.message); }
-    });
-
     // Borrar mi cuenta (USU-05): confirmación en la propia página, sin ventanas del navegador.
     const borrar = raiz.querySelector(".borrar"), confirmar = raiz.querySelector(".borrar-confirmar");
     borrar.addEventListener("click", () => { confirmar.hidden = false; confirmar.querySelector("button.peligro").focus(); });
@@ -225,7 +205,7 @@
       catch (e) { ev.target.disabled = false; anunciar(tx("No se pudo borrar: ", "Could not delete: ") + e.message); }
     });
 
-    await Promise.all([pintarMisRecursos(), fPro ? pintarPro() : null]);
+    await pintarMisRecursos();
   }
 
   // ── Peticiones y votos (USU-03) ─────────────────────────────────────────────────────────────────────

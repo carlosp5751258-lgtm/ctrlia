@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Cómo empezar con Claude Code en un proyecto: checklist de 15 min · Ctrl+IA</title>
+<meta name="description" content="Los primeros 15 minutos con Claude Code en un proyecto: revisar la carpeta, modo y modelo, /init, permisos, /context y un primer encargo con evidencia.">
+<meta property="og:title" content="Cómo empezar con Claude Code en un proyecto: checklist de 15 min · Ctrl+IA">
+<meta property="og:description" content="Los primeros 15 minutos con Claude Code en un proyecto: revisar la carpeta, modo y modelo, /init, permisos, /context y un primer encargo con evidencia.">
+<meta property="og:image" content="https://ctrlia.dev/img/empezar-claude-code-15-minutos.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/empezar-claude-code-15-minutos.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/empezar-claude-code-15-minutos.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/empezar-claude-code-15-minutos.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/empezar-claude-code-15-minutos.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/empezar-claude-code-15-minutos.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/empezar-claude-code-15-minutos.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Cómo empezar con Claude Code en un proyecto: checklist de 15 min", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/recetas/empezar-claude-code-15-minutos.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Los primeros 15 minutos con Claude Code en un proyecto: revisar la carpeta, modo y modelo, /init, permisos, /context y un primer encargo con evidencia.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/empezar-claude-code-15-minutos.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Para qué sirve /init?", "acceptedAnswer": {"@type": "Answer", "text": "Para crear el CLAUDE.md del proyecto: Claude analiza el código y escribe los comandos de build y tests y las convenciones que encuentra. Si ya existe, propone mejoras en vez de sobrescribirlo. Con CLAUDE_CODE_NEW_INIT=1 hace un recorrido guiado que también puede proponer skills, hooks y un CLAUDE.local.md, y te muestra la propuesta antes de escribir."}}, {"@type": "Question", "name": "¿Por qué Claude ya no me pregunta antes de ejecutar comandos?", "acceptedAnswer": {"@type": "Answer", "text": "Porque desde la versión 2.1.283, si tu cuenta y tu modelo lo admiten, las sesiones interactivas arrancan en modo auto: un clasificador revisa cada comando y petición de red en lugar de preguntarte. Tus reglas ask y deny siguen valiendo. Si prefieres que pregunte, pon \"defaultMode\": \"default\" en ~/.claude/settings.json o cambia con Shift+Tab."}}, {"@type": "Question", "name": "¿Tengo que describir mi arquitectura en CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "No. La guía oficial lo pone entre los consejos que ya puedes dejar: Claude lee el repositorio solo. Escribe lo que no está en el código (decisiones, despliegue, variables necesarias) y el comando de tests."}}, {"@type": "Question", "name": "Mi repo tiene AGENTS.md, ¿lo uso o creo CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "Desde la 2.1.277, Claude Code lee AGENTS.md si no hay ningún CLAUDE.md o CLAUDE.local.md en la carpeta o por encima. Si creas un CLAUDE.md, solo carga ese; para usar los dos, pon @AGENTS.md dentro del CLAUDE.md."}}, {"@type": "Question", "name": "¿Qué modelo uso para empezar?", "acceptedAnswer": {"@type": "Answer", "text": "El Default (Opus 5.5 con esfuerzo medium) sirve para casi todo. Sube el esfuerzo con /effort high en tareas difíciles y cambia de modelo al empezar la sesión, no a mitad, porque cambiar de modelo o de esfuerzo hace que se vuelva a leer el contexto sin caché."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/empezar-claude-code-15-minutos.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art" data-casillas="empezar-claude-code-15-minutos">
+  <p class="insignia">Checklist · Básico · 15 min</p>
+  <h1 id="t-art">Cómo empezar con Claude Code en un proyecto: checklist de 15 min</h1>
+  <p class="entrada">Los primeros 15 minutos con Claude Code en un proyecto: revisar la carpeta, modo y modelo, /init, permisos, /context y un primer encargo con evidencia.</p>
+  <img class="portada-img" src="../img/empezar-claude-code-15-minutos.webp" width="960" height="540" alt="Portada: Cómo empezar con Claude Code en un proyecto: checklist de 15 min">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-empezar-claude-code-15-minutos"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Ver los archivos en GitHub</a> <span class="nota">Gratis · licencia MIT</span></p>
+  
+  <div class="casillas-barra" hidden>
+    <p class="casillas-estado" role="status" data-plantilla="{n} de {total} marcados"></p>
+    <button type="button" class="boton boton-borde boton-chico casillas-reiniciar">Desmarcar todo</button>
+    <p class="nota">Se guarda solo en este navegador.</p>
+  </div>
+<h2>Para qué sirve</h2>
+<p>Seis pasos para los primeros 15 minutos con Claude Code en un proyecto nuevo o recién clonado: revisar la carpeta antes de confiar en ella, saber en qué modo y con qué modelo arrancas, generar un CLAUDE.md corto con <code>/init</code>, ajustar los permisos que vas a necesitar, mirar <code>/context</code> para saber cuánto ocupa todo antes de empezar y hacer un primer encargo bien planteado, con una comprobación que pasa o falla y la evidencia pegada. Vale para la versión 2.1.316 y los valores de fábrica de noviembre de 2026. Si todavía no lo tienes instalado, empieza por <a href="empieza-aqui.html">Empieza aquí</a>.</p>
+<h2>La lista</h2>
+<h3>Minuto 0-2: antes de abrir Claude, mira la carpeta</h3>
+<p>Al abrir <code>claude</code> en una carpeta nueva aparece el diálogo de confianza, y lo que aceptas ahí activa las reglas allow y las carpetas adicionales del <code>.claude/settings.json</code> del proyecto. Antes de eso, los hooks del proyecto ya pueden ejecutarse (con <code>claude -p</code> lo hacen siempre, aunque nunca hayas confiado: lo comprobamos en este PC).</p>
+<ul class="lista-tareas"><li class="tarea"><input type="checkbox" class="casilla" id="casilla-1"><label for="casilla-1"><strong>Si el repo no es tuyo, mira su configuración antes de abrir Claude.</strong></label><ul><li>Por qué: hooks, <code>env</code>, reglas allow y servidores MCP del repo pueden actuar en tu máquina.</li><li>Cómo comprobarlo: <code>ls -la .claude/ .mcp.json CLAUDE.md AGENTS.md</code> y lee <code>.claude/settings.json</code> (hooks, env, allow), las skills de <code>.claude/skills/</code> y los servidores de <code>.mcp.json</code>. La <a href="checklist-permisos-claude-code.html">checklist de permisos</a> explica qué buscar.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-2"><label for="casilla-2"><strong>Haz un commit o abre una rama nueva.</strong></label><ul><li>Por qué: <code>/rewind</code> deshace las ediciones que Claude hace con sus herramientas de archivos, pero no los cambios hechos solo con comandos de Bash ni los de subagentes: git es tu red de seguridad.</li><li>Cómo comprobarlo: <code>git status</code> limpio y <code>git switch -c claude/primera-tarea</code>.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-3"><label for="casilla-3"><strong>Abre <code>claude</code> en la raíz del proyecto, no en tu carpeta personal.</strong></label><ul><li>Por qué: si arrancas en el home, la confianza dura solo esa sesión y no se guarda.</li><li>Cómo comprobarlo: <code>git rev-parse --show-toplevel</code> debe coincidir con la carpeta donde lanzas <code>claude</code>.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-4"><label for="casilla-4"><strong>Lee el diálogo de confianza antes de aceptarlo.</strong></label><ul><li>Por qué: lista las reglas y carpetas que el repo te concedería.</li><li>Cómo comprobarlo: acepta solo si te cuadran. Si no lo has visto nunca en esa carpeta, <code>claude doctor</code> te avisa de las reglas allow que están en pausa.</li></ul></li></ul>
+<p>El script <code>minuto-0.sh</code> del repositorio hace este minuto por ti (muestra la configuración, el estado de git y, si le das un nombre, crea la rama):</p>
+<pre><code class="language-bash">cd ~/proyectos/mi-repo
+ls -la .claude/ .mcp.json CLAUDE.md AGENTS.md 2&gt;/dev/null   # ¿qué configuración trae?
+git status &amp;&amp; git switch -c claude/primera-tarea           # red de seguridad
+claude doctor                                               # ¿ajustes válidos? ¿reglas en pausa?
+claude                                                      # abre en la raíz y lee el diálogo de confianza</code></pre>
+<h3>Minuto 2-4: comprueba modo, modelo y esfuerzo</h3>
+<p>Sin configurar nada, hoy no arrancas como hace unos meses.</p>
+<ul class="lista-tareas"><li class="tarea"><input type="checkbox" class="casilla" id="casilla-5"><label for="casilla-5"><strong>Mira el modo.</strong></label><ul><li>Por qué: desde la 2.1.283, si tu cuenta y tu modelo lo admiten, las sesiones interactivas en la terminal y en VS Code arrancan en <strong>auto</strong>: un clasificador revisa los comandos y las peticiones de red y Claude no te pregunta por lo rutinario.</li><li>Cómo comprobarlo: lo ves en el indicador de la parte inferior y lo cambias con <code>Shift+Tab</code>. En un código que no conoces, empieza en <strong>plan</strong> (<code>/plan</code> o <code>Shift+Tab</code>): Claude explora y propone sin editar hasta que apruebes el plan.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-6"><label for="casilla-6"><strong>Mira el modelo.</strong></label><ul><li>Por qué: el modelo «Default» es <strong>Opus 5.5</strong> en Pro, Max, Ultra, Team, Enterprise y la API (desde la 2.1.280).</li><li>Cómo comprobarlo: <code>/model</code> lo cambia y lo guarda para las sesiones nuevas; en el selector, la tecla <code>s</code> lo cambia solo en esta sesión.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-7"><label for="casilla-7"><strong>Mira el esfuerzo.</strong></label><ul><li>Por qué: Opus 5.5, Sonnet 5.5 y Haiku 5.5 vienen con esfuerzo <strong>medium</strong>. Frases como «piensa mucho» o «sé exhaustivo» son texto normal: no suben el esfuerzo; <code>ultrathink</code> sí pide razonamiento más profundo en ese turno.</li><li>Cómo comprobarlo: <code>/effort status</code> para verlo, <code>/effort high</code> para tareas difíciles.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-8"><label for="casilla-8"><strong>Confirma versión, cuenta y conexión.</strong></label><ul><li>Por qué: es lo primero que conviene saber si algo no se comporta como esperas.</li><li>Cómo comprobarlo: <code>/status</code> muestra versión, modelo, cuenta y conexión. Si algo no carga como esperas, <code>/doctor</code> revisa instalación, ajustes y CLAUDE.md, y propone arreglos que aplica si confirmas.</li></ul></li></ul>
+<h3>Minuto 4-8: /init y un CLAUDE.md que no estorbe</h3>
+<p>CLAUDE.md se carga en cada sesión y cada línea le quita un poco de atención a Claude en cada tarea. La <a href="https://code.claude.com/docs/es/best-practices" rel="noopener">guía oficial</a> lo resume así: escribe solo lo que Claude no puede encontrar leyendo el repo, o lo que tendría que volver a buscar en cada sesión.</p>
+<ul class="lista-tareas"><li class="tarea"><input type="checkbox" class="casilla" id="casilla-9"><label for="casilla-9"><strong>Ejecuta <code>/init</code>.</strong></label><ul><li>Por qué: Claude analiza el código y crea un CLAUDE.md con los comandos de build y de tests y las convenciones que encuentra. Si ya hay uno, propone mejoras en lugar de sobrescribirlo. Si encuentra configuración de Codex o de Gemini CLI, ofrece traerla con <code>/import</code>.</li><li>Modo guiado: si quieres un recorrido que también proponga skills, hooks y un <code>CLAUDE.local.md</code> personal, exporta <code>CLAUDE_CODE_NEW_INIT=1</code> antes de lanzar <code>/init</code>: pregunta qué quieres crear y te enseña una propuesta antes de escribir nada.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-10"><label for="casilla-10"><strong>Recorta lo que sobre.</strong></label><ul><li>Por qué: deja el comando de tests (la línea más útil, según la guía oficial), las decisiones del equipo, el proceso de despliegue, las variables de entorno necesarias y lo que no se debe tocar. Quita la descripción de carpetas y arquitectura (Claude la lee sola) y las mayúsculas o «IMPORTANTE».</li><li>Cómo comprobarlo: cada línea pasa la prueba «¿Claude lo encontraría leyendo el código?». Más en <a href="claude-md-que-funciona.html">un CLAUDE.md que funciona</a>.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-11"><label for="casilla-11"><strong>Si ya hay AGENTS.md, decide cómo convive con CLAUDE.md.</strong></label><ul><li>Por qué: desde la 2.1.277 Claude Code lee AGENTS.md (de Codex o Cursor) cuando no hay CLAUDE.md. Si creas un CLAUDE.md, el AGENTS.md deja de cargarse.</li><li>Cómo comprobarlo: si quieres los dos, pon una línea <code>@AGENTS.md</code> dentro del CLAUDE.md.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-12"><label for="casilla-12"><strong>Revisa lo que se carga.</strong></label><ul><li>Por qué: lo personal no debe acabar en git.</li><li>Cómo comprobarlo: <code>/memory</code> abre los archivos cargados para editarlos. Lo personal va en <code>CLAUDE.local.md</code>, fuera de git.</li></ul></li></ul>
+<h3>Minuto 8-10: los permisos que vas a necesitar</h3>
+<p>Si estás en Manual, aprobar diez veces <code>npm test</code> te lleva a aprobar sin leer; si estás en auto, conviene que lo delicado pregunte siempre.</p>
+<ul class="lista-tareas"><li class="tarea"><input type="checkbox" class="casilla" id="casilla-13"><label for="casilla-13"><strong>Mira las reglas activas.</strong></label><ul><li>Por qué: saber de dónde viene cada regla evita sorpresas.</li><li>Cómo comprobarlo: <code>/permissions</code> muestra las reglas activas y de qué archivo viene cada una.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-14"><label for="casilla-14"><strong>Añade en <code>.claude/settings.json</code> lo que el equipo usa siempre.</strong></label><ul><li>Por qué: los tests y el lint en <strong>allow</strong>, <code>git push</code> e instalar paquetes en <strong>ask</strong>, y en <strong>deny</strong> los secretos (<code>Read(./.env)</code>, <code>Read(./.env.*)</code>). Recuerda el orden: deny → ask → allow, y un ask pregunta incluso en auto. La receta de <a href="permisos-claude-code.html">permisos</a> tiene la plantilla completa.</li><li>Cómo comprobarlo: si una regla allow del proyecto no funciona, <code>claude doctor</code> en la carpeta te lo dice con «Ignoring N permissions.allow entries … this workspace has not been trusted»: falta aceptar la confianza. Y si el JSON está mal, verás «Invalid settings».</li></ul></li></ul>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://json.schemastore.org/claude-code-settings.json&quot;,
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [&quot;Bash(npm test *)&quot;, &quot;Bash(npm run lint *)&quot;],
+    &quot;ask&quot;: [&quot;Bash(git push *)&quot;, &quot;Bash(npm install *)&quot;],
+    &quot;deny&quot;: [&quot;Read(./.env)&quot;, &quot;Read(./.env.*)&quot;]
+  }
+}</code></pre>
+<p>Es el mínimo para empezar en Node (<code>settings.ejemplo.json</code> en el repositorio); cambia los comandos por los tuyos.</p>
+<ul class="lista-tareas"><li class="tarea"><input type="checkbox" class="casilla" id="casilla-15"><label for="casilla-15"><strong>Pon tus candados personales en <code>~/.claude/settings.json</code>.</strong></label><ul><li>Por qué: valen en todos los proyectos: <code>deny</code> a <code>~/.ssh</code> y <code>~/.aws</code>, y <code>&quot;disableBypassPermissionsMode&quot;: &quot;disable&quot;</code> si no quieres entrar en bypass por descuido.</li><li>Cómo comprobarlo: <code>python3 -m json.tool ~/.claude/settings.json</code> y, en la sesión, <code>/permissions</code>.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-16"><label for="casilla-16"><strong>¿Llevas días aprobando lo mismo? Usa <code>/fewer-permission-prompts</code>.</strong></label><ul><li>Por qué: revisa tus sesiones y propone una lista de comandos de solo lectura para permitir en el proyecto.</li><li>Cómo comprobarlo: revisa la lista antes de aceptarla.</li></ul></li></ul>
+<h3>Minuto 10-11: mira /context antes de empezar</h3>
+<p>Antes de tu primer mensaje, la sesión ya lleva dentro el prompt del sistema, las herramientas, los servidores MCP, las skills, los plugins y tus CLAUDE.md. Saber cuánto ocupa te ahorra consumo en cada mensaje.</p>
+<ul class="lista-tareas"><li class="tarea"><input type="checkbox" class="casilla" id="casilla-17"><label for="casilla-17"><strong>Ejecuta <code>/context</code>.</strong></label><ul><li>Por qué: verás una cuadrícula de colores con el uso por categoría, qué CLAUDE.md y qué archivos de memoria se cargaron, y sugerencias cuando una herramienta o la memoria ocupan demasiado.</li><li>Si algo pesa sin motivo: servidores MCP que no usas en este proyecto, desactívalos en <code>/mcp</code>; skills que no usas, <code>/skills</code> y la tecla <code>t</code> las ordena por tokens, y <code>/skill-doctor</code> muestra su coste y cuánto se usan; plugins, en <code>/plugin</code> la cabecera «Not used recently» agrupa los que no usas; un CLAUDE.md largo, recórtalo o divide las reglas por carpeta en <code>.claude/rules/</code>.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-18"><label for="casilla-18"><strong>Usa <code>/clear</code> entre tareas.</strong></label><ul><li>Por qué: los modelos actuales trabajan con una ventana de 1M de tokens y compactan solos hacia los 967K, así que quedarse sin contexto es raro; aun así, la guía oficial recomienda <code>/clear</code> entre tareas, porque un contexto centrado da mejores respuestas y cuesta menos. Lo explicamos en <a href="clear-vs-compact.html">/clear o /compact</a>.</li><li>Cómo comprobarlo: para el consumo de tu plan, <code>/usage</code>.</li></ul></li></ul>
+<h3>Minuto 11-15: el primer encargo, bien hecho</h3>
+<p>Claude para cuando el trabajo <strong>parece</strong> terminado. Si no tiene nada que ejecutar que diga si está terminado de verdad, tú haces de suite de tests. La guía oficial lo dice así: dale algo que pueda ejecutar y que devuelva pasa o falla.</p>
+<ul class="lista-tareas"><li class="tarea"><input type="checkbox" class="casilla" id="casilla-19"><label for="casilla-19"><strong>Elige una tarea pequeña y real.</strong></label><ul><li>Por qué: un bug acotado o un test que falta se puede comprobar; «mejora el proyecto» no.</li><li>Cómo comprobarlo: puedes decir en una frase qué significa «terminado».</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-20"><label for="casilla-20"><strong>Escribe un prompt específico.</strong></label><ul><li>Por qué: qué archivo, qué síntoma, qué significa «arreglado» y cómo comprobarlo. El ejemplo oficial cambia «arregla el bug del login» por: «los usuarios dicen que el login falla tras caducar la sesión; mira el refresco del token en src/auth/, escribe un test que lo reproduzca y luego arréglalo».</li><li>Cómo comprobarlo: usa la plantilla de primer encargo de abajo (<code>primer-encargo.md</code> en el repositorio).</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-21"><label for="casilla-21"><strong>Pide la evidencia.</strong></label><ul><li>Por qué: «Todos los tests pasan» sin salida no te dice casi nada.</li><li>Cómo comprobarlo: la respuesta trae el comando que ejecutó y su salida.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-22"><label for="casilla-22"><strong>Si no sabes bien lo que quieres, pide que te entreviste.</strong></label><ul><li>Por qué: «entrevístame hasta que puedas escribir la especificación en SPEC.md», y empieza una sesión limpia con ese archivo.</li><li>Cómo comprobarlo: existe un SPEC.md que tú has leído y aprobado.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-23"><label for="casilla-23"><strong>Revisa antes de dar nada por bueno.</strong></label><ul><li>Por qué: <code>/diff</code> muestra los cambios del árbol de trabajo y <code>/code-review</code> revisa el diff en un subagente que no vio la conversación.</li><li>Cómo comprobarlo: antes de fusionar, sigue la <a href="checklist-revisar-codigo-ia.html">checklist antes de fusionar</a>. ¿Cambias de tarea? <code>/clear</code>.</li></ul></li></ul>
+<pre><code class="language-text">Tarea: &lt;qué y dónde: archivo o carpeta&gt;
+Síntoma / objetivo: &lt;qué pasa hoy y qué debería pasar&gt;
+Terminado significa: &lt;test que debe pasar, comando que debe dar 0, captura que debe verse&gt;
+Restricciones: &lt;sin dependencias nuevas, no tocar X, seguir el patrón de Y&gt;
+Al final: pega el comando que ejecutaste y su salida.</code></pre>
+<p>Dentro de la sesión, en orden:</p>
+<pre><code class="language-text">/status                 versión, modelo, cuenta
+/model                  Default = Opus 5.5 (s = solo esta sesión)
+/effort status          medium por defecto en Opus/Sonnet/Haiku 5.5
+/init                   genera o mejora CLAUDE.md (CLAUDE_CODE_NEW_INIT=1 para el modo guiado)
+/memory                 revisa y recorta lo que se carga
+/permissions            reglas activas y de qué archivo vienen
+/context                cuánto ocupa todo antes de empezar
+/plan &lt;tarea&gt;           explora sin editar hasta que apruebes
+/diff                   revisa lo que cambió
+/code-review            revisión en un subagente que no vio la conversación
+/clear                  al cambiar de tarea</code></pre>
+<p>Si vas a dejar el proyecto configurado para todo el equipo, la <a href="plantilla-claude-code.html">plantilla de proyecto</a> trae todo esto ya puesto.</p>
+<h2>Errores típicos</h2>
+<ul><li>Claude ya no te pregunta antes de ejecutar comandos → arrancaste en auto (desde la 2.1.283, si tu cuenta y modelo lo admiten) → <code>Shift+Tab</code> o <code>&quot;defaultMode&quot;: &quot;default&quot;</code> en <code>~/.claude/settings.json</code>.</li><li>Tu regla allow del proyecto no hace nada → la carpeta no tiene la confianza aceptada o arrancaste en el home → abre <code>claude</code> en la raíz y acepta el diálogo; <code>claude doctor</code> lo confirma.</li><li>Escribes «piensa mucho» esperando más razonamiento → es texto normal y no sube el esfuerzo → <code>/effort high</code> o <code>ultrathink</code> en ese turno.</li><li>Creaste un CLAUDE.md y Claude dejó de seguir tu AGENTS.md → si hay CLAUDE.md, solo carga ese → añade <code>@AGENTS.md</code> dentro.</li><li>CLAUDE.md larguísimo con la arquitectura descrita → ocupa contexto en cada sesión y Claude la lee sola → déjalo en comandos, decisiones y lo que no está en el código.</li><li>Confías en <code>/rewind</code> para deshacer todo → no deshace lo hecho solo con Bash ni lo de subagentes → trabaja en una rama y haz commit antes de cada tarea.</li></ul>
+<h2>Qué probamos y qué falta</h2>
+<p>Parcialmente, en este PC (Linux, Claude Code 2.1.316, configuración aislada): <code>claude doctor</code> muestra versión y plataforma y avisa de las reglas allow en pausa por falta de confianza; con una coma rota en settings.json muestra «Invalid settings»; el aviso desaparece al marcar la carpeta como confiable; un hook del proyecto se ejecuta con <code>claude -p</code> antes de pedir sesión. <strong>No probamos</strong> <code>/init</code>, <code>/model</code>, <code>/effort</code>, <code>/context</code>, <code>/plan</code> ni un primer encargo, porque necesitan una sesión con cuenta: esos pasos salen de la documentación oficial del 1-nov-2026 (commands, memory, model-config, permission-modes, best-practices). Cuando grabemos una sesión real en un repo de prueba, pegaremos aquí la salida de <code>/context</code> y <code>/status</code>.</p>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Para qué sirve /init?</h3>
+<p>Para crear el CLAUDE.md del proyecto: Claude analiza el código y escribe los comandos de build y tests y las convenciones que encuentra. Si ya existe, propone mejoras en vez de sobrescribirlo. Con <code>CLAUDE_CODE_NEW_INIT=1</code> hace un recorrido guiado que también puede proponer skills, hooks y un <code>CLAUDE.local.md</code>, y te muestra la propuesta antes de escribir.</p>
+<h3>¿Por qué Claude ya no me pregunta antes de ejecutar comandos?</h3>
+<p>Porque desde la versión 2.1.283, si tu cuenta y tu modelo lo admiten, las sesiones interactivas arrancan en modo auto: un clasificador revisa cada comando y petición de red en lugar de preguntarte. Tus reglas ask y deny siguen valiendo. Si prefieres que pregunte, pon <code>&quot;defaultMode&quot;: &quot;default&quot;</code> en <code>~/.claude/settings.json</code> o cambia con <code>Shift+Tab</code>.</p>
+<h3>¿Tengo que describir mi arquitectura en CLAUDE.md?</h3>
+<p>No. La guía oficial lo pone entre los consejos que ya puedes dejar: Claude lee el repositorio solo. Escribe lo que no está en el código (decisiones, despliegue, variables necesarias) y el comando de tests.</p>
+<h3>Mi repo tiene AGENTS.md, ¿lo uso o creo CLAUDE.md?</h3>
+<p>Desde la 2.1.277, Claude Code lee AGENTS.md si no hay ningún CLAUDE.md o CLAUDE.local.md en la carpeta o por encima. Si creas un CLAUDE.md, solo carga ese; para usar los dos, pon <code>@AGENTS.md</code> dentro del CLAUDE.md.</p>
+<h3>¿Qué modelo uso para empezar?</h3>
+<p>El Default (Opus 5.5 con esfuerzo medium) sirve para casi todo. Sube el esfuerzo con <code>/effort high</code> en tareas difíciles y cambia de modelo al empezar la sesión, no a mitad, porque cambiar de modelo o de esfuerzo hace que se vuelva a leer el contexto sin caché.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="claude-code-otros-editores.html">Claude Code en JetBrains, Visual Studio, Xcode, Zed y Neovim</a></li><li><a href="claude-code-vs-codex-gemini-cursor.html">Claude Code vs Codex vs Gemini vs Cursor: misma tarea, con datos</a></li><li><a href="empieza-aqui.html">Claude Code desde cero: ruta en español para empezar (2026)</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code auto mode in depth: the classifier and its rules · Ctrl+IA</title>
+<meta name="description" content="How Claude Code&#x27;s auto mode decides, what it blocks, how to teach it your environment with /auto-mode-setup or autoMode, and why to keep &quot;$defaults&quot;.">
+<meta property="og:title" content="Claude Code auto mode in depth: the classifier and its rules · Ctrl+IA">
+<meta property="og:description" content="How Claude Code&#x27;s auto mode decides, what it blocks, how to teach it your environment with /auto-mode-setup or autoMode, and why to keep &quot;$defaults&quot;.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/auto-mode.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/auto-mode.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/auto-mode.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/auto-mode.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/auto-mode.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/auto-mode.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/auto-mode.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code auto mode in depth: the classifier and its rules", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/auto-mode.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "How Claude Code's auto mode decides, what it blocks, how to teach it your environment with /auto-mode-setup or autoMode, and why to keep \"$defaults\".", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/auto-mode.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How is it different from bypassPermissions?", "acceptedAnswer": {"@type": "Answer", "text": "Both run without asking, but auto sends non-routine actions through the classifier and respects deny and ask; bypassPermissions reviews nothing and should only be used in isolated containers or virtual machines."}}, {"@type": "Question", "name": "Can I configure auto mode in the repo for the whole team?", "acceptedAnswer": {"@type": "Answer", "text": "No: defaultMode: \"auto\" and the autoMode block are ignored in .claude/settings.json and .claude/settings.local.json. Each person sets it in their ~/.claude/settings.json, or the organization in managed settings."}}, {"@type": "Question", "name": "It says \"auto mode unavailable for your plan\", do I have to pay more?", "acceptedAnswer": {"@type": "Answer", "text": "According to the current docs it's on every plan. Check the model (older ones aren't supported), whether any settings file has disableAutoMode, and your version. If Anthropic switched it off on the server, try a new session later."}}, {"@type": "Question", "name": "Plan mode or auto mode?", "acceptedAnswer": {"@type": "Answer", "text": "They don't compete: plan mode doesn't edit your code until you approve the plan; with auto mode available, commands the classifier approves also run in plan. The usual pattern is to plan in plan mode and execute in auto."}}, {"@type": "Question", "name": "Does it protect me from prompt injection?", "acceptedAnswer": {"@type": "Answer", "text": "It helps: the classifier doesn't see tool results and a server-side probe flags suspicious content. But the docs are clear: it doesn't guarantee safety. For what must never happen, use deny rules or hooks."}}, {"@type": "Question", "name": "Why does it block a git push to my own company repo?", "acceptedAnswer": {"@type": "Answer", "text": "If it's the repo you're working in, it allows it. If you push to another repo in your organization, the classifier doesn't recognize it: add \"Source control: <your-org> and all repos under it\" to autoMode.environment or run /auto-mode-setup."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/auto-mode.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Reference · Advanced · 15 min</p>
+  <h1 id="t-art">Claude Code auto mode in depth: the classifier and its rules</h1>
+  <p class="entrada">How Claude Code&#x27;s auto mode decides, what it blocks, how to teach it your environment with /auto-mode-setup or autoMode, and why to keep &quot;$defaults&quot;.</p>
+  <img class="portada-img" src="../../img/en/auto-mode.webp" width="960" height="540" alt="Cover: Claude Code auto mode in depth: the classifier and its rules">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-auto-mode"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>Summary</h2>
+<p>Since 2.1.283-2.1.284, interactive terminal and VS Code sessions start in auto mode if you haven&#x27;t configured another mode. In this mode Claude doesn&#x27;t ask permission for routine work: a separate classifier model reviews each action and blocks what is irreversible, destructive or leaves your environment.</p>
+<p>This reference explains how it decides, what it blocks by default, how to teach it your infrastructure (<code>/auto-mode-setup</code>, <code>autoMode.environment</code>), how to tighten or loosen it (<code>hard_deny</code>, <code>soft_deny</code>, <code>allow</code> with <code>&quot;$defaults&quot;</code>) and what to do with each block. For permission modes in general and allow, ask and deny rules, see the <a href="../recetas/permisos-claude-code.html">permissions</a> recipe.</p>
+<h2>What it is and since when it&#x27;s the default</h2>
+<p>Auto mode lets Claude work without the routine permission prompts. A separate classifier model reviews actions before they run and blocks anything that goes beyond what you asked for, targets infrastructure it doesn&#x27;t recognize or looks driven by hostile content Claude read.</p>
+<p>With 2.1.283 or later it&#x27;s the built-in starting mode for interactive sessions in the terminal and VS Code, on every plan and provider (the CHANGELOG extends it to all of them in 2.1.284). The first time it starts this way it shows you a notice. It doesn&#x27;t start in auto if you pass <code>--permission-mode</code>, if a settings file sets <code>permissions.defaultMode</code>, with <code>claude -p</code> or the Agent SDK (which start in Manual), or if something disables it.</p>
+<p>In the status bar you see it as <code>⏵⏵ auto mode on</code>; Shift+Tab moves you to Manual, then acceptEdits and plan. The docs warn: it reduces prompts but doesn&#x27;t guarantee safety; use it for tasks whose general direction you trust.</p>
+<h2>Requirements and &quot;auto mode unavailable&quot;</h2>
+<p>It&#x27;s available on every plan. On Team and Enterprise it comes enabled and an admin can turn it off with <code>permissions.disableAutoMode: &quot;disable&quot;</code> in managed settings. It needs a supported model:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Provider</th><th scope="col">Supported models</th></tr></thead><tbody><tr><td>Anthropic API</td><td>Opus 4.6 or later, Sonnet 4.6 or later, Haiku 5.5 or a Fable model</td></tr><tr><td>Bedrock, Google Cloud Agent Platform, Foundry and gateways</td><td>Only Sonnet 5 or later, Opus 4.7 or later, Haiku 5.5 and Fable</td></tr></tbody></table></div>
+<p>Older models (Sonnet 4.5, Opus 4.5, Haiku 4.5, claude-3) don&#x27;t work. If it says it&#x27;s unavailable, check in this order:</p>
+<ol><li>The model.</li><li>Whether any settings file has <code>disableAutoMode</code>.</li><li>Your version (<code>claude --version</code>).</li></ol>
+<p>Anthropic can also switch it off temporarily from the server; in that case the session stays without auto until it ends, so open another one later. If you set <code>&quot;defaultMode&quot;: &quot;auto&quot;</code> and it starts in Manual without an error, it&#x27;s probably in <code>.claude/settings.json</code> or <code>.claude/settings.local.json</code>: it has no effect there. Move it to <code>~/.claude/settings.json</code>.</p>
+<h2>How it decides each action (in order)</h2>
+<ol><li><strong>Your allow, ask and deny rules</strong>, with exceptions: writing to protected paths goes to the classifier even with an allow rule, no allow rule approves deleting critical paths such as <code>rm -rf ~</code>, and content ask rules like <code>Bash(git push *)</code> always ask you.</li><li><strong>Reads and edits inside your working directory</strong>: approved automatically, except protected paths and the first read outside the working directories, which asks you.</li><li><strong>Everything else goes to the classifier.</strong> If it blocks, Claude gets the reason, usually the rule name, such as <code>[Data Exfiltration]</code>.</li></ol>
+<p>On entering auto, broad allow rules that amount to running any code (<code>Bash(*)</code>, wildcard interpreters like <code>Bash(python*)</code>, package manager run commands, Agent and Monitor rules) are suspended and restored when you leave; narrow ones like <code>Bash(npm test)</code> stay.</p>
+<p>The classifier sees your messages, the tool calls and your CLAUDE.md, but not the tool results: that way a file or a web page with hidden instructions can&#x27;t manipulate it directly.</p>
+<h2>What it blocks by default</h2>
+<p>The classifier trusts your working directory and the remotes the repo had configured when the session started; a remote added or changed during the session doesn&#x27;t count. Everything else is external until you declare it. By default it blocks, among others:</p>
+<ul><li>Downloading and running code (<code>curl | bash</code>).</li><li>Sending sensitive data out.</li><li>Production deploys and migrations, and mass deletions in the cloud.</li><li>Granting IAM or repository permissions.</li><li>Force push, <code>git reset --hard</code>, <code>git checkout -- .</code>, <code>git clean -fd</code> or <code>git stash drop</code> (it assumes you lose uncommitted work).</li><li><code>git commit --amend</code> on a commit it didn&#x27;t create in this session or that&#x27;s already pushed.</li><li><code>terraform destroy</code>, writing to a secrets manager or changing DNS and certificates.</li><li>Merging a PR no human approved or disabling CI.</li><li>Opening tunnels to the internet and printing a credential in the transcript.</li></ul>
+<p>On the other hand, by default it allows pushing to any branch of the repo you&#x27;re working in, including the main one, and creating PRs; branches with deployment names like <code>production</code> or <code>gh-pages</code> are judged separately. In 2.1.316, <code>claude auto-mode defaults</code> lists 72 soft_deny rules, 16 allow and one hard_deny (Data Exfiltration).</p>
+<p>You can inspect the classifier from the terminal:</p>
+<pre><code class="language-bash"># Rules that ship with Claude Code (in 2.1.316: 16 allow, 72 soft_deny, 1 hard_deny, 21 environment entries)
+claude auto-mode defaults
+
+# Read a specific rule by the start of its label
+claude auto-mode defaults --label &#x27;Git Destructive&#x27;
+
+# What the classifier really uses: your settings + the defaults
+claude auto-mode config
+
+# AI feedback on YOUR rules (ambiguous, redundant, false positives)
+claude auto-mode critique
+
+# Back to defaults (deletes the autoMode block from ~/.claude/settings.json; asks for confirmation)
+claude auto-mode reset</code></pre>
+<p>We tested <code>--help</code>, <code>defaults</code>, <code>defaults --label</code> and <code>config</code>; we didn&#x27;t run <code>critique</code> or <code>reset</code> because they write to <code>~/.claude/settings.json</code> or use your plan.</p>
+<h2>Teach it your environment: /auto-mode-setup and environment</h2>
+<p>Almost all false blocks come from the classifier not knowing your infrastructure: your GitHub organization, your internal domains, your bucket. There are two ways to teach it.</p>
+<p><strong>The guided one: <code>/auto-mode-setup</code>.</strong> 2.1.304 brings the version that also works on Bedrock, Vertex, Foundry, gateways and without telemetry. It reads the project&#x27;s CLAUDE.md, README, config files and git remotes, your autoMode settings and <code>permissions.allow</code>, and the hosts, buckets and commands from your recent sessions (never your messages); optionally, the first word of your shell history and your repos&#x27; remotes. It shows you a draft you accept or discard as a whole and saves it to <code>~/.claude/settings.json</code>. We didn&#x27;t run it for this reference, because it writes to the user&#x27;s settings.</p>
+<p><strong>The manual one: the <code>autoMode.environment</code> array</strong>, with sentences in prose, as you&#x27;d explain it to a new colleague (&quot;Source control: github.com/my-org and all repos under it&quot;). Start with your version control organization and your key services; add domains and buckets as blocks show up. Then run <code>claude auto-mode config</code> to check your entries are in.</p>
+<h2>hard_deny, soft_deny, allow and the danger of forgetting &quot;$defaults&quot;</h2>
+<p>Besides <code>environment</code> there are three lists, also in prose:</p>
+<div class="tabla"><table><thead><tr><th scope="col">List</th><th scope="col">What it does</th></tr></thead><tbody><tr><td><code>hard_deny</code></td><td>Limits that always block; neither your intent nor an allow lifts them</td></tr><tr><td><code>soft_deny</code></td><td>Destructive actions it blocks unless there&#x27;s an exception or you ask for them explicitly</td></tr><tr><td><code>allow</code></td><td>Exceptions to soft_deny</td></tr></tbody></table></div>
+<p>Explicit intent only counts if your message describes exactly the action and its target: &quot;clean up the repo&quot; doesn&#x27;t authorize a force push; &quot;force push this branch&quot; does.</p>
+<p>The critical part: <strong>if you write any of the lists without the literal string <code>&quot;$defaults&quot;</code>, you replace the whole default list.</strong> A soft_deny without <code>$defaults</code> removes the rules for force push, <code>curl | bash</code>, production deploys and bypassing auto mode; a hard_deny without <code>$defaults</code> removes the data exfiltration rule. Always include <code>$defaults</code> unless you&#x27;re going to own the whole list, copying it first with <code>claude auto-mode defaults</code>.</p>
+<p>Example for <code>~/.claude/settings.json</code>: your environment and rules, keeping the built-in ones:</p>
+<pre><code class="language-json">{
+  &quot;autoMode&quot;: {
+    &quot;environment&quot;: [
+      &quot;$defaults&quot;,
+      &quot;Source control: github.com/my-org and all repos under it&quot;,
+      &quot;Trusted internal domains: api.staging.my-company.com&quot;,
+      &quot;Key internal services: GitHub Actions for CI&quot;
+    ],
+    &quot;soft_deny&quot;: [
+      &quot;$defaults&quot;,
+      &quot;Never run database migrations outside the migrations CLI, even against dev databases&quot;
+    ],
+    &quot;hard_deny&quot;: [
+      &quot;$defaults&quot;,
+      &quot;Never send repository contents to third-party code-review APIs&quot;
+    ]
+  }
+}</code></pre>
+<p>The classifier only reads <code>autoMode</code> from <code>~/.claude/settings.json</code>, managed settings or <code>--settings</code>; never from <code>.claude/settings.json</code> or <code>.claude/settings.local.json</code>, so a repo can&#x27;t slip in its own exceptions.</p>
+<h2>When it blocks: Recently denied, retries and the 3 and 20 limits</h2>
+<p>Each block shows up as a notice (for example <code>bash denied by auto mode · [Data Exfiltration] · /permissions</code>) and is listed in <code>/permissions</code>, <strong>Recently denied</strong> tab: highlight the action to read the command and press <code>r</code> to mark it for retry when you leave the dialog. The <strong>Auto mode</strong> tab of the same dialog (since 2.1.246) lets you view and edit rules and environment entries without opening files; what you change is saved to <code>~/.claude/settings.json</code>.</p>
+<div class="tabla"><table><thead><tr><th scope="col">Case</th><th scope="col">Fix</th></tr></thead><tbody><tr><td>A destination Claude needs for the whole task (package registry, internal domain)</td><td>Add it to <code>environment</code></td></tr><tr><td>A command you want without review from now on</td><td>An allow rule</td></tr><tr><td>A one-off action you did want</td><td>Say so in your next message, naming the action and its target</td></tr></tbody></table></div>
+<p>If the classifier blocks 3 times in a row or 20 in total, auto mode pauses and goes back to asking you; approving the action resumes it. Those thresholds aren&#x27;t configurable. Limits you state in the conversation (&quot;don&#x27;t push until I review&quot;) are respected too, but they aren&#x27;t saved as rules and can be lost on compaction: for something lasting use ask or deny. For example, a human check before every push or PR, while staying in auto for everything else:</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;ask&quot;: [
+      &quot;Bash(git push *)&quot;,
+      &quot;Bash(gh pr create *)&quot;
+    ]
+  }
+}</code></pre>
+<h2>Subagents, cost and the classifier model</h2>
+<p>With <a href="../recetas/subagentes.html">subagents</a>, the classifier reviews three times: the task description before launching it, each action while it works (with the same rules as the main session; the <code>permissionMode</code> in its frontmatter is ignored) and its work and final report, which comes with a security warning if something looked wrong.</p>
+<p>Cost: on Enterprise and with the Claude API, Bedrock, Vertex or Foundry, classifier calls count toward your token usage, except when the server does the review (<code>Auto mode server</code> row in <code>/status</code>). Reads and edits in your directory don&#x27;t go through the classifier, so the extra spend comes from shell and network commands.</p>
+<p>By default the classifier uses Claude Sonnet 5; since 2.1.302 you can pick another one with the <code>CLAUDE_CODE_AUTO_MODE_MODEL</code> variable. If you want it to review every shell command, even those approved by your narrow rules, turn on <code>autoMode.classifyAllShell</code>: more coverage at the cost of more latency. And remember: <code>/rewind</code> doesn&#x27;t undo what was done with Bash; commit before long tasks.</p>
+<h2>Don&#x27;t start in auto, or remove it entirely</h2>
+<p>These are two different files. To always start in Manual (you can still switch to auto with Shift+Tab), in <code>~/.claude/settings.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;defaultMode&quot;: &quot;default&quot;
+  }
+}</code></pre>
+<p>To remove auto mode entirely (organizations, in managed settings):</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;disableAutoMode&quot;: &quot;disable&quot;
+  }
+}</code></pre>
+<p>And to review every shell command and turn off <code>/auto-mode-setup</code>:</p>
+<pre><code class="language-json">{
+  &quot;autoMode&quot;: {
+    &quot;classifyAllShell&quot;: true
+  },
+  &quot;skillOverrides&quot;: {
+    &quot;auto-mode-setup&quot;: &quot;off&quot;
+  }
+}</code></pre>
+<h2>What we checked</h2>
+<p>On 1 Nov 2026 on Linux with Claude Code 2.1.316, without changing anything of the user&#x27;s: <code>claude auto-mode --help</code>, <code>claude auto-mode defaults</code> (16 allow, 72 soft_deny, 1 hard_deny, 21 environment entries), <code>defaults --label &#x27;Git Destructive&#x27;</code> and <code>claude auto-mode config</code>. An interactive session in a trusted folder started showing <code>⏵⏵ auto mode on (shift+tab to cycle)</code>. We didn&#x27;t run <code>/auto-mode-setup</code>, the Auto mode tab in <code>/permissions</code>, or <code>claude auto-mode critique</code> or <code>reset</code>, and we didn&#x27;t trigger a real classifier block. The rest comes from the official documentation: <a href="https://code.claude.com/docs/en/permission-modes" rel="noopener">permission modes</a>, <a href="https://code.claude.com/docs/en/auto-mode-config" rel="noopener">auto mode configuration</a>, <a href="https://code.claude.com/docs/en/commands" rel="noopener">commands</a>, <a href="https://code.claude.com/docs/en/checkpointing" rel="noopener">checkpointing</a> and the <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>FAQ</h2>
+<h3>How is it different from bypassPermissions?</h3>
+<p>Both run without asking, but auto sends non-routine actions through the classifier and respects deny and ask; <code>bypassPermissions</code> reviews nothing and should only be used in isolated containers or virtual machines.</p>
+<h3>Can I configure auto mode in the repo for the whole team?</h3>
+<p>No: <code>defaultMode: &quot;auto&quot;</code> and the <code>autoMode</code> block are ignored in <code>.claude/settings.json</code> and <code>.claude/settings.local.json</code>. Each person sets it in their <code>~/.claude/settings.json</code>, or the organization in managed settings.</p>
+<h3>It says &quot;auto mode unavailable for your plan&quot;, do I have to pay more?</h3>
+<p>According to the current docs it&#x27;s on every plan. Check the model (older ones aren&#x27;t supported), whether any settings file has <code>disableAutoMode</code>, and your version. If Anthropic switched it off on the server, try a new session later.</p>
+<h3>Plan mode or auto mode?</h3>
+<p>They don&#x27;t compete: plan mode doesn&#x27;t edit your code until you approve the plan; with auto mode available, commands the classifier approves also run in plan. The usual pattern is to plan in plan mode and execute in auto.</p>
+<h3>Does it protect me from prompt injection?</h3>
+<p>It helps: the classifier doesn&#x27;t see tool results and a server-side probe flags suspicious content. But the docs are clear: it doesn&#x27;t guarantee safety. For what must never happen, use deny rules or <a href="../recetas/hooks-seguridad.html">hooks</a>.</p>
+<h3>Why does it block a git push to my own company repo?</h3>
+<p>If it&#x27;s the repo you&#x27;re working in, it allows it. If you push to another repo in your organization, the classifier doesn&#x27;t recognize it: add &quot;Source control: &lt;your-org&gt; and all repos under it&quot; to <code>autoMode.environment</code> or run <code>/auto-mode-setup</code>.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="checklist-permisos-claude-code.html">Before you give Claude Code permissions: a security checklist</a></li><li><a href="checklist-plugins-claude-code.html">Before installing plugins, skills or MCP in Claude Code</a></li><li><a href="comprobador-settings.html">Claude Code settings.json checker: find permission risks</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

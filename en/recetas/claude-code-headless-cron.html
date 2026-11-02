@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code headless: claude -p in scripts and cron, step by step · Ctrl+IA</title>
+<meta name="description" content="Use claude -p in a cron script: a daily commit summary with minimal permissions, a turn cap, JSON output and your subscription login. Tested.">
+<meta property="og:title" content="Claude Code headless: claude -p in scripts and cron, step by step · Ctrl+IA">
+<meta property="og:description" content="Use claude -p in a cron script: a daily commit summary with minimal permissions, a turn cap, JSON output and your subscription login. Tested.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/claude-code-headless-cron.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/claude-code-headless-cron.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/claude-code-headless-cron.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/claude-code-headless-cron.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/claude-code-headless-cron.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/claude-code-headless-cron.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/claude-code-headless-cron.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code headless: claude -p in scripts and cron, step by step", "totalTime": "PT15M", "step": [{"@type": "HowToStep", "position": 1, "name": "Try claude -p by hand", "text": "The -p (or --print) flag runs Claude Code non-interactively: it reads the prompt (and whatever you pass on standard input), works with its tools and writes the result to standard output. It exits with code 0 when everything goes well and non-zero when it fails, so your script can decide what to do.", "url": "https://ctrlia.dev/en/recetas/claude-code-headless-cron.html"}, {"@type": "HowToStep", "position": 2, "name": "Grant only the permissions it needs", "text": "In a normal session Claude asks you before editing or running something. In -p there is nobody to ask. Since v2.1.302, if nothing sets a permission mode, claude -p starts in Manual mode: anything that needs approval is denied. We checked it: asked to \"create hola.txt\" without permissions, it answered that it could not, and the JSON listed the call in permission_denials (real excerpt, in Spanish because of our settings):", "url": "https://ctrlia.dev/en/recetas/claude-code-headless-cron.html"}, {"@type": "HowToStep", "position": 3, "name": "Ask for JSON output (with a schema if you need one)", "text": "With --output-format json you get an object with result (the text), is_error, num_turns, session_id, permission_denials and total_cost_usd (an estimate at list price, not your bill). If you need data with a fixed shape, add --json-schema with a JSON Schema: the response carries structured_output with those fields.", "url": "https://ctrlia.dev/en/recetas/claude-code-headless-cron.html"}, {"@type": "HowToStep", "position": 4, "name": "Set limits: turns, budget, model and standard input", "text": "Always set a ceiling:", "url": "https://ctrlia.dev/en/recetas/claude-code-headless-cron.html"}, {"@type": "HowToStep", "position": 5, "name": "Create the cron script", "text": "Save this script (en/git-summary.sh in the repository) as ~/bin/git-summary.sh and make it executable with chmod +x ~/bin/git-summary.sh. Change PROJECT to your repository path (or pass it as an environment variable):", "url": "https://ctrlia.dev/en/recetas/claude-code-headless-cron.html"}, {"@type": "HowToStep", "position": 6, "name": "Schedule it in cron and sort out the login", "text": "Open your crontab with crontab -e and add this line. It runs Monday to Friday at 7:30 and saves output and errors to a log:", "url": "https://ctrlia.dev/en/recetas/claude-code-headless-cron.html"}, {"@type": "HowToStep", "position": 7, "name": "Watch your usage: your limit may last less", "text": "Issue #97074, opened on 25 September 2026 with 146 reactions, measures on a Max plan that the same workload with claude -p uses about 1.8 times more of the 5-hour window than the interactive session, with the same number of tokens (A/B test with v2.1.282 and Opus 5). The Agent SDK help page says that claude -p draws from your subscription limits, but not that it does so with a different weight, and Anthropic has neither documented nor fixed it as of today (1 Nov 2026). It is not an official figure: treat it as a risk.", "url": "https://ctrlia.dev/en/recetas/claude-code-headless-cron.html"}], "description": "Use claude -p in a cron script: a daily commit summary with minimal permissions, a turn cap, JSON output and your subscription login. Tested.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/claude-code-headless-cron.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does it work with my Pro or Max subscription, or do I need an API key?", "acceptedAnswer": {"@type": "Answer", "text": "It works with the subscription: claude -p uses the same login as the normal session and draws from your limits. An API key is only required if you use --bare, which does not read the stored login."}}, {"@type": "Question", "name": "My cron does nothing and the log says \"claude: command not found\".", "acceptedAnswer": {"@type": "Answer", "text": "Cron uses a minimal PATH. Export PATH=\"$HOME/.local/bin:$PATH\" at the top of the script or use the full path from command -v claude."}}, {"@type": "Question", "name": "Why does it take 3 seconds to start and print a stdin warning?", "acceptedAnswer": {"@type": "Answer", "text": "Claude Code waits in case you pass data on standard input. Add < /dev/null at the end of the command if you pass nothing."}}, {"@type": "Question", "name": "Claude says it cannot write a file. Is it broken?", "acceptedAnswer": {"@type": "Answer", "text": "No: since v2.1.302 -p starts in Manual mode and denies whatever needs approval. Add only what is needed with --allowedTools or --permission-mode acceptEdits, and check permission_denials in the JSON."}}, {"@type": "Question", "name": "Is it true that it uses more limit than the normal session?", "acceptedAnswer": {"@type": "Answer", "text": "There is a report (#97074, open, 146 reactions) that measures about 1.8 times more use of the 5-hour window with the same tokens. Anthropic has neither documented nor confirmed it. Cap turns, use Haiku for small tasks and watch /usage."}}, {"@type": "Question", "name": "Can I continue a previous run?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, by removing --no-session-persistence: save session_id from the JSON and run it later with claude -p \"sigue\" --resume \"$session_id\", or use --continue for the latest one."}}, {"@type": "Question", "name": "What about Claude Code's own scheduled tasks (/loop, routines)?", "acceptedAnswer": {"@type": "Answer", "text": "They exist (see scheduled-tasks and routines in the documentation) and serve other cases; cron with -p is the simplest option when you already have a Linux server and want full control."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/claude-code-headless-cron.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Intermediate · 15 min</p>
+  <h1 id="t-art">Claude Code headless: claude -p in scripts and cron, step by step</h1>
+  <p class="entrada">Use claude -p in a cron script: a daily commit summary with minimal permissions, a turn cap, JSON output and your subscription login. Tested.</p>
+  <img class="portada-img" src="../../img/en/claude-code-headless-cron.webp" width="960" height="540" alt="Cover: Claude Code headless: claude -p in scripts and cron, step by step">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-claude-code-headless-cron"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>The problem</h2>
+<p>Some tasks you ask Claude Code for every day with the same words: summarize yesterday&#x27;s commits, explain an error log, review a diff before pushing it. Claude Code does not need its interface for them: with <code>claude -p</code> it takes a prompt, does the task and returns text or JSON, so you can call it from a script or from cron. The hard part is the details nobody tells you: what happens to permissions when nobody is there, how login works under cron, and why headless mode can burn noticeably more of your 5-hour limit.</p>
+<h2>The solution</h2>
+<p>We will set up a daily commit summary that runs on its own, with minimal permissions, a turn cap and checkable JSON output. All the files are in the free repository <code>ctrlia-claude-code-headless-cron</code> (the English versions are in its <code>en/</code> folder).</p>
+<h3>1. Try claude -p by hand</h3>
+<p>The <code>-p</code> (or <code>--print</code>) flag runs Claude Code non-interactively: it reads the prompt (and whatever you pass on standard input), works with its tools and writes the result to standard output. It exits with code 0 when everything goes well and non-zero when it fails, so your script can decide what to do.</p>
+<pre><code class="language-bash">claude -p &quot;¿Qué hace el módulo auth?&quot;</code></pre>
+<p>(The prompt asks &quot;What does the auth module do?&quot;; write yours in any language.) If it answers, you have everything you need. Use it for repetitive tasks with a clear result: summarizing the day&#x27;s commits, explaining an error log, reviewing a diff before pushing it, or generating release notes. Do not use it for open-ended tasks like &quot;improve the project&quot;: with nobody reviewing, a vague task spends a lot and produces little. For GitHub pull requests we already have the <a href="../recetas/revision-prs-github-actions.html">PR review with GitHub Actions</a> recipe; this one is for your PC or your server, with no GitHub involved.</p>
+<h3>2. Grant only the permissions it needs</h3>
+<p>In a normal session Claude asks you before editing or running something. In <code>-p</code> there is nobody to ask. Since v2.1.302, if nothing sets a permission mode, <code>claude -p</code> starts in Manual mode: anything that needs approval is denied. We checked it: asked to &quot;create hola.txt&quot; without permissions, it answered that it could not, and the JSON listed the call in <code>permission_denials</code> (real excerpt, in Spanish because of our settings):</p>
+<pre><code class="language-json">{
+  &quot;is_error&quot;: false,
+  &quot;result&quot;: &quot;No he podido crear `hola.txt`. El permiso para escribir ... fue denegado automáticamente, porque esta sesión no tiene forma de pedir aprobación.&quot;,
+  &quot;permission_denials&quot;: [
+    {&quot;tool_name&quot;: &quot;Write&quot;, &quot;tool_input&quot;: {&quot;file_path&quot;: &quot;.../hola.txt&quot;, &quot;content&quot;: &quot;hola\n&quot;}}
+  ]
+}</code></pre>
+<p>You have three levers:</p>
+<ul><li><code>--allowedTools &quot;Bash(git log *)&quot;</code> approves only what you name. The space before <code>*</code> matters: <code>Bash(git diff*)</code> would also accept <code>git diff-index</code>.</li><li><code>--permission-mode acceptEdits</code> lets it write files without asking, but not run other commands.</li><li><code>--permission-prompts none</code> (v2.1.259 or later) tells Claude that nobody can approve and that it should not retry: ideal for cron.</li></ul>
+<p>Watch out for compound commands: with <code>Bash(python3 -m unittest *)</code> approved, Claude tried <code>python3 -m unittest ... ; echo $?</code> and was denied, because the rule does not cover the <code>echo</code> part. Grant the minimum, and if something is missing you will see it in <code>permission_denials</code>. Rules are explained in depth in the <a href="../recetas/permisos-claude-code.html">Claude Code permissions</a> recipe.</p>
+<h3>3. Ask for JSON output (with a schema if you need one)</h3>
+<p>With <code>--output-format json</code> you get an object with <code>result</code> (the text), <code>is_error</code>, <code>num_turns</code>, <code>session_id</code>, <code>permission_denials</code> and <code>total_cost_usd</code> (an estimate at list price, not your bill). If you need data with a fixed shape, add <code>--json-schema</code> with a JSON Schema: the response carries <code>structured_output</code> with those fields.</p>
+<pre><code class="language-bash">claude -p &quot;Summarize in English the commits from the last 24 hours (git log --since=24.hours --oneline).&quot; \
+  --model haiku --max-turns 4 \
+  --permission-prompts none \
+  --allowedTools &quot;Bash(git log *)&quot; \
+  --no-session-persistence \
+  --output-format json \
+  --json-schema &#x27;{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;summary&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;commits&quot;:{&quot;type&quot;:&quot;integer&quot;}},&quot;required&quot;:[&quot;summary&quot;,&quot;commits&quot;]}&#x27; \
+  &lt; /dev/null | jq &#x27;.structured_output&#x27;</code></pre>
+<p>In our test, with the schema <code>{summary: string, commits: integer}</code>, it returned <code>{&quot;summary&quot;: &quot;There are 2 commits...&quot;, &quot;commits&quot;: 2}</code>. The documentation warns that if Claude does not manage to produce the output (for example, because it refuses the task), the field is missing: check it before using it.</p>
+<p>To read the JSON on Linux, install jq (<code>sudo apt install jq</code>) and use <code>jq -r &#x27;.result&#x27;</code> or <code>jq -e &#x27;.is_error == false&#x27;</code>, which returns an error if the run failed. If you want to watch progress in real time, <code>--output-format stream-json --verbose</code> emits one JSON event per line; cron does not need it.</p>
+<h3>4. Set limits: turns, budget, model and standard input</h3>
+<p>Always set a ceiling:</p>
+<ul><li><code>--max-turns 6</code> stops the run with an error if Claude goes on and on.</li><li><code>--max-budget-usd 0.50</code> stops when the estimated spend reaches that figure (it can overshoot a little, so leave a margin).</li><li><code>--model haiku</code> is enough for summaries. In our test the same job cost an estimated 0.009 USD with Haiku versus 0.20 USD with Opus, because Opus also loaded the whole configuration context.</li><li><code>--no-session-persistence</code> avoids saving to disk a session you will never resume.</li><li><code>&lt; /dev/null</code> at the end: without it, Claude Code waits 3 seconds in case something arrives on standard input and writes <code>Warning: no stdin data received in 3s</code> to stderr.</li></ul>
+<p>If you call Claude with an API key (not your subscription), add <code>--bare</code>: it does not load hooks, skills, plugins, MCP servers or CLAUDE.md, so the result is the same on any machine. It does not work with the subscription, because <code>--bare</code> does not read the stored login.</p>
+<h3>5. Create the cron script</h3>
+<p>Save this script (<code>en/git-summary.sh</code> in the repository) as <code>~/bin/git-summary.sh</code> and make it executable with <code>chmod +x ~/bin/git-summary.sh</code>. Change <code>PROJECT</code> to your repository path (or pass it as an environment variable):</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# Daily commit summary with Claude Code in headless mode
+set -euo pipefail
+export PATH=&quot;$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin&quot;
+# Server without a browser: uncomment if you use a token from claude setup-token
+# source &quot;$HOME/.config/claude-token.env&quot;
+
+command -v jq &gt; /dev/null || { echo &quot;jq is missing: install it with sudo apt install jq&quot; &gt;&amp;2; exit 1; }
+
+PROJECT=&quot;${PROJECT:-$HOME/projects/my-app}&quot;
+DEST=&quot;${DEST:-$HOME/reports}&quot;
+mkdir -p &quot;$DEST&quot;
+cd &quot;$PROJECT&quot;
+
+output=&quot;$DEST/git-$(date +%F).json&quot;
+claude -p &quot;Summarize in English the commits from the last 24 hours (use git log --since=24.hours --stat). Group them by topic and mark anything that looks risky with [REVIEW]. If there are no commits, say so in one line.&quot; \
+  --model haiku \
+  --max-turns 6 \
+  --max-budget-usd 0.50 \
+  --permission-prompts none \
+  --allowedTools &quot;Bash(git log *)&quot; \
+  --no-session-persistence \
+  --output-format json \
+  &lt; /dev/null &gt; &quot;$output&quot;
+
+# Fails (and cron writes it to the log) if the run ended in an error
+jq -e &#x27;.is_error == false&#x27; &quot;$output&quot; &gt; /dev/null
+jq -r &#x27;.result&#x27; &quot;$output&quot; &gt; &quot;${output%.json}.md&quot;</code></pre>
+<p>The prompt asks Claude to summarize the last 24 hours of commits, group them by topic, flag risky ones with <code>[REVIEW]</code> and say so in one line if there are none. Three cron details break almost every first attempt, and the script already handles them:</p>
+<ol><li><strong>The PATH:</strong> cron uses a minimal PATH and cannot find <code>claude</code>, which the installer puts in <code>~/.local/bin</code>; that is why the script exports it.</li><li><strong>The directory:</strong> cron starts in your home folder, so the script does <code>cd</code> into the project.</li><li><strong>Overlapping runs:</strong> if one day it takes longer, <code>flock -n</code> (in the crontab line of the next step) prevents a second copy from starting.</li></ol>
+<h3>6. Schedule it in cron and sort out the login</h3>
+<p>Open your crontab with <code>crontab -e</code> and add this line. It runs Monday to Friday at 7:30 and saves output and errors to a log:</p>
+<pre><code class="language-bash">30 7 * * 1-5 flock -n /tmp/git-summary.lock &quot;$HOME/bin/git-summary.sh&quot; &gt;&gt; &quot;$HOME/reports/cron.log&quot; 2&gt;&amp;1</code></pre>
+<p>About the login: on Linux, your subscription session is stored in <code>~/.claude/.credentials.json</code>, and cron, which runs as your user, uses it. If the server has no browser or the session expires, run <code>claude setup-token</code> on your PC: it generates a one-year token that you put in the <code>CLAUDE_CODE_OAUTH_TOKEN</code> variable, stored in a file with 600 permissions and never in the repository:</p>
+<pre><code class="language-bash"># On your PC (opens the browser once and prints the token; it does not store it)
+claude setup-token
+
+# On the server: keep it outside the repository and readable only by you
+install -m 600 /dev/null ~/.config/claude-token.env
+echo &#x27;export CLAUDE_CODE_OAUTH_TOKEN=paste-the-token-here&#x27; &gt; ~/.config/claude-token.env
+
+# And at the top of git-summary.sh (the line is already there, commented out):
+# source &quot;$HOME/.config/claude-token.env&quot;</code></pre>
+<h3>7. Watch your usage: your limit may last less</h3>
+<p>Issue <a href="https://github.com/anthropics/claude-code/issues/97074" rel="noopener">#97074</a>, opened on 25 September 2026 with 146 reactions, measures on a Max plan that the same workload with <code>claude -p</code> uses about 1.8 times more of the 5-hour window than the interactive session, with the same number of tokens (A/B test with v2.1.282 and Opus 5). The Agent SDK help page says that <code>claude -p</code> draws from your subscription limits, but not that it does so with a different weight, and Anthropic has neither documented nor fixed it as of today (1 Nov 2026). It is not an official figure: treat it as a risk.</p>
+<p>In practice: use a small model for small tasks, cap turns, do not launch dozens of runs a day on the subscription, check <code>/usage</code> in a normal session during the first week and, if you automate a lot, consider an API key with <code>--max-budget-usd</code>, where you pay for what you use. We will review the issue every month. If you are unsure which plan suits you, see <a href="../recetas/claude-code-precio-gratis.html">how much Claude Code costs</a>.</p>
+<h2>Check it</h2>
+<p>Run the script by hand before leaving it in cron:</p>
+<pre><code class="language-bash">PROJECT=&quot;$HOME/projects/my-app&quot; ~/bin/git-summary.sh; echo &quot;exit $?&quot;
+cat ~/reports/git-$(date +%F).md</code></pre>
+<p>It should end with <code>exit 0</code> and leave in <code>~/reports/</code> the run&#x27;s <code>.json</code> and the <code>.md</code> with the summary. If the run fails (<code>is_error</code> set to <code>true</code>), the script exits with an error and, under cron, the reason ends up in <code>~/reports/cron.log</code>.</p>
+<p>What we checked with Claude Code 2.1.316 on Linux on 1 Nov 2026: <code>--json-schema</code> returned <code>structured_output</code> with 2 commits; with <code>--permission-prompts none</code> and no permissions, writing <code>hola.txt</code> ended up in <code>permission_denials</code>; a compound command outside the approved rule was denied; without <code>&lt; /dev/null</code> the 3-second stdin warning appeared; and the estimated cost was 0.009 USD with Haiku and 0.20 USD with Opus. We ran the script with a simulated <code>claude</code> and <code>jq</code> (it creates both files and fails if <code>is_error</code> is <code>true</code> or <code>jq</code> is missing). We have not yet tested it with the real <code>jq</code> or by leaving the cron line running for a whole day, and we have not measured the extra usage from #97074, because that would mean burning limit on purpose.</p>
+<h2>Why it works</h2>
+<p><code>-p</code> turns Claude Code into a normal command-line program: input through arguments and stdin, result through stdout, and an exit code the script can check. Since nobody is there to approve permissions, Claude Code denies anything not approved in advance (Manual mode since v2.1.302) and records it in <code>permission_denials</code>; <code>--allowedTools</code> opens exactly what you name and <code>--permission-prompts none</code> stops Claude from insisting. The caps (<code>--max-turns</code>, <code>--max-budget-usd</code>) and the small model bound the spend, and <code>--output-format json</code> gives the script a reliable <code>is_error</code> field to fail visibly. Cron runs as your user, so it uses your stored login. More details in the <a href="https://code.claude.com/docs/en/headless" rel="noopener">headless mode documentation</a>, the <a href="https://code.claude.com/docs/en/cli-reference" rel="noopener">CLI reference</a>, <a href="https://code.claude.com/docs/en/permission-modes" rel="noopener">permission modes</a>, <a href="https://code.claude.com/docs/en/authentication" rel="noopener">authentication</a> and <a href="https://code.claude.com/docs/en/costs" rel="noopener">costs</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li><strong>The log says <code>claude: command not found</code></strong> → cron uses a minimal PATH → export <code>PATH=&quot;$HOME/.local/bin:$PATH&quot;</code> at the top of the script or use the full path from <code>command -v claude</code>.</li><li><strong>Claude says it cannot write or run something</strong> → since v2.1.302 <code>-p</code> starts in Manual mode and denies whatever needs approval → add only what is needed with <code>--allowedTools</code> or <code>--permission-mode acceptEdits</code> and check <code>permission_denials</code> in the JSON.</li><li><strong>A command that looked approved gets denied</strong> → it was a compound command (<code>...; echo $?</code>) and the rule only covers the first part → approve each command or ask in the prompt not to chain them.</li><li><strong>It takes 3 seconds to start and prints <code>Warning: no stdin data received in 3s</code></strong> → Claude Code waits for data on stdin → add <code>&lt; /dev/null</code> if you pass nothing.</li><li><strong><code>--bare</code> fails with the subscription</strong> → <code>--bare</code> does not read the stored login → use it only with an API key.</li><li><strong><code>structured_output</code> is missing from the JSON</strong> → Claude did not manage to produce the output (for example, it refused the task) → check the field before using it.</li><li><strong>The server loses the login</strong> → it has no browser or the session expired → use <code>claude setup-token</code> and <code>CLAUDE_CODE_OAUTH_TOKEN</code> in a file with 600 permissions.</li></ul>
+<h2>FAQ</h2>
+<h3>Does it work with my Pro or Max subscription, or do I need an API key?</h3>
+<p>It works with the subscription: <code>claude -p</code> uses the same login as the normal session and draws from your limits. An API key is only required if you use <code>--bare</code>, which does not read the stored login.</p>
+<h3>My cron does nothing and the log says &quot;claude: command not found&quot;.</h3>
+<p>Cron uses a minimal PATH. Export <code>PATH=&quot;$HOME/.local/bin:$PATH&quot;</code> at the top of the script or use the full path from <code>command -v claude</code>.</p>
+<h3>Why does it take 3 seconds to start and print a stdin warning?</h3>
+<p>Claude Code waits in case you pass data on standard input. Add <code>&lt; /dev/null</code> at the end of the command if you pass nothing.</p>
+<h3>Claude says it cannot write a file. Is it broken?</h3>
+<p>No: since v2.1.302 <code>-p</code> starts in Manual mode and denies whatever needs approval. Add only what is needed with <code>--allowedTools</code> or <code>--permission-mode acceptEdits</code>, and check <code>permission_denials</code> in the JSON.</p>
+<h3>Is it true that it uses more limit than the normal session?</h3>
+<p>There is a report (#97074, open, 146 reactions) that measures about 1.8 times more use of the 5-hour window with the same tokens. Anthropic has neither documented nor confirmed it. Cap turns, use Haiku for small tasks and watch <code>/usage</code>.</p>
+<h3>Can I continue a previous run?</h3>
+<p>Yes, by removing <code>--no-session-persistence</code>: save <code>session_id</code> from the JSON and run it later with <code>claude -p &quot;sigue&quot; --resume &quot;$session_id&quot;</code>, or use <code>--continue</code> for the latest one.</p>
+<h3>What about Claude Code&#x27;s own scheduled tasks (/loop, routines)?</h3>
+<p>They exist (see scheduled-tasks and routines in the documentation) and serve other cases; cron with <code>-p</code> is the simplest option when you already have a Linux server and want full control.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="checklist-revisar-codigo-ia.html">Before merging Claude Code&#x27;s code: a review checklist</a></li><li><a href="clear-vs-compact.html">/clear vs /compact in Claude Code, and idle compaction</a></li><li><a href="depurar-bug.html">Debug a bug with Claude Code: from the error to a regression test</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

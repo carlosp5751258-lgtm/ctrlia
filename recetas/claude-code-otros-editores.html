@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code en JetBrains, Visual Studio, Xcode, Zed y Neovim · Ctrl+IA</title>
+<meta name="description" content="Qué integración tiene Claude Code en JetBrains, Visual Studio 2022/2026, Xcode, Zed, Cursor y Neovim: quién la mantiene, cómo se instala y qué pierdes.">
+<meta property="og:title" content="Claude Code en JetBrains, Visual Studio, Xcode, Zed y Neovim · Ctrl+IA">
+<meta property="og:description" content="Qué integración tiene Claude Code en JetBrains, Visual Studio 2022/2026, Xcode, Zed, Cursor y Neovim: quién la mantiene, cómo se instala y qué pierdes.">
+<meta property="og:image" content="https://ctrlia.dev/img/claude-code-otros-editores.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/claude-code-otros-editores.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/claude-code-otros-editores.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/claude-code-otros-editores.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/claude-code-otros-editores.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/claude-code-otros-editores.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/claude-code-otros-editores.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code en JetBrains, Visual Studio, Xcode, Zed y Neovim", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/recetas/claude-code-otros-editores.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Qué integración tiene Claude Code en JetBrains, Visual Studio 2022/2026, Xcode, Zed, Cursor y Neovim: quién la mantiene, cómo se instala y qué pierdes.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/claude-code-otros-editores.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Hay extensión oficial de Claude Code para Visual Studio 2022?", "acceptedAnswer": {"@type": "Answer", "text": "No. Anthropic publica la extensión para VS Code (y forks), no para Visual Studio. La ruta oficial es ejecutar claude en la terminal de Visual Studio. Las extensiones que encuentres para VS 2022 son de la comunidad."}}, {"@type": "Question", "name": "¿El plugin de JetBrains es gratis?", "acceptedAnswer": {"@type": "Answer", "text": "El plugin se instala gratis desde el Marketplace, pero Claude Code necesita un plan de pago de Claude (Pro, Max, Ultra, Team o Enterprise) o una cuenta de Console, igual que en la terminal."}}, {"@type": "Question", "name": "¿Funciona en Android Studio?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: la documentación oficial incluye Android Studio entre los IDE de JetBrains compatibles con el plugin."}}, {"@type": "Question", "name": "¿Puedo usar mi Claude Pro o Max en el Claude Agent de Xcode, Zed o JetBrains AI?", "acceptedAnswer": {"@type": "Answer", "text": "Depende del fabricante y no lo garantizamos. JetBrains AI documenta su suscripción, clave de API o Anthropic Console (no menciona Pro/Max); Zed dice que Claude Agent tiene su propia autenticación y se elige con /login; Apple solo indica que inicies sesión en la fila Account. Con Pro/Max, lo seguro es la CLI o el plugin oficial."}}, {"@type": "Question", "name": "¿Mis skills y CLAUDE.md funcionan en esos editores?", "acceptedAnswer": {"@type": "Answer", "text": "En la CLI y el plugin de JetBrains, sí (es el mismo programa). Zed indica que Claude Agent puede leer CLAUDE.md; Visual Studio 2026 descubre skills en .claude/skills; en Xcode, Apple avisa de que invocar skills con /skill puede fallar y recomienda pedirlas por su nombre."}}, {"@type": "Question", "name": "¿Es seguro instalar Claude Code en Cursor?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, si es la extensión del publicador Anthropic y una versión limpia. El 29-30 de octubre de 2026 Open VSX sirvió versiones manipuladas (2.1.312 y 2.1.313, ya retiradas). Revisa el publicador y la versión como explica la receta de VS Code."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/claude-code-otros-editores.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Comparativa · Básico · 8 min</p>
+  <h1 id="t-art">Claude Code en JetBrains, Visual Studio, Xcode, Zed y Neovim</h1>
+  <p class="entrada">Qué integración tiene Claude Code en JetBrains, Visual Studio 2022/2026, Xcode, Zed, Cursor y Neovim: quién la mantiene, cómo se instala y qué pierdes.</p>
+  <img class="portada-img" src="../img/claude-code-otros-editores.webp" width="960" height="540" alt="Portada: Claude Code en JetBrains, Visual Studio, Xcode, Zed y Neovim">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-claude-code-otros-editores"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Ver los archivos en GitHub</a> <span class="nota">Gratis · licencia MIT</span></p>
+  
+  
+<h2>Resumen y veredicto</h2>
+<p>No todo editor tiene «Claude Code» de la misma forma. Hoy (1-nov-2026) hay tres tipos de integración, y conviene saber en cuál estás porque cambian las funciones y la factura:</p>
+<ul><li><strong>Oficial de Anthropic:</strong> VS Code (extensión <code>anthropic.claude-code</code>), Cursor y otros forks de VS Code (la misma extensión, desde Open VSX) y JetBrains (plugin «Claude Code [Beta]» del proveedor anthropic, ID 27310, casi 5 millones de descargas).</li><li><strong>Del fabricante del editor:</strong> Xcode 26.3 (Apple integra «Claude Agent», basado en el Agent SDK, y además expone Xcode por MCP para que la CLI lo use), Zed (Claude Agent instalable desde su registro ACP) y JetBrains AI Assistant 2026.2 (también ofrece un «Claude Agent», distinto del plugin de Anthropic).</li><li><strong>Sin integración oficial:</strong> Visual Studio 2022/2026 (solo extensiones de la comunidad) y Neovim (plugins de la comunidad como coder/claudecode.nvim).</li></ul>
+<p><strong>Veredicto:</strong> si pagas Claude Pro o Max, quédate en lo que ejecuta la CLI: el plugin oficial en JetBrains, la terminal integrada en Visual Studio o Neovim, y la extensión oficial en VS Code o Cursor. Para todo lo que no está en la lista, la documentación oficial lo dice claro: instala la CLI y ejecuta <code>claude</code> en la terminal integrada del editor. Las funciones completas (skills, hooks, subagentes, modo plan, <code>/rewind</code>) están siempre en la CLI; cuanto más lejos de ella, más hay que comprobar qué falta.</p>
+<h2>Cómo lo probamos</h2>
+<p>Esta comparativa se ha hecho <strong>solo con documentación oficial</strong>, sin instalar nada: cada fila de la tabla lleva al lado la página de Anthropic, Apple, JetBrains, Zed o Microsoft que la respalda. Separamos lo que publica Anthropic, lo que publica el fabricante del editor y lo que es de la comunidad, y no recomendamos ninguna extensión de terceros.</p>
+<p>Qué se puede comprobar en Linux (pendiente de hacerlo en una próxima revisión): el plugin de JetBrains en IntelliJ Community o PyCharm con la CLI 2.1.316 (<code>/ide</code> y el visor de diferencias), Zed con Claude Agent desde el ACP Registry, Neovim con <code>:terminal claude</code>, y Cursor o Devin Desktop. Qué no se puede probar en Linux: Xcode (solo macOS) y Visual Studio 2022/2026 (solo Windows); esas filas se basan únicamente en la documentación de Apple y Microsoft citada.</p>
+<h2>Tabla comparativa</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Editor</th><th scope="col">Quién mantiene la integración</th><th scope="col">Cómo se instala</th><th scope="col">Cuenta y facturación</th><th scope="col">Funciones de Claude Code</th><th scope="col">Fuente</th></tr></thead><tbody><tr><td>VS Code</td><td>Anthropic</td><td>Extensión <code>anthropic.claude-code</code> (Visual Studio Marketplace u Open VSX)</td><td>Tu plan de Claude o Console</td><td>Extensión con revisión visual; algunas funciones cambian respecto a la CLI</td><td><a href="https://code.claude.com/docs/en/vs-code" rel="noopener">Anthropic</a></td></tr><tr><td>Cursor y otros forks de VS Code (Devin Desktop)</td><td>Anthropic</td><td>La misma extensión, desde Open VSX; comprueba publicador y versión</td><td>Tu plan de Claude o Console</td><td>Como en VS Code</td><td><a href="https://code.claude.com/docs/en/vs-code" rel="noopener">Anthropic</a></td></tr><tr><td>IntelliJ, PyCharm, WebStorm, Android Studio, GoLand, PhpStorm</td><td>Anthropic</td><td>Plugin «Claude Code [Beta]» del Marketplace + la CLI en el PATH</td><td>Cualquier plan de pago de Claude o Console, sin clave de API</td><td>Todas: el plugin ejecuta la CLI</td><td><a href="https://code.claude.com/docs/es/jetbrains" rel="noopener">Anthropic</a>, <a href="https://plugins.jetbrains.com/plugin/27310-claude-code-beta-" rel="noopener">Marketplace</a></td></tr><tr><td>JetBrains AI Assistant 2026.2 (Claude Agent)</td><td>JetBrains (por ACP)</td><td>Dentro del chat de AI Assistant</td><td>Suscripción JetBrains AI, tu clave de API (BYOK) o Anthropic Console; no menciona Pro ni Max</td><td>Pierdes la terminal de Claude Code</td><td><a href="https://www.jetbrains.com/help/ai-assistant/activate-agents.html" rel="noopener">JetBrains</a></td></tr><tr><td>Xcode 26.3 (Claude Agent)</td><td>Apple, con el Claude Agent SDK</td><td>Settings → Intelligence → Agents → «Get» e «Install»</td><td>Fila Account del agente</td><td>Subagentes, tareas en segundo plano y plugins; <code>/skill</code> puede fallar</td><td><a href="https://developer.apple.com/documentation/xcode/setting-up-coding-intelligence" rel="noopener">Apple</a>, <a href="https://www.anthropic.com/news/apple-xcode-claude-agent-sdk" rel="noopener">Anthropic</a></td></tr><tr><td>Xcode 26.3 (CLI por MCP)</td><td>Apple expone Xcode; tú usas la CLI</td><td><code>claude mcp add --transport stdio xcode -- xcrun mcpbridge</code></td><td>La de tu CLI</td><td>Todas (es la CLI) más las herramientas de Xcode</td><td><a href="https://developer.apple.com/documentation/xcode/giving-external-agents-access-to-xcode" rel="noopener">Apple</a></td></tr><tr><td>Zed</td><td>Zed (External Agent por ACP)</td><td>Claude Agent desde el ACP Registry</td><td>Autenticación propia, se elige con <code>/login</code></td><td>Lee CLAUDE.md; los MCP de Zed pueden reenviarse</td><td><a href="https://zed.dev/docs/ai/external-agents" rel="noopener">Zed</a></td></tr><tr><td>Visual Studio 2022/2026</td><td>Nadie: no hay extensión oficial</td><td>La CLI en Ver → Terminal</td><td>La de tu CLI</td><td>Todas (es la CLI)</td><td><a href="https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-notes" rel="noopener">Microsoft</a></td></tr><tr><td>Neovim</td><td>Nadie: solo plugins de la comunidad</td><td><code>:terminal claude</code> o un plugin revisado</td><td>La de tu CLI</td><td>Todas (es la CLI); modo vim en <code>/config</code></td><td><a href="https://code.claude.com/docs/en/interactive-mode" rel="noopener">Anthropic</a></td></tr></tbody></table></div>
+<p>La misma tabla, con todos los enlaces, está en el repositorio gratuito <a href="https://github.com/carlosp5751258-lgtm/ctrlia-claude-code-otros-editores" rel="noopener">ctrlia-claude-code-otros-editores</a>.</p>
+<h2>JetBrains (IntelliJ, PyCharm, WebStorm, Android Studio, GoLand, PhpStorm)</h2>
+<p>El plugin de Anthropic no trae su propia CLI: ejecuta <code>claude</code> en la terminal integrada y se conecta a ella. Por eso hay que instalar las dos cosas: la CLI (si no está en el PATH verás «Cannot launch Claude Code») y el plugin «Claude Code [Beta]» del JetBrains Marketplace; después, reinicia el IDE.</p>
+<p>Funciones: abrir con Ctrl+Esc (Cmd+Esc en Mac), diferencias en el visor del IDE, compartir la selección o pestaña actual, insertar referencias con Alt+Ctrl+K (por ejemplo <code>@src/auth.ts#L1-99</code>) y leer los diagnósticos del IDE con la herramienta getDiagnostics. Desde una terminal externa, conecta con <code>/ide</code>. El visor de diferencias se cambia en <code>/config</code> → Diff tool.</p>
+<pre><code class="language-bash">claude --version            # el plugin necesita la CLI en el PATH
+which claude                 # ruta para «Claude command» si el IDE no la encuentra
+claude                       # dentro de la terminal del IDE: integración activa
+# desde una terminal externa, ya dentro de Claude Code:
+/ide                         # → «Connected to IntelliJ IDEA.»
+/config                      # Diff tool: auto (IDE) o terminal</code></pre>
+<p>Trampas:</p>
+<ul><li>Si Esc no interrumpe a Claude, en Settings → Tools → Terminal desmarca «Move focus to the editor with Escape».</li><li>En Remote Development el plugin va en el host remoto.</li><li>En WSL2, el aviso «No available IDEs detected» suele ser el cortafuegos.</li><li>Las reglas <code>Read</code> deny también bloquean que el IDE comparta esos archivos (ver <a href="permisos-claude-code.html">permisos</a>).</li></ul>
+<p>Funciona con cualquier plan de pago de Claude o cuenta de Console, sin clave de API.</p>
+<h2>El otro «Claude Agent» de JetBrains: cuidado con la factura</h2>
+<p>JetBrains AI Assistant 2026.2 (página del 7-oct-2026) incluye un Claude Agent dentro de su chat, basado en el protocolo ACP. No es el plugin de Anthropic: según la documentación de JetBrains se activa con la suscripción JetBrains AI, con tu clave de API de Anthropic (BYOK) o con una cuenta de Anthropic Console, y «el método elegido se usa para procesar y facturar». La página no menciona los planes Pro o Max de Claude, así que no des por hecho que tu suscripción sirve ahí.</p>
+<p>Si ya pagas Claude Pro o Max, la ruta que la documentación de Anthropic garantiza es el plugin oficial + la CLI. En el chat de JetBrains pierdes la terminal de Claude Code, pero ganas integración con el resto del AI Assistant. Nosotros recomendamos el plugin oficial salvo que tu empresa ya pague JetBrains AI.</p>
+<h2>Visual Studio 2022 y 2026: no hay extensión oficial</h2>
+<p>Anthropic publica la extensión para VS Code (Visual Studio Marketplace y Open VSX), no para Visual Studio. En la documentación oficial no hay página de Visual Studio, y en las notas de versión de Visual Studio 2026 el agente integrado es el de GitHub Copilot. Dos datos útiles verificados:</p>
+<ul><li>Visual Studio 2026 descubre skills en <code>.claude/skills/</code> del repositorio y en <code>~/.claude/skills/</code> del perfil (además de <code>.github/skills/</code> y <code>.agents/skills/</code>), así que tus skills de Claude Code también le sirven a Copilot allí.</li><li>La ruta oficial para usar Claude Code es abrir la terminal de Visual Studio (Ver → Terminal) en la carpeta de la solución y ejecutar <code>claude</code>. Si aún no la tienes, sigue la receta de <a href="instalar-claude-code-windows.html">instalar Claude Code en Windows</a>.</li></ul>
+<p>Existen extensiones de la comunidad que envuelven la CLI (por ejemplo para VS 2017-2026), pero no son de Anthropic: si instalas una, revisa el código, quién la publica y qué permisos pide. No las enlazamos como recomendación.</p>
+<h2>Xcode 26.3: integración de Apple y conexión por MCP</h2>
+<p>Desde Xcode 26.3 (requiere macOS Sequoia 15.6 o posterior) Apple integra agentes de Anthropic y OpenAI. Se activa en Xcode → Settings → Intelligence → Agents → «Get» junto al agente y luego «Install»; la cuenta se configura en la fila Account del agente. Anthropic anunció el 3-feb-2026 que es una integración nativa del Claude Agent SDK, el mismo motor de Claude Code, con subagentes, tareas en segundo plano y plugins.</p>
+<p>Segunda vía, para quien prefiere la CLI: activa «Allow external agents to use Xcode tools» en la sección Model Context Protocol y añade Xcode como servidor MCP (más sobre MCP en <a href="mcp-para-programadores.html">MCP para programadores</a>):</p>
+<pre><code class="language-bash"># 1) Xcode → Settings → Intelligence → Model Context Protocol → «Allow external agents to use Xcode tools»
+# 2) En Terminal:
+claude mcp add --transport stdio xcode -- xcrun mcpbridge
+claude mcp list
+# 3) Abre el proyecto en Xcode y luego trabaja con `claude` en la carpeta del proyecto</code></pre>
+<p>Problemas conocidos según Apple:</p>
+<ul><li>Si deniegas el acceso a un proyecto en Escritorio, Descargas o Documentos, no vuelve a preguntar: actívalo en Privacidad → Archivos y carpetas o mueve el proyecto.</li><li>Las skills invocadas con <code>/skill</code> pueden rechazarse: pídelas por su nombre («usa la skill X»).</li></ul>
+<h2>Zed, Cursor, Windsurf (Devin Desktop) y Neovim</h2>
+<p><strong>Zed</strong> integra Claude como «External Agent» por el Agent Client Protocol. Se instala Claude Agent desde el ACP Registry y se abre un hilo en el Agent Panel. Según la documentación de Zed, Claude Agent tiene su propia autenticación y facturación (una clave de Anthropic configurada para Zed Agent no le sirve), se elige con <code>/login</code> en el hilo y puede leer CLAUDE.md directamente; los servidores MCP de Zed pueden reenviarse por ACP.</p>
+<p><strong>Cursor:</strong> la documentación de Anthropic tiene un enlace de instalación directo para Cursor de la misma extensión. Después del incidente del 29-30 de octubre (copia con puerta trasera en Open VSX, versiones 2.1.312 y 2.1.313, ya retiradas), comprueba publicador y versión: lo explica nuestra receta de <a href="claude-code-vs-code.html">Claude Code en VS Code</a>.</p>
+<p><strong>Windsurf</strong>, renombrado Devin Desktop en junio según la prensa: la documentación de Anthropic cita «Devin Desktop» entre los forks donde se instala la extensión desde Open VSX.</p>
+<p><strong>Neovim:</strong> no hay plugin oficial. Usa la CLI en <code>:terminal</code> (Claude Code tiene modo vim en <code>/config</code> → Editor mode) o un plugin de la comunidad como coder/claudecode.nvim (más de 3.100 estrellas), revisándolo antes.</p>
+<pre><code class="language-bash"># Visual Studio: Ver → Terminal, en la carpeta de la solución
+claude
+# Neovim: abre una terminal dentro del editor
+:terminal claude
+# Cursor / forks de VS Code: comprobar publicador y versión en la ficha de la extensión (Extensiones → Claude Code).
+# En VS Code el equivalente por terminal es (no verificado con el comando de Cursor):
+code --list-extensions --show-versions | grep -i claude</code></pre>
+<p>El modo vim para el prompt de Claude Code, en <code>~/.claude/settings.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;editorMode&quot;: &quot;vim&quot;,
+  &quot;vimInsertModeRemaps&quot;: { &quot;jj&quot;: &quot;&lt;Esc&gt;&quot; }
+}</code></pre>
+<h2>Qué pierdes fuera de la CLI y cómo comprobarlo</h2>
+<p>La documentación de plataformas lo resume: la CLI es la superficie más completa; el scripting y el Agent SDK son solo de la CLI, y las extensiones cambian algunas funciones por una revisión visual. Regla práctica:</p>
+<ul><li>Si tu editor <strong>ejecuta la CLI</strong> (plugin de JetBrains, terminal de Visual Studio, Neovim), tienes todo Claude Code porque es el mismo programa.</li><li>Si el editor <strong>usa su propio agente</strong> (JetBrains AI, Xcode, Zed), tus CLAUDE.md, skills y MCP pueden leerse o no según el agente, y la facturación puede ser otra.</li></ul>
+<p>Para comprobar qué ha cargado, abre una sesión y escribe <code>/context</code> (archivos de memoria y skills), <code>/status</code> (cuenta y modelo) y <code>/mcp</code>. Si algo no aparece, la receta de <a href="errores-comunes-claude-code.html">errores comunes</a> y <code>/doctor</code> son el siguiente paso. Configuración, memoria del proyecto y servidores MCP se comparten entre las superficies locales de Anthropic, así que puedes alternar terminal y editor en el mismo repositorio. Si aún no tienes un CLAUDE.md, créalo con el <a href="generador-claude-md.html">generador de CLAUDE.md</a>.</p>
+<h2>Cuándo usar cada uno</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Si usas…</th><th scope="col">Usa esto</th><th scope="col">Por qué</th></tr></thead><tbody><tr><td>IntelliJ, PyCharm, WebStorm, Android Studio… y pagas Claude</td><td>Plugin oficial «Claude Code [Beta]» + CLI</td><td>Es Claude Code completo, con diferencias en el IDE</td></tr><tr><td>JetBrains y tu empresa ya paga JetBrains AI</td><td>Claude Agent de AI Assistant</td><td>Integración con el resto del AI Assistant; factura JetBrains AI, BYOK o Console</td></tr><tr><td>Visual Studio 2022/2026</td><td>La CLI en Ver → Terminal</td><td>No hay extensión oficial</td></tr><tr><td>Xcode 26.3</td><td>Claude Agent de Apple, o la CLI con Xcode por MCP</td><td>La CLI conserva todas las funciones; el agente de Apple, la integración visual</td></tr><tr><td>Zed</td><td>Claude Agent por ACP, sabiendo que factura aparte</td><td>Lee CLAUDE.md y puede reenviar tus MCP</td></tr><tr><td>Cursor o Devin Desktop</td><td>La extensión oficial desde Open VSX, comprobando publicador y versión</td><td>Es la de Anthropic</td></tr><tr><td>Neovim o cualquier otro editor</td><td><code>claude</code> en la terminal integrada</td><td>Funciona en cualquier terminal</td></tr></tbody></table></div>
+<p>Fuentes: <a href="https://code.claude.com/docs/es/jetbrains" rel="noopener">JetBrains en la documentación de Anthropic</a>, <a href="https://code.claude.com/docs/en/vs-code" rel="noopener">VS Code</a>, <a href="https://code.claude.com/docs/en/platforms" rel="noopener">plataformas</a>, <a href="https://code.claude.com/docs/en/interactive-mode" rel="noopener">modo interactivo</a>, <a href="https://developer.apple.com/documentation/xcode-release-notes/xcode-26_3-release-notes" rel="noopener">notas de Xcode 26.3</a>, <a href="https://zed.dev/docs/ai/external-agents" rel="noopener">agentes externos de Zed</a> y <a href="https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-notes" rel="noopener">notas de Visual Studio 2026</a>.</p>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Hay extensión oficial de Claude Code para Visual Studio 2022?</h3>
+<p>No. Anthropic publica la extensión para VS Code (y forks), no para Visual Studio. La ruta oficial es ejecutar <code>claude</code> en la terminal de Visual Studio. Las extensiones que encuentres para VS 2022 son de la comunidad.</p>
+<h3>¿El plugin de JetBrains es gratis?</h3>
+<p>El plugin se instala gratis desde el Marketplace, pero Claude Code necesita un plan de pago de Claude (Pro, Max, Ultra, Team o Enterprise) o una cuenta de Console, igual que en la terminal.</p>
+<h3>¿Funciona en Android Studio?</h3>
+<p>Sí: la documentación oficial incluye Android Studio entre los IDE de JetBrains compatibles con el plugin.</p>
+<h3>¿Puedo usar mi Claude Pro o Max en el Claude Agent de Xcode, Zed o JetBrains AI?</h3>
+<p>Depende del fabricante y no lo garantizamos. JetBrains AI documenta su suscripción, clave de API o Anthropic Console (no menciona Pro/Max); Zed dice que Claude Agent tiene su propia autenticación y se elige con <code>/login</code>; Apple solo indica que inicies sesión en la fila Account. Con Pro/Max, lo seguro es la CLI o el plugin oficial.</p>
+<h3>¿Mis skills y CLAUDE.md funcionan en esos editores?</h3>
+<p>En la CLI y el plugin de JetBrains, sí (es el mismo programa). Zed indica que Claude Agent puede leer CLAUDE.md; Visual Studio 2026 descubre skills en <code>.claude/skills</code>; en Xcode, Apple avisa de que invocar skills con <code>/skill</code> puede fallar y recomienda pedirlas por su nombre.</p>
+<h3>¿Es seguro instalar Claude Code en Cursor?</h3>
+<p>Sí, si es la extensión del publicador Anthropic y una versión limpia. El 29-30 de octubre de 2026 Open VSX sirvió versiones manipuladas (2.1.312 y 2.1.313, ya retiradas). Revisa el publicador y la versión como explica la receta de VS Code.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="claude-code-vs-codex-gemini-cursor.html">Claude Code vs Codex vs Gemini vs Cursor: misma tarea, con datos</a></li><li><a href="empezar-claude-code-15-minutos.html">Cómo empezar con Claude Code en un proyecto: checklist de 15 min</a></li><li><a href="empieza-aqui.html">Claude Code desde cero: ruta en español para empezar (2026)</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

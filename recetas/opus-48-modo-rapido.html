@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code Opus 4.8: el modo rápido acaba el 30-nov, pasa a 5.5 · Ctrl+IA</title>
+<meta name="description" content="El modo rápido de Opus 4.8 en Claude Code dará error desde el 30-nov-2026. Comprueba si te afecta y migra a Opus 5.5 en sesiones, ajustes y CI.">
+<meta property="og:title" content="Claude Code Opus 4.8: el modo rápido acaba el 30-nov, pasa a 5.5 · Ctrl+IA">
+<meta property="og:description" content="El modo rápido de Opus 4.8 en Claude Code dará error desde el 30-nov-2026. Comprueba si te afecta y migra a Opus 5.5 en sesiones, ajustes y CI.">
+<meta property="og:image" content="https://ctrlia.dev/img/opus-48-modo-rapido.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/opus-48-modo-rapido.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/opus-48-modo-rapido.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/opus-48-modo-rapido.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/opus-48-modo-rapido.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/opus-48-modo-rapido.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/opus-48-modo-rapido.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code Opus 4.8: el modo rápido acaba el 30-nov, pasa a 5.5", "totalTime": "PT5M", "step": [{"@type": "HowToStep", "position": 1, "name": "Qué cambia y a quién afecta", "text": "El modo rápido no es otro modelo: es una configuración de Opus que responde hasta 2,5 veces más rápido a un precio por token más alto. Según la documentación oficial, funciona en Opus 5.5, Opus 5 y Opus 4.8, no en Sonnet ni Haiku; en Opus 5.5 está disponible y en Opus 5 y 4.8 es una vista previa de investigación. La versión 2.1.316 del CHANGELOG añade el aviso: el modo rápido de Opus 4.8 queda retirado desde el 30-oct-2026 y se eliminará el 30-nov-2026; después, esas peticiones devolverán error y no volverán a Opus 4.8 estándar.", "url": "https://ctrlia.dev/recetas/opus-48-modo-rapido.html"}, {"@type": "HowToStep", "position": 2, "name": "Compruébalo en 1 minuto", "text": "Dentro de Claude Code:", "url": "https://ctrlia.dev/recetas/opus-48-modo-rapido.html"}, {"@type": "HowToStep", "position": 3, "name": "Migrar: tres pasos", "text": "Paso 1, cambia el modelo. En la sesión: /model opus (en la API de Anthropic el alias resuelve a Opus 5.5) o, para fijar la versión exacta, /model claude-opus-5-5. Si lo tenías fijado en ajustes o variables, cambia allí claude-opus-4-8 por claude-opus-5-5 o por el alias opus, o elimina la fijación. Recuerda que un model en ajustes de proyecto o gestionados, o ANTHROPIC_MODEL en tu shell, se impone a tu elección de /model en cada arranque.", "url": "https://ctrlia.dev/recetas/opus-48-modo-rapido.html"}, {"@type": "HowToStep", "position": 4, "name": "Lo que cambia al pasar a Opus 5.5: precio y esfuerzo", "text": "Precio del modo rápido según la documentación oficial, por millón de tokens:", "url": "https://ctrlia.dev/recetas/opus-48-modo-rapido.html"}, {"@type": "HowToStep", "position": 5, "name": "Activar el modo rápido sin pagar de más", "text": "La primera vez que activas el modo rápido en una conversación pagas, al precio del modo rápido y sin caché, todo el contexto acumulado hasta ese momento. Cuanto más avanzada esté la conversación, más cuesta, así que la documentación recomienda activarlo al empezar la sesión. Modo rápido y velocidad estándar tienen cachés separadas: cada cambio posterior vuelve a leer sin caché parte o toda la conversación. Lo mismo pasa al cambiar de modelo: cada modelo tiene su propia caché (ver límite de uso).", "url": "https://ctrlia.dev/recetas/opus-48-modo-rapido.html"}, {"@type": "HowToStep", "position": 6, "name": "Si algo falla después de migrar", "text": "Los mensajes que puedes ver y qué hacer con cada uno están en «Errores típicos», más abajo. Si a partir del 30-nov ves errores en un script antiguo, busca un --model claude-opus-4-8 olvidado junto al modo rápido con el grep del paso 2.", "url": "https://ctrlia.dev/recetas/opus-48-modo-rapido.html"}], "description": "El modo rápido de Opus 4.8 en Claude Code dará error desde el 30-nov-2026. Comprueba si te afecta y migra a Opus 5.5 en sesiones, ajustes y CI.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/opus-48-modo-rapido.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Tengo que hacer algo si no uso /fast?", "acceptedAnswer": {"@type": "Answer", "text": "No. La retirada que anuncia el CHANGELOG es solo del modo rápido en Opus 4.8; no anuncia cambios para Opus 4.8 a velocidad normal."}}, {"@type": "Question", "name": "¿Qué pasa exactamente el 30 de noviembre?", "acceptedAnswer": {"@type": "Answer", "text": "Las peticiones en modo rápido con Opus 4.8 devolverán error y no pasarán solas a Opus 4.8 estándar."}}, {"@type": "Question", "name": "¿El modo rápido de Opus 5.5 es más caro?", "acceptedAnswer": {"@type": "Answer", "text": "Según la documentación oficial es más barato que el de 4.8: 8/40 USD por millón de tokens de entrada/salida frente a 10/50. Sigue costando más que la velocidad normal."}}, {"@type": "Question", "name": "¿El modo rápido gasta mi límite de Pro o Max?", "acceptedAnswer": {"@type": "Answer", "text": "No entra en los límites del plan: se cobra directamente de los créditos de uso, aunque te quede uso del plan (ver cuánto cuesta Claude Code)."}}, {"@type": "Question", "name": "¿Y si me paso a Opus 5 en vez de 5.5?", "acceptedAnswer": {"@type": "Answer", "text": "El CHANGELOG pide migrar a Opus 5.5. En Opus 5 el modo rápido sigue en vista previa de investigación, a 10/50 USD."}}, {"@type": "Question", "name": "¿Por qué Opus 5.5 «piensa menos» que mi Opus 4.8?", "acceptedAnswer": {"@type": "Answer", "text": "Su esfuerzo por defecto es medium (en 4.8, high) y un effortLevel antiguo en tus ajustes de usuario no se le aplica. Usa /effort high."}}, {"@type": "Question", "name": "¿Puedo usar el modo rápido en Bedrock o Vertex?", "acceptedAnswer": {"@type": "Answer", "text": "No: según la documentación, solo en la API de Anthropic (Console) y en planes de suscripción con créditos de uso."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/opus-48-modo-rapido.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Receta · Básico · 5 min</p>
+  <h1 id="t-art">Claude Code Opus 4.8: el modo rápido acaba el 30-nov, pasa a 5.5</h1>
+  <p class="entrada">El modo rápido de Opus 4.8 en Claude Code dará error desde el 30-nov-2026. Comprueba si te afecta y migra a Opus 5.5 en sesiones, ajustes y CI.</p>
+  <img class="portada-img" src="../img/opus-48-modo-rapido.webp" width="960" height="540" alt="Portada: Claude Code Opus 4.8: el modo rápido acaba el 30-nov, pasa a 5.5">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-opus-48-modo-rapido"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Ver los archivos en GitHub</a> <span class="nota">Gratis · licencia MIT</span></p>
+  
+  
+<h2>El problema</h2>
+<p>Desde el 30-oct-2026 el modo rápido (fast mode) de Opus 4.8 está retirado, y el 30-nov-2026 se elimina: a partir de ese día las peticiones en modo rápido con Opus 4.8 darán error y no pasarán solas a Opus 4.8 normal. Si usas <code>/fast</code> con Opus 4.8, en una sesión, en tus ajustes o en un script de CI, eso dejará de funcionar.</p>
+<h2>La solución</h2>
+<p>Pasa a Opus 5.5, que ya tiene el modo rápido disponible (no en vista previa) y además más barato por token. Primero comprueba si te afecta, luego migra en sesiones, ajustes y scripts, y ten en cuenta lo que cambia al hacerlo.</p>
+<h3>1. Qué cambia y a quién afecta</h3>
+<p>El modo rápido no es otro modelo: es una configuración de Opus que responde hasta 2,5 veces más rápido a un precio por token más alto. Según la documentación oficial, funciona en Opus 5.5, Opus 5 y Opus 4.8, no en Sonnet ni Haiku; en Opus 5.5 está disponible y en Opus 5 y 4.8 es una vista previa de investigación. La versión 2.1.316 del CHANGELOG añade el aviso: el modo rápido de Opus 4.8 queda retirado desde el 30-oct-2026 y se eliminará el 30-nov-2026; después, esas peticiones devolverán error y no volverán a Opus 4.8 estándar.</p>
+<p>Te afecta solo si cumples las dos condiciones:</p>
+<ul><li>usas el modo rápido: el icono ↯ junto al prompt, <code>&quot;fastMode&quot;: true</code> en tus ajustes o <code>--settings</code> con <code>fastMode</code> en scripts;</li><li>tu modelo es Opus 4.8: lo fijaste con <code>/model claude-opus-4-8</code>, <code>--model</code>, <code>ANTHROPIC_MODEL</code>, la clave <code>model</code> o <code>ANTHROPIC_DEFAULT_OPUS_MODEL</code>.</li></ul>
+<p>No te afecta si usas el alias <code>opus</code> en la API de Anthropic (ya apunta a Opus 5.5), si no usas el modo rápido, o si trabajas en Bedrock, Agent Platform de Google Cloud o Foundry, donde el modo rápido no está disponible.</p>
+<h3>2. Compruébalo en 1 minuto</h3>
+<p>Dentro de Claude Code:</p>
+<ol><li><code>/status</code> muestra versión, modelo y cuenta; la fila Login method te dice si usas suscripción (por ejemplo «Claude Max account») o una clave de API.</li><li><code>/fast</code> sin argumentos te deja ver si el modo rápido está activado o no; con él activo verás «↯» junto al prompt.</li><li><code>/model</code> te enseña el modelo actual.</li></ol>
+<p>Fuera de la sesión, busca fijaciones a Opus 4.8 en tus ajustes y variables: en <code>~/.claude/settings.json</code> y en <code>.claude/settings.json</code> o <code>settings.local.json</code> de tus proyectos, las claves <code>&quot;model&quot;</code> y <code>&quot;fastMode&quot;</code>; en tu shell, <code>ANTHROPIC_MODEL</code> y <code>ANTHROPIC_DEFAULT_OPUS_MODEL</code>; y en scripts o CI, cualquier <code>claude -p</code> con <code>--model claude-opus-4-8</code> junto a <code>--settings &#x27;{&quot;fastMode&quot;: true}&#x27;</code>. Este grep lo revisa todo de una vez (cambia <code>~/proyectos</code> por la carpeta donde tengas tus proyectos):</p>
+<pre><code class="language-bash">grep -rn --include=&#x27;settings*.json&#x27; -e &#x27;claude-opus-4-8&#x27; -e &#x27;fastMode&#x27; ~/.claude ~/proyectos 2&gt;/dev/null
+env | grep -E &#x27;ANTHROPIC_(DEFAULT_OPUS_)?MODEL&#x27;
+grep -rn &#x27;claude-opus-4-8&#x27; ~/proyectos --include=&#x27;*.sh&#x27; --include=&#x27;*.yml&#x27; --include=&#x27;*.yaml&#x27; 2&gt;/dev/null</code></pre>
+<p>Si no aparece <code>claude-opus-4-8</code> en ningún sitio y tu modelo es <code>opus</code> u Opus 5.5, no tienes que hacer nada. Recuerda que el modelo elegido con <code>--model</code> o <code>ANTHROPIC_MODEL</code> solo vale para esa sesión, mientras que <code>/model</code> lo guarda como predeterminado.</p>
+<h3>3. Migrar: tres pasos</h3>
+<p><strong>Paso 1, cambia el modelo.</strong> En la sesión: <code>/model opus</code> (en la API de Anthropic el alias resuelve a Opus 5.5) o, para fijar la versión exacta, <code>/model claude-opus-5-5</code>. Si lo tenías fijado en ajustes o variables, cambia allí <code>claude-opus-4-8</code> por <code>claude-opus-5-5</code> o por el alias <code>opus</code>, o elimina la fijación. Recuerda que un <code>model</code> en ajustes de proyecto o gestionados, o <code>ANTHROPIC_MODEL</code> en tu shell, se impone a tu elección de <code>/model</code> en cada arranque.</p>
+<p><code>~/.claude/settings.json</code>, antes y después:</p>
+<pre><code class="language-jsonc">// antes
+{ &quot;model&quot;: &quot;claude-opus-4-8&quot;, &quot;fastMode&quot;: true }
+// después
+{ &quot;model&quot;: &quot;claude-opus-5-5&quot;, &quot;fastMode&quot;: true }</code></pre>
+<p><strong>Paso 2, activa el modo rápido al principio de una sesión nueva:</strong> <code>/fast</code>, Espacio para activarlo y Enter para confirmar, o <code>&quot;fastMode&quot;: true</code> en tus ajustes de usuario. Verás «Fast mode ON» y el icono ↯. Desde la 2.1.280, Opus 5.5 es el modelo por defecto del modo rápido: si activas <code>/fast</code> con un modelo que no lo admite, Claude Code cambia a Opus.</p>
+<pre><code class="language-text">/status              # modelo y método de inicio de sesión
+/model claude-opus-5-5   # o /model opus
+/effort status       # Opus 5.5 empieza en medium
+/effort high         # opcional, si quieres el nivel que tenías en 4.8
+/fast                # Espacio + Enter -&gt; «Fast mode ON» e icono ↯</code></pre>
+<p><strong>Paso 3, actualiza scripts y CI.</strong> En <code>claude -p</code>, <code>/fast</code> solo funciona si lanzas la sesión con <code>fastMode</code> en <code>--settings</code> (2.1.205 o posterior), así que cambia el <code>--model</code> de esos comandos:</p>
+<pre><code class="language-bash"># antes (dará error a partir del 30-nov-2026)
+claude -p --model claude-opus-4-8 --settings &#x27;{&quot;fastMode&quot;: true}&#x27; &quot;Revisa los tests&quot;
+# después
+claude -p --model claude-opus-5-5 --settings &#x27;{&quot;fastMode&quot;: true}&#x27; &quot;Revisa los tests&quot;</code></pre>
+<p>Si necesitas seguir con Opus 4.8 por algún motivo, desactiva el modo rápido (<code>/fast off</code>): la retirada afecta solo al modo rápido.</p>
+<h3>4. Lo que cambia al pasar a Opus 5.5: precio y esfuerzo</h3>
+<p>Precio del modo rápido según la documentación oficial, por millón de tokens:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Modelo</th><th scope="col">Entrada</th><th scope="col">Salida</th><th scope="col">Estado del modo rápido</th></tr></thead><tbody><tr><td>Opus 5.5</td><td>8 USD</td><td>40 USD</td><td>Disponible</td></tr><tr><td>Opus 5</td><td>10 USD</td><td>50 USD</td><td>Vista previa de investigación</td></tr><tr><td>Opus 4.8</td><td>10 USD</td><td>50 USD</td><td>Retirado; error desde el 30-nov-2026</td></tr></tbody></table></div>
+<p>El precio es plano en toda la ventana de 1M de tokens. Con suscripción Pro, Max, Ultra, Team o Enterprise, el modo rápido no entra en los límites del plan: se paga solo con créditos de uso, aunque te quede uso del plan, y necesitas tenerlos activados (si no, <code>/fast</code> dice «Fast mode requires usage credits»). En Team y Enterprise además lo tiene que activar un Owner. En Console, el modo rápido de Opus 5.5 depende del nivel de uso de tu organización.</p>
+<p>La trampa del esfuerzo: Opus 4.8 tiene esfuerzo <code>high</code> por defecto y Opus 5.5 <code>medium</code>. Además, un <code>effortLevel</code> de nivel superior en tus ajustes de usuario (el formato antiguo) no cuenta para Opus 5.5. Si notas respuestas menos profundas tras migrar, comprueba con <code>/effort status</code> y elige el nivel con <code>/effort high</code> (Enter lo guarda como predeterminado para ese modelo; <code>s</code>, solo para la sesión). Modo rápido y esfuerzo se combinan: más rápido con menos esfuerzo para tareas sencillas.</p>
+<h3>5. Activar el modo rápido sin pagar de más</h3>
+<p>La primera vez que activas el modo rápido en una conversación pagas, al precio del modo rápido y sin caché, todo el contexto acumulado hasta ese momento. Cuanto más avanzada esté la conversación, más cuesta, así que la documentación recomienda activarlo al empezar la sesión. Modo rápido y velocidad estándar tienen cachés separadas: cada cambio posterior vuelve a leer sin caché parte o toda la conversación. Lo mismo pasa al cambiar de modelo: cada modelo tiene su propia caché (ver <a href="../recetas/limite-uso-claude-code.html">límite de uso</a>).</p>
+<p>Por eso, la migración ideal es: cierra la sesión vieja, abre una nueva con Opus 5.5 y activa <code>/fast</code> antes del primer mensaje.</p>
+<p>¿Dónde ves lo gastado? En Pro, Max y Ultra, en claude.ai &gt; Settings &gt; Usage, sección Usage credits (incluye el modo rápido sin desglosarlo); en Team y Enterprise, en la fila de créditos de <code>/usage</code>; en Console, en Usage y Cost agrupando por «Speed (Research Preview)».</p>
+<p>Para equipos con varias sesiones simultáneas, <code>fastModePerSessionOptIn: true</code> hace que cada sesión empiece con el modo rápido apagado:</p>
+<pre><code class="language-json">{
+  &quot;fastModePerSessionOptIn&quot;: true
+}</code></pre>
+<p>Si te quedas sin créditos a mitad de sesión, Claude Code reintenta a velocidad estándar y lo avisa con «Fast mode disabled · usage credits exhausted».</p>
+<h3>6. Si algo falla después de migrar</h3>
+<p>Los mensajes que puedes ver y qué hacer con cada uno están en «Errores típicos», más abajo. Si a partir del 30-nov ves errores en un script antiguo, busca un <code>--model claude-opus-4-8</code> olvidado junto al modo rápido con el grep del paso 2.</p>
+<h2>Compruébalo</h2>
+<p>Después de migrar, abre una sesión nueva y ejecuta <code>/status</code> (modelo), <code>/effort status</code> y <code>/fast</code> sin confirmar. Lo que probamos el 1-nov-2026 con Claude Code 2.1.316 en Linux: <code>/effort status</code> con <code>--model claude-opus-5-5</code> devolvió «auto (currently medium)», lo que confirma el esfuerzo por defecto; y <code>claude -p &quot;/fast&quot;</code> respondió «Fast mode unavailable: Fast mode is not available in the Agent SDK», como describe la documentación para <code>-p</code> sin <code>fastMode</code> en <code>--settings</code>. No activamos el modo rápido, porque se cobra con créditos de uso (gasto real), y el error posterior al 30-nov no se puede reproducir antes de esa fecha: eso lo contamos tal como lo anuncia el CHANGELOG.</p>
+<h2>Por qué funciona</h2>
+<p>El modo rápido es una configuración por modelo, y la retirada solo afecta a la combinación Opus 4.8 + modo rápido. Cambiar el modelo a Opus 5.5 (o al alias <code>opus</code>) en todos los sitios donde lo fijaste mantiene el modo rápido sin tocar nada más. Activarlo al empezar la sesión evita pagar todo el contexto acumulado sin caché. Fuentes: <a href="https://code.claude.com/docs/es/fast-mode" rel="noopener">modo rápido</a>, <a href="https://code.claude.com/docs/en/model-config" rel="noopener">configuración de modelos</a>, <a href="https://code.claude.com/docs/en/prompt-caching#turning-on-fast-mode" rel="noopener">caché al activar el modo rápido</a>, <a href="https://code.claude.com/docs/en/commands" rel="noopener">comandos</a> y el <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>Errores típicos</h2>
+<ul><li><strong>«Fast mode requires usage credits»</strong> → con suscripción, el modo rápido solo se paga con créditos de uso → actívalos en claude.ai &gt; Settings &gt; Usage o con <code>/usage-credits</code>.</li><li><strong>«Fast mode has been disabled by your organization»</strong> → el modo rápido no está activado en tu organización, o unos ajustes gestionados ponen <code>fastMode: false</code> o exigen activación por sesión → habla con tu administrador.</li><li><strong>«is not in your organization&#x27;s allowed models»</strong> → la lista <code>availableModels</code> de tu organización excluye ese Opus → pide que lo añadan o usa uno permitido.</li><li><strong>«Fast mode unavailable due to network connectivity issues»</strong> → la comprobación de disponibilidad va directa a api.anthropic.com y tu red la bloquea (típico detrás de un gateway) → la documentación propone permitir esa salida o <code>CLAUDE_CODE_SKIP_FAST_MODE_NETWORK_ERRORS=1</code>.</li><li><strong>«Fast mode is not available in the Agent SDK» en <code>claude -p</code></strong> → es lo esperado si no lanzaste la sesión con <code>--settings &#x27;{&quot;fastMode&quot;: true}&#x27;</code> → añádelo al comando.</li><li><strong>Errores en un script antiguo a partir del 30-nov</strong> → un <code>--model claude-opus-4-8</code> olvidado junto al modo rápido → cámbialo por <code>claude-opus-5-5</code>.</li><li><strong>Eliges Opus 5.5 con <code>/model</code> y al reiniciar vuelve a 4.8</strong> → un <code>model</code> en ajustes de proyecto o gestionados, o <code>ANTHROPIC_MODEL</code> en tu shell, se impone en cada arranque → cámbialo allí.</li><li><strong>El icono ↯ se pone gris</strong> → has llegado al límite propio del modo rápido → sigue a velocidad normal; se reactiva solo al acabar la espera.</li></ul>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Tengo que hacer algo si no uso /fast?</h3>
+<p>No. La retirada que anuncia el CHANGELOG es solo del modo rápido en Opus 4.8; no anuncia cambios para Opus 4.8 a velocidad normal.</p>
+<h3>¿Qué pasa exactamente el 30 de noviembre?</h3>
+<p>Las peticiones en modo rápido con Opus 4.8 devolverán error y no pasarán solas a Opus 4.8 estándar.</p>
+<h3>¿El modo rápido de Opus 5.5 es más caro?</h3>
+<p>Según la documentación oficial es más barato que el de 4.8: 8/40 USD por millón de tokens de entrada/salida frente a 10/50. Sigue costando más que la velocidad normal.</p>
+<h3>¿El modo rápido gasta mi límite de Pro o Max?</h3>
+<p>No entra en los límites del plan: se cobra directamente de los créditos de uso, aunque te quede uso del plan (ver <a href="../recetas/claude-code-precio-gratis.html">cuánto cuesta Claude Code</a>).</p>
+<h3>¿Y si me paso a Opus 5 en vez de 5.5?</h3>
+<p>El CHANGELOG pide migrar a Opus 5.5. En Opus 5 el modo rápido sigue en vista previa de investigación, a 10/50 USD.</p>
+<h3>¿Por qué Opus 5.5 «piensa menos» que mi Opus 4.8?</h3>
+<p>Su esfuerzo por defecto es <code>medium</code> (en 4.8, <code>high</code>) y un <code>effortLevel</code> antiguo en tus ajustes de usuario no se le aplica. Usa <code>/effort high</code>.</p>
+<h3>¿Puedo usar el modo rápido en Bedrock o Vertex?</h3>
+<p>No: según la documentación, solo en la API de Anthropic (Console) y en planes de suscripción con créditos de uso.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="limite-uso-claude-code.html">Límite de uso de Claude Code: haz que tus 5 h y la semana duren</a></li><li><a href="opus-sonnet-haiku.html">Opus 5.5 vs Sonnet 5.5 vs Haiku 5.5 en Claude Code: cuál usar</a></li><li><a href="statusline.html">Statusline de Claude Code: modelo, contexto y límites en vivo</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

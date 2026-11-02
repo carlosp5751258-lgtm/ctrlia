@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code from scratch: a step-by-step route to start (2026) · Ctrl+IA</title>
+<meta name="description" content="A 10-step route to learn Claude Code: what it is, what you need, installing it, your first real task and the free official courses explained.">
+<meta property="og:title" content="Claude Code from scratch: a step-by-step route to start (2026) · Ctrl+IA">
+<meta property="og:description" content="A 10-step route to learn Claude Code: what it is, what you need, installing it, your first real task and the free official courses explained.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/empieza-aqui.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/empieza-aqui.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/empieza-aqui.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/empieza-aqui.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/empieza-aqui.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/empieza-aqui.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/empieza-aqui.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code from scratch: a step-by-step route to start (2026)", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/empieza-aqui.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "A 10-step route to learn Claude Code: what it is, what you need, installing it, your first real task and the free official courses explained.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/empieza-aqui.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Claude Code free?", "acceptedAnswer": {"@type": "Answer", "text": "No. The program installs for free, but to use it you need Pro, Max, Ultra, Team or Enterprise, or a pay-as-you-go API key. The claude.ai Free plan doesn't include it. Details and official prices in the Is Claude Code free? recipe."}}, {"@type": "Question", "name": "Is the official course in Spanish?", "acceptedAnswer": {"@type": "Answer", "text": "No. Claude Code 101 and Claude Code in Action are in English at academy.claude.com. This page summarizes what each course teaches and which Ctrl+IA recipe expands it. The official documentation does have a Spanish version at code.claude.com/docs/es."}}, {"@type": "Question", "name": "Do I need to know how to code?", "acceptedAnswer": {"@type": "Answer", "text": "To get the most out of it, yes: you have to understand what it changes and know how to run tests. Claude Code 101 asks for basic familiarity with an editor and the command line. For non-coding tasks, Anthropic offers Cowork, which needs no terminal (see Which Claude should I open?)."}}, {"@type": "Question", "name": "Terminal, VS Code or desktop app?", "acceptedAnswer": {"@type": "Answer", "text": "It's the same engine. The terminal is the most complete surface (scripting and the Agent SDK are CLI-only); VS Code gives inline diffs; the desktop app, visual review and parallel sessions. You can mix them in the same project."}}, {"@type": "Question", "name": "Does it work on Linux?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The CLI works on Linux with the native installer or with apt, dnf or apk. The desktop app for Linux is in beta for Ubuntu and Debian."}}, {"@type": "Question", "name": "How do I make it always answer in Spanish?", "acceptedAnswer": {"@type": "Answer", "text": "Write it in your user CLAUDE.md (~/.claude/CLAUDE.md), for example \"Always answer in Spanish\". Check the result in a new session."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/empieza-aqui.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Reference · Basic · 10 min</p>
+  <h1 id="t-art">Claude Code from scratch: a step-by-step route to start (2026)</h1>
+  <p class="entrada">A 10-step route to learn Claude Code: what it is, what you need, installing it, your first real task and the free official courses explained.</p>
+  <img class="portada-img" src="../../img/en/empieza-aqui.webp" width="960" height="540" alt="Cover: Claude Code from scratch: a step-by-step route to start (2026)">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-empieza-aqui"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>Summary</h2>
+<p>Where do I start with Claude Code? Right here. This page explains in two paragraphs what Claude Code is and what you need to use it, then gives you a <strong>10-step route in order</strong>, each step with its goal, the key command and the Ctrl+IA recipe that covers it, tested with version 2.1.316. After that: your first real task in 10 minutes, a guide to the two free official Claude Academy courses and what to learn once the route feels easy. It takes 10 minutes to read, not a six-hour video. The route in Markdown, a checklist to track your progress and a practice project are in the <a href="https://github.com/carlosp5751258-lgtm/ctrlia-empieza-aqui" rel="noopener">ctrlia-empieza-aqui</a> repository.</p>
+<h2>What Claude Code is (and isn&#x27;t)</h2>
+<p>Claude Code is Anthropic&#x27;s agentic coding tool: it reads your project, edits files, runs commands and integrates with your development tools. According to the <a href="https://code.claude.com/docs/en/overview" rel="noopener">official documentation</a> it&#x27;s available in the terminal, in IDE extensions (VS Code and JetBrains), in a desktop app and in the browser.</p>
+<p><strong>It&#x27;s not autocomplete:</strong> you describe a task in natural language (&quot;write tests for the authentication module, run them and fix the failures&quot;) and it plans, changes several files and checks the result, asking for permission according to the mode you choose. <strong>It&#x27;s not the claude.ai chat either:</strong> the chat talks with you; Claude Code works on the files in your folder. All surfaces use the same engine, so your CLAUDE.md, settings and MCP servers work across all of them. If you&#x27;re unsure between terminal, desktop app, Cowork or the web, the <a href="/en/recetas/que-claude-abrir.html">Which Claude should I open?</a> comparison answers it in one table.</p>
+<h2>What you need before you start</h2>
+<ol><li><strong>An account that includes Claude Code.</strong> The claude.ai Free plan doesn&#x27;t include it; it&#x27;s in Pro, Max, Ultra, Team and Enterprise, or you can pay as you go with a Claude Console API key. Official prices and which plan to pick in <a href="/en/recetas/claude-code-precio-gratis.html">Is Claude Code free?</a>.</li><li><strong>A supported system:</strong> macOS, Linux, WSL or native Windows. On Windows, Git for Windows is recommended so Claude Code can use Bash; if you don&#x27;t have it, use PowerShell. You don&#x27;t need Node.js with the native installer.</li><li><strong>A small project you know well.</strong> The desktop app guide itself recommends starting this way because it&#x27;s the fastest way to see what it can do. If you don&#x27;t have one at hand, the repository includes <code>en/practice-project/</code> (Spanish version: <code>proyecto-practica/</code>).</li></ol>
+<p>An honest note: if the subscription isn&#x27;t available in your country, we don&#x27;t recommend VPN workarounds; check Anthropic&#x27;s official list of supported countries.</p>
+<h2>The 10-step route (in this order)</h2>
+<ol><li><strong>Pick a plan or the API.</strong> Recipe: <a href="/en/recetas/claude-code-precio-gratis.html">Is Claude Code free?</a></li><li><strong>Install it.</strong> On macOS, Linux and WSL, <code>curl -fsSL https://claude.ai/install.sh | bash</code>. On Windows follow <a href="/en/recetas/instalar-claude-code-windows.html">Install Claude Code on Windows</a>, which covers PowerShell, CMD and WSL.</li><li><strong>First session.</strong> <code>cd your-project</code>, <code>claude</code>, sign in and ask &quot;explain the structure of this project&quot;. Details in the next section.</li><li><strong>Give it memory.</strong> Create a short CLAUDE.md with <code>/init</code> and trim it. Recipe: <a href="/en/recetas/claude-md-que-funciona.html">A CLAUDE.md that works</a></li><li><strong>Control what it can do.</strong> Permission modes and allow/ask/deny rules in <a href="/en/recetas/permisos-claude-code.html">Claude Code permissions</a>, and a hook that blocks dangerous stuff in <a href="/en/recetas/hooks-seguridad.html">Security hooks</a>.</li><li><strong>Work in your editor if you prefer.</strong> Recipe: <a href="/en/recetas/claude-code-vs-code.html">Claude Code in VS Code</a></li><li><strong>Save repeated procedures as skills</strong> with <a href="/en/recetas/primera-skill.html">Create your first skill</a>, and install only the ones worth it: <a href="/en/recetas/skills-que-instalar.html">Skills to install</a>.</li><li><strong>Connect external tools with MCP.</strong> Recipe: <a href="/en/recetas/mcp-para-programadores.html">MCP for developers</a></li><li><strong>Split work with subagents</strong> to save context. Recipe: <a href="/en/recetas/subagentes.html">Subagents</a></li><li><strong>Automate PR reviews</strong> in GitHub Actions. Recipe: <a href="/en/recetas/revision-prs-github-actions.html">PR review with GitHub Actions</a></li></ol>
+<p>When something breaks, go to <a href="/en/recetas/errores-comunes-claude-code.html">Common Claude Code errors</a>; if you want to keep going from your phone, to <a href="/en/recetas/remote-control-movil.html">Remote Control on your phone</a>.</p>
+<p>Install on macOS, Linux or WSL (official native installer):</p>
+<pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash
+# open a new terminal and check
+claude --version</code></pre>
+<p>Install on Windows PowerShell:</p>
+<pre><code class="language-powershell">irm https://claude.ai/install.ps1 | iex</code></pre>
+<h2>Your first real task in 10 minutes</h2>
+<ol><li>Open a terminal in your project and run <code>claude</code>. The first time it asks you to sign in: choose your claude.ai account (subscription) or Console (API).</li><li>Check with <code>/status</code> which account and model it&#x27;s using. <strong>Watch out:</strong> if you have the <code>ANTHROPIC_API_KEY</code> variable set, Claude Code will use that key and bill you through the API even if you pay for a plan.</li><li>Start with read-only questions: &quot;what does this project do and how are the tests run?&quot;.</li><li>Then ask for something small and verifiable: &quot;find a TODO comment and resolve it, then run the tests&quot;.</li><li>Read every change before accepting it; in Manual mode Claude shows you the diff and waits for your approval.</li><li>When you&#x27;re done, ask &quot;commit with a descriptive message&quot; and review the message.</li></ol>
+<p>To see what fills your context use <code>/context</code>, for your usage <code>/usage</code>, and <code>/clear</code> when you switch topics. If you make a mistake, <code>/rewind</code> goes back to an earlier point in the conversation and the code (checkpoints).</p>
+<pre><code class="language-bash">cd your-project
+claude
+# inside the session:
+/status     # account, plan and model in use
+/init       # creates an initial CLAUDE.md
+/context    # what fills the context window
+/usage      # plan usage and limits</code></pre>
+<p>And a headless task with JSON output, which we checked on 1 Nov 2026 (the output includes <code>result</code>, <code>total_cost_usd</code>, <code>duration_ms</code> and <code>num_turns</code>):</p>
+<pre><code class="language-bash">claude -p &quot;Summarize in 5 lines what this repository does&quot; --output-format json \
+  | python3 -c &quot;import json,sys; d=json.load(sys.stdin); print(d[&#x27;result&#x27;]); print(&#x27;estimated cost USD:&#x27;, d[&#x27;total_cost_usd&#x27;])&quot;</code></pre>
+<h2>The free official Claude Academy courses, explained</h2>
+<p>The official documentation links <a href="https://academy.claude.com" rel="noopener">Claude Academy</a> as &quot;free self-paced courses&quot;. There are two on Claude Code, both <strong>in English</strong>:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Course</th><th scope="col">Length</th><th scope="col">What it covers</th><th scope="col">Requirements</th><th scope="col">Which recipe expands it</th></tr></thead><tbody><tr><td><a href="https://academy.claude.com/courses/claude-code-101" rel="noopener">Claude Code 101</a></td><td>12 lessons, 1.5 h, quiz and badge</td><td>What Claude Code is, your first prompt, daily workflows and customization</td><td>Basic familiarity with an editor and the command line; Pro, Max, Team or Enterprise account, or an API key</td><td>The whole route (not a lesson-by-lesson match)</td></tr><tr><td><a href="https://academy.claude.com/courses/claude-code-in-action" rel="noopener">Claude Code in Action</a></td><td>9 lessons, 1 h, quiz and badge</td><td>Long sessions, a CLAUDE.md that gets followed, verification skills, permission modes, hooks, routines and headless mode, GitHub Actions and Code Review, verifying unattended runs and plugins</td><td>You already use Claude Code and know Git</td><td>Step 4 (CLAUDE.md), 5 (permissions and hooks), 7 (skills and plugins) and 10 (GitHub Actions)</td></tr></tbody></table></div>
+<p>We reviewed the courses through their public page (lessons and length); we didn&#x27;t complete them.</p>
+<h2>What to learn next (pro level)</h2>
+<p>Once the basic route feels easy, these are the topics that separate people who use Claude Code from people who master it, all officially documented:</p>
+<ul><li><strong>Plan mode</strong> (<code>Shift+Tab</code> or <code>--permission-mode plan</code>) to agree on the approach before touching code.</li><li><strong>Auto mode:</strong> a classifier reviews actions and blocks risky ones instead of asking you.</li><li><strong>Parallel sessions</strong> with <code>claude --worktree</code> so several tasks don&#x27;t step on each other.</li><li><strong>Headless mode</strong> (<code>claude -p &quot;…&quot; --output-format json</code>) for scripts and cron.</li><li><strong>Cloud sessions</strong> with <code>claude --cloud</code> and <code>--teleport</code>.</li><li><strong>Remote control from your phone:</strong> <a href="/en/recetas/remote-control-movil.html">Remote Control</a>.</li></ul>
+<p>If you&#x27;re coming from another tool, the <a href="/en/recetas/claude-code-vs-codex-gemini-cursor.html">Claude Code vs Codex vs Gemini vs Cursor</a> comparison explains how to measure Claude Code against Codex CLI, Antigravity CLI (formerly Gemini CLI) and Cursor on the same task. And if you want to use local models or other providers, see <a href="/en/recetas/claude-code-ollama-openrouter.html">Ollama and OpenRouter</a>.</p>
+<p>Check this page every month: Claude Code ships versions almost daily and the route carries a review date.</p>
+<h2>All content, in order</h2>
+<p>This is the full Ctrl+IA library in the order it&#x27;s best read.</p>
+<h3>Getting started</h3>
+<ul><li><a href="/en/recetas/claude-code-precio-gratis.html">Is Claude Code free? Pricing and which plan to pick (2026)</a></li><li><a href="/en/recetas/instalar-claude-code-windows.html">Install Claude Code on Windows: native, WSL and common errors</a></li><li><a href="/en/recetas/que-claude-abrir.html">Claude Code vs Desktop vs Cowork vs claude.ai: which to use</a></li><li><a href="/en/recetas/empezar-claude-code-15-minutos.html">How to start with Claude Code in a project: 15-minute checklist</a></li><li><a href="/en/recetas/claude-code-vs-code.html">Claude Code in VS Code: extension or terminal, how to install</a></li><li><a href="/en/recetas/claude-code-otros-editores.html">Claude Code in JetBrains, Visual Studio, Xcode, Zed and Neovim</a></li><li><a href="/en/recetas/claude-code-espanol.html">Claude Code in Spanish, no fluff: language and the Concise style</a></li></ul>
+<h3>Memory and instructions</h3>
+<ul><li><a href="/en/recetas/generador-claude-md.html">Free CLAUDE.md and AGENTS.md generator for Claude Code</a></li><li><a href="/en/recetas/claude-md-que-funciona.html">How to write a CLAUDE.md that Claude Code actually follows</a></li><li><a href="/en/recetas/agents-md.html">AGENTS.md vs CLAUDE.md in Claude Code: which one it reads</a></li><li><a href="/en/recetas/plantilla-claude-code.html">Claude Code project template: a repo set up and safe</a></li></ul>
+<h3>Control and security</h3>
+<ul><li><a href="/en/recetas/permisos-claude-code.html">Claude Code permissions: stop approving every command</a></li><li><a href="/en/recetas/checklist-permisos-claude-code.html">Before you give Claude Code permissions: a security checklist</a></li><li><a href="/en/recetas/auto-mode.html">Claude Code auto mode in depth: the classifier and its rules</a></li><li><a href="/en/recetas/hooks-seguridad.html">Claude Code hooks: block dangerous commands and secrets</a></li><li><a href="/en/recetas/comprobador-settings.html">Claude Code settings.json checker: find permission risks</a></li></ul>
+<h3>Day to day</h3>
+<ul><li><a href="/en/recetas/modo-plan.html">Claude Code plan mode: plan before touching any code</a></li><li><a href="/en/recetas/clear-vs-compact.html">/clear vs /compact in Claude Code, and idle compaction</a></li><li><a href="/en/recetas/limite-uso-claude-code.html">Claude Code usage limits: make your 5 h and weekly limit last</a></li><li><a href="/en/recetas/statusline.html">Claude Code statusline: live model, context and usage limits</a></li><li><a href="/en/recetas/opus-sonnet-haiku.html">Opus 5.5 vs Sonnet 5.5 vs Haiku 5.5 in Claude Code: which to use</a></li><li><a href="/en/recetas/opus-48-modo-rapido.html">Claude Code Opus 4.8: fast mode ends on 30 Nov, move to 5.5</a></li><li><a href="/en/recetas/pack-comandos.html">5 must-have Claude Code commands, ready to copy</a></li></ul>
+<h3>Extending Claude Code</h3>
+<ul><li><a href="/en/recetas/que-pieza-usar.html">Claude Code skills vs hooks, MCP, subagents and plugins</a></li><li><a href="/en/recetas/primera-skill.html">Create your first Claude Code skill, step by step</a></li><li><a href="/en/recetas/skills-que-instalar.html">Claude Code skills: which to install, how, and which to avoid</a></li><li><a href="/en/recetas/checklist-plugins-claude-code.html">Before installing plugins, skills or MCP in Claude Code</a></li><li><a href="/en/recetas/crear-plugin-claude-code.html">Create a Claude Code plugin: init, testing, evals and marketplace</a></li><li><a href="/en/recetas/mcp-para-programadores.html">MCP in Claude Code: connect Playwright, GitHub and your database</a></li><li><a href="/en/recetas/subagentes.html">Claude Code subagents: split the work and save context</a></li></ul>
+<h3>Pro workflows</h3>
+<ul><li><a href="/en/recetas/tdd-claude-code.html">TDD with Claude Code: red, green and refactor with no cheating</a></li><li><a href="/en/recetas/depurar-bug.html">Debug a bug with Claude Code: from the error to a regression test</a></li><li><a href="/en/recetas/refactorizar-codigo-legado.html">Refactor legacy code with Claude Code without breaking anything</a></li><li><a href="/en/recetas/checklist-revisar-codigo-ia.html">Before merging Claude Code&#x27;s code: a review checklist</a></li><li><a href="/en/recetas/worktrees-paralelo.html">Claude Code worktree: run agents in parallel without clashes</a></li><li><a href="/en/recetas/claude-code-headless-cron.html">Claude Code headless: claude -p in scripts and cron, step by step</a></li><li><a href="/en/recetas/revision-prs-github-actions.html">Review every pull request with Claude Code in GitHub Actions</a></li><li><a href="/en/recetas/remote-control-movil.html">Claude Code on your phone: Remote Control step by step and risks</a></li></ul>
+<h3>Compare and troubleshoot</h3>
+<ul><li><a href="/en/recetas/claude-code-vs-codex-gemini-cursor.html">Claude Code vs Codex vs Gemini vs Cursor: same task, with data</a></li><li><a href="/en/recetas/claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li><li><a href="/en/recetas/errores-comunes-claude-code.html">Claude Code errors: 529, 401, 403, limits and how to fix them</a></li></ul>
+<h2>FAQ</h2>
+<h3>Is Claude Code free?</h3>
+<p>No. The program installs for free, but to use it you need Pro, Max, Ultra, Team or Enterprise, or a pay-as-you-go API key. The claude.ai Free plan doesn&#x27;t include it. Details and official prices in the <a href="/en/recetas/claude-code-precio-gratis.html">Is Claude Code free?</a> recipe.</p>
+<h3>Is the official course in Spanish?</h3>
+<p>No. Claude Code 101 and Claude Code in Action are in English at academy.claude.com. This page summarizes what each course teaches and which Ctrl+IA recipe expands it. The official documentation does have a Spanish version at code.claude.com/docs/es.</p>
+<h3>Do I need to know how to code?</h3>
+<p>To get the most out of it, yes: you have to understand what it changes and know how to run tests. Claude Code 101 asks for basic familiarity with an editor and the command line. For non-coding tasks, Anthropic offers Cowork, which needs no terminal (see <a href="/en/recetas/que-claude-abrir.html">Which Claude should I open?</a>).</p>
+<h3>Terminal, VS Code or desktop app?</h3>
+<p>It&#x27;s the same engine. The terminal is the most complete surface (scripting and the Agent SDK are CLI-only); VS Code gives inline diffs; the desktop app, visual review and parallel sessions. You can mix them in the same project.</p>
+<h3>Does it work on Linux?</h3>
+<p>Yes. The CLI works on Linux with the native installer or with apt, dnf or apk. The desktop app for Linux is in beta for Ubuntu and Debian.</p>
+<h3>How do I make it always answer in Spanish?</h3>
+<p>Write it in your user CLAUDE.md (<code>~/.claude/CLAUDE.md</code>), for example &quot;Always answer in Spanish&quot;. Check the result in a new session.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="claude-code-otros-editores.html">Claude Code in JetBrains, Visual Studio, Xcode, Zed and Neovim</a></li><li><a href="claude-code-vs-codex-gemini-cursor.html">Claude Code vs Codex vs Gemini vs Cursor: same task, with data</a></li><li><a href="empezar-claude-code-15-minutos.html">How to start with Claude Code in a project: 15-minute checklist</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

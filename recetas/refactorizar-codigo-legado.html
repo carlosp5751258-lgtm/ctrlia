@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Refactorizar código legado con Claude Code sin romper nada · Ctrl+IA</title>
+<meta name="description" content="Método en 5 pasos para refactorizar código heredado con Claude Code: modo plan, tests de caracterización, commits pequeños y qué deshace /rewind.">
+<meta property="og:title" content="Refactorizar código legado con Claude Code sin romper nada · Ctrl+IA">
+<meta property="og:description" content="Método en 5 pasos para refactorizar código heredado con Claude Code: modo plan, tests de caracterización, commits pequeños y qué deshace /rewind.">
+<meta property="og:image" content="https://ctrlia.dev/img/refactorizar-codigo-legado.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/refactorizar-codigo-legado.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/refactorizar-codigo-legado.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/refactorizar-codigo-legado.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/refactorizar-codigo-legado.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/refactorizar-codigo-legado.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/refactorizar-codigo-legado.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Refactorizar código legado con Claude Code sin romper nada", "totalTime": "PT20M", "step": [{"@type": "HowToStep", "position": 1, "name": "Explora sin tocar: modo plan", "text": "Antes de cambiar nada, pide a Claude que entienda el código y te lo cuente. Pulsa Shift+Tab hasta ver «plan mode on» en la barra de estado: en modo plan Claude lee y propone, pero no edita. Pídele algo concreto:", "url": "https://ctrlia.dev/recetas/refactorizar-codigo-legado.html"}, {"@type": "HowToStep", "position": 2, "name": "Tests de caracterización: fija lo que hace hoy", "text": "Un test de caracterización no comprueba lo que el código debería hacer, sino lo que hace hoy, rarezas incluidas: otro código puede depender de ellas. Pide los tests y prohíbe tocar el código:", "url": "https://ctrlia.dev/recetas/refactorizar-codigo-legado.html"}, {"@type": "HowToStep", "position": 3, "name": "Cambia en pasos pequeños, uno por commit", "text": "Ahora sí, refactoriza, pero un cambio cada vez. Primero los que no cambian el comportamiento: renombrar l y t, sacar el descuento VIP a una función, sustituir == None por is None. Después de cada cambio, Claude ejecuta los tests de caracterización y, si pasan, haces commit. Si fallan, se descarta ese cambio y no se sigue. Un buen prompt para cada paso:", "url": "https://ctrlia.dev/recetas/refactorizar-codigo-legado.html"}, {"@type": "HowToStep", "position": 4, "name": "Ten un camino de vuelta: qué deshace /rewind y qué no", "text": "Claude Code guarda un punto de control antes de cada prompt que envías. /rewind (o Esc dos veces con la entrada vacía) abre un menú con tus prompts y te deja restaurar el código, la conversación o ambos a ese punto; se guardan los 100 últimos y siguen ahí si reanudas la sesión. Pero la documentación de checkpointing lista límites que importan mucho en un refactor:", "url": "https://ctrlia.dev/recetas/refactorizar-codigo-legado.html"}, {"@type": "HowToStep", "position": 5, "name": "Deja el terreno preparado para la próxima vez", "text": "Al terminar, guarda lo aprendido donde Claude lo vuelva a leer. En el CLAUDE.md del proyecto, añade una sección corta sobre el módulo: el comando de sus tests, las rarezas que son contrato («total() devuelve int con lista vacía: lo usa el informe mensual») y las que quedan pendientes:", "url": "https://ctrlia.dev/recetas/refactorizar-codigo-legado.html"}], "description": "Método en 5 pasos para refactorizar código heredado con Claude Code: modo plan, tests de caracterización, commits pequeños y qué deshace /rewind.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/refactorizar-codigo-legado.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Por qué fijar errores en los tests en vez de arreglarlos ya?", "acceptedAnswer": {"@type": "Answer", "text": "Porque otro código puede depender de ellos. Primero los fijas, luego decides uno por uno si son error o contrato, y los arreglas como un cambio explícito con su test."}}, {"@type": "Question", "name": "¿/rewind me salva si algo sale mal?", "acceptedAnswer": {"@type": "Answer", "text": "Solo en parte: deshace las ediciones de Claude con sus herramientas de archivos, pero no los archivos que solo cambió Bash, normalmente tampoco las ediciones de subagentes ni los cambios externos. Haz commit antes de cada paso."}}, {"@type": "Question", "name": "El módulo es enorme. ¿Por dónde empiezo?", "acceptedAnswer": {"@type": "Answer", "text": "Por la función que más se usa y menos se entiende. Explora en modo plan, usa un subagente para buscar llamadores y caracteriza solo esa función antes de pasar a la siguiente."}}, {"@type": "Question", "name": "¿Y si el código no tiene tests ni forma fácil de ejecutarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Pide primero el arnés mínimo: un script que llame a la función con datos de ejemplo y guarde la salida (golden master). Compara esa salida antes y después de cada cambio."}}, {"@type": "Question", "name": "¿Funciona con PHP, Java o COBOL?", "acceptedAnswer": {"@type": "Answer", "text": "El método sí; cambia el framework de tests. Pon en CLAUDE.md el comando exacto para ejecutarlos y cómo lanzar un solo archivo."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/refactorizar-codigo-legado.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Receta · Intermedio · 20 min</p>
+  <h1 id="t-art">Refactorizar código legado con Claude Code sin romper nada</h1>
+  <p class="entrada">Método en 5 pasos para refactorizar código heredado con Claude Code: modo plan, tests de caracterización, commits pequeños y qué deshace /rewind.</p>
+  <img class="portada-img" src="../img/refactorizar-codigo-legado.webp" width="960" height="540" alt="Portada: Refactorizar código legado con Claude Code sin romper nada">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-refactorizar-codigo-legado"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Ver los archivos en GitHub</a> <span class="nota">Gratis · licencia MIT</span></p>
+  
+  
+<h2>El problema</h2>
+<p>Este código tiene 12 años y nadie quiere tocarlo. No tiene tests, nadie recuerda por qué hace lo que hace y otro código depende de sus rarezas. Refactorizar código heredado sin tests es la forma más rápida de romper producción, con o sin IA, y con un agente que edita rápido el riesgo es mayor si no hay red. La receta aplica con Claude Code el método clásico de Michael Feathers: entender antes de tocar, fijar el comportamiento actual con tests de caracterización, cambiar en pasos pequeños y verificados, y tener siempre un camino de vuelta con git y <code>/rewind</code>, sabiendo lo que <code>/rewind</code> no deshace.</p>
+<h2>La solución</h2>
+<p>El ejemplo es real: una función de facturación de 2014. Todos los archivos (el código heredado, unos tests de caracterización de ejemplo, los prompts y el bloque de CLAUDE.md) están en el repositorio gratuito <code>ctrlia-refactorizar-codigo-legado</code>.</p>
+<pre><code class="language-python"># facturas.py: escrito en 2014, nadie lo toca
+def total(lineas, cliente):
+    t = 0
+    for l in lineas:
+        if l[2] == None:
+            l[2] = 1
+        t = t + l[1] * l[2]
+    if cliente == &quot;VIP&quot;:
+        t = t - t * 10 / 100
+    if t &gt; 1000:
+        t = t - 50
+    return round(t, 2)</code></pre>
+<h3>1. Explora sin tocar: modo plan</h3>
+<p>Antes de cambiar nada, pide a Claude que entienda el código y te lo cuente. Pulsa Shift+Tab hasta ver «plan mode on» en la barra de estado: en modo plan Claude lee y propone, pero no edita. Pídele algo concreto:</p>
+<pre><code class="language-text">Explica qué hace facturas.total, quién la llama (busca en todo el repo), qué datos recibe y qué efectos secundarios tiene. No propongas cambios todavía.</code></pre>
+<p>Si el código es grande, pide que use un subagente para la búsqueda de llamadores: el resultado llega resumido y tu conversación no se llena de salida de grep (lo explicamos en la receta de <a href="../recetas/subagentes.html">subagentes</a>). Lo que buscas en este paso es el mapa: entradas, salidas, efectos secundarios (escribe en disco, modifica argumentos, llama a la red) y quién depende de qué. Apunta en un archivo <code>REFACTOR.md</code> lo que vas descubriendo; te servirá si la sesión se compacta o la retomas otro día. El vídeo oficial de Anthropic resume el patrón como «Explore → Plan → Code → Commit», y la <a href="https://code.claude.com/docs/en/common-workflows" rel="noopener">guía de flujos de trabajo</a> recomienda refactorizar en incrementos pequeños y comprobables.</p>
+<h3>2. Tests de caracterización: fija lo que hace hoy</h3>
+<p>Un test de caracterización no comprueba lo que el código debería hacer, sino lo que hace hoy, rarezas incluidas: otro código puede depender de ellas. Pide los tests y prohíbe tocar el código:</p>
+<pre><code class="language-bash">git add -A &amp;&amp; git commit -m &quot;antes del refactor&quot;
+
+claude --disallowedTools &quot;Edit(facturas.py)&quot;
+# &gt; Escribe tests de CARACTERIZACIÓN en tests/test_facturas.py (unittest) para facturas.total:
+#   deben fijar el comportamiento ACTUAL, aunque parezca un error, no el que debería tener.
+#   Cubre: cantidad None, cliente VIP, el descuento de 50 al pasar de 1000, el orden
+#   VIP-luego-50, lista vacía y si la función modifica la lista de entrada.
+#   No toques facturas.py. Ejecuta los tests (deben pasar todos) y al final lista
+#   en 3 viñetas las rarezas que encontraste.
+
+python3 -m unittest discover -s tests -t .
+git add tests &amp;&amp; git commit -m &quot;test: caracterización de facturas.total&quot;</code></pre>
+<p>Enumera, como en el prompt, los casos que te preocupan (valores nulos, descuentos, bordes, listas vacías, efectos secundarios) y pide que al final liste las rarezas encontradas. En nuestra prueba, sobre esta función de 12 líneas, Claude escribió 10 tests que pasaban y encontró tres cosas que nadie había documentado:</p>
+<pre><code class="language-text">- Muta la entrada: sustituye cantidad None por 1 directamente en las listas que recibe, así que el llamador ve el cambio.
+- El tipo de retorno cambia: con lista vacía devuelve int (0) sin VIP y float (0.0) con VIP. Además, el descuento de 50 se decide sobre el total ya rebajado por VIP, así que VIP puede anular ese descuento.
+- Validación mínima: la comparación con &quot;VIP&quot; distingue mayúsculas, cantidad 0 se mantiene en 0 y un precio None lanza TypeError. Estos tres puntos los leí en el código y no los fijé en tests.</code></pre>
+<p>Fíjate en la última viñeta: también avisó de lo que leyó en el código pero no fijó en tests, como que «vip» en minúsculas no recibe descuento. Revisa la lista y decide qué rarezas son errores y cuáles son contrato; haz commit de los tests. En el repositorio tienes un <code>tests/test_facturas.py</code> de ejemplo con 12 tests que fijan todas esas rarezas, incluidas las tres que Claude no fijó, para que compares con los tuyos.</p>
+<h3>3. Cambia en pasos pequeños, uno por commit</h3>
+<p>Ahora sí, refactoriza, pero un cambio cada vez. Primero los que no cambian el comportamiento: renombrar <code>l</code> y <code>t</code>, sacar el descuento VIP a una función, sustituir <code>== None</code> por <code>is None</code>. Después de cada cambio, Claude ejecuta los tests de caracterización y, si pasan, haces commit. Si fallan, se descarta ese cambio y no se sigue. Un buen prompt para cada paso:</p>
+<pre><code class="language-text">Haz SOLO este cambio: &lt;cambio concreto, p. ej. extrae el descuento VIP a una función aplicar_vip&gt;.
+No cambies el comportamiento ni edites nada en tests/.
+Ejecuta python3 -m unittest discover -s tests -t . y enséñame la salida.
+Si algún test falla, deshaz el cambio y dime por qué ha fallado.</code></pre>
+<p>Pide que no edite los tests en esta fase: es la misma regla de la receta de <a href="../recetas/tdd-claude-code.html">TDD con Claude Code</a>, con <code>Edit(tests/**)</code> denegado. Arreglar las rarezas que decidiste que son errores es otra fase: primero cambias el test de caracterización para que describa el comportamiento correcto (se pone rojo), haces commit, y luego pides el arreglo, como en TDD. Así cada cambio de comportamiento queda explícito en el historial, separado de los cambios de forma. Si el módulo es grande, empieza por la función que más se usa y menos se entiende.</p>
+<h3>4. Ten un camino de vuelta: qué deshace /rewind y qué no</h3>
+<p>Claude Code guarda un punto de control antes de cada prompt que envías. <code>/rewind</code> (o Esc dos veces con la entrada vacía) abre un menú con tus prompts y te deja restaurar el código, la conversación o ambos a ese punto; se guardan los 100 últimos y siguen ahí si reanudas la sesión. Pero la <a href="https://code.claude.com/docs/es/checkpointing" rel="noopener">documentación de checkpointing</a> lista límites que importan mucho en un refactor:</p>
+<ul><li>No deshace un archivo que solo cambiaron comandos de Bash (por ejemplo, un <code>sed -i</code> masivo o un script de migración).</li><li>Las ediciones de subagentes normalmente no se restauran, salvo en archivos que Claude ya había editado en tu conversación.</li><li>No deshace cambios hechos fuera de la sesión ni en otras sesiones a la vez.</li><li>No restaura enlaces simbólicos.</li><li>Los puntos se borran a los 30 días por defecto (<code>cleanupPeriodDays</code>).</li></ul>
+<p>La propia documentación dice que no sustituye al control de versiones. Por eso el orden es: commit antes de cada cambio, <code>/rewind</code> para el «uy» rápido dentro de la sesión, y <code>git restore</code> o <code>git revert</code> para todo lo demás.</p>
+<h3>5. Deja el terreno preparado para la próxima vez</h3>
+<p>Al terminar, guarda lo aprendido donde Claude lo vuelva a leer. En el CLAUDE.md del proyecto, añade una sección corta sobre el módulo: el comando de sus tests, las rarezas que son contrato («total() devuelve int con lista vacía: lo usa el informe mensual») y las que quedan pendientes:</p>
+<pre><code class="language-markdown">## facturas.py (código heredado)
+- Tests: `python3 -m unittest tests.test_facturas` (caracterización: fijan el comportamiento real).
+- Contrato que NO se cambia sin avisar: total() devuelve int con lista vacía y sin VIP.
+- Pendiente: total() modifica la lista de entrada (decidir si es error).
+- Un cambio por commit; cambios de comportamiento siempre con el test cambiado antes.</code></pre>
+<p>La <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">guía oficial de buenas prácticas</a> da un ejemplo de este tipo de nota: una carpeta legacy que sigue en producción y cuyos patrones no deben copiarse en código nuevo (más en <a href="../recetas/claude-md-que-funciona.html">un CLAUDE.md que funciona</a>). Mantén los tests de caracterización en el repositorio: son la documentación más fiable del comportamiento real y avisarán si alguien lo cambia sin querer. Si el refactor fue largo, pide a Claude que resuma en <code>REFACTOR.md</code> qué cambió, en qué commits y qué queda por hacer, y bórralo cuando lo integres. Para refactors grandes en paralelo (varios módulos a la vez), mira la receta de <a href="../recetas/subagentes.html">subagentes</a>; y si quieres lanzar los tests de caracterización cada noche, la de <a href="../recetas/claude-code-headless-cron.html"><code>claude -p</code> en cron</a>.</p>
+<h2>Compruébalo</h2>
+<p>Con el ejemplo del repositorio:</p>
+<pre><code class="language-bash">cd ejemplo
+python3 -m unittest discover -s tests -t .</code></pre>
+<p>Salida esperada:</p>
+<pre><code class="language-text">............
+----------------------------------------------------------------------
+Ran 12 tests in 0.000s
+
+OK</code></pre>
+<p>Para ver que los tests te protegen, haz dos cambios. Primero uno de forma: extrae el descuento a <code>aplicar_vip</code>, renombra <code>l</code> a <code>linea</code> y cambia <code>== None</code> por <code>is None</code>; los 12 tests siguen en OK. Después uno de comportamiento: haz que la función deje de modificar la lista de entrada; falla <code>test_rareza_modifica_la_lista_de_entrada</code>. Eso es lo que quieres: un cambio de comportamiento nunca pasa sin que lo veas.</p>
+<p>Lo que comprobamos con Claude Code 2.1.316 en Linux el 1-nov-2026: <code>claude -p --model haiku --disallowedTools &quot;Edit(facturas.py)&quot;</code> escribió 10 tests de caracterización con unittest que pasaron, y listó las rarezas de arriba (0,01 USD estimados). No ejecutamos <code>/rewind</code>, porque es interactivo: sus límites salen de la documentación oficial de checkpointing.</p>
+<h2>Por qué funciona</h2>
+<p>Los tests de caracterización convierten el comportamiento actual, que solo existía en el código, en algo ejecutable: cualquier cambio que lo altere se pone rojo al momento. Bloquear <code>facturas.py</code> con <code>--disallowedTools</code> mientras se escriben obliga a que los tests describan el código tal como está, no como Claude cree que debería estar. Los cambios pequeños con un commit cada uno hacen que, si algo falla, sepas exactamente qué lo rompió y puedas deshacerlo con git, que cubre lo que <code>/rewind</code> no cubre (Bash, subagentes y cambios externos). Más detalles en <a href="https://code.claude.com/docs/en/checkpointing" rel="noopener">checkpointing</a>, <a href="https://code.claude.com/docs/en/common-workflows" rel="noopener">flujos de trabajo comunes</a>, <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">buenas prácticas</a>, <a href="https://code.claude.com/docs/en/permission-modes" rel="noopener">modos de permisos</a> y <a href="https://code.claude.com/docs/en/permissions" rel="noopener">permisos</a>; y en nuestra receta de <a href="../recetas/permisos-claude-code.html">permisos de Claude Code</a>.</p>
+<h2>Errores típicos</h2>
+<ul><li><strong>Claude «arregla» las rarezas mientras escribe los tests</strong> → pediste tests sin decir que fijen el comportamiento actual, o sin bloquear el código → di «comportamiento ACTUAL, aunque parezca un error» y arranca con <code>--disallowedTools &quot;Edit(facturas.py)&quot;</code>.</li><li><strong>Un refactor rompe algo y no sabes qué cambio fue</strong> → hiciste varios cambios en un solo paso → un cambio por commit, con los tests ejecutados antes de cada commit.</li><li><strong><code>/rewind</code> no devolvió un archivo</strong> → lo cambió un comando de Bash, un subagente o algo fuera de la sesión → haz commit antes de cada cambio y usa <code>git restore</code> o <code>git revert</code>.</li><li><strong>Mezclas cambios de forma y de comportamiento en el mismo commit</strong> → el historial no dice cuándo cambió el comportamiento → primero cambias el test (rojo), commit, y luego el arreglo.</li><li><strong>Los tests de caracterización acaban borrados</strong> → se veían como provisionales → mantenlos en el repositorio: son la documentación del comportamiento real.</li></ul>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Por qué fijar errores en los tests en vez de arreglarlos ya?</h3>
+<p>Porque otro código puede depender de ellos. Primero los fijas, luego decides uno por uno si son error o contrato, y los arreglas como un cambio explícito con su test.</p>
+<h3>¿/rewind me salva si algo sale mal?</h3>
+<p>Solo en parte: deshace las ediciones de Claude con sus herramientas de archivos, pero no los archivos que solo cambió Bash, normalmente tampoco las ediciones de subagentes ni los cambios externos. Haz commit antes de cada paso.</p>
+<h3>El módulo es enorme. ¿Por dónde empiezo?</h3>
+<p>Por la función que más se usa y menos se entiende. Explora en modo plan, usa un subagente para buscar llamadores y caracteriza solo esa función antes de pasar a la siguiente.</p>
+<h3>¿Y si el código no tiene tests ni forma fácil de ejecutarlo?</h3>
+<p>Pide primero el arnés mínimo: un script que llame a la función con datos de ejemplo y guarde la salida (golden master). Compara esa salida antes y después de cada cambio.</p>
+<h3>¿Funciona con PHP, Java o COBOL?</h3>
+<p>El método sí; cambia el framework de tests. Pon en CLAUDE.md el comando exacto para ejecutarlos y cómo lanzar un solo archivo.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="checklist-revisar-codigo-ia.html">Antes de fusionar código de Claude Code: checklist de revisión</a></li><li><a href="claude-code-headless-cron.html">Claude Code headless: claude -p en scripts y cron paso a paso</a></li><li><a href="clear-vs-compact.html">/clear vs /compact en Claude Code y la compactación en reposo</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

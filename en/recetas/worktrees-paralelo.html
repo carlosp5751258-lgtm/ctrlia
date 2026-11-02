@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code worktree: run agents in parallel without clashes · Ctrl+IA</title>
+<meta name="description" content="Run several Claude Code sessions in parallel with claude --worktree, copy your .env with .worktreeinclude and clean up worktrees without losing work.">
+<meta property="og:title" content="Claude Code worktree: run agents in parallel without clashes · Ctrl+IA">
+<meta property="og:description" content="Run several Claude Code sessions in parallel with claude --worktree, copy your .env with .worktreeinclude and clean up worktrees without losing work.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/worktrees-paralelo.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/worktrees-paralelo.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/worktrees-paralelo.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/worktrees-paralelo.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/worktrees-paralelo.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/worktrees-paralelo.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/worktrees-paralelo.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code worktree: run agents in parallel without clashes", "totalTime": "PT15M", "step": [{"@type": "HowToStep", "position": 1, "name": "Your first parallel session in 2 minutes", "text": "Requirement: be in a git repository. At the project root, open a terminal and run claude --worktree fix-login. Claude Code creates the folder .claude/worktrees/fix-login/ on a new branch called worktree-fix-login and starts the session inside it. Open another terminal and run claude --worktree new-api: you now have two isolated sessions. If you give no name, Claude generates one like bright-running-fox.", "url": "https://ctrlia.dev/en/recetas/worktrees-paralelo.html"}, {"@type": "HowToStep", "position": 2, "name": "The missing .env: .worktreeinclude", "text": "A worktree is a fresh checkout: it only brings versioned files. Your .env, .env.local or a config/secrets.json ignored by git won't be there, and neither will node_modules or the Python virtual environment.", "url": "https://ctrlia.dev/en/recetas/worktrees-paralelo.html"}, {"@type": "HowToStep", "position": 3, "name": "Where does it start from? worktree.baseRef and PRs", "text": "By default, new worktrees start from the remote's default branch (usually origin/main), not from your HEAD: that way they start clean. If it hasn't fetched in 24 hours, Claude Code fetches that branch (five seconds at most) and, if that fails, uses the local ref; with no remote configured, it uses your local HEAD.", "url": "https://ctrlia.dev/en/recetas/worktrees-paralelo.html"}, {"@type": "HowToStep", "position": 4, "name": "Exit and clean up without losing work", "text": "When you exit an interactive session in a worktree, Claude Code checks whether deleting it would remove work: changed or untracked files, submodule changes and new commits.", "url": "https://ctrlia.dev/en/recetas/worktrees-paralelo.html"}, {"@type": "HowToStep", "position": 5, "name": "Isolated subagents, /batch and what is shared", "text": "Not just sessions: subagents can also each work in their own worktree. Ask for it (\"use worktrees for your agents\") or make it permanent with isolation: worktree in the frontmatter of a subagent in .claude/agents/. Each one gets a temporary worktree that is deleted automatically only if it finishes with no changes.", "url": "https://ctrlia.dev/en/recetas/worktrees-paralelo.html"}, {"@type": "HowToStep", "position": 6, "name": "When to parallelize and when not to", "text": "Yes:", "url": "https://ctrlia.dev/en/recetas/worktrees-paralelo.html"}], "description": "Run several Claude Code sessions in parallel with claude --worktree, copy your .env with .worktreeinclude and clean up worktrees without losing work.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/worktrees-paralelo.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Where does Claude Code create worktrees?", "acceptedAnswer": {"@type": "Answer", "text": "In .claude/worktrees/<name>/ at the repository root, on the worktree-<name> branch. For a PR, .claude/worktrees/pr-<number>."}}, {"@type": "Question", "name": "Why doesn't my worktree have the .env?", "acceptedAnswer": {"@type": "Answer", "text": "Because it is a fresh checkout with only versioned files. Add .env to .worktreeinclude (and it must be ignored by git)."}}, {"@type": "Question", "name": "Why doesn't the worktree have my latest commits?", "acceptedAnswer": {"@type": "Answer", "text": "By default it starts from the remote's default branch. Set worktree.baseRef to \"head\" to start from your HEAD."}}, {"@type": "Question", "name": "Is my work deleted when I exit?", "acceptedAnswer": {"@type": "Answer", "text": "Only if you choose to remove it. If there are changes, Claude Code asks; if it is clean and the session has no name, it deletes it because there is nothing to lose."}}, {"@type": "Question", "name": "git worktree remove says it is locked", "acceptedAnswer": {"@type": "Answer", "text": "-p runs and running agents lock it. If nothing is running any more, git worktree unlock <path> and then remove."}}, {"@type": "Question", "name": "Does it work without git?", "acceptedAnswer": {"@type": "Answer", "text": "For SVN, Perforce or Mercurial you need to configure the WorktreeCreate and WorktreeRemove hooks; in that case .worktreeinclude is not processed."}}, {"@type": "Question", "name": "Do several worktrees use more limit?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: each session makes its own requests. Keep an eye on it with /usage."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/worktrees-paralelo.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Intermediate · 15 min</p>
+  <h1 id="t-art">Claude Code worktree: run agents in parallel without clashes</h1>
+  <p class="entrada">Run several Claude Code sessions in parallel with claude --worktree, copy your .env with .worktreeinclude and clean up worktrees without losing work.</p>
+  <img class="portada-img" src="../../img/en/worktrees-paralelo.webp" width="960" height="540" alt="Cover: Claude Code worktree: run agents in parallel without clashes">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-worktrees-paralelo"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>The problem</h2>
+<p>You want one Claude Code session to build a feature while another fixes a bug, but if both work in the same folder they step on each other&#x27;s files and the changes get mixed up. Making another copy of the repository by hand is slow, and the new copy is missing the <code>.env</code>.</p>
+<h2>The solution</h2>
+<p>A git worktree is another working folder with its own branch that shares the repository&#x27;s history. If each session lives in its own worktree, they don&#x27;t clash. Claude Code does it with a single flag: <code>claude --worktree &lt;name&gt;</code> (or <code>-w</code>).</p>
+<h3>1. Your first parallel session in 2 minutes</h3>
+<p>Requirement: be in a git repository. At the project root, open a terminal and run <code>claude --worktree fix-login</code>. Claude Code creates the folder <code>.claude/worktrees/fix-login/</code> on a new branch called <code>worktree-fix-login</code> and starts the session inside it. Open another terminal and run <code>claude --worktree new-api</code>: you now have two isolated sessions. If you give no name, Claude generates one like <code>bright-running-fox</code>.</p>
+<pre><code class="language-bash">cd ~/my-project
+echo &#x27;.claude/worktrees/&#x27; &gt;&gt; .gitignore
+# terminal 1
+claude --worktree fix-login
+# terminal 2
+claude --worktree new-api
+# review a PR in its own worktree (quotes required)
+claude --worktree &quot;#1234&quot;
+# with tmux
+claude --worktree docs --tmux</code></pre>
+<p>Interactive sessions need you to have accepted trust for the folder: if it is your first time in that repository, run <code>claude</code> there once; with <code>-p</code> that check is skipped.</p>
+<p>Recommended first change: add <code>.claude/worktrees/</code> to your <code>.gitignore</code> so the worktrees&#x27; contents don&#x27;t show up as untracked files in your main checkout.</p>
+<p>If you use tmux, <code>--tmux</code> creates a tmux session for the worktree (requires <code>--worktree</code>; with iTerm2 it uses native panes, and <code>--tmux=classic</code> forces traditional tmux). You can also ask for it in the middle of a conversation: &quot;work in a worktree&quot;, and Claude uses the <code>EnterWorktree</code> tool.</p>
+<h3>2. The missing .env: .worktreeinclude</h3>
+<p>A worktree is a fresh checkout: it only brings versioned files. Your <code>.env</code>, <code>.env.local</code> or a <code>config/secrets.json</code> ignored by git won&#x27;t be there, and neither will <code>node_modules</code> or the Python virtual environment.</p>
+<p>For the first group, create a <code>.worktreeinclude</code> file at the project root with <code>.gitignore</code> syntax:</p>
+<pre><code class="language-text">.env
+.env.local
+config/secrets.json</code></pre>
+<p>Only files that match a pattern <strong>and</strong> are also ignored by git are copied, so it never duplicates versioned files. It applies to every worktree Claude Code creates with git: those from <code>--worktree</code>, subagent worktrees and parallel sessions in the desktop app. It does not apply if you create the worktree by hand with <code>git worktree add</code>, nor if a <code>WorktreeCreate</code> hook replaces creation (there you copy the files in the script).</p>
+<p>Be careful with patterns starting with <code>**/</code> when the files are inside a whole ignored folder: write <code>vendor/**/config.json</code> instead of <code>**/config.json</code> (behavior fixed in 2.1.239).</p>
+<p>For dependencies, ask Claude to install them at the start or run <code>npm install</code>, <code>pip install</code> or whatever your project uses yourself inside the worktree folder.</p>
+<h3>3. Where does it start from? worktree.baseRef and PRs</h3>
+<p>By default, new worktrees start from the remote&#x27;s default branch (usually <code>origin/main</code>), not from your HEAD: that way they start clean. If it hasn&#x27;t fetched in 24 hours, Claude Code fetches that branch (five seconds at most) and, if that fails, uses the local ref; with no remote configured, it uses your local HEAD.</p>
+<p>If you want the worktree to carry your unpushed commits or the state of your working branch, set <code>worktree.baseRef</code> to <code>&quot;head&quot;</code> in your settings:</p>
+<pre><code class="language-json">{
+  &quot;worktree&quot;: {
+    &quot;baseRef&quot;: &quot;head&quot;
+  }
+}</code></pre>
+<p>It doesn&#x27;t accept a branch name: to start from a specific branch, create the worktree with <code>git worktree add</code> and run <code>claude</code> inside it.</p>
+<p>To review or continue a pull request, pass the number with <code>#</code> or the URL: <code>claude --worktree &quot;#1234&quot;</code>. The quotes are needed so the shell doesn&#x27;t take <code>#</code> as a comment. Claude Code fetches the PR commit from <code>origin</code> and creates <code>.claude/worktrees/pr-1234</code>. Since 2.1.233 it also accepts GitLab merge request URLs. If git or ssh need a password or to confirm a new host, it fails with &quot;Failed to fetch PR/MR&quot;: load your key into <code>ssh-agent</code> and run a <code>git fetch</code> by hand once.</p>
+<h3>4. Exit and clean up without losing work</h3>
+<p>When you exit an interactive session in a worktree, Claude Code checks whether deleting it would remove work: changed or untracked files, submodule changes and new commits.</p>
+<ul><li>If it is clean and the session has no name, it deletes the worktree and its branch automatically; if the session has a name, it asks you.</li><li>If there is work, it asks whether to keep or remove it. Keeping leaves the folder and the branch, and to come back you use the command it prints on exit: <code>claude --worktree &lt;name&gt; --resume</code>. Removing deletes the folder and the branch with everything in them: commit or push first if you want to keep it.</li></ul>
+<p>With <code>-p</code> there is no question on exit: the worktree stays and is also locked (<code>git worktree list</code> shows it as <code>locked</code>). To remove it:</p>
+<pre><code class="language-bash">git worktree list                                   # shows &#x27;locked&#x27; if it was left locked
+git worktree unlock .claude/worktrees/demo
+git worktree remove .claude/worktrees/demo         # --force if it has uncommitted changes (they are lost!)
+git branch -D worktree-demo                       # only if you no longer need the branch</code></pre>
+<p>Subagent and background-session worktrees are cleaned up by a periodic sweep once they exceed <code>cleanupPeriodDays</code>, unless they have pending work.</p>
+<h3>5. Isolated subagents, /batch and what is shared</h3>
+<p>Not just sessions: <a href="../recetas/subagentes.html">subagents</a> can also each work in their own worktree. Ask for it (&quot;use worktrees for your agents&quot;) or make it permanent with <code>isolation: worktree</code> in the frontmatter of a subagent in <code>.claude/agents/</code>. Each one gets a temporary worktree that is deleted automatically only if it finishes with no changes.</p>
+<p><code>.claude/agents/refactorer.md</code>, a subagent that is always isolated:</p>
+<pre><code class="language-markdown">---
+name: refactorer
+description: Applies mechanical refactors across many files
+isolation: worktree
+---
+Apply the requested refactor in every affected file, run the tests and report the result.</code></pre>
+<p>The <code>/batch &lt;instruction&gt;</code> command takes this to the extreme: it researches the code, splits the work into 5 to 30 independent units, presents a plan and, once you approve it, launches one background subagent per unit, each in its own isolated worktree.</p>
+<p>What worktrees share with the main checkout:</p>
+<ul><li>the <code>.git</code> directory (commits work, even with sandbox);</li><li>plugins installed at project level;</li><li>permission approvals: &quot;Yes, and don&#x27;t ask again&quot; is saved in the main checkout&#x27;s <code>.claude/settings.local.json</code> and applies to every worktree (see <a href="../recetas/permisos-claude-code.html">permissions</a>);</li><li>the main checkout&#x27;s skills, agents and commands when the worktree has no <code>.claude/skills</code> of its own.</li></ul>
+<p>While a session is isolated, Claude Code blocks edits and commands that target the main checkout.</p>
+<h3>6. When to parallelize and when not to</h3>
+<p>Yes:</p>
+<ul><li>independent tasks that touch different areas of the code (a backend bug and a new screen);</li><li>trying two approaches to the same task and keeping the best;</li><li>reviewing a PR while you carry on with your own work;</li><li>long tasks you can leave running.</li></ul>
+<p>No:</p>
+<ul><li>tasks that touch the same files (you will end up resolving merge conflicts);</li><li>when you won&#x27;t have time to review what all of them do (the bottleneck becomes your review);</li><li>when you are short on limit: each session makes its own requests, so three sessions spend roughly like three sessions (check <code>/usage</code>; see <a href="../recetas/limite-uso-claude-code.html">usage limits</a>).</li></ul>
+<p>A reasonable flow to start with: one main session where you plan (<a href="../recetas/modo-plan.html">plan mode</a>) and one or two in worktrees for bounded tasks with a clear &quot;done&quot; criterion (tests that must pass). When each finishes, review the diff, commit on its branch and open the PR or merge. If you need sessions to pass information to each other, the documentation describes messages between sessions; if you only want to split work within one session, use subagents.</p>
+<h2>Check it</h2>
+<p>Reproducible test on Linux, in a throwaway repository:</p>
+<pre><code class="language-bash">mkdir -p /tmp/wt-demo &amp;&amp; cd /tmp/wt-demo &amp;&amp; git init -q
+printf &#x27;.env\n.claude/worktrees/\n&#x27; &gt; .gitignore
+echo &#x27;SECRET=demo&#x27; &gt; .env
+echo &#x27;.env&#x27; &gt; .worktreeinclude
+echo hello &gt; a.txt &amp;&amp; git add . &amp;&amp; git commit -qm init
+claude -p -w demo --model haiku &quot;Reply only: OK&quot;
+ls -a .claude/worktrees/demo    # a.txt and the copied .env
+git worktree list                 # [worktree-demo] locked</code></pre>
+<p>We ran it on 1 Nov 2026 with Claude Code 2.1.316: it created <code>.claude/worktrees/demo</code> on the <code>worktree-demo</code> branch, copied <code>.env</code> thanks to <code>.worktreeinclude</code> and left the worktree marked as <code>locked</code>; we cleaned it up with <code>git worktree unlock</code>, <code>remove</code> and <code>branch -D</code>. With no remote, it started from the local HEAD, as the documentation says. We have not recorded the interactive part yet: two terminals at once, the keep-or-remove question on exit, <code>--tmux</code> and <code>--worktree &quot;#&lt;PR&gt;&quot;</code> against a repository with a GitHub remote.</p>
+<h2>Why it works</h2>
+<p><code>git worktree</code> lets you have several working folders of the same repository, each on its own branch, sharing a single <code>.git</code>. Claude Code creates and deletes those folders for you, copies what you list in <code>.worktreeinclude</code> and confines each session to its own, so two sessions never write to the same files. Sources: <a href="https://code.claude.com/docs/en/worktrees" rel="noopener">worktrees</a>, <a href="https://code.claude.com/docs/en/cli-reference" rel="noopener">CLI reference</a>, <a href="https://code.claude.com/docs/en/commands" rel="noopener">commands</a>, <a href="https://code.claude.com/docs/en/settings-reference#worktree" rel="noopener">worktree settings</a>, <a href="https://code.claude.com/docs/en/sub-agents" rel="noopener">subagents</a> and the <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li><strong>The worktree has no <code>.env</code></strong> → it is a fresh checkout with only versioned files → add <code>.env</code> to <code>.worktreeinclude</code> (and it must be ignored by git).</li><li><strong><code>.worktreeinclude</code> copies nothing</strong> → you created the worktree with <code>git worktree add</code>, or a <code>WorktreeCreate</code> hook replaces creation → use <code>claude --worktree</code> or copy the files in the hook script.</li><li><strong>A <code>**/config.json</code> pattern finds no files inside an ignored folder</strong> → write the path from the folder: <code>vendor/**/config.json</code>.</li><li><strong>The worktree doesn&#x27;t have your latest commits</strong> → it starts from the remote&#x27;s default branch → set <code>worktree.baseRef</code> to <code>&quot;head&quot;</code>.</li><li><strong><code>claude --worktree #1234</code> doesn&#x27;t open the PR</strong> → the shell took <code>#</code> as a comment → quote it: <code>&quot;#1234&quot;</code>.</li><li><strong>&quot;Failed to fetch PR/MR&quot;</strong> → git or ssh ask for a password or to confirm a host → load your key into <code>ssh-agent</code> and run a <code>git fetch</code> by hand once.</li><li><strong><code>git worktree remove</code> says it is locked</strong> → a <code>-p</code> run or a running agent left it that way → if nothing is running any more, <code>git worktree unlock &lt;path&gt;</code> and then <code>remove</code>.</li></ul>
+<h2>FAQ</h2>
+<h3>Where does Claude Code create worktrees?</h3>
+<p>In <code>.claude/worktrees/&lt;name&gt;/</code> at the repository root, on the <code>worktree-&lt;name&gt;</code> branch. For a PR, <code>.claude/worktrees/pr-&lt;number&gt;</code>.</p>
+<h3>Why doesn&#x27;t my worktree have the .env?</h3>
+<p>Because it is a fresh checkout with only versioned files. Add <code>.env</code> to <code>.worktreeinclude</code> (and it must be ignored by git).</p>
+<h3>Why doesn&#x27;t the worktree have my latest commits?</h3>
+<p>By default it starts from the remote&#x27;s default branch. Set <code>worktree.baseRef</code> to <code>&quot;head&quot;</code> to start from your HEAD.</p>
+<h3>Is my work deleted when I exit?</h3>
+<p>Only if you choose to remove it. If there are changes, Claude Code asks; if it is clean and the session has no name, it deletes it because there is nothing to lose.</p>
+<h3>git worktree remove says it is locked</h3>
+<p><code>-p</code> runs and running agents lock it. If nothing is running any more, <code>git worktree unlock &lt;path&gt;</code> and then <code>remove</code>.</p>
+<h3>Does it work without git?</h3>
+<p>For SVN, Perforce or Mercurial you need to configure the <code>WorktreeCreate</code> and <code>WorktreeRemove</code> hooks; in that case <code>.worktreeinclude</code> is not processed.</p>
+<h3>Do several worktrees use more limit?</h3>
+<p>Yes: each session makes its own requests. Keep an eye on it with <code>/usage</code>.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="checklist-revisar-codigo-ia.html">Before merging Claude Code&#x27;s code: a review checklist</a></li><li><a href="claude-code-headless-cron.html">Claude Code headless: claude -p in scripts and cron, step by step</a></li><li><a href="clear-vs-compact.html">/clear vs /compact in Claude Code, and idle compaction</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

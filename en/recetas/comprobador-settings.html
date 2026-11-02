@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code settings.json checker: find permission risks · Ctrl+IA</title>
+<meta name="description" content="Paste your Claude Code settings.json and see every permission risk with its level, a plain explanation and the link to the official documentation.">
+<meta property="og:title" content="Claude Code settings.json checker: find permission risks · Ctrl+IA">
+<meta property="og:description" content="Paste your Claude Code settings.json and see every permission risk with its level, a plain explanation and the link to the official documentation.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/comprobador-settings.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/comprobador-settings.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/comprobador-settings.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/comprobador-settings.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/comprobador-settings.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/comprobador-settings.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/comprobador-settings.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code settings.json checker: find permission risks", "totalTime": "PT5M", "step": [{"@type": "HowToStep", "position": 1, "name": "Choose which file it is", "text": "It matters, because Claude Code treats each scope differently. bypassPermissions or auto in .claude/settings.json or settings.local.json has no effect (the session starts in Manual), but in ~/.claude/settings.json it does; and allow rules in a project file only apply once you accept to trust the folder, while deny and ask always apply.", "url": "https://ctrlia.dev/en/recetas/comprobador-settings.html"}, {"@type": "HowToStep", "position": 2, "name": "Paste the content and press \"Comprobar\" (Check)", "text": "If it is not valid JSON it tells you where the error is: the file does not allow comments or trailing commas.", "url": "https://ctrlia.dev/en/recetas/comprobador-settings.html"}, {"@type": "HowToStep", "position": 3, "name": "Read the findings from critical to info", "text": "Open the link on each one: it is the official page that explains it.", "url": "https://ctrlia.dev/en/recetas/comprobador-settings.html"}, {"@type": "HowToStep", "position": 4, "name": "Fix and check again", "text": "Fix things with the Claude Code permissions recipe and paste the file again. To see what is really loaded (adding up every scope), run this inside Claude Code:", "url": "https://ctrlia.dev/en/recetas/comprobador-settings.html"}], "description": "Paste your Claude Code settings.json and see every permission risk with its level, a plain explanation and the link to the official documentation.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/comprobador-settings.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why is Bash(python3 ) dangerous if I only want to run my scripts?", "acceptedAnswer": {"@type": "Answer", "text": "Because it also approves python3 -c \"…\" with any code. Write the rule with a fixed argument: Bash(python3 -m pytest ) or Bash(python3 scripts/build.py)."}}, {"@type": "Question", "name": "I put bypassPermissions in .claude/settings.json and it does nothing. Why?", "acceptedAnswer": {"@type": "Answer", "text": "That is the documented behavior: from that file and from settings.local.json it has no effect and the session starts in Manual. It only works from ~/.claude/settings.json or the command line, and the docs limit it to isolated environments."}}, {"@type": "Question", "name": "Does a Bash(curl ) deny block the internet?", "acceptedAnswer": {"@type": "Answer", "text": "No. The docs show it does not stop /usr/bin/curl or sh -c 'curl …'. To really block the network, use the sandbox with its domain list."}}, {"@type": "Question", "name": "Does Read(.env) protect my .env from everything?", "acceptedAnswer": {"@type": "Answer", "text": "From Claude's tools and from commands like cat or sed, yes. From a script that opens the file on its own, no: that is what the sandbox is for."}}, {"@type": "Question", "name": "Is my file sent to any server?", "acceptedAnswer": {"@type": "Answer", "text": "No. The analysis happens in your browser. Even so, delete keys before pasting: they should not be in settings.json."}}, {"@type": "Question", "name": "I get no warnings. Am I safe?", "acceptedAnswer": {"@type": "Answer", "text": "Not necessarily: the tool reviews the text of the rules, not your hooks or scripts, and it looks at one file at a time. Also check /permissions inside Claude Code."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+<script src="../../js/comprobador-settings.en.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/comprobador-settings.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Template · Intermediate · 5 min</p>
+  <h1 id="t-art">Claude Code settings.json checker: find permission risks</h1>
+  <p class="entrada">Paste your Claude Code settings.json and see every permission risk with its level, a plain explanation and the link to the official documentation.</p>
+  <img class="portada-img" src="../../img/en/comprobador-settings.webp" width="960" height="540" alt="Cover: Claude Code settings.json checker: find permission risks">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-comprobador-settings"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  <section class="herramienta" aria-labelledby="t-herramienta">
+  <h2 id="t-herramienta">Try it here</h2>
+  <p class="nota">It runs in your browser: nothing is sent to any server.</p>
+  <div class="herramienta-form">
+  <label for="cs-ambito">Which file is it?</label>
+  <select id="cs-ambito">
+    <option value="proyecto">.claude/settings.json (project, committed to git)</option>
+    <option value="local">.claude/settings.local.json (local)</option>
+    <option value="usuario">~/.claude/settings.json (user)</option>
+  </select>
+  <label for="cs-texto">Paste your file</label>
+  <textarea id="cs-texto" rows="14" spellcheck="false" autocomplete="off"></textarea>
+  <p><button id="cs-analizar" type="button" class="boton boton-oscuro">Check</button></p>
+</div>
+<p id="cs-estado" class="herramienta-estado" role="status"></p>
+<ul id="cs-resultado" class="herramienta-avisos"></ul>
+</section>
+  
+<h2>What&#x27;s included</h2>
+<p>The tool is above: you paste a <code>.claude/settings.json</code>, <code>~/.claude/settings.json</code> or <code>settings.local.json</code>, choose which file it is and in a second you see every risk sorted by level (critical, high, medium, low, info), with its explanation and the link to the official page that backs it. There are 21 rules, each based on a specific sentence from the Claude Code 2.1.316 pages on permissions, permission modes, sandbox and settings reference, and all of them have automated tests. It runs entirely in your browser: the text never leaves your machine. The findings are written in Spanish; the level names are crítico (critical), alto (high), medio (medium), bajo (low) and info. The English version in the repository&#x27;s <code>en/</code> folder shows them in English.</p>
+<p>The code (a single JavaScript file with no dependencies, an example <code>index.html</code>, its Node tests and the example files) is in the free repository <a href="https://github.com/carlosp5751258-lgtm/ctrlia-comprobador-settings" rel="noopener">ctrlia-comprobador-settings</a>.</p>
+<h3>Critical and high rules</h3>
+<div class="tabla"><table><thead><tr><th scope="col">ID</th><th scope="col">Level</th><th scope="col">What it detects</th></tr></thead><tbody><tr><td>R01</td><td>critical (user) · info (project/local)</td><td><code>defaultMode: &quot;bypassPermissions&quot;</code>: in the user file, every session with no checks (the docs limit it to isolated containers or VMs); in project or local it only reports that it is ignored</td></tr><tr><td>R03</td><td>high</td><td><code>skipDangerousModePermissionPrompt: true</code>: removes the bypass confirmation</td></tr><tr><td>R05</td><td>critical</td><td><code>Bash</code> or <code>Bash(*)</code> in allow: the docs say it equals every command</td></tr><tr><td>R06</td><td>high</td><td>Wildcards that amount to running code: interpreters and launchers (python3, node, bash -c, npx, uvx, uv run, docker exec, make, sudo, ssh, git…) followed only by <code>*</code> or by one option and <code>*</code></td></tr><tr><td>R09</td><td>high</td><td>No <code>Read</code> deny for <code>.env</code></td></tr><tr><td>R13</td><td>high</td><td><code>enableAllProjectMcpServers: true</code></td></tr><tr><td>R14</td><td>high</td><td><code>mcp__*</code> in allow</td></tr><tr><td>R16</td><td>high</td><td><code>additionalDirectories</code> with <code>/</code> or the home folder</td></tr><tr><td>R17</td><td>critical (project) · high</td><td>Keys in the <code>env</code> block; critical if the file is a project file, because it is committed to git</td></tr></tbody></table></div>
+<p>On R06, the docs explain that wrappers such as <code>devbox run</code> or <code>docker exec</code> are not stripped from the command and that <code>Bash(git * main)</code> includes <code>git -c</code>, which runs a program.</p>
+<h3>Medium, low and informational rules</h3>
+<div class="tabla"><table><thead><tr><th scope="col">ID</th><th scope="col">Level</th><th scope="col">What it detects</th></tr></thead><tbody><tr><td>R07</td><td>medium</td><td><code>*</code> before the subcommand (<code>Bash(git * main)</code>, <code>Bash(* --version)</code>): Claude Code already warns at startup since 2.1.246 because it approves inserted options</td></tr><tr><td>R08</td><td>low</td><td>No space before the <code>*</code>: <code>Bash(ls*)</code> approves <code>lsof</code></td></tr><tr><td>R10</td><td>low</td><td>A <code>.env</code> deny without <code>.env.*</code> (leaving <code>.env.local</code>, <code>.env.production</code>)</td></tr><tr><td>R11</td><td>medium</td><td>A curl/wget deny or ask used as a network block: the docs show it does not stop <code>/usr/bin/curl</code> or <code>sh -c</code>; the real block is the sandbox</td></tr><tr><td>R12</td><td>medium</td><td><code>Write(path)</code>, <code>Glob(path)</code>, <code>NotebookEdit(path)</code> or <code>MultiEdit(path)</code> rules: accepted but they never match; use <code>Edit(path)</code> and <code>Read(path)</code></td></tr><tr><td>R15</td><td>medium</td><td><code>WebFetch</code> without a domain in allow</td></tr><tr><td>R02</td><td>info</td><td><code>defaultMode: &quot;auto&quot;</code> in project or local (ignored)</td></tr><tr><td>R04</td><td>info</td><td>Suggestion of <code>disableBypassPermissionsMode: &quot;disable&quot;</code> in the user file</td></tr><tr><td>R18</td><td>info</td><td><code>hooks</code>, <code>apiKeyHelper</code> or <code>statusLine</code> in a project file: they run even with <code>claude -p</code> in an untrusted folder</td></tr><tr><td>R19</td><td>info</td><td>Sandbox turned off</td></tr><tr><td>R20</td><td>low</td><td>Sandbox on but <code>allowUnsandboxedCommands</code> not set to <code>false</code></td></tr><tr><td>R21</td><td>info</td><td>Reminder: allow rules in a project file only apply once you accept to trust the folder</td></tr></tbody></table></div>
+<h3>Honest limits</h3>
+<p>It reviews the text of the rules; it does not analyze your system:</p>
+<ol><li>It does not read your hooks or scripts, it only warns that they exist.</li><li>The list of wrappers is fixed and may miss some (for example your own script that accepts commands).</li><li>It does not merge the four scopes the way Claude Code does; that is why you should also check <code>/permissions</code>.</li><li><code>Read</code> deny rules only protect against Claude&#x27;s tools and the file commands Claude Code recognizes (cat, head, sed…), not against a Python or Node program that opens the file on its own, as the docs say; that is what the sandbox is for.</li><li>&quot;No findings&quot; does not mean safe.</li></ol>
+<p>Each finding links to the official page so you do not have to take our word for it. The rules are reviewed every 30 days against the CHANGELOG, because the permission system changes in almost every version.</p>
+<h3>Privacy and technical design</h3>
+<p>A single script served from ctrlia.dev, loaded with <code>defer</code>, with no inline code, no <code>fetch</code>, no storage and no dependencies. The JSON is parsed with <code>JSON.parse</code> (never <code>eval</code>) and the results are rendered with <code>textContent</code>, so a file with HTML or scripts inside cannot run. The <code>analyze(text, scope)</code> function in the repository&#x27;s <code>en/checker.js</code> is pure and returns <code>{error}</code> or <code>{findings: [{id, level, text, doc}]}</code>, which makes it testable with Node and reusable, for example in a hook. Accessibility: a <code>label</code> on the selector and on the text area, a real button, results in a list with <code>aria-live=&quot;polite&quot;</code> and levels shown as text, not only as color. Even though nothing is sent, remove keys before pasting.</p>
+<h2>How to use it</h2>
+<h3>1. Choose which file it is</h3>
+<p>It matters, because Claude Code treats each scope differently. <code>bypassPermissions</code> or <code>auto</code> in <code>.claude/settings.json</code> or <code>settings.local.json</code> has no effect (the session starts in Manual), but in <code>~/.claude/settings.json</code> it does; and allow rules in a project file only apply once you accept to trust the folder, while deny and ask always apply.</p>
+<h3>2. Paste the content and press &quot;Comprobar&quot; (Check)</h3>
+<p>If it is not valid JSON it tells you where the error is: the file does not allow comments or trailing commas.</p>
+<h3>3. Read the findings from critical to info</h3>
+<p>Open the link on each one: it is the official page that explains it.</p>
+<h3>4. Fix and check again</h3>
+<p>Fix things with the <a href="permisos-claude-code.html">Claude Code permissions</a> recipe and paste the file again. To see what is really loaded (adding up every scope), run this inside Claude Code:</p>
+<pre><code class="language-text">/permissions</code></pre>
+<p>It lists every rule and the file it comes from. The tool looks at one file at a time; Claude Code merges the user, project, local and managed ones.</p>
+<h2>The files</h2>
+<p>A project <code>.claude/settings.json</code> with typical mistakes (<code>en/example.json</code> in the repository):</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [&quot;Bash(npm run *)&quot;, &quot;Bash(python3 *)&quot;, &quot;Bash(git * main)&quot;, &quot;WebFetch&quot;],
+    &quot;deny&quot;: [&quot;Bash(curl *)&quot;, &quot;Write(./secrets/**)&quot;]
+  },
+  &quot;enableAllProjectMcpServers&quot;: true,
+  &quot;env&quot;: { &quot;STRIPE_SECRET_KEY&quot;: &quot;sk_test_1234567890&quot; }
+}</code></pre>
+<p>Real output from the repository&#x27;s <code>en/checker.js</code> with that example, project scope (the tool on this page still shows the findings in Spanish):</p>
+<pre><code class="language-text">R06 · high: &quot;Bash(python3 *)&quot; amounts to running arbitrary code: python3 runs whatever comes after it. Write the exact command (e.g. Bash(python3 -m pytest *)).
+R07 · medium: &quot;Bash(git * main)&quot; has a * before the subcommand: it also approves options like git -c, which run programs. Put the * at the end.
+R09 · high: No deny for .env: add &quot;Read(.env)&quot; and &quot;Read(.env.*)&quot; (a bare name covers any depth). It blocks Claude&#x27;s tools and cat/head/sed, not a script that opens the file: for that, use the sandbox.
+R11 · medium: &quot;Bash(curl *)&quot; is not a network block: it does not stop /usr/bin/curl, sh -c &quot;curl …&quot; or other programs. To really block the network, turn on the sandbox with its domain list.
+R12 · medium: &quot;Write(./secrets/**)&quot; never matches: paths are only checked with Edit(...) and Read(...). If it was a deny, it does not protect you.
+R13 · high: enableAllProjectMcpServers: true approves without asking every server in .mcp.json (in the project file, once you accept to trust the folder).
+R15 · medium: &quot;WebFetch&quot; lets it download any URL without asking: a door for injected instructions. Limit it to specific domains.
+R17 · critical: env.STRIPE_SECRET_KEY has a value that looks like a secret in a file that is committed to git. Use system environment variables or apiKeyHelper.
+R19 · info: Sandbox turned off. It is the only thing that blocks file reads and network for every process, not just for Claude&#x27;s tools (/sandbox).
+R21 · info: The allow rules in this file only apply once you accept to trust the folder; deny and ask always apply.</code></pre>
+<p>In short: <code>Bash(python3 *)</code> runs arbitrary code (R06); the <code>*</code> before the subcommand also approves <code>git -c</code> (R07); there is no <code>.env</code> deny (R09); a curl deny is not a network block (R11); <code>Write(...)</code> never matches (R12); every <code>.mcp.json</code> server is approved (R13); <code>WebFetch</code> without a domain (R15); a secret in a file committed to git (R17); sandbox off (R19); and the folder-trust reminder (R21). On the page the findings are sorted from critical to info, each with its link.</p>
+<p>A starting point that passes the checker with no high or critical findings (<code>en/starting-point.json</code>, for <code>.claude/settings.json</code>): allow with exact commands, ask for <code>git push</code> and <code>git commit</code>, deny for <code>.env</code>, <code>.env.*</code>, <code>secrets/**</code> and keys, and the sandbox on in strict mode.</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://json.schemastore.org/claude-code-settings.json&quot;,
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [
+      &quot;Bash(npm run test)&quot;,
+      &quot;Bash(npm run lint)&quot;,
+      &quot;Bash(python3 -m pytest *)&quot;,
+      &quot;Bash(git status *)&quot;,
+      &quot;Bash(git diff *)&quot;,
+      &quot;Bash(git log *)&quot;
+    ],
+    &quot;ask&quot;: [&quot;Bash(git push *)&quot;, &quot;Bash(git commit *)&quot;],
+    &quot;deny&quot;: [
+      &quot;Read(.env)&quot;,
+      &quot;Read(.env.*)&quot;,
+      &quot;Read(./secrets/**)&quot;,
+      &quot;Read(**/*.pem)&quot;,
+      &quot;Read(**/*.key)&quot;
+    ]
+  },
+  &quot;sandbox&quot;: {
+    &quot;enabled&quot;: true,
+    &quot;allowUnsandboxedCommands&quot;: false
+  }
+}</code></pre>
+<p>Before copying it, adapt the commands to your project: a rule that does not match neither protects you nor saves you prompts. With the sandbox on and <code>autoAllowBashIfSandboxed</code> at its default, the docs say commands inside the sandbox run without asking: the boundary becomes the sandbox, not the allow list. In your user file (<code>~/.claude/settings.json</code>) also add:</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: { &quot;disableBypassPermissionsMode&quot;: &quot;disable&quot; }
+}</code></pre>
+<p>The repository has all the tool&#x27;s files:</p>
+<div class="tabla"><table><thead><tr><th scope="col">File</th><th scope="col">What it is</th></tr></thead><tbody><tr><td><code>en/checker.js</code></td><td>The <code>analyze</code> function (21 rules) and the interface, no dependencies and no inline code</td></tr><tr><td><code>en/index.html</code></td><td>Example page with the form, loading <code>checker.js</code> with <code>&lt;script src&gt;</code></td></tr><tr><td><code>en/tests.js</code></td><td>Node checks</td></tr><tr><td><code>en/example.json</code></td><td>The file with typical mistakes shown above</td></tr><tr><td><code>en/starting-point.json</code></td><td>The starting configuration shown above</td></tr></tbody></table></div>
+<p>The Spanish originals (<code>comprobador.js</code>, <code>pruebas.js</code>, <code>ejemplo.json</code>…) are at the repository root.</p>
+<p>To try it on your machine:</p>
+<pre><code class="language-bash">git clone https://github.com/carlosp5751258-lgtm/ctrlia-comprobador-settings
+cd ctrlia-comprobador-settings/en
+node tests.js          # → ok: checker</code></pre>
+<p>Then open <code>en/index.html</code> in your browser. To understand each rule in depth, see the <a href="hooks-seguridad.html">security hooks</a> and <a href="mcp-para-programadores.html">MCP for developers</a> recipes. If you also want a CLAUDE.md, use the <a href="generador-claude-md.html">CLAUDE.md generator</a>. Sources: <a href="https://code.claude.com/docs/en/permissions" rel="noopener">permissions</a>, <a href="https://code.claude.com/docs/en/permission-modes" rel="noopener">permission modes</a>, <a href="https://code.claude.com/docs/en/settings" rel="noopener">settings</a>, <a href="https://code.claude.com/docs/en/settings-reference" rel="noopener">settings reference</a>, <a href="https://code.claude.com/docs/en/sandboxing" rel="noopener">sandboxing</a>, <a href="https://code.claude.com/docs/en/headless" rel="noopener">headless mode</a>, <a href="https://code.claude.com/docs/en/security" rel="noopener">security</a> and the <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>FAQ</h2>
+<h3>Why is Bash(python3 *) dangerous if I only want to run my scripts?</h3>
+<p>Because it also approves <code>python3 -c &quot;…&quot;</code> with any code. Write the rule with a fixed argument: <code>Bash(python3 -m pytest *)</code> or <code>Bash(python3 scripts/build.py)</code>.</p>
+<h3>I put bypassPermissions in .claude/settings.json and it does nothing. Why?</h3>
+<p>That is the documented behavior: from that file and from <code>settings.local.json</code> it has no effect and the session starts in Manual. It only works from <code>~/.claude/settings.json</code> or the command line, and the docs limit it to isolated environments.</p>
+<h3>Does a Bash(curl *) deny block the internet?</h3>
+<p>No. The docs show it does not stop <code>/usr/bin/curl</code> or <code>sh -c &#x27;curl …&#x27;</code>. To really block the network, use the sandbox with its domain list.</p>
+<h3>Does Read(.env) protect my .env from everything?</h3>
+<p>From Claude&#x27;s tools and from commands like cat or sed, yes. From a script that opens the file on its own, no: that is what the sandbox is for.</p>
+<h3>Is my file sent to any server?</h3>
+<p>No. The analysis happens in your browser. Even so, delete keys before pasting: they should not be in settings.json.</p>
+<h3>I get no warnings. Am I safe?</h3>
+<p>Not necessarily: the tool reviews the text of the rules, not your hooks or scripts, and it looks at one file at a time. Also check <code>/permissions</code> inside Claude Code.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="auto-mode.html">Claude Code auto mode in depth: the classifier and its rules</a></li><li><a href="checklist-permisos-claude-code.html">Before you give Claude Code permissions: a security checklist</a></li><li><a href="checklist-plugins-claude-code.html">Before installing plugins, skills or MCP in Claude Code</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

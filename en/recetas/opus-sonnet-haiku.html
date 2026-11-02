@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Opus 5.5 vs Sonnet 5.5 vs Haiku 5.5 in Claude Code: which to use · Ctrl+IA</title>
+<meta name="description" content="Which model and effort to pick in Claude Code 2.1.316, official prices, opusplan and a reproducible test with hidden tests (results pending).">
+<meta property="og:title" content="Opus 5.5 vs Sonnet 5.5 vs Haiku 5.5 in Claude Code: which to use · Ctrl+IA">
+<meta property="og:description" content="Which model and effort to pick in Claude Code 2.1.316, official prices, opusplan and a reproducible test with hidden tests (results pending).">
+<meta property="og:image" content="https://ctrlia.dev/img/en/opus-sonnet-haiku.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/opus-sonnet-haiku.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/opus-sonnet-haiku.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/opus-sonnet-haiku.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/opus-sonnet-haiku.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/opus-sonnet-haiku.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/opus-sonnet-haiku.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Opus 5.5 vs Sonnet 5.5 vs Haiku 5.5 in Claude Code: which to use", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/opus-sonnet-haiku.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Which model and effort to pick in Claude Code 2.1.316, official prices, opusplan and a reproducible test with hidden tests (results pending).", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/opus-sonnet-haiku.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which model does Claude Code use by default?", "acceptedAnswer": {"@type": "Answer", "text": "With the default value, Opus 5.5 on Pro, Max, Ultra, Team, Enterprise and the Anthropic API (since 2.1.280). On Microsoft Foundry, Sonnet 4.5. Fable is never the default. Check it with /status."}}, {"@type": "Question", "name": "Opus or Sonnet for coding?", "acceptedAnswer": {"@type": "Answer", "text": "The documentation describes Sonnet for daily work and Opus for complex reasoning. Sonnet 5.5 costs half as much (2/10 USD per million versus 4/20). Start with Sonnet at medium and move up to Opus when it fails on bugs in existing code or on design; our test will show how much it changes on a specific task."}}, {"@type": "Question", "name": "How do I plan with Opus and implement with Sonnet?", "acceptedAnswer": {"@type": "Answer", "text": "With /model opusplan: it uses Opus in plan mode (Shift+Tab or /plan) and switches to Sonnet only when executing. With /model opusplan[1m] you ask for 1M context in both phases where it is not the default."}}, {"@type": "Question", "name": "Which effort should I set?", "acceptedAnswer": {"@type": "Answer", "text": "Leave medium (the default for the 5.5 models) for normal work, high for bugs with edge cases and low for small changes you review. max only for hard problems: the documentation warns it can overthink. For a single hard turn, write ultrathink."}}, {"@type": "Question", "name": "Is Haiku 5.5 good for anything serious?", "acceptedAnswer": {"@type": "Answer", "text": "For simple tasks and for search or summary subagents it is the cheap option (0.10/0.50 USD per million, 1M context). Watch out: if the prompt exceeds 100 K tokens the price goes up to 0.50/2.50."}}, {"@type": "Question", "name": "Why doesn't Fable show up, or why does it ask for credits?", "acceptedAnswer": {"@type": "Answer", "text": "Depending on your plan, Fable may be billed with usage credits instead of the included limit; the picker marks it with \"Requires usage credits\". It requires 2.1.257 or later."}}, {"@type": "Question", "name": "Does switching models mid-session cost more?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: the caching documentation explains that switching models causes a turn without cache. Choose the model at the start, or use opusplan, which is designed for that switch."}}, {"@type": "Question", "name": "When will you publish the results?", "acceptedAnswer": {"@type": "Answer", "text": "When the test is run, which costs money and needs approval. Until then the page only has the methodology and the script so anyone can repeat it; we will never publish figures that do not come from the results file (results.jsonl, or resultados.jsonl in the Spanish version)."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/opus-sonnet-haiku.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Comparison · Intermediate · 10 min</p>
+  <h1 id="t-art">Opus 5.5 vs Sonnet 5.5 vs Haiku 5.5 in Claude Code: which to use</h1>
+  <p class="entrada">Which model and effort to pick in Claude Code 2.1.316, official prices, opusplan and a reproducible test with hidden tests (results pending).</p>
+  <img class="portada-img" src="../../img/en/opus-sonnet-haiku.webp" width="960" height="540" alt="Cover: Opus 5.5 vs Sonnet 5.5 vs Haiku 5.5 in Claude Code: which to use">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-opus-sonnet-haiku"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>Summary and verdict</h2>
+<p>In six weeks four new models have reached Claude Code (Fable 5.1, Opus 5.5, Sonnet 5.5 and Haiku 5.5) and, on top of that, the 5.5 models now start with <code>medium</code> effort. &quot;Which one should I use?&quot; is a daily question and the usual answer is an opinion. Here you get two things: a decision table based on the official documentation and a reproducible test (same task, same repository, hidden tests, three repetitions) to measure time, cost and quality.</p>
+<p><strong>Test status: methodology ready; results pending.</strong> The test costs money and has not been run yet, so this page contains no result figures at all. Once it runs, the results table will be filled in with the date and version. Until then, the verdict is based only on the official documentation:</p>
+<ul><li><strong>Day-to-day work with a clear scope:</strong> Sonnet 5.5 at <code>medium</code>. It costs half as much as Opus.</li><li><strong>Bugs in existing code, design, or when Sonnet gets it wrong:</strong> Opus 5.5 at <code>medium</code> (the default) or <code>high</code>.</li><li><strong>Simple, high-volume tasks and search subagents:</strong> Haiku 5.5 at <code>low</code> or <code>medium</code>.</li><li><strong>Work bigger than one session, root cause or architecture:</strong> Fable 5.1, which may be billed with usage credits.</li><li><strong>Plan with Opus and implement with Sonnet:</strong> <code>/model opusplan</code>.</li></ul>
+<p>All the test files are in the free repository <a href="https://github.com/carlosp5751258-lgtm/ctrlia-opus-sonnet-haiku" rel="noopener">ctrlia-opus-sonnet-haiku</a>.</p>
+<h2>The four models you have in Claude Code today</h2>
+<p>On the Anthropic API the aliases point to: <code>opus</code> → Opus 5.5 (since 2.1.280), <code>sonnet</code> → Sonnet 5.5 (2.1.284), <code>haiku</code> → Haiku 5.5 (2.1.293) and <code>fable</code> → Fable 5.1 (2.1.257). All four have a 1 million token window. On Bedrock, Agent Platform and Foundry the Sonnet and Haiku aliases still point to older versions, so there you have to use the full ID.</p>
+<p>With the <code>default</code> value, Pro, Max, Ultra, Team, Enterprise and the API start on Opus 5.5. Fable is never the default model and, depending on your plan, may be billed with usage credits (the picker shows &quot;Requires usage credits&quot;). To pin an exact version, use the ID:</p>
+<pre><code class="language-bash">claude --model claude-opus-5-5</code></pre>
+<h2>Effort: the setting almost nobody touches</h2>
+<p>All four models accept <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code> and <code>max</code>. Opus 5.5, Sonnet 5.5 and Haiku 5.5 start at <code>medium</code> (Opus 5 started at <code>high</code>); according to Anthropic, Opus 5.5 at medium matches or beats Opus 5 at high in its coding evaluations. The official guide:</p>
+<ul><li><code>low</code>: small changes you review yourself (a rename).</li><li><code>medium</code>: daily work with a clear scope.</li><li><code>high</code>: when verification matters or there are edge cases (a bug in existing code).</li><li><code>xhigh</code>: more reasoning at the cost of tokens.</li><li><code>max</code>: hard problems without supervision, with a warning about diminishing returns.</li></ul>
+<p>Change it with <code>/effort</code> (with <code>s</code> for this session only), with <code>--effort</code> at startup, per model in <code>modelSettings</code>, or with <code>CLAUDE_CODE_EFFORT_LEVEL</code>, which overrides everything. For a single turn, write <code>ultrathink</code> in the prompt: since 2.1.311 it raises that turn to <code>xhigh</code>. Watch out: an old <code>effortLevel</code> in your <code>~/.claude/settings.json</code> is not applied to Opus 5.5.</p>
+<h2>How we tested it (methodology)</h2>
+<h3>1. A single realistic, verifiable task</h3>
+<p>A 2-file Python repository where the model has to: (1) fix a test that fails because <code>round()</code> uses banker&#x27;s rounding and the business wants <code>ROUND_HALF_UP</code>, (2) add <code>apply_coupon()</code> with three rules and (3) write its tests. The prompt is identical for every model (<code>en/TASK.md</code>; the Spanish original, <code>TAREA.md</code>, is in the repo root):</p>
+<pre><code class="language-markdown">You are in a small Python project (src/ and tests/ folders).
+1. Run `python3 -m pytest -q` and fix the failure in `tests/test_prices.py` without touching the tests.
+2. Add to `src/prices.py` the function `apply_coupon(total, code)` with these rules:
+   - &quot;WELCOME&quot; takes 10 % off; &quot;SHIPPING&quot; takes 4.99 off if the total is at least 30; any other code raises ValueError.
+   - The result never goes below 0 and is rounded to 2 decimals with ROUND_HALF_UP from the decimal module (not with round()).
+3. Write tests for `apply_coupon` in `tests/test_coupon.py`.
+4. Finish when `python3 -m pytest -q` passes completely. Don&#x27;t install packages or use the network.</code></pre>
+<p>The starting code has the bug on purpose. <code>en/template/src/prices.py</code>:</p>
+<pre><code class="language-python">from decimal import Decimal
+
+
+def total_with_vat(net, vat=0.21):
+    return round(net * (1 + vat), 2)</code></pre>
+<p>And the visible test that fails, <code>en/template/tests/test_prices.py</code>:</p>
+<pre><code class="language-python">from src.prices import total_with_vat
+
+def test_vat_rounds_half_up():
+    # 10.125 € net at 0 % VAT must end up as 10.13 (ROUND_HALF_UP), not 10.12
+    assert total_with_vat(10.125, 0) == 10.13
+
+def test_normal_vat():
+    assert total_with_vat(100, 0.21) == 121.0</code></pre>
+<h3>2. Quality is decided by hidden tests, not by our opinion</h3>
+<p>When the run ends, the script copies a test file the model has never seen (7 cases, including edges such as 29.99 € or 0.045) and counts how many pass. <code>en/hidden/test_hidden.py</code>:</p>
+<pre><code class="language-python">import pytest
+from src.prices import apply_coupon, total_with_vat
+
+def test_welcome():               assert apply_coupon(50, &quot;WELCOME&quot;) == 45.0
+def test_shipping_minimum():      assert apply_coupon(30, &quot;SHIPPING&quot;) == 25.01
+def test_shipping_below():        assert apply_coupon(29.99, &quot;SHIPPING&quot;) == 29.99
+def test_never_negative():        assert apply_coupon(0, &quot;WELCOME&quot;) == 0
+def test_round_half_up():         assert apply_coupon(0.05, &quot;WELCOME&quot;) == 0.05  # 0.045 -&gt; 0.05
+def test_invalid_code():
+    with pytest.raises(ValueError): apply_coupon(10, &quot;FAKE&quot;)
+def test_vat_still_right():       assert total_with_vat(2.675, 0) == 2.68</code></pre>
+<p>Before publishing we checked the tests themselves: a reference solution passes all 9 tests (2 visible + 7 hidden) and the starting code fails the visible test, as intended. Look at <code>total_with_vat(2.675, 0)</code>: the float 2.675 is really 2.67499…, so only a solution that converts with <code>Decimal(str(x))</code> passes.</p>
+<h3>3. What we measure and under which conditions</h3>
+<p>From the JSON output of <code>claude -p</code> we take <code>total_cost_usd</code>, <code>duration_ms</code> and <code>num_turns</code>, and with git we count the lines added in <code>src/</code>. Matrix: 3 models × 2 efforts (<code>medium</code>, <code>high</code>) × 3 repetitions = 18 runs; Fable 5.1 is added only if approved separately (6 more).</p>
+<p>Each run starts in a fresh temporary folder, with <code>--bare</code> so no hooks, skills or CLAUDE.md from the machine are loaded (comparable results), <code>--permission-mode dontAsk</code> with a closed list of tools, no network, and caps of <code>--max-budget-usd 2</code> and <code>--max-turns 40</code>. Versions are pinned: Claude Code 2.1.316 and IDs <code>claude-opus-5-5</code>, <code>claude-sonnet-5-5</code> and <code>claude-haiku-5-5</code>.</p>
+<h3>4. How much it costs before running it</h3>
+<p>Assumption per run: about 200 K input tokens processed in total (adding up turns) and 8 K output tokens.</p>
+<div class="tabla"><table><thead><tr><th scope="col">Model</th><th scope="col">Upper bound per run (no cache)</th><th scope="col">6 runs</th></tr></thead><tbody><tr><td>Opus 5.5</td><td>≈ 0.96 USD</td><td>5.76 USD</td></tr><tr><td>Sonnet 5.5</td><td>≈ 0.48 USD</td><td>2.88 USD</td></tr><tr><td>Haiku 5.5</td><td>≈ 0.02 USD</td><td>0.14 USD</td></tr><tr><td>Fable 5.1 (optional)</td><td>≈ 2.40 USD</td><td>14.40 USD</td></tr></tbody></table></div>
+<p>Upper-bound total: 8.8 USD without Fable and 23.2 USD with Fable. Realistic estimate, with ~85 % of the input read from cache at the official read prices: about 3 USD without Fable and 7.5 USD with Fable (it does not include the cache write surcharge, which we have not verified). The <code>--max-budget-usd 2</code> cap limits the worst case to 36 USD (18 runs) or 48 USD (24).</p>
+<p>The plan: phase 1 smoke test with 3 runs (≈ 0.5-1.5 USD) to check the script works; if it goes well, full phase 2 without Fable; Fable is a separate decision. With a subscription instead of an API key, <code>--bare</code> does not work (it does not read the login), the cost figures are estimates and what you spend is plan limit.</p>
+<h3>5. Run it yourself</h3>
+<p>Requirements: Claude Code 2.1.316, git, python3 with pytest, jq and an <code>ANTHROPIC_API_KEY</code> (needed for <code>--bare</code> and for an exact cost). <code>en/measure.sh</code> does one run and appends a line to <code>en/results.jsonl</code>:</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# measure.sh — one run of the test: ./measure.sh &lt;model&gt; &lt;effort&gt; &lt;repetition&gt;
+# Requires: claude 2.1.316, git, python3 with pytest, jq. Recommended mode: --bare with ANTHROPIC_API_KEY.
+# Costs money: each run is capped at 2 USD (--max-budget-usd 2).
+set -euo pipefail
+[ $# -eq 3 ] || { echo &quot;Usage: $0 &lt;model&gt; &lt;effort&gt; &lt;repetition&gt;&quot; &gt;&amp;2; exit 2; }
+model=&quot;$1&quot;; effort=&quot;$2&quot;; rep=&quot;$3&quot;
+root=&quot;$(cd &quot;$(dirname &quot;$0&quot;)&quot; &amp;&amp; pwd)&quot;
+dir=&quot;$(mktemp -d /tmp/model-test.XXXXXX)&quot;
+cp -r &quot;$root/template/.&quot; &quot;$dir/&quot;
+cd &quot;$dir&quot;
+git init -q &amp;&amp; git add -A &amp;&amp; git -c user.name=test -c user.email=test@local commit -qm base
+
+start=$(date +%s)
+claude --bare -p &quot;$(cat &quot;$root/TASK.md&quot;)&quot; \
+  --model &quot;$model&quot; --effort &quot;$effort&quot; \
+  --permission-mode dontAsk \
+  --allowedTools &quot;Read&quot; &quot;Edit&quot; &quot;Bash(python3 -m pytest *)&quot; \
+  --max-budget-usd 2 --max-turns 40 \
+  --no-session-persistence \
+  --output-format json &gt; result.json || true
+end=$(date +%s)
+[ -s result.json ] || echo &#x27;{&quot;is_error&quot;: true}&#x27; &gt; result.json   # if claude wrote nothing, the row is marked as an error
+
+# Quality: hidden tests the model hasn&#x27;t seen
+cp &quot;$root/hidden/test_hidden.py&quot; tests/
+if python3 -m pytest -q tests/test_hidden.py &gt; hidden.txt 2&gt;&amp;1; then hidden=ok; else hidden=fail; fi
+passed=$(grep -Eo &#x27;[0-9]+ passed&#x27; hidden.txt | grep -Eo &#x27;[0-9]+&#x27; || echo 0)
+lines=$(git diff --shortstat HEAD -- src | grep -Eo &#x27;[0-9]+ insertion&#x27; | grep -Eo &#x27;[0-9]+&#x27; || echo 0)
+
+jq -c --arg m &quot;$model&quot; --arg e &quot;$effort&quot; --arg r &quot;$rep&quot; --arg o &quot;$hidden&quot; \
+      --arg p &quot;$passed&quot; --arg l &quot;$lines&quot; --arg s &quot;$((end-start))&quot; \
+  &#x27;{model:$m, effort:$e, rep:($r|tonumber), cost_usd:.total_cost_usd,
+    ms:.duration_ms, ms_api:.duration_api_ms, turns:.num_turns, error:.is_error,
+    hidden:$o, hidden_passed:($p|tonumber), src_lines:($l|tonumber), wall_seconds:($s|tonumber),
+    per_model:.modelUsage}&#x27; result.json | tee -a &quot;$root/results.jsonl&quot;
+echo &quot;Run folder: $dir&quot;</code></pre>
+<p><code>en/batch.sh</code> launches the smoke phase or the full matrix and prints the summary:</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# batch.sh — phase 1 (smoke, 3 runs, ~0.5-1.5 USD): ./batch.sh smoke   · phase 2 (18 runs): ./batch.sh full
+# Costs money. Check results.jsonl after the smoke phase before launching the full one.
+set -euo pipefail
+cd &quot;$(dirname &quot;$0&quot;)&quot;
+models=&quot;claude-haiku-5-5 claude-sonnet-5-5 claude-opus-5-5&quot;   # Fable 5.1 only if approved separately: add &quot;fable&quot;
+case &quot;${1:-smoke}&quot; in
+  smoke) for m in $models; do ./measure.sh &quot;$m&quot; medium 1; done ;;
+  full) for rep in 1 2 3; do for e in medium high; do for m in $models; do ./measure.sh &quot;$m&quot; &quot;$e&quot; &quot;$rep&quot;; done; done; done ;;
+  *) echo &quot;Usage: $0 [smoke|full]&quot; &gt;&amp;2; exit 2 ;;
+esac
+# Summary per model and effort: mean cost and seconds, median of hidden tests passed (out of 7)
+jq -s &#x27;group_by(.model+&quot;/&quot;+.effort) | map({key:(.[0].model+&quot;/&quot;+.[0].effort),
+  n:length, mean_cost:(map(.cost_usd // 0)|add/length), mean_seconds:(map(.ms // 0)|add/length/1000),
+  hidden_median:(map(.hidden_passed)|sort|.[length/2|floor]),
+  hidden_ok:(map(select(.hidden==&quot;ok&quot;))|length), mean_turns:(map(.turns // 0)|add/length)})&#x27; results.jsonl</code></pre>
+<p>The steps:</p>
+<pre><code class="language-bash">git clone https://github.com/carlosp5751258-lgtm/ctrlia-opus-sonnet-haiku
+cd ctrlia-opus-sonnet-haiku/en
+export ANTHROPIC_API_KEY=...        # your own; do not save it in the repository
+./batch.sh smoke                    # 3 runs; check results.jsonl
+./batch.sh full                     # only if the smoke phase went well</code></pre>
+<h2>Comparison table</h2>
+<p>List prices per million tokens, according to the official CHANGELOG:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Model</th><th scope="col">Alias (Anthropic API)</th><th scope="col">Since</th><th scope="col">Input / output (USD)</th><th scope="col">Cache read (USD)</th><th scope="col">Default effort</th></tr></thead><tbody><tr><td>Fable 5.1</td><td><code>fable</code></td><td>2.1.257</td><td>10 / 50</td><td>0.25</td><td>no data</td></tr><tr><td>Opus 5.5</td><td><code>opus</code></td><td>2.1.280</td><td>4 / 20</td><td>0.20</td><td><code>medium</code></td></tr><tr><td>Sonnet 5.5</td><td><code>sonnet</code></td><td>2.1.284</td><td>2 / 10</td><td>0.10 (down from 0.20)</td><td><code>medium</code></td></tr><tr><td>Haiku 5.5</td><td><code>haiku</code></td><td>2.1.293</td><td>0.10 / 0.50 (0.50 / 2.50 if the prompt exceeds 100 K tokens)</td><td>no data</td><td><code>medium</code></td></tr></tbody></table></div>
+<p>Test results: <strong>pending</strong>. This is the table that will be published, one row per model and effort:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Model / effort</th><th scope="col">Average cost per run</th><th scope="col">Average seconds</th><th scope="col">Turns</th><th scope="col">Hidden tests (out of 7, median of 3)</th><th scope="col">Runs fully green</th><th scope="col">Lines added in src/</th></tr></thead><tbody><tr><td>Haiku 5.5 / medium</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Haiku 5.5 / high</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Sonnet 5.5 / medium</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Sonnet 5.5 / high</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Opus 5.5 / medium</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Opus 5.5 / high</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr></tbody></table></div>
+<p>Rules for reading it without fooling yourself:</p>
+<ol><li>It is a small task: do not extrapolate to large refactors, where the documentation gives Fable the edge.</li><li>We will show the spread, not just the average.</li><li><code>total_cost_usd</code> is a client-side estimate and may differ from the invoice.</li><li>Date and version in the header; we will repeat the test with every new model.</li></ol>
+<h2>When to use each one</h2>
+<p>Based on the official documentation (it will be adjusted with the test data):</p>
+<div class="tabla"><table><thead><tr><th scope="col">Task</th><th scope="col">Model</th><th scope="col">Effort</th></tr></thead><tbody><tr><td>Renames, explaining a file, high-volume tasks</td><td>Haiku 5.5</td><td><code>low</code> or <code>medium</code></td></tr><tr><td>Search or summary subagents</td><td>Haiku 5.5 (<code>model: haiku</code> in the subagent frontmatter)</td><td><code>low</code></td></tr><tr><td>Day-to-day work with a clear scope</td><td>Sonnet 5.5</td><td><code>medium</code></td></tr><tr><td>Bugs in existing code, design decisions, when Sonnet gets it wrong</td><td>Opus 5.5</td><td><code>medium</code> (default) or <code>high</code></td></tr><tr><td>Work bigger than one session, root cause, architecture</td><td>Fable 5.1 (describe the outcome, not the steps)</td><td>depends on the task</td></tr><tr><td>Plan first, then implement</td><td><code>opusplan</code> (Opus in plan mode, Sonnet when executing)</td><td><code>medium</code></td></tr></tbody></table></div>
+<p>Three more tips:</p>
+<ul><li><code>opusplan</code> is exactly what you want if you are thinking &quot;plan in Opus, implement in Sonnet&quot;.</li><li>So subagents do not inherit an expensive model, set <code>model</code> in their definition (see the <a href="subagentes.html">subagents</a> recipe) or use <code>CLAUDE_CODE_SUBAGENT_EFFORT</code> (2.1.316).</li><li>Switching models mid-session forces a turn without cache, so decide at the start.</li></ul>
+<p>The commands, verified in the documentation:</p>
+<pre><code class="language-bash">claude --model sonnet --effort medium      # this session only
+/model haiku                               # inside the session (Enter = save as default; s = this session only)
+/effort high                               # or /effort with no arguments for the slider
+/model opusplan                            # Opus in plan mode, Sonnet when executing
+export CLAUDE_CODE_EFFORT_LEVEL=low        # overrides everything else
+export CLAUDE_CODE_SUBAGENT_EFFORT=low     # effort for subagents that do not set one (2.1.316)
+/status                                    # see the current model</code></pre>
+<p>And a default model with per-model effort in <code>~/.claude/settings.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;model&quot;: &quot;sonnet&quot;,
+  &quot;modelSettings&quot;: {
+    &quot;claude-opus-5-5&quot;: { &quot;effortLevel&quot;: &quot;high&quot; }
+  }
+}</code></pre>
+<p>If you want a skill that always runs on Haiku even when your session is on Opus, look at <code>/explica</code> in the <a href="pack-comandos.html">5-command pack</a>. To see what you pay with each plan, read the <a href="claude-code-precio-gratis.html">Claude Code pricing</a> recipe. Sources: <a href="https://code.claude.com/docs/en/model-config" rel="noopener">model configuration</a>, <a href="https://code.claude.com/docs/en/headless" rel="noopener">headless mode</a>, <a href="https://code.claude.com/docs/en/cli-reference" rel="noopener">CLI reference</a>, <a href="https://code.claude.com/docs/en/costs" rel="noopener">costs</a>, <a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking" rel="noopener">cost tracking</a>, <a href="https://code.claude.com/docs/en/prompt-caching" rel="noopener">prompt caching</a> and the <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>FAQ</h2>
+<h3>Which model does Claude Code use by default?</h3>
+<p>With the <code>default</code> value, Opus 5.5 on Pro, Max, Ultra, Team, Enterprise and the Anthropic API (since 2.1.280). On Microsoft Foundry, Sonnet 4.5. Fable is never the default. Check it with <code>/status</code>.</p>
+<h3>Opus or Sonnet for coding?</h3>
+<p>The documentation describes Sonnet for daily work and Opus for complex reasoning. Sonnet 5.5 costs half as much (2/10 USD per million versus 4/20). Start with Sonnet at <code>medium</code> and move up to Opus when it fails on bugs in existing code or on design; our test will show how much it changes on a specific task.</p>
+<h3>How do I plan with Opus and implement with Sonnet?</h3>
+<p>With <code>/model opusplan</code>: it uses Opus in plan mode (Shift+Tab or <code>/plan</code>) and switches to Sonnet only when executing. With <code>/model opusplan[1m]</code> you ask for 1M context in both phases where it is not the default.</p>
+<h3>Which effort should I set?</h3>
+<p>Leave <code>medium</code> (the default for the 5.5 models) for normal work, <code>high</code> for bugs with edge cases and <code>low</code> for small changes you review. <code>max</code> only for hard problems: the documentation warns it can overthink. For a single hard turn, write <code>ultrathink</code>.</p>
+<h3>Is Haiku 5.5 good for anything serious?</h3>
+<p>For simple tasks and for search or summary subagents it is the cheap option (0.10/0.50 USD per million, 1M context). Watch out: if the prompt exceeds 100 K tokens the price goes up to 0.50/2.50.</p>
+<h3>Why doesn&#x27;t Fable show up, or why does it ask for credits?</h3>
+<p>Depending on your plan, Fable may be billed with usage credits instead of the included limit; the picker marks it with &quot;Requires usage credits&quot;. It requires 2.1.257 or later.</p>
+<h3>Does switching models mid-session cost more?</h3>
+<p>Yes: the caching documentation explains that switching models causes a turn without cache. Choose the model at the start, or use <code>opusplan</code>, which is designed for that switch.</p>
+<h3>When will you publish the results?</h3>
+<p>When the test is run, which costs money and needs approval. Until then the page only has the methodology and the script so anyone can repeat it; we will never publish figures that do not come from the results file (<code>results.jsonl</code>, or <code>resultados.jsonl</code> in the Spanish version).</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="limite-uso-claude-code.html">Claude Code usage limits: make your 5 h and weekly limit last</a></li><li><a href="opus-48-modo-rapido.html">Claude Code Opus 4.8: fast mode ends on 30 Nov, move to 5.5</a></li><li><a href="statusline.html">Claude Code statusline: live model, context and usage limits</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

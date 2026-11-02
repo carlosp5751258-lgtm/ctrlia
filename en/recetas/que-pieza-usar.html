@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code skills vs hooks, MCP, subagents and plugins · Ctrl+IA</title>
+<meta name="description" content="CLAUDE.md, skills, commands, subagents, hooks, MCP and plugins in Claude Code: what each is for, when to use it, where it goes and its context cost.">
+<meta property="og:title" content="Claude Code skills vs hooks, MCP, subagents and plugins · Ctrl+IA">
+<meta property="og:description" content="CLAUDE.md, skills, commands, subagents, hooks, MCP and plugins in Claude Code: what each is for, when to use it, where it goes and its context cost.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/que-pieza-usar.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/que-pieza-usar.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/que-pieza-usar.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/que-pieza-usar.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/que-pieza-usar.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/que-pieza-usar.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/que-pieza-usar.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code skills vs hooks, MCP, subagents and plugins", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/que-pieza-usar.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "CLAUDE.md, skills, commands, subagents, hooks, MCP and plugins in Claude Code: what each is for, when to use it, where it goes and its context cost.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/que-pieza-usar.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What's the difference between a skill and a command in .claude/commands?", "acceptedAnswer": {"@type": "Answer", "text": "In practice, none today: commands were merged into skills and both create /name. A skill adds a folder for supporting files, more frontmatter fields and the option for Claude to load it on its own. If both exist with the same name, the skill wins."}}, {"@type": "Question", "name": "Can I put a security rule in CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "You can, but it's a request, not a guarantee. For what must always hold, use a PreToolUse hook or a deny rule in permissions (see security hooks and permissions)."}}, {"@type": "Question", "name": "Does a subagent use fewer tokens?", "acceptedAnswer": {"@type": "Answer", "text": "Not necessarily in total: it uses its own window with its own input and output tokens. What it saves is context in your main conversation, which only gets the summary."}}, {"@type": "Question", "name": "Do I need a plugin to use my skills?", "acceptedAnswer": {"@type": "Answer", "text": "No. Skills in .claude/skills/ or ~/.claude/skills/ work on their own. A plugin is for packaging several pieces and taking them to other repositories or other people."}}, {"@type": "Question", "name": "What is a mod and how is it different from a hook?", "acceptedAnswer": {"@type": "Answer", "text": "A settings hook runs a command, an HTTP request or a prompt outside Claude Code. A mod is a plugin with JavaScript or TypeScript functions that run inside Claude Code and can draw interface or step into tool calls. Available since 2.1.287."}}, {"@type": "Question", "name": "Where do I start if I have nothing?", "acceptedAnswer": {"@type": "Answer", "text": "With a CLAUDE.md holding the project's commands and conventions. If your team already uses AGENTS.md, see AGENTS.md vs CLAUDE.md. Then add each piece when its trigger shows up (see the \"If this happens, use this\" section)."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/que-pieza-usar.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Reference · Intermediate · 12 min</p>
+  <h1 id="t-art">Claude Code skills vs hooks, MCP, subagents and plugins</h1>
+  <p class="entrada">CLAUDE.md, skills, commands, subagents, hooks, MCP and plugins in Claude Code: what each is for, when to use it, where it goes and its context cost.</p>
+  <img class="portada-img" src="../../img/en/que-pieza-usar.webp" width="960" height="540" alt="Cover: Claude Code skills vs hooks, MCP, subagents and plugins">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-que-pieza-usar"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>Summary</h2>
+<p>Claude Code is extended with several pieces that seem to overlap: CLAUDE.md, skills (which now include the old commands), subagents, hooks, MCP servers and plugins, plus output styles and the new mods. This reference explains in one sentence what each one is for, when the need shows up, how much context it uses, a minimal example and the Ctrl+IA recipe that covers it in depth.</p>
+<p>The short rule: <strong>CLAUDE.md</strong> for what Claude must always know, <strong>skill</strong> for procedures, <strong>subagent</strong> to isolate work, <strong>hook</strong> for what must always happen, <strong>MCP</strong> to connect services and <strong>plugin</strong> to package and share.</p>
+<h2>Each piece in one sentence</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Piece</th><th scope="col">What it&#x27;s for</th><th scope="col">Example</th></tr></thead><tbody><tr><td>CLAUDE.md</td><td>Context loaded in every session: conventions and commands</td><td>&quot;use pnpm, not npm&quot;</td></tr><tr><td>Skill</td><td>Instructions, knowledge or a workflow you invoke with <code>/name</code> or that Claude loads when it fits the task</td><td><code>/deploy</code> runs your checklist</td></tr><tr><td>Command</td><td>Since they were merged with skills, <code>.claude/commands/deploy.md</code> and <code>.claude/skills/deploy/SKILL.md</code> create the same <code>/deploy</code> and work the same</td><td>They still work, but use skills for new ones</td></tr><tr><td>Subagent</td><td>A worker with its own context that does a task and returns only a summary</td><td>A read-only reviewer</td></tr><tr><td>Hook</td><td>A script, HTTP request, MCP tool, prompt or subagent that Claude Code runs when an event fires (before or after using a tool, on session start…), without Claude deciding</td><td>Blocking <code>rm -rf</code></td></tr><tr><td>MCP</td><td>Connects Claude to external services</td><td>Database, Slack, browser</td></tr><tr><td>Plugin</td><td>The packaging layer that bundles skills, hooks, subagents and MCP servers into one installable unit</td><td>Your kit for several repos</td></tr></tbody></table></div>
+<p>On top of that, <strong>output styles</strong> set tone and format, and <strong>mods</strong> (2.1.287) are JavaScript or TypeScript plugins that change the interface or step into tool calls.</p>
+<h2>If this happens, use this</h2>
+<p>The <a href="https://code.claude.com/docs/en/features-overview" rel="noopener">official docs</a> suggest adding pieces as their triggers appear, roughly in this order:</p>
+<div class="tabla"><table><thead><tr><th scope="col">If this happens</th><th scope="col">Use this</th></tr></thead><tbody><tr><td>Claude gets a convention or a command wrong twice</td><td>Add it to <a href="../recetas/claude-md-que-funciona.html">CLAUDE.md</a></td></tr><tr><td>You keep asking it to be briefer or explain more</td><td>An output style</td></tr><tr><td>You type the same prompt to start a task</td><td>Save it as an invocable skill</td></tr><tr><td>You paste the same multi-step procedure for the third time</td><td>Turn it into a <a href="../recetas/primera-skill.html">skill</a></td></tr><tr><td>You copy data from a browser tab Claude can&#x27;t see</td><td>Connect that system via <a href="../recetas/mcp-para-programadores.html">MCP</a></td></tr><tr><td>Claude reads many files to find where a symbol is defined</td><td>Install a code intelligence plugin for your language</td></tr><tr><td>A side task floods the conversation with output you&#x27;ll never look at again</td><td>Route it through a <a href="../recetas/subagentes.html">subagent</a></td></tr><tr><td>You want something to always happen without asking</td><td>Write a <a href="../recetas/hooks-seguridad.html">hook</a></td></tr><tr><td>A second repository needs the same setup</td><td>Package it as a plugin</td></tr></tbody></table></div>
+<p>The same triggers help you maintain what you already have: a repeated mistake is a CLAUDE.md edit, not a correction in the chat.</p>
+<h2>Where each piece lives</h2>
+<pre><code class="language-text">my-project/
+├── CLAUDE.md                     # always loaded: commands, conventions (&quot;use pnpm&quot;)
+├── .mcp.json                     # project MCP (shared): databases, APIs, browser
+└── .claude/
+    ├── settings.json             # team hooks, permissions and statusLine
+    ├── rules/api.md              # rules that only load when touching certain paths (paths:)
+    ├── skills/release/SKILL.md   # /release: a procedure you or Claude invoke
+    ├── commands/deploy.md        # old format: also creates /deploy (now it&#x27;s a skill)
+    └── agents/reviewer.md        # subagent: a worker with its own context
+
+~/.claude/                        # the same, but yours and for all your projects
+├── CLAUDE.md
+├── settings.json
+├── skills/  agents/
+└── skills/mi-kit/.claude-plugin/plugin.json   # plugin created with &quot;claude plugin init mi-kit&quot;</code></pre>
+<p>The status line also goes in <code>settings.json</code>: we cover it in the <a href="../recetas/statusline.html">statusline</a> recipe.</p>
+<h2>Skill or subagent</h2>
+<p>A skill is reusable content that loads into whatever context uses it; a subagent is an isolated worker that runs separately. The skill adds its text to your main context window; the subagent uses its own window and only the summary comes back to your conversation.</p>
+<p>Use a <strong>skill</strong> for reference material (your API style guide) or workflows you invoke (<code>/release</code>). Use a <strong>subagent</strong> when the task reads dozens of files or runs long searches whose details you don&#x27;t need, for parallel tasks or when your context is filling up. They combine: a subagent can preload skills with the <code>skills:</code> field in its definition, and a skill can run in an isolated context with <code>context: fork</code>.</p>
+<p>A skill only you invoke, in <code>.claude/skills/release/SKILL.md</code> (as in our repo&#x27;s <code>en/ejemplo/</code>):</p>
+<pre><code class="language-markdown">---
+name: release
+description: Prepares the release notes since the last tag. Use it when asked for release notes or a changelog.
+disable-model-invocation: true
+---
+
+1. List the commits since the last tag with `git log $(git describe --tags --abbrev=0)..HEAD --oneline`.
+2. Group them into Features, Fixes and Documentation.
+3. Write the result to CHANGELOG.md without deleting what&#x27;s already there.</code></pre>
+<p>It lists the commits since the last tag, groups them into new features, fixes and documentation, and writes them to CHANGELOG.md without deleting what was there.</p>
+<p>Subagents are saved as Markdown with frontmatter in <code>.claude/agents/</code> (project) or <code>~/.claude/agents/</code> (all your projects); the body is their system prompt. The official example, <code>.claude/agents/code-reviewer.md</code>, is a read-only reviewer:</p>
+<pre><code class="language-markdown">---
+name: code-reviewer
+description: Reviews code for quality and best practices
+tools: Read, Glob, Grep
+model: sonnet
+---
+
+You are a code reviewer. When invoked, analyze the code and provide
+specific, actionable feedback on quality, security, and best practices.</code></pre>
+<p>We cover it in depth in the <a href="../recetas/subagentes.html">subagents</a> recipe.</p>
+<h2>Hook or instruction (CLAUDE.md or skill)</h2>
+<p>The difference is determinism. A hook fires on its event without Claude deciding; an instruction in CLAUDE.md or in a skill is something Claude interprets and may not follow. The official docs say it plainly: &quot;never edit .env&quot; in CLAUDE.md is a request, not a guarantee; a <code>PreToolUse</code> hook that blocks the edit is a barrier. If a rule must always hold, make it a hook (or a deny <a href="../recetas/permisos-claude-code.html">permission</a> rule), not a sentence.</p>
+<p>Use a <strong>hook</strong> to format after every edit, block dangerous commands, log or notify. Use a <strong>skill</strong> when Claude must decide how to apply the steps or the content is knowledge: a release checklist, a style guide, a debugging playbook (like the one in <a href="../recetas/depurar-bug.html">debug a bug</a>).</p>
+<p>Context cost: a hook costs nothing unless it returns text; the output of a <code>PostToolUse</code> that runs your linter does enter the context, and a <code>/fix-lint</code> skill explains to Claude how to resolve it. Hooks from every source add up: all the ones that match the event run.</p>
+<p>Official example: format with Prettier after every edit, in <code>.claude/settings.json</code> (requires <code>jq</code>):</p>
+<pre><code class="language-json">{
+  &quot;hooks&quot;: {
+    &quot;PostToolUse&quot;: [
+      {
+        &quot;matcher&quot;: &quot;Edit|Write&quot;,
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;jq -r &#x27;.tool_input.file_path&#x27; | xargs npx prettier --write&quot;
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+<p>We didn&#x27;t run this hook: <code>jq</code> isn&#x27;t installed on our test PC. The <a href="../recetas/hooks-seguridad.html">security hooks</a> recipe uses Python so it doesn&#x27;t depend on <code>jq</code>.</p>
+<h2>MCP or skill</h2>
+<p>MCP connects Claude to an external system and gives it tools and data: querying your database, posting to Slack, driving a browser. A skill gives it knowledge about how to use those tools well, plus invocable workflows. They don&#x27;t compete, they complement each other: the MCP server provides the connection and authentication, and a skill documents your database schema and query patterns, or defines a <code>/post-to-slack</code> with your team&#x27;s message format.</p>
+<p>You add them with <code>claude mcp add</code> (for example, <code>--transport http</code> for a remote server) and check them inside the session with <code>/mcp</code>:</p>
+<pre><code class="language-bash"># Connect an external service over HTTP (official example)
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+# Inside the session: status and authentication
+/mcp</code></pre>
+<p>Cost: at startup only tool names are loaded; full schemas load when they&#x27;re used, because tool search is on by default. If the same server name exists in several scopes, local wins over project and project over user. We cover it with Playwright, GitHub and databases in the <a href="../recetas/mcp-para-programadores.html">MCP</a> recipe.</p>
+<h2>Plugin: when to package (and what mods are)</h2>
+<p>A plugin isn&#x27;t a new piece, it&#x27;s a box. It bundles skills, hooks, subagents and MCP servers to reuse them across repositories or distribute them in a marketplace. A plugin&#x27;s skills are namespaced (<code>/my-plugin:review</code>) so several plugins can coexist. The minimal structure is a <code>.claude-plugin/plugin.json</code> manifest with the name and components.</p>
+<p>Since 2.1.157, <code>claude plugin init &lt;name&gt;</code> generates it for you. On our PC it created <code>~/.claude/skills/mi-kit/</code> (in the user folder, even though the CHANGELOG says <code>.claude/skills</code>) with <code>SKILL.md</code> and <code>.claude-plugin/plugin.json</code>:</p>
+<pre><code class="language-bash"># Package your setup as a plugin (since 2.1.157)
+claude plugin init mi-kit
+# ✔ Created plugin &quot;mi-kit&quot; at ~/.claude/skills/mi-kit
+#   It will auto-load next session as mi-kit@skills-dir. Run /reload-plugins to load it now.
+
+# Creates two files: SKILL.md and .claude-plugin/plugin.json
+# See what a plugin includes and how much context it costs
+claude plugin details mi-kit@skills-dir
+# Disable or remove it
+claude plugin disable mi-kit@skills-dir   # or delete the folder</code></pre>
+<p>While you develop it you don&#x27;t need a marketplace: load it from its folder with <code>--plugin-dir</code>.</p>
+<p><strong>Mods</strong> (2.1.287) are plugins with JavaScript or TypeScript handlers that run inside Claude Code: they can draw a panel, change parts of the interface or step into a tool call. If a hook, a skill or an MCP server already does what you need, don&#x27;t write a mod. We haven&#x27;t written one for this reference.</p>
+<h2>How much context each piece uses and who wins when they repeat</h2>
+<div class="tabla"><table><thead><tr><th scope="col">Piece</th><th scope="col">Context cost</th><th scope="col">If it exists at several levels</th></tr></thead><tbody><tr><td>CLAUDE.md</td><td>Loaded in full at startup and costs on every request; keep it under 200 lines</td><td>They add up: all of them contribute</td></tr><tr><td>Output style</td><td>On every request (nothing for the default one)</td><td>—</td></tr><tr><td>Skills</td><td>Only name and description on every request; full content when used. With <code>disable-model-invocation: true</code>, nothing until you invoke it</td><td>Replaced by name: managed &gt; user &gt; project. If a skill and a command share a name, the skill wins</td></tr><tr><td>MCP</td><td>Tool names at startup and schemas on demand</td><td>Replaced by name: local &gt; project &gt; user</td></tr><tr><td>Subagents</td><td>Context isolated from the main one</td><td>Replaced by name: managed &gt; CLI flag &gt; project &gt; user &gt; plugin</td></tr><tr><td>Hooks</td><td>Zero, unless they return text</td><td>They add up and all of them run</td></tr></tbody></table></div>
+<p><code>disable-model-invocation: true</code> is recommended for skills with side effects. To check the real cost, <code>/context</code> shows what fills the window and <code>/skill-doctor</code> what each skill costs and how much it&#x27;s used.</p>
+<h2>What we checked</h2>
+<p>On Linux with Claude Code 2.1.316 we checked <code>claude plugin --help</code> and <code>claude plugin init mi-kit</code> (the folder it created was deleted right away). The subagent, hook and MCP examples are verbatim from the official docs; the skill one follows the format of the <a href="../recetas/primera-skill.html">first skill</a> recipe. We didn&#x27;t run the Prettier hook or write a mod. Sources: <a href="https://code.claude.com/docs/en/features-overview" rel="noopener">features</a>, <a href="https://code.claude.com/docs/en/skills" rel="noopener">skills</a>, <a href="https://code.claude.com/docs/en/sub-agents" rel="noopener">subagents</a>, <a href="https://code.claude.com/docs/en/hooks-guide" rel="noopener">hooks</a>, <a href="https://code.claude.com/docs/en/mcp" rel="noopener">MCP</a>, <a href="https://code.claude.com/docs/en/plugins" rel="noopener">plugins</a>, <a href="https://code.claude.com/docs/en/plugins/mods/overview" rel="noopener">mods</a> and the <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>FAQ</h2>
+<h3>What&#x27;s the difference between a skill and a command in .claude/commands?</h3>
+<p>In practice, none today: commands were merged into skills and both create <code>/name</code>. A skill adds a folder for supporting files, more frontmatter fields and the option for Claude to load it on its own. If both exist with the same name, the skill wins.</p>
+<h3>Can I put a security rule in CLAUDE.md?</h3>
+<p>You can, but it&#x27;s a request, not a guarantee. For what must always hold, use a <code>PreToolUse</code> hook or a deny rule in permissions (see <a href="../recetas/hooks-seguridad.html">security hooks</a> and <a href="../recetas/permisos-claude-code.html">permissions</a>).</p>
+<h3>Does a subagent use fewer tokens?</h3>
+<p>Not necessarily in total: it uses its own window with its own input and output tokens. What it saves is context in your main conversation, which only gets the summary.</p>
+<h3>Do I need a plugin to use my skills?</h3>
+<p>No. Skills in <code>.claude/skills/</code> or <code>~/.claude/skills/</code> work on their own. A plugin is for packaging several pieces and taking them to other repositories or other people.</p>
+<h3>What is a mod and how is it different from a hook?</h3>
+<p>A settings hook runs a command, an HTTP request or a prompt outside Claude Code. A mod is a plugin with JavaScript or TypeScript functions that run inside Claude Code and can draw interface or step into tool calls. Available since 2.1.287.</p>
+<h3>Where do I start if I have nothing?</h3>
+<p>With a CLAUDE.md holding the project&#x27;s commands and conventions. If your team already uses AGENTS.md, see <a href="../recetas/agents-md.html">AGENTS.md vs CLAUDE.md</a>. Then add each piece when its trigger shows up (see the &quot;If this happens, use this&quot; section).</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="crear-plugin-claude-code.html">Create a Claude Code plugin: init, testing, evals and marketplace</a></li><li><a href="pack-comandos.html">5 must-have Claude Code commands, ready to copy</a></li><li><a href="skills-que-instalar.html">Claude Code skills: which to install, how, and which to avoid</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code vs Desktop vs Cowork vs claude.ai: cuál usar · Ctrl+IA</title>
+<meta name="description" content="Claude Code en la terminal, la app de escritorio, Cowork, el chat y Claude Code en la web: qué es cada uno, dónde corre, qué plan pide y cuál abrir.">
+<meta property="og:title" content="Claude Code vs Desktop vs Cowork vs claude.ai: cuál usar · Ctrl+IA">
+<meta property="og:description" content="Claude Code en la terminal, la app de escritorio, Cowork, el chat y Claude Code en la web: qué es cada uno, dónde corre, qué plan pide y cuál abrir.">
+<meta property="og:image" content="https://ctrlia.dev/img/que-claude-abrir.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/que-claude-abrir.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/que-claude-abrir.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/que-claude-abrir.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/que-claude-abrir.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/que-claude-abrir.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/que-claude-abrir.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code vs Desktop vs Cowork vs claude.ai: cuál usar", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/recetas/que-claude-abrir.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Claude Code en la terminal, la app de escritorio, Cowork, el chat y Claude Code en la web: qué es cada uno, dónde corre, qué plan pide y cuál abrir.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/que-claude-abrir.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Claude Code y Claude es lo mismo?", "acceptedAnswer": {"@type": "Answer", "text": "No. Claude es el asistente de chat de claude.ai. Claude Code es la herramienta de programación que lee y edita tu proyecto y ejecuta comandos. Comparten cuenta y margen de uso si pagas un plan."}}, {"@type": "Question", "name": "¿Qué diferencia hay entre Claude Code y Cowork?", "acceptedAnswer": {"@type": "Answer", "text": "Cowork usa la misma arquitectura de agente que Claude Code, pero está pensado para trabajo de conocimiento que no es programar y no necesita terminal; sus tareas corren en servidores de Anthropic. Claude Code está enfocado al código de tu repositorio."}}, {"@type": "Question", "name": "¿Puedo usar Claude Code gratis desde la app de escritorio?", "acceptedAnswer": {"@type": "Answer", "text": "No. La pestaña Code pide una suscripción de pago (Pro, Max, Ultra, Team o Enterprise). Con el plan Free solo tienes el chat."}}, {"@type": "Question", "name": "¿Hay app de escritorio para Linux?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, en beta para Ubuntu y Debian, instalada con apt según la página oficial desktop-linux. La CLI funciona en Linux sin beta."}}, {"@type": "Question", "name": "¿Claude Code en la web gasta aparte?", "acceptedAnswer": {"@type": "Answer", "text": "No hay un cargo aparte por la máquina en la nube, pero las sesiones cuentan contra los mismos límites de tu plan, y varias tareas en paralelo consumen más."}}, {"@type": "Question", "name": "Tengo clave de API, ¿qué puedo usar?", "acceptedAnswer": {"@type": "Answer", "text": "La CLI y las extensiones de VS Code y JetBrains. La app de escritorio (salvo Claude Desktop on 3P), la web, el móvil, Remote Control y la extensión de Chrome necesitan una cuenta de claude.ai."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/que-claude-abrir.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Comparativa · Básico · 8 min</p>
+  <h1 id="t-art">Claude Code vs Desktop vs Cowork vs claude.ai: cuál usar</h1>
+  <p class="entrada">Claude Code en la terminal, la app de escritorio, Cowork, el chat y Claude Code en la web: qué es cada uno, dónde corre, qué plan pide y cuál abrir.</p>
+  <img class="portada-img" src="../img/que-claude-abrir.webp" width="960" height="540" alt="Portada: Claude Code vs Desktop vs Cowork vs claude.ai: cuál usar">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-que-claude-abrir"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Ver los archivos en GitHub</a> <span class="nota">Gratis · licencia MIT</span></p>
+  
+  
+<h2>Resumen y veredicto</h2>
+<p>Claude y Claude Code no son lo mismo. <strong>Claude</strong> es el asistente con el que conversas en claude.ai (web, escritorio y móvil). <strong>Claude Code</strong> es la herramienta de programación con agentes: lee tu proyecto, edita archivos y ejecuta comandos. La <a href="https://code.claude.com/docs/es/platforms" rel="noopener">documentación oficial</a> dice que Claude Code usa el mismo motor en todas sus superficies (terminal, extensiones de IDE, app de escritorio, web y móvil) y que tu CLAUDE.md, tu configuración y tus servidores MCP valen en todas las locales. <strong>Cowork</strong> es otra cosa: lleva las capacidades de agente de Claude Code al trabajo de conocimiento que no es programar, con la misma arquitectura y sin terminal.</p>
+<p>Regla rápida para programadores:</p>
+<ul><li><strong>Trabajas sobre el código de tu PC</strong> → Claude Code (terminal, VS Code o pestaña Code de la app).</li><li><strong>Quieres dejar una tarea larga corriendo aunque cierres el portátil</strong> → Claude Code en la web.</li><li><strong>La tarea es de documentos, investigación u hojas de cálculo</strong> → Cowork.</li><li><strong>Quieres preguntar o pensar en voz alta</strong> → el chat.</li></ul>
+<p>La tabla, el árbol de decisión y los comandos están también en el repositorio <a href="https://github.com/carlosp5751258-lgtm/ctrlia-que-claude-abrir" rel="noopener">ctrlia-que-claude-abrir</a>.</p>
+<h2>Cómo lo probamos (metodología)</h2>
+<p>Esta comparativa es <strong>documental</strong>: no mide rendimiento, ordena lo que dicen las fuentes oficiales de Anthropic a fecha de 1-nov-2026 (páginas de plataformas, escritorio, web, disponibilidad de funciones, centro de ayuda de Cowork y precios). Cada producto se responde con las mismas cinco preguntas: para qué sirve, dónde se ejecuta el trabajo, qué hay que instalar, en qué sistemas funciona y qué plan lo incluye.</p>
+<p>Lo que comprobamos en nuestro PC (Linux, Claude Code 2.1.316, sesión de claude.ai con plan Max): <code>claude auth status</code> muestra el método de acceso y el plan, y <code>claude --help</code> confirma las opciones <code>--desktop</code> y <code>--cloud</code>. <strong>No probamos</strong> Cowork, la app de escritorio en Windows o macOS, ni una sesión en la nube de punta a punta; <code>/desktop</code> solo funciona en macOS y Windows x64, así que en Linux no se puede probar. Cuando lo hagamos, actualizaremos esta página y su fecha.</p>
+<h2>Tabla comparativa</h2>
+<div class="tabla"><table><thead><tr><th scope="col"></th><th scope="col">Claude Code (terminal)</th><th scope="col">App Claude Desktop (pestaña Code)</th><th scope="col">Cowork</th><th scope="col">Chat de claude.ai</th><th scope="col">Claude Code en la web</th></tr></thead><tbody><tr><td>Para qué sirve</td><td>Programar con agentes, automatizar con <code>claude -p</code></td><td>Lo mismo con diffs visuales, vista previa y sesiones en paralelo</td><td>Trabajo de conocimiento sin terminal: documentos, investigación, hojas de cálculo</td><td>Conversar, buscar, crear archivos y Artifacts</td><td>Tareas de código largas que siguen aunque cierres el portátil</td></tr><tr><td>Dónde corre el trabajo</td><td>Tu máquina</td><td>Tu máquina (o entornos SSH, Cloud o WSL)</td><td>Servidores de Anthropic, en un entorno aislado</td><td>Servidores de Anthropic</td><td>Máquina virtual en la nube de Anthropic</td></tr><tr><td>Qué instalar</td><td><code>claude</code> (instalador nativo)</td><td>La app de escritorio (trae el motor)</td><td>Nada aparte: la misma app, web o móvil</td><td>Nada (web) o la app</td><td>Nada; conectar GitHub</td></tr><tr><td>Sistemas</td><td>macOS, Linux, WSL, Windows</td><td>macOS, Windows x64 y ARM64, Linux en beta (Ubuntu y Debian)</td><td>Escritorio, web y móvil</td><td>Web, escritorio y móvil</td><td>Navegador y app móvil</td></tr><tr><td>Plan</td><td>Pro, Max, Ultra, Team, Enterprise o clave de API</td><td>Suscripción de pago</td><td>Pro, Max, Ultra, Team, Enterprise</td><td>Free y todos</td><td>Pro, Max, Ultra, Team; Enterprise con plaza premium</td></tr></tbody></table></div>
+<h2>Claude Code en la terminal (CLI)</h2>
+<ul><li><strong>Qué es:</strong> el programa <code>claude</code> que ejecutas dentro de la carpeta de tu proyecto. Según la página oficial de plataformas es la superficie más completa: el scripting y el Agent SDK solo existen en la CLI, y es la única (junto con las extensiones de VS Code y JetBrains) que funciona también con proveedores de terceros como Amazon Bedrock, Google Cloud o Microsoft Foundry.</li><li><strong>Dónde corre:</strong> en tu máquina, con tus archivos y herramientas.</li><li><strong>Instalación:</strong> <code>curl -fsSL https://claude.ai/install.sh | bash</code> en macOS, Linux y WSL, o los instaladores de PowerShell y CMD en Windows (<a href="/recetas/instalar-claude-code-windows.html">receta para Windows</a>).</li><li><strong>Planes:</strong> Pro, Max, Ultra, Team o Enterprise, o una clave de API de Claude Console (pago por uso). El plan Free no incluye Claude Code.</li><li><strong>Para quién:</strong> quien vive en la terminal, automatiza con <code>claude -p</code>, usa servidores remotos o quiere todas las funciones. Si prefieres tu editor, la extensión de VS Code o el plugin de JetBrains usan el mismo motor (<a href="/recetas/claude-code-vs-code.html">receta de VS Code</a>).</li></ul>
+<p>Para saber con qué cuenta y plan lo estás usando:</p>
+<pre><code class="language-bash">claude auth status   # authMethod (claude.ai o API) y subscriptionType
+# dentro de una sesión:
+/status</code></pre>
+<h2>App Claude Desktop (pestaña Code) y Cowork</h2>
+<p>La app de escritorio de Claude reúne el chat, Cowork y Claude Code. Claude Code está en la pestaña <strong>Code</strong> de la barra lateral e incluye el motor, así que no hace falta instalar Node.js ni la CLI. Lo que añade frente a la terminal:</p>
+<ul><li>Visor de diferencias para revisar cambios archivo por archivo y comentar líneas.</li><li>Vista previa de tu app en un panel de navegador.</li><li>Sesiones en paralelo (cada una puede ir en su worktree de git) y tareas programadas.</li><li>Dispatch: mandarle tareas desde el móvil (solo Pro, Max y Ultra).</li><li>Entornos Local, SSH, Cloud o WSL.</li></ul>
+<p>Sistemas: macOS (Intel y Apple Silicon), Windows x64 y ARM64, y Linux en beta para Ubuntu y Debian con apt. Requiere suscripción de pago y sesión de claude.ai. En Linux, sigue los pasos oficiales de <a href="https://code.claude.com/docs/en/desktop-linux" rel="noopener">desktop-linux</a>: el repositorio y la clave de firma se toman de esa página, no de terceros.</p>
+<p><strong>Cowork</strong> se usa desde la misma app. Según el <a href="https://support.claude.com/en/articles/13345190-get-started-with-cowork" rel="noopener">centro de ayuda</a>, sus tareas se ejecutan en la nube, en servidores de Anthropic en un entorno aislado, y la app tiene que estar abierta cuando necesitan tus archivos locales o el navegador. Cowork está en los planes de pago (Pro, Max, Ultra, Team y Enterprise) y también en web y móvil.</p>
+<h2>Chat de claude.ai y Claude Code en la web</h2>
+<p>El <strong>chat de claude.ai</strong> es lo que tiene el plan Free: conversar en web, escritorio y móvil, buscar en internet, crear archivos y ejecutar código, memoria, conectores y Artifacts. No trabaja sobre tu repositorio ni ejecuta comandos en tu PC.</p>
+<p><strong>Claude Code en la web</strong> (claude.ai/code) es otra cosa: sesiones de Claude Code que corren en una máquina virtual en la nube gestionada por Anthropic, que siguen funcionando aunque cierres el portátil y que puedes revisar desde cualquier dispositivo, incluida la pestaña Code de la app móvil.</p>
+<ul><li>Necesitan conectar GitHub: la máquina clona tu repositorio y sube ramas.</li><li>Están en Pro, Max, Ultra y Team y, en Enterprise, con plazas premium o Chat + Claude Code.</li><li>Cuentan contra los mismos límites de uso que el resto de Claude, sin cargo aparte por la máquina.</li><li>No cargan los plugins que instalaste en tu PC, y comandos como <code>/plugin</code> o <code>/resume</code> no funcionan allí.</li></ul>
+<p>Desde la terminal puedes pasar trabajo entre superficies:</p>
+<pre><code class="language-bash">claude --cloud &quot;Arregla el test inestable de auth.spec.ts&quot;   # nueva sesión en la nube
+claude --teleport                                         # traer una sesión de la nube a la terminal
+claude --desktop --continue                               # abrir la última sesión en la app de escritorio
+# dentro de una sesión de terminal:
+/desktop   # continuar esta sesión en la app (macOS y Windows x64)</code></pre>
+<h2>Qué incluye cada plan (datos oficiales, 1-nov-2026)</h2>
+<p>Precios de <a href="https://claude.com/pricing" rel="noopener">claude.com/pricing</a> a 1-nov-2026; compruébalos allí antes de pagar.</p>
+<div class="tabla"><table><thead><tr><th scope="col">Plan</th><th scope="col">Precio</th><th scope="col">Qué incluye para programar</th></tr></thead><tbody><tr><td>Free</td><td>$0</td><td>Solo el chat de claude.ai; sin Claude Code</td></tr><tr><td>Pro</td><td>$20 al mes ($17 al mes con pago anual)</td><td>Claude Code en terminal, IDE, app de escritorio, web y móvil, Remote Control, Dispatch, sesiones en la nube y Cowork</td></tr><tr><td>Max</td><td>$100 al mes</td><td>Las mismas funciones que Pro en Claude Code, con 5 veces su margen de uso</td></tr><tr><td>Ultra</td><td>$200 al mes</td><td>Las mismas funciones; 10 veces por semana y sin límite de 5 horas en cuentas verificadas</td></tr><tr><td>Team</td><td>Plaza estándar $20 al mes con pago anual o $25 mensual; premium $100 o $125</td><td>Claude Code y Cowork; Remote Control y Channels los activa un administrador; Code Review y panel de analítica; sin Dispatch ni uso del ordenador</td></tr><tr><td>Enterprise</td><td>$20 por plaza al mes con pago anual, mínimo 20 plazas, más el uso a tarifas de API</td><td>Sesiones en la nube solo con plaza premium o Chat + Claude Code</td></tr><tr><td>Clave de API (Console)</td><td>Pago por uso</td><td>Solo CLI y extensiones de IDE; sin app de escritorio (salvo Claude Desktop on 3P), web, móvil ni Remote Control</td></tr></tbody></table></div>
+<p>Ultra es el nuevo nombre de Max 20x y Max el de Max 5x; además del margen de uso, cambian los créditos de API incluidos. Detalle de límites en <a href="/recetas/claude-code-precio-gratis.html">¿Claude Code es gratis?</a>.</p>
+<h2>Cuándo usar cada uno</h2>
+<p>Pregúntate en este orden:</p>
+<ol><li><strong>¿Vas a cambiar código?</strong> Si no: chat (preguntas) o Cowork (documentos, investigación, tareas de varios pasos sin terminal).</li><li><strong>¿El código está en tu PC y necesitas tus herramientas, servidores locales o MCP?</strong> Entonces Claude Code local: terminal si quieres todas las funciones y automatizar; pestaña Code de la app si prefieres revisar diffs visualmente y abrir varias sesiones; VS Code o JetBrains si no quieres salir del editor.</li><li><strong>¿La tarea es larga, está en GitHub y quieres apagar el portátil?</strong> Claude Code en la web o <code>claude --cloud</code>.</li><li><strong>¿Te vas del escritorio a mitad de una tarea local?</strong> Remote Control desde el móvil (<a href="/recetas/remote-control-movil.html">guía paso a paso</a>).</li></ol>
+<p>Combinaciones que funcionan:</p>
+<ul><li>Planificar en la terminal con el modo plan y ejecutar en la nube con <code>claude --cloud</code>.</li><li>Empezar en la terminal y pasar a la app con <code>/desktop</code> para revisar los cambios (requiere suscripción de claude.ai y funciona en macOS y Windows x64).</li><li>Lanzar en la web desde el móvil y rematar en local con <code>claude --teleport</code>.</li></ul>
+<p>Todo comparte el mismo margen de uso del plan, así que más superficies no significa más límite. Si vienes de otra herramienta, mira la comparativa <a href="/recetas/claude-code-vs-codex-gemini-cursor.html">Claude Code vs Codex vs Gemini vs Cursor</a>; si estás empezando, la ruta de <a href="/recetas/empieza-aqui.html">Empieza aquí</a>.</p>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Claude Code y Claude es lo mismo?</h3>
+<p>No. Claude es el asistente de chat de claude.ai. Claude Code es la herramienta de programación que lee y edita tu proyecto y ejecuta comandos. Comparten cuenta y margen de uso si pagas un plan.</p>
+<h3>¿Qué diferencia hay entre Claude Code y Cowork?</h3>
+<p>Cowork usa la misma arquitectura de agente que Claude Code, pero está pensado para trabajo de conocimiento que no es programar y no necesita terminal; sus tareas corren en servidores de Anthropic. Claude Code está enfocado al código de tu repositorio.</p>
+<h3>¿Puedo usar Claude Code gratis desde la app de escritorio?</h3>
+<p>No. La pestaña Code pide una suscripción de pago (Pro, Max, Ultra, Team o Enterprise). Con el plan Free solo tienes el chat.</p>
+<h3>¿Hay app de escritorio para Linux?</h3>
+<p>Sí, en beta para Ubuntu y Debian, instalada con apt según la página oficial desktop-linux. La CLI funciona en Linux sin beta.</p>
+<h3>¿Claude Code en la web gasta aparte?</h3>
+<p>No hay un cargo aparte por la máquina en la nube, pero las sesiones cuentan contra los mismos límites de tu plan, y varias tareas en paralelo consumen más.</p>
+<h3>Tengo clave de API, ¿qué puedo usar?</h3>
+<p>La CLI y las extensiones de VS Code y JetBrains. La app de escritorio (salvo Claude Desktop on 3P), la web, el móvil, Remote Control y la extensión de Chrome necesitan una cuenta de claude.ai.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="claude-code-otros-editores.html">Claude Code en JetBrains, Visual Studio, Xcode, Zed y Neovim</a></li><li><a href="claude-code-vs-codex-gemini-cursor.html">Claude Code vs Codex vs Gemini vs Cursor: misma tarea, con datos</a></li><li><a href="empezar-claude-code-15-minutos.html">Cómo empezar con Claude Code en un proyecto: checklist de 15 min</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

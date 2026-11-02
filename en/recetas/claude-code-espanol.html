@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code in Spanish, no fluff: language and the Concise style · Ctrl+IA</title>
+<meta name="description" content="Make Claude Code always answer in Spanish and without filler: the language setting, the Concise style and a CLAUDE.md rule against drifting to English.">
+<meta property="og:title" content="Claude Code in Spanish, no fluff: language and the Concise style · Ctrl+IA">
+<meta property="og:description" content="Make Claude Code always answer in Spanish and without filler: the language setting, the Concise style and a CLAUDE.md rule against drifting to English.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/claude-code-espanol.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/claude-code-espanol.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/claude-code-espanol.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/claude-code-espanol.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/claude-code-espanol.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/claude-code-espanol.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/claude-code-espanol.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Claude Code in Spanish, no fluff: language and the Concise style", "totalTime": "PT10M", "step": [{"@type": "HowToStep", "position": 1, "name": "Piece 1: the language setting", "text": "Open ~/.claude/settings.json (create it if it does not exist) and add language and, while you are at it, the style from step 2:", "url": "https://ctrlia.dev/en/recetas/claude-code-espanol.html"}, {"@type": "HowToStep", "position": 2, "name": "Piece 2: the Concise style against filler", "text": "Since v2.1.237 Claude Code ships the Concise output style: the first sentence says what happened or what the answer is, with no introduction, no narration of every step and no final summary, and a simple question gets one to three sentences. The documentation makes clear that it does the engineering work as thoroughly as the default style, and that it still writes out in full what you need to act safely: error reports, failing tests, security warnings and confirmations of destructive actions.", "url": "https://ctrlia.dev/en/recetas/claude-code-espanol.html"}, {"@type": "HowToStep", "position": 3, "name": "Piece 3: a language rule that covers short messages", "text": "Issue #96326 describes the pattern: with the language rule in CLAUDE.md, the language setting and the Concise style, the model switched to English right after reading English output (specs, subagent reports, code reviews), especially in short progress lines and final summaries. Correcting it in the conversation only lasted one turn.", "url": "https://ctrlia.dev/en/recetas/claude-code-espanol.html"}, {"@type": "HowToStep", "position": 4, "name": "Optional: your own \"Español directo\" style", "text": "If Concise falls short or you want your own rules (tone, answer format, no emojis), create a custom style. It is a Markdown file in ~/.claude/output-styles/ (for you) or .claude/output-styles/ (for the project); the file name is the style name unless you set name in the frontmatter. Save this as ~/.claude/output-styles/espanol-directo.md:", "url": "https://ctrlia.dev/en/recetas/claude-code-espanol.html"}], "description": "Make Claude Code always answer in Spanish and without filler: the language setting, the Concise style and a CLAUDE.md rule against drifting to English.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/claude-code-espanol.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I write \"spanish\" or \"español\"?", "acceptedAnswer": {"@type": "Answer", "text": "Either, as long as Claude understands it: the value is passed as-is and not validated. \"spanish\" is the documentation's example and also works for voice dictation."}}, {"@type": "Question", "name": "I set \"outputStyle\": \"concise\" and nothing changes.", "acceptedAnswer": {"@type": "Answer", "text": "In the settings file the name is case-sensitive: write \"Concise\". A name that does not match leaves you on the default style without warning."}}, {"@type": "Question", "name": "Does Concise make Claude work worse or review less?", "acceptedAnswer": {"@type": "Answer", "text": "According to the documentation, no: it only shortens the text. It does the work just as thoroughly and keeps errors, failing tests and security warnings in full."}}, {"@type": "Question", "name": "It still answers in English sometimes. Is there a fix?", "acceptedAnswer": {"@type": "Answer", "text": "That is issue #96326, still open. What helps: the CLAUDE.md rule that names progress messages and summaries, and reminding it when it happens. No instruction guarantees it 100%."}}, {"@type": "Question", "name": "Do subagents answer in Spanish too?", "acceptedAnswer": {"@type": "Answer", "text": "The output style does not apply to subagents (except forks). The documentation does not say whether language reaches them, so their reports may come in English; Claude will summarize them for you in Spanish if the rule asks for it."}}, {"@type": "Question", "name": "What about Claude Code's interface in Spanish (menus, notices)?", "acceptedAnswer": {"@type": "Answer", "text": "The language documentation only mentions answers, voice dictation and session titles; it does not promise to translate the interface. Also, since 2.1.309 the errors from git commands that Claude Code runs for itself are shown in English even if your git is set to another language."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/claude-code-espanol.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Basic · 10 min</p>
+  <h1 id="t-art">Claude Code in Spanish, no fluff: language and the Concise style</h1>
+  <p class="entrada">Make Claude Code always answer in Spanish and without filler: the language setting, the Concise style and a CLAUDE.md rule against drifting to English.</p>
+  <img class="portada-img" src="../../img/en/claude-code-espanol.webp" width="960" height="540" alt="Cover: Claude Code in Spanish, no fluff: language and the Concise style">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-claude-code-espanol"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>The problem</h2>
+<p>You write to Claude Code in Spanish and it answers in English, or it answers in Spanish but with three paragraphs of introduction, a narration of every step and a final summary that repeats what it already said. It can always answer in Spanish and without filler, but no single piece achieves that: you need to combine three, the <code>language</code> setting, the Concise output style and a specific rule in CLAUDE.md. Even then, after reading documentation or logs in English, it sometimes switches to English (issue #96326, open).</p>
+<h2>The solution</h2>
+<p>Three pieces and an optional one. The files are in the free repository <code>ctrlia-claude-code-espanol</code>; its <code>en/</code> folder has the same setup with English examples (<code>en/settings.json</code>, <code>en/claude-md-language.md</code> and the <code>en/output-styles/straight-to-the-point.md</code> style), which works for any language if you swap &quot;English&quot; for yours.</p>
+<h3>1. Piece 1: the language setting</h3>
+<p>Open <code>~/.claude/settings.json</code> (create it if it does not exist) and add <code>language</code> and, while you are at it, the style from step 2:</p>
+<pre><code class="language-json">{
+  &quot;language&quot;: &quot;spanish&quot;,
+  &quot;outputStyle&quot;: &quot;Concise&quot;
+}</code></pre>
+<p>The official documentation says Claude Code passes the <code>language</code> value as-is to Claude as an instruction to always answer in that language. There is no closed list, so any name Claude understands works, and it is not validated: if you misspell it, there is no error, it simply arrives misspelled.</p>
+<ul><li>Put it in the user file so it applies to all your projects; a project can have its own in <code>.claude/settings.json</code>.</li><li>The same value sets the language for voice dictation and for automatic session titles.</li><li>An old bug stripped accents and the letter ñ from answers when <code>language</code> was set; it was fixed in v2.1.108, so if you use an old version, update with <code>claude update</code>.</li><li>Restart Claude Code after changing it.</li></ul>
+<p>In a <code>claude -p</code> run you can pass it without touching files with <code>--settings &#x27;{&quot;language&quot;:&quot;spanish&quot;}&#x27;</code>.</p>
+<h3>2. Piece 2: the Concise style against filler</h3>
+<p>Since v2.1.237 Claude Code ships the Concise output style: the first sentence says what happened or what the answer is, with no introduction, no narration of every step and no final summary, and a simple question gets one to three sentences. The documentation makes clear that it does the engineering work as thoroughly as the default style, and that it still writes out in full what you need to act safely: error reports, failing tests, security warnings and confirmations of destructive actions.</p>
+<p>Turn it on with <code>/output-style concise</code> (v2.1.269 or later) or from <code>/config</code> &gt; Output style; both save it to <code>.claude/settings.local.json</code>, only for that project. To make it your style in every project, put <code>&quot;outputStyle&quot;: &quot;Concise&quot;</code> in <code>~/.claude/settings.json</code>, as in step 1.</p>
+<p><strong>Careful:</strong> in the settings file that value is case-sensitive. <code>&quot;concise&quot;</code> in lowercase matches no style and leaves you on the default style without warning (the <code>/output-style</code> command, on the other hand, ignores case). The new style applies from your next message.</p>
+<h3>3. Piece 3: a language rule that covers short messages</h3>
+<p>Issue <a href="https://github.com/anthropics/claude-code/issues/96326" rel="noopener">#96326</a> describes the pattern: with the language rule in CLAUDE.md, the language setting and the Concise style, the model switched to English right after reading English output (specs, subagent reports, code reviews), especially in short progress lines and final summaries. Correcting it in the conversation only lasted one turn.</p>
+<p>There is no official fix as of 1 Nov 2026, but you can close the gap the report points at: write a rule in <code>~/.claude/CLAUDE.md</code> that names those cases specifically (progress messages, summaries, questions) and says what to do with English text (quote it as-is, but explain it in Spanish). Also say what must not be translated: function names, commands and literal error messages.</p>
+<pre><code class="language-markdown">## Idioma
+- Escribe SIEMPRE en español: respuestas, preguntas, mensajes de progreso entre herramientas y resúmenes finales.
+- Aunque leas documentación, logs, informes de subagentes o revisiones en inglés, tu texto sigue en español.
+- Cita tal cual (sin traducir) nombres de funciones, comandos, rutas y mensajes de error; explícalos en español.
+- Comentarios de código y mensajes de commit: en el idioma que ya use el proyecto.</code></pre>
+<p>The rule is in Spanish on purpose. It says: always write in Spanish (answers, questions, progress messages between tools and final summaries); even when you read documentation, logs, subagent reports or reviews in English, your text stays in Spanish; quote function names, commands, paths and error messages as-is and explain them in Spanish; code comments and commit messages follow the project&#x27;s existing language.</p>
+<p>The official documentation reminds you that CLAUDE.md and styles are instructions Claude follows, not guarantees: if you need something that always holds, that is a hook, and there is no sensible hook for the language of free text. That is why this recipe reduces the drift; it does not eliminate it. If you want the rest of your CLAUDE.md to work too, see <a href="../recetas/claude-md-que-funciona.html">how to write a CLAUDE.md that works</a>.</p>
+<h3>4. Optional: your own &quot;Español directo&quot; style</h3>
+<p>If Concise falls short or you want your own rules (tone, answer format, no emojis), create a custom style. It is a Markdown file in <code>~/.claude/output-styles/</code> (for you) or <code>.claude/output-styles/</code> (for the project); the file name is the style name unless you set <code>name</code> in the frontmatter. Save this as <code>~/.claude/output-styles/espanol-directo.md</code>:</p>
+<pre><code class="language-markdown">---
+name: Español directo
+description: Respuestas en español, primero el resultado, sin relleno
+keep-coding-instructions: true
+---
+Responde en español neutro.
+
+- La primera frase dice el resultado o la respuesta.
+- Nada de introducciones, de narrar cada paso ni de resumen final repetido.
+- No elogies la pregunta ni digas que el usuario tiene razón: ve al contenido.
+- Preguntas simples: 1-3 frases. Errores, tests que fallan y avisos de seguridad: completos.
+- Sin emojis.</code></pre>
+<p>In English, the style says: answer in neutral Spanish; the first sentence gives the result or the answer; no introductions, no step-by-step narration and no repeated final summary; do not praise the question or tell the user they are right, get to the point; simple questions in 1-3 sentences, but errors, failing tests and security warnings in full; no emojis.</p>
+<p>The key setting is <code>keep-coding-instructions: true</code>: without it, a custom style leaves out the part of the system prompt with Claude Code&#x27;s engineering instructions (how to scope changes, comment and verify the work). Since you only want to change how it talks, not how it codes, set it to <code>true</code>. Turn it on with <code>/output-style &quot;Español directo&quot;</code> or from <code>/config</code>. If you create or edit the file with Claude Code open, restart it so it reads the file.</p>
+<p>Two documented limits: styles apply to the main conversation and to forks, but other <a href="../recetas/subagentes.html">subagents</a> use their own system prompt, so their reports may arrive in English; and a style adds input tokens (prompt caching makes it cheaper after the first message).</p>
+<h2>Check it</h2>
+<p>Open a new session in a project with an English README and ask &quot;resume el README y dime qué falta&quot; (summarize the README and tell me what is missing). It should answer in Spanish, starting with the conclusion, and quote file names as-is. Then ask for something that reads a lot of English, such as &quot;revisa el CHANGELOG y dime qué cambió en la última versión&quot; (review the CHANGELOG and tell me what changed in the latest version), and watch the short messages between tools: that is where the drift shows up. If it switches to English, do not argue: write &quot;en español&quot; and, if it happens again, add the exact case that failed to the CLAUDE.md rule.</p>
+<p>Two quick checks from the terminal:</p>
+<pre><code class="language-bash"># Lista los estilos disponibles y el activo (también funciona sin interfaz)
+claude -p &quot;/output-style&quot; &lt; /dev/null
+
+# Una ejecución puntual en español y concisa sin tocar archivos
+claude -p --settings &#x27;{&quot;language&quot;:&quot;spanish&quot;}&#x27; &quot;Explain what package.json scripts do in this repo&quot; &lt; /dev/null</code></pre>
+<p>The first lists the available styles and the active one (it also works headless); the second is a one-off run in Spanish without touching any files. With version 2.1.316 and a clean configuration, with the <code>settings.json</code> from step 1 and the style from step 4 installed, the first command printed this (your style appears at the end of the list, and <code>(current)</code> marks the active one):</p>
+<pre><code class="language-text">Output style: Concise
+
+Available styles:
+- default
+- Proactive: Claude executes immediately, minimizes interruptions, and prefers action over planning
+- Concise (current): Claude responds tersely, leading with results and skipping preamble and narration
+- Explanatory: Claude explains its implementation choices and codebase patterns
+- Learning: Claude pauses and asks you to write small pieces of code for hands-on practice
+- Español directo: Respuestas en español, primero el resultado, sin relleno
+
+Usage: /output-style &lt;style&gt;</code></pre>
+<p>What we could not measure cleanly is the effect of <code>language</code> on the answers: on our test machine the global CLAUDE.md already requires Spanish, so every answer came out in Spanish because of that. Run the before-and-after test on your own account.</p>
+<p>To keep your configuration healthy, <code>/doctor prompt-audit</code> (v2.1.283) reviews your CLAUDE.md files, skills, agents and commands for instructions written for older models (its report lists first the paths and commands that no longer exist and the instruction files that contradict each other). And <code>/output-style</code> with no arguments tells you which style is active. If you have language rules repeated in several places (global CLAUDE.md, project CLAUDE.md and a style), keep one clear version: contradictions make the result worse.</p>
+<h2>Why it works</h2>
+<p>Each piece acts in a different place. <code>language</code> is passed as-is to Claude as an instruction to answer in that language. The output style changes the part of the system prompt that decides how the answer is written, without touching the engineering work (Concise out of the box, or your own with <code>keep-coding-instructions: true</code>). And the CLAUDE.md rule names the cases in which, according to #96326, the model switches to English: short progress messages and summaries after reading English text. All three are instructions, not guarantees, which is why together they work better than any one alone. More details in the <a href="https://code.claude.com/docs/en/settings-reference" rel="noopener">settings reference</a>, the <a href="https://code.claude.com/docs/en/output-styles" rel="noopener">output styles</a> page, the <a href="https://code.claude.com/docs/en/settings" rel="noopener">settings</a> page and the <a href="https://code.claude.com/docs/en/memory" rel="noopener">memory and CLAUDE.md</a> page.</p>
+<h2>Common mistakes</h2>
+<ul><li><strong>You set <code>&quot;outputStyle&quot;: &quot;concise&quot;</code> and nothing changes</strong> → in the settings file the name is case-sensitive → write <code>&quot;Concise&quot;</code>.</li><li><strong><code>language</code> misspelled and no error</strong> → the value is not validated, it is passed as-is → check the spelling (<code>&quot;spanish&quot;</code> is the documentation&#x27;s example).</li><li><strong>Answers come out without accents or ñ</strong> → old bug fixed in v2.1.108 → <code>claude update</code>.</li><li><strong>Your custom style does not show up in <code>/output-style</code></strong> → you created or edited the file with the session open, or it is not in <code>~/.claude/output-styles/</code> or <code>.claude/output-styles/</code> → restart Claude Code and check the path.</li><li><strong>With your custom style, Claude codes worse</strong> → <code>keep-coding-instructions: true</code> is missing and the style left out the engineering instructions → add it to the frontmatter.</li><li><strong>It switches to English after reading a CHANGELOG or a subagent report</strong> → that is the #96326 drift → write &quot;en español&quot; and add the exact case to the CLAUDE.md rule.</li><li><strong>Different language rules in several places</strong> → they contradict each other and make the result worse → keep one clear version.</li></ul>
+<h2>FAQ</h2>
+<h3>Do I write &quot;spanish&quot; or &quot;español&quot;?</h3>
+<p>Either, as long as Claude understands it: the value is passed as-is and not validated. &quot;spanish&quot; is the documentation&#x27;s example and also works for voice dictation.</p>
+<h3>I set &quot;outputStyle&quot;: &quot;concise&quot; and nothing changes.</h3>
+<p>In the settings file the name is case-sensitive: write &quot;Concise&quot;. A name that does not match leaves you on the default style without warning.</p>
+<h3>Does Concise make Claude work worse or review less?</h3>
+<p>According to the documentation, no: it only shortens the text. It does the work just as thoroughly and keeps errors, failing tests and security warnings in full.</p>
+<h3>It still answers in English sometimes. Is there a fix?</h3>
+<p>That is issue #96326, still open. What helps: the CLAUDE.md rule that names progress messages and summaries, and reminding it when it happens. No instruction guarantees it 100%.</p>
+<h3>Do subagents answer in Spanish too?</h3>
+<p>The output style does not apply to subagents (except forks). The documentation does not say whether <code>language</code> reaches them, so their reports may come in English; Claude will summarize them for you in Spanish if the rule asks for it.</p>
+<h3>What about Claude Code&#x27;s interface in Spanish (menus, notices)?</h3>
+<p>The <code>language</code> documentation only mentions answers, voice dictation and session titles; it does not promise to translate the interface. Also, since 2.1.309 the errors from git commands that Claude Code runs for itself are shown in English even if your git is set to another language.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="agents-md.html">AGENTS.md vs CLAUDE.md in Claude Code: which one it reads</a></li><li><a href="generador-claude-md.html">Free CLAUDE.md and AGENTS.md generator for Claude Code</a></li><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

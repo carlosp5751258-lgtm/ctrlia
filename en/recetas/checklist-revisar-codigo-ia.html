@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Before merging Claude Code&#x27;s code: a review checklist · Ctrl+IA</title>
+<meta name="description" content="Eight checks before merging code written by Claude Code: real tests, secrets, dependencies, licenses, scope, independent review and a bash script.">
+<meta property="og:title" content="Before merging Claude Code&#x27;s code: a review checklist · Ctrl+IA">
+<meta property="og:description" content="Eight checks before merging code written by Claude Code: real tests, secrets, dependencies, licenses, scope, independent review and a bash script.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/checklist-revisar-codigo-ia.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/checklist-revisar-codigo-ia.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/checklist-revisar-codigo-ia.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/checklist-revisar-codigo-ia.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/checklist-revisar-codigo-ia.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/checklist-revisar-codigo-ia.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/checklist-revisar-codigo-ia.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Before merging Claude Code's code: a review checklist", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/checklist-revisar-codigo-ia.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Eight checks before merging code written by Claude Code: real tests, secrets, dependencies, licenses, scope, independent review and a bash script.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/checklist-revisar-codigo-ia.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does /code-review replace human review?", "acceptedAnswer": {"@type": "Answer", "text": "No. It finds correctness bugs with a subagent that didn't see the conversation, which makes it useful, but the docs leave the responsibility for reviewing with you. Use it as a first filter and leave final approval to a person, especially for authentication, money, data and deployment."}}, {"@type": "Question", "name": "What's the difference between /code-review and PR review in GitHub Actions?", "acceptedAnswer": {"@type": "Answer", "text": "/code-review runs in your session, locally, and counts against your plan like the rest of the session. The GitHub Actions recipe (claude-code-action) reviews every PR on GitHub automatically. There's also the managed Code Review service for Team and Enterprise plans. You can combine them: locally before opening the PR, automatically on the PR."}}, {"@type": "Question", "name": "Does /code-review read my CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, it follows your CLAUDE.md, also in a run with -p. It doesn't read REVIEW.md, which only configures the managed Code Review service on GitHub."}}, {"@type": "Question", "name": "Why didn't the script find a secret that's there?", "acceptedAnswer": {"@type": "Answer", "text": "Because it only looks for typical words in added lines: a key stored in a variable with another name or encoded slips past it. It's a quick warning, not a scanner. For that, add a secret-detection tool to CI."}}, {"@type": "Question", "name": "How do I stop Claude from weakening tests to make them pass?", "acceptedAnswer": {"@type": "Answer", "text": "Tell it in CLAUDE.md (\"don't change or skip existing tests without asking\"), review the tests/ diff on every PR and ask the reviewer to flag deleted, skipped or loosened tests, as the project template's /preparar-pr skill does."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/checklist-revisar-codigo-ia.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art" data-casillas="checklist-revisar-codigo-ia">
+  <p class="insignia">Checklist · Intermediate · 10 min</p>
+  <h1 id="t-art">Before merging Claude Code&#x27;s code: a review checklist</h1>
+  <p class="entrada">Eight checks before merging code written by Claude Code: real tests, secrets, dependencies, licenses, scope, independent review and a bash script.</p>
+  <img class="portada-img" src="../../img/en/checklist-revisar-codigo-ia.webp" width="960" height="540" alt="Cover: Before merging Claude Code&#x27;s code: a review checklist">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-checklist-revisar-codigo-ia"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  <div class="casillas-barra" hidden>
+    <p class="casillas-estado" role="status" data-plantilla="{n} of {total} ticked"></p>
+    <button type="button" class="boton boton-borde boton-chico casillas-reiniciar">Untick all</button>
+    <p class="nota">Saved only in this browser.</p>
+  </div>
+<h2>What it&#x27;s for</h2>
+<p>Eight checks to run before merging a branch written (fully or partly) by Claude Code: that the tests really run and weren&#x27;t weakened, that there are no secrets, that new dependencies exist and are justified, that licenses fit, that there are no changes outside the task&#x27;s scope, whether the AI and CI configuration was touched, an independent review (<code>/code-review</code>, <code>/security-review</code> or a reviewer subagent) and, always, a person who understands the change and approves it. It includes a bash script, <code>review-branch.sh</code> (in the repo&#x27;s <code>en/</code> folder), that points out where to look.</p>
+<h2>The checklist</h2>
+<ul class="lista-tareas"><li class="tarea"><input type="checkbox" class="casilla" id="casilla-1"><label for="casilla-1"><strong>1. The tests really run (and weren&#x27;t weakened).</strong></label><ul><li>Why: the <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">official guide</a> puts it this way: Claude stops when the work looks finished, and &quot;all tests pass&quot; on its own says almost nothing. Always ask for the evidence: the command it ran and its output. And a typical failure in AI code is &quot;fixing&quot; a red test by changing the test: deleting it, skipping it or loosening the assertion.</li><li>How to check it: run the tests yourself on the branch, or look at the PR&#x27;s CI check; don&#x27;t rely on the summary alone.</li><li>Deleted tests: <code>git diff --diff-filter=D --name-only main...HEAD | grep -i test</code>.</li><li>Skipped or focused tests in added lines: <code>@unittest.skip</code>, <code>pytest.mark.skip</code> or <code>xfail</code>, <code>it.skip</code>, <code>describe.only</code>, <code>xit</code>. The script at the end does it for you.</li><li>Changed expected values: read the diff of the tests folder. If an expected value changed to match the new result, that&#x27;s only correct if the behavior was supposed to change.</li><li>New tests for new code: a bug fix without a test that reproduces it breaks again.</li><li>Prevent it: so Claude can&#x27;t finish with broken tests, the <a href="plantilla-claude-code.html">project template</a> ships a Stop hook that runs them every time Claude tries to end its turn.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-2"><label for="casilla-2"><strong>2. No secrets in the diff.</strong></label><ul><li>Why: generated code sometimes leaves a &quot;temporary&quot; sample key, copies a token from the environment into a config file or writes credentials into a test. Once merged and pushed, the secret is in the history even if you delete it later: you have to rotate it.</li><li>How to check it: search the added lines for words like <code>api_key</code>, <code>secret_key</code>, <code>token</code>, <code>password</code> or <code>BEGIN … PRIVATE KEY</code>: <code>git diff main...HEAD | grep -vE &#x27;^\+\+\+&#x27; | grep -niE &#x27;^\+.*(api[_-]?key|token|passw(or)?d|PRIVATE KEY)&#x27;</code>.</li><li>No .env in git: <code>git diff --name-only main...HEAD | grep -E &#x27;(^|/)\.env&#x27;</code>.</li><li>For a serious scan: use a dedicated secret-detection tool in CI (gitleaks, for example) or your platform&#x27;s secret scanning.</li><li>Prevention is better: with deny rules for <code>Read(./.env)</code> and a hook that blocks reading secrets (the <a href="hooks-seguridad.html">safety hooks</a> recipe), Claude never sees the value and can&#x27;t copy it. The project template&#x27;s CI step fails if a <code>.env</code> is committed.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-3"><label for="casilla-3"><strong>3. Every new dependency exists and is justified.</strong></label><ul><li>Why: an assistant may solve something with a little-known package, with one that doesn&#x27;t exist (and that someone could register later under that name) or bump a version without you asking. Every dependency is maintenance and attack surface.</li><li>How to check it: list the manifests that were touched (<code>package.json</code>, lock files, <code>requirements*.txt</code>, <code>pyproject.toml</code>, <code>go.mod</code>, <code>Cargo.toml</code>…); the script does it.</li><li>For each new package: was it needed? Does the standard library or something you already use do it? Check that it exists and that it&#x27;s the one you think (<code>npm view &lt;package&gt;</code> or <code>pip index versions &lt;package&gt;</code>) and look at its repository, author, downloads and date of the latest release.</li><li>Known advisories: <code>npm audit</code> or <code>pip-audit</code>.</li><li>Lock file: a huge change for a one-line change in the manifest deserves a question.</li><li>Prevent it: in CLAUDE.md, &quot;don&#x27;t add dependencies without asking&quot;; in settings.json, <code>ask</code> for <code>npm install *</code> or <code>pip install *</code>: an ask asks even in auto mode.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-4"><label for="casilla-4"><strong>4. Licenses and copied code.</strong></label><ul><li>Why: a new dependency brings its license, and some (strong copyleft ones, for example) may not fit your project or what your company allows. A large block of code that looks copied from another project can also show up.</li><li>How to check it: for each new dependency, look at the license field in its registry (<code>npm view &lt;package&gt; license</code>) or in its repository.</li><li>Lots of dependencies: use a license lister in CI (for example license-checker in Node or pip-licenses in Python) and compare against the list your team accepts.</li><li>Code that doesn&#x27;t fit: if you see a file or a long function that doesn&#x27;t look like the rest of the code, with foreign comments or a copyright notice, ask where it comes from before merging it.</li><li>Note: this checklist isn&#x27;t legal advice; if you work for a company, follow its license policy.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-5"><label for="casilla-5"><strong>5. Nothing outside the task&#x27;s scope.</strong></label><ul><li>Why: you asked for a bug fix and the branch also brings a three-file refactor, a mass reformat or a config change. Those extras hide bugs in the noise and make the PR impossible to review.</li><li>How to check it: <code>git diff --stat main...HEAD</code>: does every file relate to the task? If not, ask for it to be split into another branch or reverted.</li><li>AI and CI configuration: look closely at changes in <code>.claude/</code>, <code>.mcp.json</code>, <code>CLAUDE.md</code>, <code>AGENTS.md</code> and <code>.github/</code>. A change there alters what Claude will be able to do next time (a new allow rule, a hook, an MCP server) or what gets checked on every PR. The script lists them separately.</li><li>Worktrees: if you worked with <code>claude --worktree</code>, review the <code>worktree-&lt;name&gt;</code> branch against the right base: by default the worktree starts from the remote default branch, not from your HEAD.</li><li>Prevent it: one task per branch, prompts with clear limits (&quot;don&#x27;t touch X&quot;, &quot;no refactors&quot;) and the project template&#x27;s <code>ask</code> for <code>Edit(/.github/**)</code>.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-6"><label for="casilla-6"><strong>6. A review that didn&#x27;t see how it was written.</strong></label><ul><li>Why: the official guide explains that giving the same task to another agent doesn&#x27;t produce a better answer, but <strong>a fresh reviewer does help</strong>, because it hasn&#x27;t seen the reasoning that produced the code and isn&#x27;t swayed by it.</li><li><code>/code-review</code> (or its alias <code>/review</code>): reviews your branch&#x27;s changes and uncommitted ones looking for correctness bugs. It runs as a background subagent with its own context and brings back the findings. You can point it at a PR (<code>/code-review 1234</code>), a branch (<code>/code-review main...my-branch</code>) or a path, and give it an effort level: <code>low</code> gives fewer, more certain findings; <code>medium</code> to <code>max</code> widens coverage. With <code>--fix</code> it applies the fixes, but watch out: those edits stay outside the checkpoints and <code>/rewind</code> doesn&#x27;t undo them; use git.</li><li><code>/security-review</code>: analyzes your branch&#x27;s diff against origin&#x27;s default branch looking for injections, authentication problems or data exposure. It needs an <code>origin</code> remote.</li><li>A read-only reviewer subagent (like the project template&#x27;s <code>revisor.md</code>) against a spec: &quot;use a subagent to review the diff against SPEC.md, check that every requirement is implemented and that edge cases have tests, report only correctness failures and skip style&quot;. Don&#x27;t drop the &quot;skip style&quot; part: a reviewer asked to find problems always finds something. More on this in <a href="subagentes.html">subagents</a>.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-7"><label for="casilla-7"><strong>7. A person understands the change and approves it.</strong></label><ul><li>Why: AI review filters, but it doesn&#x27;t decide. Claude Code&#x27;s <a href="https://code.claude.com/docs/en/security" rel="noopener">security docs</a> say it bluntly: you&#x27;re responsible for reviewing proposed code and commands before approving them. And if the person who asked for the change can&#x27;t explain what it does, it isn&#x27;t ready to merge.</li><li>How to check it: whoever opens the PR can explain in two sentences what changes and why, and how they tested it (with the output). The project template&#x27;s <code>/preparar-pr</code> skill drafts that description.</li><li>Risk areas: read the whole diff in authentication, permissions, money, customer data, database migrations and deployment. There, approval is always human.</li><li>Edge cases AI tends to skip: null or empty values, zero, empty lists, network errors, unvalidated input.</li><li>Main branch protection: turn it on in your platform, requiring CI to pass and at least one approved review before merging.</li><li>Attribution: if you want to know which commits Claude made, by default it adds an attribution line to its commits and PRs; the <code>attribution</code> setting changes or hides it.</li></ul></li><li class="tarea"><input type="checkbox" class="casilla" id="casilla-8"><label for="casilla-8"><strong>8. Merge with a safety net: small commits and an easy way back.</strong></label><ul><li>Why: even if everything above goes well, something will slip through eventually. What matters is being able to undo it quickly.</li><li>Small branches: merge one task each. A 2,000-line PR generated in an afternoon doesn&#x27;t get reviewed: it gets approved blindly.</li><li>Revertible history: prefer one you can revert in one go (<code>git revert &lt;commit&gt;</code> or a squash merge per PR).</li><li>Don&#x27;t rely on <code>/rewind</code> as the rollback plan for merged work: it undoes the file-tool edits from that conversation, but not changes made only with Bash, by subagents or by <code>/code-review --fix</code> in the background. Git does.</li><li>After merging: check the main branch&#x27;s CI and, if you deploy, the logs of the first deployment.</li></ul></li></ul>
+<h2>The script: where to look before merging</h2>
+<p><code>review-branch.sh</code> (<code>en/review-branch.sh</code> in the repo) doesn&#x27;t replace any of the above: in a few seconds it tells you where to look first (files, possible secrets, dependencies, skipped tests and AI configuration). Save it in your repo or on your PATH, make it executable with <code>chmod +x review-branch.sh</code> and run it from the branch you want to merge:</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# Quick review of a branch before merging: ./review-branch.sh [base-branch]
+# It doesn&#x27;t replace human review: it tells you where to look first.
+set -euo pipefail
+base=&quot;${1:-main}&quot;
+range=&quot;$base...HEAD&quot;
+git rev-parse --verify -q &quot;$base&quot; &gt;/dev/null || { echo &quot;Base branch &#x27;$base&#x27; does not exist&quot; &gt;&amp;2; exit 1; }
+
+echo &quot;== Changed files (are they all related to the task?)&quot;
+git diff --stat &quot;$range&quot;
+
+echo; echo &quot;== Possible secrets in added lines&quot;
+git diff &quot;$range&quot; | grep -vE &#x27;^\+\+\+&#x27; | grep -niE &#x27;^\+.*((api|secret|private)[_-]?key|token|passw(or)?d|BEGIN [A-Z ]*PRIVATE KEY)&#x27; || echo &quot;(nothing in sight)&quot;
+
+echo; echo &quot;== Dependencies touched&quot;
+git diff --name-only &quot;$range&quot; | grep -E &#x27;(^|/)(package(-lock)?\.json|pnpm-lock\.yaml|yarn\.lock|requirements[^/]*\.txt|pyproject\.toml|uv\.lock|poetry\.lock|go\.(mod|sum)|Cargo\.(toml|lock)|Gemfile(\.lock)?|composer\.(json|lock))$&#x27; || echo &quot;(none)&quot;
+
+echo; echo &quot;== Tests deleted, skipped or focused&quot;
+git diff --diff-filter=D --name-only &quot;$range&quot; | grep -iE &#x27;test&#x27; || true
+git diff &quot;$range&quot; | grep -nE &#x27;^\+.*(@unittest\.skip|pytest\.mark\.(skip|xfail)|\b(it|describe|test)\.(skip|only)\(|\bx(it|describe)\()&#x27; || echo &quot;(none added)&quot;
+
+echo; echo &quot;== AI and CI configuration touched&quot;
+git diff --name-only &quot;$range&quot; | grep -E &#x27;^(\.claude/|\.mcp\.json|CLAUDE\.md|AGENTS\.md|\.github/)&#x27; || echo &quot;(nothing)&quot;</code></pre>
+<p>Real output on a branch with four planted problems (Nov 1, 2026). The numbers on the findings are line numbers in the <code>git diff</code> output, not in the file:</p>
+<pre><code class="language-text">$ ./review-branch.sh main
+== Changed files (are they all related to the task?)
+ CLAUDE.md           | 1 +
+ requirements.txt    | 1 +
+ src/app/__init__.py | 1 +
+ tests/test_app.py   | 1 +
+ 4 files changed, 4 insertions(+)
+
+== Possible secrets in added lines
+21:+API_KEY = &quot;sk-fake-123&quot;
+
+== Dependencies touched
+requirements.txt
+
+== Tests deleted, skipped or focused
+33:+    @unittest.skip(&quot;later&quot;)
+
+== AI and CI configuration touched
+CLAUDE.md</code></pre>
+<p>The independent review inside Claude Code:</p>
+<pre><code class="language-text">/code-review                     # your branch + uncommitted changes, in a separate subagent
+/code-review low main...my-branch  # few findings, the most certain ones
+/code-review high 1234           # a pull request, more coverage
+/security-review                 # diff against origin&#x27;s default branch
+
+# Against the spec, with the project template&#x27;s reviewer subagent:
+use the revisor subagent to review git diff main...HEAD against SPEC.md: check that every requirement
+is implemented and that edge cases have tests; report only correctness failures and skip style</code></pre>
+<p>If you also want every PR reviewed automatically on GitHub, add the <a href="revision-prs-github-actions.html">PR review with GitHub Actions</a> recipe.</p>
+<h2>Common mistakes</h2>
+<ul><li>Merging because Claude said &quot;all tests pass&quot; → without the command and its output you don&#x27;t know what ran → run the tests yourself or check the CI.</li><li>The red test &quot;got fixed&quot; and nobody looked at how → it was deleted, skipped or its assertion loosened → review the tests folder diff and run <code>review-branch.sh</code>.</li><li>Deleting a secret in a later commit → it&#x27;s still in the history → rotate the secret.</li><li>Approving a package that &quot;sounds right&quot; → it may not exist or may not be the one you think → <code>npm view</code> or <code>pip index versions</code>, and its repository.</li><li>Ignoring a change in <code>.claude/</code> or <code>.github/</code> inside a PR about something else → it changes what Claude can do or what gets checked on every PR → split it out and review it separately.</li><li>Using <code>/code-review --fix</code> and then <code>/rewind</code> → those edits stay outside the checkpoints → commit first and undo with git.</li><li>Reviewing a worktree branch against your HEAD → the worktree starts from the remote default branch → compare against the right base.</li></ul>
+<h2>What we tested and what&#x27;s pending</h2>
+<p>On this PC (Linux, Claude Code 2.1.316): the script (Spanish original <code>revisar-rama.sh</code>, same logic as <code>review-branch.sh</code>) ran on a branch of a test repo with four planted problems (an <code>API_KEY</code> written in the code, a new <code>requirements.txt</code>, an <code>@unittest.skip</code> and a change to CLAUDE.md) and flagged all four; on a branch with no changes it flags nothing; it detects a deleted test; with a nonexistent base branch it exits with code 1; <code>bash -n</code> confirms the syntax. <strong>We didn&#x27;t test</strong> <code>/code-review</code>, <code>/security-review</code> or the reviewer subagent, because they need a logged-in session: their behavior comes from the official docs (code-review-local, commands, best-practices). <code>npm view</code>, <code>pip index versions</code>, <code>npm audit</code>, <code>pip-audit</code>, gitleaks, license-checker and pip-licenses are cited as common tools, without testing them here.</p>
+<h2>FAQ</h2>
+<h3>Does /code-review replace human review?</h3>
+<p>No. It finds correctness bugs with a subagent that didn&#x27;t see the conversation, which makes it useful, but the docs leave the responsibility for reviewing with you. Use it as a first filter and leave final approval to a person, especially for authentication, money, data and deployment.</p>
+<h3>What&#x27;s the difference between /code-review and PR review in GitHub Actions?</h3>
+<p><code>/code-review</code> runs in your session, locally, and counts against your plan like the rest of the session. The GitHub Actions recipe (claude-code-action) reviews every PR on GitHub automatically. There&#x27;s also the managed Code Review service for Team and Enterprise plans. You can combine them: locally before opening the PR, automatically on the PR.</p>
+<h3>Does /code-review read my CLAUDE.md?</h3>
+<p>Yes, it follows your CLAUDE.md, also in a run with <code>-p</code>. It doesn&#x27;t read REVIEW.md, which only configures the managed Code Review service on GitHub.</p>
+<h3>Why didn&#x27;t the script find a secret that&#x27;s there?</h3>
+<p>Because it only looks for typical words in added lines: a key stored in a variable with another name or encoded slips past it. It&#x27;s a quick warning, not a scanner. For that, add a secret-detection tool to CI.</p>
+<h3>How do I stop Claude from weakening tests to make them pass?</h3>
+<p>Tell it in CLAUDE.md (&quot;don&#x27;t change or skip existing tests without asking&quot;), review the tests/ diff on every PR and ask the reviewer to flag deleted, skipped or loosened tests, as the project template&#x27;s <code>/preparar-pr</code> skill does.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="claude-code-headless-cron.html">Claude Code headless: claude -p in scripts and cron, step by step</a></li><li><a href="clear-vs-compact.html">/clear vs /compact in Claude Code, and idle compaction</a></li><li><a href="depurar-bug.html">Debug a bug with Claude Code: from the error to a regression test</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

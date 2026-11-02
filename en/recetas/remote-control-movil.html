@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code on your phone: Remote Control step by step and risks · Ctrl+IA</title>
+<meta name="description" content="Use Claude Code from your phone with Remote Control: requirements, QR pairing, what works in the app, errors with their exact text and privacy risks.">
+<meta property="og:title" content="Claude Code on your phone: Remote Control step by step and risks · Ctrl+IA">
+<meta property="og:description" content="Use Claude Code from your phone with Remote Control: requirements, QR pairing, what works in the app, errors with their exact text and privacy risks.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/remote-control-movil.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/remote-control-movil.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/remote-control-movil.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/remote-control-movil.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/remote-control-movil.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/remote-control-movil.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/remote-control-movil.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code on your phone: Remote Control step by step and risks", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/remote-control-movil.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Use Claude Code from your phone with Remote Control: requirements, QR pairing, what works in the app, errors with their exact text and privacy risks.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/remote-control-movil.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I use Claude Code from my phone if my PC is off?", "acceptedAnswer": {"@type": "Answer", "text": "Not with Remote Control: your PC has to be on with Claude Code open. To work with the PC off, use a cloud session from the app's Code tab (requires the repository on GitHub) or launch it from the terminal with claude --cloud \"task\"."}}, {"@type": "Question", "name": "Is there a Claude Code app for Android or iPhone?", "acceptedAnswer": {"@type": "Answer", "text": "There's no separate app: you use the Claude app (iOS and Android), Code tab. On iPad you install the same iOS app."}}, {"@type": "Question", "name": "Does it work with the free plan or an API key?", "acceptedAnswer": {"@type": "Answer", "text": "No. It requires a Pro, Max, Ultra, Team or Enterprise subscription with a claude.ai sign-in. API keys and providers like Bedrock aren't supported."}}, {"@type": "Question", "name": "Do I need to open ports or use ngrok?", "acceptedAnswer": {"@type": "Answer", "text": "No. The local session only makes outbound HTTPS requests (port 443) to the Anthropic API and never opens inbound ports."}}, {"@type": "Question", "name": "Can I have several remote sessions?", "acceptedAnswer": {"@type": "Answer", "text": "Each interactive session supports one remote session. For several from a single process use server mode (claude remote-control), which supports up to 32 by default (--capacity) and can give each its own worktree with --spawn worktree."}}, {"@type": "Question", "name": "What about Telegram?", "acceptedAnswer": {"@type": "Answer", "text": "That's a different feature: Channels, which sends messages or events from Telegram, Discord or iMessage to a session on your PC through a channel plugin. It's on Pro, Max and Ultra, and on Team or Enterprise if an admin enables it."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/remote-control-movil.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Reference · Intermediate · 5 min</p>
+  <h1 id="t-art">Claude Code on your phone: Remote Control step by step and risks</h1>
+  <p class="entrada">Use Claude Code from your phone with Remote Control: requirements, QR pairing, what works in the app, errors with their exact text and privacy risks.</p>
+  <img class="portada-img" src="../../img/en/remote-control-movil.webp" width="960" height="540" alt="Cover: Claude Code on your phone: Remote Control step by step and risks">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-remote-control-movil"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>Summary</h2>
+<p>You can drive Claude Code from your phone without opening ports or installing anything odd. The core is <strong>Remote Control</strong>: the session keeps running on your PC (with your files, tools and local MCP servers) and you watch and steer it from the Claude app or from claude.ai/code. Here you have the four official ways to work from your phone, the requirements, the step by step, what works in the app, the privacy risks and the common errors with their exact text. A check script and the guide in Markdown are in the <a href="https://github.com/carlosp5751258-lgtm/ctrlia-remote-control-movil" rel="noopener">ctrlia-remote-control-movil</a> repository.</p>
+<h2>Four official ways to use Claude Code from your phone</h2>
+<p>There is no separate Claude Code app: everything lives in the <strong>Code</strong> tab of the Claude app for iOS and Android (on iPad, the same iOS app). According to the <a href="https://code.claude.com/docs/en/mobile" rel="noopener">official documentation</a> there are four options:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Option</th><th scope="col">Where the code runs</th><th scope="col">If you turn off the PC</th><th scope="col">When to use it</th></tr></thead><tbody><tr><td>Cloud session</td><td>Anthropic&#x27;s infrastructure</td><td>Keeps working</td><td>Long task with the repository on GitHub</td></tr><tr><td>Remote Control</td><td>Your PC</td><td>Stops (reconnects when it wakes from sleep)</td><td>The task needs your local files, tools or MCP servers</td></tr><tr><td>Dispatch</td><td>Your PC, via the desktop app</td><td>Stops</td><td>Send a task by message and let the app decide how to do it (Pro, Max and Ultra only)</td></tr><tr><td>Channels</td><td>Your PC, via a channel plugin</td><td>Stops</td><td>Send messages or events from Telegram, Discord or iMessage</td></tr></tbody></table></div>
+<p>The key rule: <strong>if your PC will be off, use the cloud</strong>. Remote Control and Dispatch drive your machine, which has to stay on with Claude Code or the app open. If you&#x27;re unsure which surface to open for each case, see <a href="/en/recetas/que-claude-abrir.html">Which Claude should I open?</a>.</p>
+<h2>Requirements before you start</h2>
+<ul><li><strong>Plan:</strong> Pro, Max, Ultra, Team or Enterprise. On Team and Enterprise it is off by default and an Owner has to turn on the toggle in the Claude Code admin settings. Prices and plans in <a href="/en/recetas/claude-code-precio-gratis.html">Is Claude Code free?</a>.</li><li><strong>claude.ai sign-in, not an API key:</strong> sign in with <code>/login</code>. It doesn&#x27;t work with Amazon Bedrock, Google Cloud or Microsoft Foundry, nor if <code>ANTHROPIC_BASE_URL</code> points to a server other than api.anthropic.com (a proxy, a gateway or the <a href="/en/recetas/claude-code-ollama-openrouter.html">Ollama and OpenRouter</a> tricks).</li><li><strong>Variables that disable it:</strong> <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC</code> or <code>DISABLE_GROWTHBOOK</code>. <code>DISABLE_TELEMETRY</code> and <code>DO_NOT_TRACK</code> no longer block it since version 2.1.283, unless your organization requires Trusted Devices.</li><li><strong>Folder trust:</strong> the first time in a folder it asks whether you trust it.</li><li><strong>On the phone:</strong> install the Claude app and sign in with the same account and organization you use in the terminal.</li></ul>
+<p>Check it all without printing secrets (only variable names are shown, never their value):</p>
+<pre><code class="language-bash">claude auth status | grep -E &#x27;authMethod|subscriptionType&#x27;
+env | grep -E &#x27;^(ANTHROPIC_API_KEY|ANTHROPIC_BASE_URL|CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC|DISABLE_GROWTHBOOK)=&#x27; | cut -d= -f1
+# if any name shows up, that variable blocks Remote Control</code></pre>
+<p>Inside a session, <code>/status</code> shows the account and plan. The repository includes <code>en/check-remote-control.sh</code> (Spanish version: <code>comprobar-remote-control.sh</code> at the root), which runs these checks in one go.</p>
+<h2>Step by step: from the terminal to your phone in 5 minutes</h2>
+<p>There are three ways to start:</p>
+<ol><li><strong>Server mode</strong>, in the project folder: <code>claude remote-control --name &quot;My project&quot;</code>. The first time it asks &quot;Enable Remote Control? (y/n)&quot;; answer <code>y</code>. The process waits for connections, shows the session URL and, if you press the space bar, a QR code.</li><li><strong>Interactive session with remote control:</strong> <code>claude --remote-control</code>.</li><li><strong>Inside an already open session:</strong> <code>/remote-control</code> (alias <code>/rc</code>), which keeps the conversation you were having.</li></ol>
+<pre><code class="language-bash">cd ~/my-project
+claude remote-control --name &quot;My project&quot;
+# several sessions at once, each in its own git worktree:
+claude remote-control --spawn worktree</code></pre>
+<pre><code class="language-bash">claude --remote-control
+# or, inside an already open session:
+/remote-control</code></pre>
+<p>While connected, the terminal shows the <code>/rc active</code> indicator; running <code>/remote-control</code> again opens the panel with the URL, the QR and the option to disconnect.</p>
+<p>On the phone: scan the QR, or open the app, tap <strong>Code</strong> and pick the session by name (Remote Control sessions have a computer icon with a green dot). If you don&#x27;t have the app yet, <code>/mobile</code> shows a QR that opens the right store. To have all your sessions connect automatically, open <code>/config</code> and turn on &quot;Enable Remote Control for all sessions&quot;.</p>
+<p>To return to the last remote session in this folder (from the last ~4 hours):</p>
+<pre><code class="language-bash">claude remote-control --continue</code></pre>
+<h2>What you see and what you can do from your phone</h2>
+<ul><li><strong>Everything syncs:</strong> the conversation, subagent progress and background workflows. You can type from the terminal, the browser or the phone interchangeably, and stopping a task from the phone stops it on your PC.</li><li><strong>Attachments:</strong> photos (Claude sees them and they are also saved in <code>~/.claude/uploads/</code>) and other files, which download to your machine as <code>@</code> references.</li><li><strong>Commands that work</strong> from mobile and web include: <code>/compact</code>, <code>/clear</code>, <code>/context</code>, <code>/usage</code>, <code>/model sonnet</code>, <code>/effort high</code>, <code>/fast</code>, <code>/rename</code> and <code>/config key=value</code>. Terminal-only commands, such as <code>/plugin</code> or <code>/resume</code>, don&#x27;t.</li><li><strong>Permission modes</strong> from the app: Manual, Accept edits, Plan and Auto. Bypass permissions can&#x27;t be chosen from the phone. To fine-tune what gets auto-approved, see <a href="/en/recetas/permisos-claude-code.html">Claude Code permissions</a>.</li><li><strong>Notifications:</strong> in <code>/config</code> turn on &quot;Push when Claude decides&quot; and &quot;Push when actions required&quot; so it alerts you when it finishes or needs an approval. You can also ask for it in the prompt (&quot;let me know when the tests finish&quot;).</li></ul>
+<h2>Privacy and security: what you should know</h2>
+<ul><li><strong>Your code runs and your files are read only on your PC.</strong> The local session only makes outbound HTTPS requests and never opens inbound ports: you don&#x27;t have to touch your router or expose anything to the internet. All traffic goes through the Anthropic API over TLS, with short-lived credentials.</li><li><strong>The transcript does leave your PC.</strong> While Remote Control is connected, the session transcript (your messages, Claude&#x27;s replies and tool activity) is stored on Anthropic&#x27;s servers to sync devices, and kept according to its <a href="https://code.claude.com/docs/en/data-usage" rel="noopener">data usage policy</a>. That includes whatever Claude reads on screen: don&#x27;t use it in folders with secrets you don&#x27;t want leaving your machine.</li><li><strong>The biggest risk is your account:</strong> whoever gets into your claude.ai account can drive your PC. Turn on <strong>Trusted Devices</strong> (beta; on Pro, Max and Ultra you enable it yourself in Settings, Cowork or Account page): it requires an enrolled device and a sign-in less than 18 hours old, renewable with fingerprint, Face ID, Windows Hello or a passkey.</li><li><strong>Turn it off completely on a machine:</strong> set <code>disableRemoteControl</code> in your <code>settings.json</code>.</li></ul>
+<pre><code class="language-json">{
+  &quot;disableRemoteControl&quot;: true
+}</code></pre>
+<h2>Common mistakes and their fix</h2>
+<ul><li><strong>&quot;Remote Control requires a claude.ai subscription&quot;</strong> → you&#x27;re not signed in with claude.ai → run <code>/login</code>.</li><li><strong>&quot;requires claude.ai subscription auth&quot;</strong> naming <code>ANTHROPIC_API_KEY</code>, <code>apiKeyHelper</code> or <code>ANTHROPIC_AUTH_TOKEN</code> → you&#x27;re using a key → remove it from your environment.</li><li><strong>&quot;Remote Control isn&#x27;t enabled for this account&quot;</strong> (before 2.1.239 it said &quot;Remote Control is not yet enabled for your account&quot;) → usually plan info cached after a plan change → run <code>claude auth logout</code> and <code>claude auth login</code>, update Claude Code and use <code>claude doctor</code> to see which check fails.</li><li><strong>&quot;Remote Control is disabled by your organization&#x27;s policy&quot;</strong> → on Team or Enterprise an Owner hasn&#x27;t enabled it or your roles don&#x27;t include the permission → ask for it; if your plan is Pro, Max or Ultra, you may still be signed in to an old organization: check <code>/status</code> and sign in again.</li><li><strong>&quot;Remote Control requires a full-scope login token&quot;</strong> → you&#x27;re using a token from <code>claude setup-token</code> or <code>CLAUDE_CODE_OAUTH_TOKEN</code> → sign in with <code>claude auth login</code>.</li><li><strong>Server mode exits on its own</strong> → it was without network for about 10 minutes → launch it again; the interactive session reconnects by itself.</li></ul>
+<p>More general failures in <a href="/en/recetas/errores-comunes-claude-code.html">Common Claude Code errors</a>.</p>
+<h2>What we tested and what&#x27;s pending</h2>
+<p>On this PC (Linux, Claude Code 2.1.316) we checked that <code>claude auth status</code> returns <code>authMethod</code> claude.ai on the Max plan, that no variables block it, and that <code>claude remote-control --help</code> confirms <code>--name</code>, <code>--continue</code>, <code>--session-id</code>, <code>--permission-mode</code> and <code>--chrome</code>. <strong>The phone part is not tested yet</strong> (pairing with the QR, approving a change from the phone and receiving a notification); we don&#x27;t open remote sessions without the owner present. When we test it, we&#x27;ll update this page and its date. If you&#x27;re just starting, follow the <a href="/en/recetas/empieza-aqui.html">Start here</a> route first.</p>
+<h2>FAQ</h2>
+<h3>Can I use Claude Code from my phone if my PC is off?</h3>
+<p>Not with Remote Control: your PC has to be on with Claude Code open. To work with the PC off, use a cloud session from the app&#x27;s Code tab (requires the repository on GitHub) or launch it from the terminal with <code>claude --cloud &quot;task&quot;</code>.</p>
+<h3>Is there a Claude Code app for Android or iPhone?</h3>
+<p>There&#x27;s no separate app: you use the Claude app (iOS and Android), Code tab. On iPad you install the same iOS app.</p>
+<h3>Does it work with the free plan or an API key?</h3>
+<p>No. It requires a Pro, Max, Ultra, Team or Enterprise subscription with a claude.ai sign-in. API keys and providers like Bedrock aren&#x27;t supported.</p>
+<h3>Do I need to open ports or use ngrok?</h3>
+<p>No. The local session only makes outbound HTTPS requests (port 443) to the Anthropic API and never opens inbound ports.</p>
+<h3>Can I have several remote sessions?</h3>
+<p>Each interactive session supports one remote session. For several from a single process use server mode (<code>claude remote-control</code>), which supports up to 32 by default (<code>--capacity</code>) and can give each its own worktree with <code>--spawn worktree</code>.</p>
+<h3>What about Telegram?</h3>
+<p>That&#x27;s a different feature: Channels, which sends messages or events from Telegram, Discord or iMessage to a session on your PC through a channel plugin. It&#x27;s on Pro, Max and Ultra, and on Team or Enterprise if an admin enables it.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="checklist-revisar-codigo-ia.html">Before merging Claude Code&#x27;s code: a review checklist</a></li><li><a href="claude-code-headless-cron.html">Claude Code headless: claude -p in scripts and cron, step by step</a></li><li><a href="clear-vs-compact.html">/clear vs /compact in Claude Code, and idle compaction</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Plantilla de proyecto para Claude Code: repo listo y seguro · Ctrl+IA</title>
+<meta name="description" content="Repo plantilla para Claude Code: CLAUDE.md corto, settings.json con allow, ask y deny, hooks de seguridad y de tests, dos skills, revisor y CI. Probado.">
+<meta property="og:title" content="Plantilla de proyecto para Claude Code: repo listo y seguro · Ctrl+IA">
+<meta property="og:description" content="Repo plantilla para Claude Code: CLAUDE.md corto, settings.json con allow, ask y deny, hooks de seguridad y de tests, dos skills, revisor y CI. Probado.">
+<meta property="og:image" content="https://ctrlia.dev/img/plantilla-claude-code.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/plantilla-claude-code.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/plantilla-claude-code.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/plantilla-claude-code.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/plantilla-claude-code.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/plantilla-claude-code.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/plantilla-claude-code.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Plantilla de proyecto para Claude Code: repo listo y seguro", "totalTime": "PT15M", "step": [{"@type": "HowToStep", "position": 1, "name": "Copia la plantilla en tu repo", "text": "Usa el repositorio ctrlia-plantilla-claude-code como plantilla en GitHub (botón «Use this template») o copia sus archivos en tu proyecto. Borra src/ y tests/ de ejemplo.", "url": "https://ctrlia.dev/recetas/plantilla-claude-code.html"}, {"@type": "HowToStep", "position": 2, "name": "Pon tu comando de tests", "text": "Cambia el comando de tests por el tuyo (npm test, pytest, go test ./...) en CLAUDE.md, settings.json, verificar.sh, las skills y ci.yml. En Node, el allow sería Bash(npm test ) y el hook Stop npm test --silent.", "url": "https://ctrlia.dev/recetas/plantilla-claude-code.html"}, {"@type": "HowToStep", "position": 3, "name": "Valida el JSON", "text": "Con claude doctor verás «Invalid settings» si hay un error de sintaxis.", "url": "https://ctrlia.dev/recetas/plantilla-claude-code.html"}, {"@type": "HowToStep", "position": 4, "name": "Acepta la confianza en la carpeta", "text": "Abre claude en modo interactivo una vez y acepta el diálogo de confianza: es el que activa tus reglas allow. Hasta entonces, claude -p avisa en stderr:", "url": "https://ctrlia.dev/recetas/plantilla-claude-code.html"}, {"@type": "HowToStep", "position": 5, "name": "Comprueba que todo cargó", "text": "En la sesión: /hooks (deben salir PreToolUse y Stop), /permissions (cada regla y de qué archivo viene), /skills (probar y preparar-pr) y /context (cuánto ocupa todo).", "url": "https://ctrlia.dev/recetas/plantilla-claude-code.html"}, {"@type": "HowToStep", "position": 6, "name": "Haz una prueba de fuego", "text": "Pide «lee el .env» (debe bloquearse) y «cambia sumar para que reste y termina» (el hook Stop debe devolverle el test roto). Los hooks también se pueden probar sin abrir Claude; esta es la salida real del 1-nov-2026:", "url": "https://ctrlia.dev/recetas/plantilla-claude-code.html"}, {"@type": "HowToStep", "position": 7, "name": "Sube todo y protege main", "text": "Sube todo menos lo personal y activa en GitHub la protección de la rama main exigiendo que pase el check «tests» y una revisión.", "url": "https://ctrlia.dev/recetas/plantilla-claude-code.html"}], "description": "Repo plantilla para Claude Code: CLAUDE.md corto, settings.json con allow, ask y deny, hooks de seguridad y de tests, dos skills, revisor y CI. Probado.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/plantilla-claude-code.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Por qué mis reglas allow no hacen nada en un repo recién clonado?", "acceptedAnswer": {"@type": "Answer", "text": "Porque las reglas allow (y additionalDirectories) del .claude/settings.json del proyecto solo se aplican después de aceptar el diálogo de confianza de la carpeta, que solo aparece en una sesión interactiva. Con claude -p verás en stderr «Ignoring N permissions.allow entries from .claude/settings.json: this workspace has not been trusted». Abre claude una vez en la carpeta y acepta. Las reglas deny y ask se aplican siempre."}}, {"@type": "Question", "name": "¿Puedo poner defaultMode: auto o bypassPermissions en la plantilla?", "acceptedAnswer": {"@type": "Answer", "text": "No tiene efecto. Según la documentación, auto y bypassPermissions puestos en .claude/settings.json o .claude/settings.local.json se ignoran: con auto se usa el modo por defecto de Claude Code y con bypass la sesión arranca en modo Manual. El resto de valores (default, acceptEdits, plan, dontAsk) sí funcionan desde el proyecto en la terminal. La extensión de VS Code nunca lee el modo inicial de los ajustes del proyecto."}}, {"@type": "Question", "name": "¿El hook Stop no deja a Claude en un bucle infinito?", "acceptedAnswer": {"@type": "Answer", "text": "No. El script sale sin bloquear si stop_hook_active es true (Claude ya está continuando por un hook Stop) y, además, Claude Code ignora el bloqueo tras 8 continuaciones seguidas sin llamar a ninguna herramienta. Se puede subir ese límite con CLAUDE_CODE_STOP_HOOK_BLOCK_CAP."}}, {"@type": "Question", "name": "¿Sirve para Node, Go o Java?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Solo cambia el comando de tests en cinco sitios: CLAUDE.md, la regla allow de settings.json, verificar.sh, las dos skills y ci.yml (y el paso de setup del lenguaje en el CI). Los hooks de seguridad no dependen del lenguaje del proyecto, solo necesitan python3 en la máquina."}}, {"@type": "Question", "name": "¿Por qué el .worktreeinclude no copia mi .env?", "acceptedAnswer": {"@type": "Answer", "text": "Solo copia archivos que coinciden con un patrón y además están ignorados por git, y solo en los worktrees que crea Claude Code (--worktree, subagentes con worktree y sesiones paralelas de la app de escritorio). No actúa con un git worktree add manual ni cuando un hook WorktreeCreate sustituye la creación; en ese caso copia los archivos dentro del hook."}}, {"@type": "Question", "name": "¿Debo subir .claude/settings.json a git?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, es el archivo del equipo. Lo personal va en .claude/settings.local.json (Claude Code guarda ahí lo que apruebas con «no volver a preguntar») y en CLAUDE.local.md, ambos en el .gitignore. Ojo: si settings.local.json está versionado en git, Claude Code lo trata como del repositorio y retiene sus reglas hasta que confíes en la carpeta."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/plantilla-claude-code.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Plantilla · Intermedio · 15 min</p>
+  <h1 id="t-art">Plantilla de proyecto para Claude Code: repo listo y seguro</h1>
+  <p class="entrada">Repo plantilla para Claude Code: CLAUDE.md corto, settings.json con allow, ask y deny, hooks de seguridad y de tests, dos skills, revisor y CI. Probado.</p>
+  <img class="portada-img" src="../img/plantilla-claude-code.webp" width="960" height="540" alt="Portada: Plantilla de proyecto para Claude Code: repo listo y seguro">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-plantilla-claude-code"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Ver los archivos en GitHub</a> <span class="nota">Gratis · licencia MIT</span></p>
+  
+  
+<h2>Qué incluye</h2>
+<p>Un repositorio plantilla para empezar cualquier proyecto con Claude Code bien configurado: un <code>CLAUDE.md</code> corto con lo que Claude no puede deducir, un <code>.claude/settings.json</code> con reglas allow, ask y deny y el modo bypass bloqueado, dos hooks (uno frena secretos, <code>rm -rf</code> amplios y push forzado a main; otro no deja terminar con los tests rotos), dos skills, un subagente revisor, un CI que Claude debe pasar y un <code>.worktreeinclude</code> para sesiones en paralelo. Cada archivo está completo y probado en Linux con Claude Code 2.1.316. También explica qué se aplica antes y después de aceptar la confianza en la carpeta y qué no protege la plantilla.</p>
+<p>Son 13 archivos y ninguna dependencia externa (Python 3 y git):</p>
+<pre><code class="language-text">CLAUDE.md                      instrucciones del proyecto (corto)
+.claude/settings.json          permisos y hooks del equipo (va en git)
+.claude/hooks/proteger.py      PreToolUse: secretos, rm -rf, push --force
+.claude/hooks/verificar.sh     Stop: no termina con tests rotos
+.claude/skills/probar/SKILL.md      /probar: tests con evidencia
+.claude/skills/preparar-pr/SKILL.md /preparar-pr: revisión antes del PR
+.claude/agents/revisor.md      subagente revisor de solo lectura
+.github/workflows/ci.yml       el CI que Claude debe pasar
+.worktreeinclude               qué archivos ignorados copiar a cada worktree
+.gitignore  .env.example  src/app/__init__.py  tests/test_app.py</code></pre>
+<p>La regla que ordena todo viene de la <a href="https://code.claude.com/docs/es/best-practices" rel="noopener">guía oficial de buenas prácticas</a>: CLAUDE.md es para orientaciones y Claude puede decidir que una no aplica; lo que tiene que cumplirse siempre va en un hook, una regla deny o un ajuste administrado, porque eso lo aplica Claude Code y no el modelo. Por eso «nunca leas .env» aparece tres veces: como frase en CLAUDE.md (para que Claude no lo intente), como regla deny (bloquea la herramienta Read y los comandos de lectura que Claude Code reconoce) y en el hook (bloquea también un <code>cp .env ...</code> en Bash). Lo personal queda fuera de git: <code>.claude/settings.local.json</code>, <code>CLAUDE.local.md</code> y <code>.claude/worktrees/</code> están en el <code>.gitignore</code>.</p>
+<h2>Cómo usarla</h2>
+<h3>1. Copia la plantilla en tu repo</h3>
+<p>Usa el repositorio <a href="https://github.com/carlosp5751258-lgtm/ctrlia-plantilla-claude-code" rel="noopener">ctrlia-plantilla-claude-code</a> como plantilla en GitHub (botón «Use this template») o copia sus archivos en tu proyecto. Borra <code>src/</code> y <code>tests/</code> de ejemplo.</p>
+<h3>2. Pon tu comando de tests</h3>
+<p>Cambia el comando de tests por el tuyo (<code>npm test</code>, <code>pytest</code>, <code>go test ./...</code>) en CLAUDE.md, settings.json, verificar.sh, las skills y ci.yml. En Node, el allow sería <code>Bash(npm test *)</code> y el hook Stop <code>npm test --silent</code>.</p>
+<h3>3. Valida el JSON</h3>
+<pre><code class="language-bash">python3 -m json.tool .claude/settings.json</code></pre>
+<p>Con <code>claude doctor</code> verás «Invalid settings» si hay un error de sintaxis.</p>
+<h3>4. Acepta la confianza en la carpeta</h3>
+<p>Abre <code>claude</code> en modo interactivo una vez y acepta el diálogo de confianza: es el que activa tus reglas allow. Hasta entonces, <code>claude -p</code> avisa en stderr:</p>
+<pre><code class="language-text">Ignoring 4 permissions.allow entries from .claude/settings.json: this workspace has not been trusted.</code></pre>
+<h3>5. Comprueba que todo cargó</h3>
+<p>En la sesión: <code>/hooks</code> (deben salir PreToolUse y Stop), <code>/permissions</code> (cada regla y de qué archivo viene), <code>/skills</code> (probar y preparar-pr) y <code>/context</code> (cuánto ocupa todo).</p>
+<h3>6. Haz una prueba de fuego</h3>
+<p>Pide «lee el .env» (debe bloquearse) y «cambia sumar para que reste y termina» (el hook Stop debe devolverle el test roto). Los hooks también se pueden probar sin abrir Claude; esta es la salida real del 1-nov-2026:</p>
+<pre><code class="language-bash">H=.claude/hooks/proteger.py
+echo &#x27;{&quot;tool_name&quot;:&quot;Read&quot;,&quot;tool_input&quot;:{&quot;file_path&quot;:&quot;/x/proyecto/.env&quot;}}&#x27; | python3 $H; echo &quot;exit $?&quot;
+# Bloqueado por el hook de seguridad: &#x27;/x/proyecto/.env&#x27; tiene secretos. Pide al usuario el dato que necesites.
+# exit 2
+echo &#x27;{&quot;tool_name&quot;:&quot;Read&quot;,&quot;tool_input&quot;:{&quot;file_path&quot;:&quot;/x/proyecto/.env.example&quot;}}&#x27; | python3 $H; echo &quot;exit $?&quot;
+# exit 0
+echo &#x27;{&quot;tool_name&quot;:&quot;Bash&quot;,&quot;tool_input&quot;:{&quot;command&quot;:&quot;rm -r -f /&quot;}}&#x27; | python3 $H; echo &quot;exit $?&quot;
+# Bloqueado por el hook de seguridad: &#x27;rm -rf /&#x27; es demasiado amplio. Borra rutas concretas del proyecto.
+# exit 2
+echo &#x27;{&quot;tool_name&quot;:&quot;Bash&quot;,&quot;tool_input&quot;:{&quot;command&quot;:&quot;rm -rf build dist&quot;}}&#x27; | python3 $H; echo &quot;exit $?&quot;
+# exit 0
+echo &#x27;{&quot;tool_name&quot;:&quot;Bash&quot;,&quot;tool_input&quot;:{&quot;command&quot;:&quot;git push --force origin main&quot;}}&#x27; | python3 $H; echo &quot;exit $?&quot;
+# Bloqueado por el hook de seguridad: &#x27;git push --force&#x27; a main está prohibido. Usa una rama y un pull request.
+# exit 2
+
+# Hook Stop con un test roto (sumar devuelve a - b):
+echo &#x27;{&quot;stop_hook_active&quot;: false}&#x27; | CLAUDE_PROJECT_DIR=$PWD bash .claude/hooks/verificar.sh; echo &quot;exit $?&quot;
+# Los tests fallan; arréglalos antes de terminar:
+# FAIL: test_suma_enteros (test_app.TestSumar.test_suma_enteros)
+# AssertionError: -1 != 5
+# exit 2</code></pre>
+<h3>7. Sube todo y protege main</h3>
+<p>Sube todo menos lo personal y activa en GitHub la protección de la rama main exigiendo que pase el check «tests» y una revisión.</p>
+<h2>Los archivos</h2>
+<h3>CLAUDE.md: solo lo que Claude no puede ver</h3>
+<p>La <a href="https://code.claude.com/docs/en/memory" rel="noopener">documentación oficial</a> propone una prueba antes de escribir cada línea: ¿podría Claude encontrarlo leyendo el código? ¿Iría a buscarlo? Si las dos respuestas son sí, sobra. Claude descubre solo la estructura de carpetas, el framework de tests y las convenciones; lo que no descubre son las decisiones del equipo, el proceso de despliegue o qué variables de entorno hacen falta.</p>
+<p>Por eso el CLAUDE.md de la plantilla tiene tres bloques y menos de 20 líneas: los comandos exactos (la línea más útil de un CLAUDE.md, según la guía oficial, es la que ejecuta los tests), cómo trabaja el equipo y lo que no está en el código. No hay mayúsculas ni «IMPORTANTE»: la guía oficial dice que los modelos actuales siguen una línea escrita con normalidad y que el énfasis hace que apliquen la regla de más. Si ya tienes un AGENTS.md para Codex o Cursor, desde la 2.1.277 Claude Code lo lee cuando no hay CLAUDE.md; si existen los dos, solo carga CLAUDE.md, así que puedes importarlo con <code>@AGENTS.md</code>. Adáptalo con <code>/init</code>, que sugiere mejoras si el archivo ya existe en lugar de sobrescribirlo. Más en <a href="claude-md-que-funciona.html">un CLAUDE.md que funciona</a>.</p>
+<pre><code class="language-markdown"># Proyecto: app de ejemplo (plantilla Ctrl+IA)
+
+## Comandos
+- Tests: `python3 -m unittest discover -s tests -v`
+- Un solo test: `python3 -m unittest tests.test_app -v`
+- No hay paso de build: es Python puro, sin dependencias externas.
+
+## Cómo trabajamos
+- Antes de dar algo por terminado, ejecuta los tests y pega el comando y su salida.
+- Cambios pequeños: una tarea, una rama, un pull request.
+- No añadas dependencias nuevas sin preguntar primero.
+- No toques `.github/workflows/` ni `.claude/` salvo que te lo pida.
+
+## Lo que no está en el código
+- Los secretos van en `.env` (no está en git). Usa `.env.example` para saber qué variables existen; nunca leas ni copies `.env`.
+- `main` está protegida: solo se fusiona por pull request con el CI en verde.</code></pre>
+<h3>.claude/settings.json: permisos del equipo</h3>
+<p>Las reglas se evalúan en el orden deny → ask → allow y gana la primera que coincide, aunque otra sea más específica. La plantilla:</p>
+<ul><li><strong>allow</strong>: los tests (<code>Bash(python3 -m unittest *)</code>), <code>git add</code>, <code>git commit</code> y <code>git switch -c</code>. Los comandos de solo lectura como <code>ls</code>, <code>cat</code>, <code>git status</code> o <code>git diff</code> no hace falta permitirlos: Claude Code ya los ejecuta sin preguntar.</li><li><strong>ask</strong>: <code>git push</code>, instalar paquetes (<code>pip install</code>, <code>uv add</code>) y editar <code>.github/</code>. Una regla ask pregunta aunque haya un allow que coincida, incluso en el modo auto.</li><li><strong>deny</strong>: leer <code>.env</code> y <code>.env.*</code> (con <code>Read(!.env.example)</code> para dejar leer la plantilla de variables), <code>secrets/</code>, y <code>curl</code>, <code>wget</code> y <code>sudo</code>.</li><li><strong>disableBypassPermissionsMode: &quot;disable&quot;</strong>: impide arrancar en bypassPermissions. Según la documentación funciona desde cualquier ámbito. Quítalo si trabajas dentro de un contenedor desechable.</li></ul>
+<p>Dos límites que hay que conocer. Uno: las reglas allow de este archivo no se aplican hasta que aceptas el diálogo de confianza de la carpeta; las deny y ask se aplican desde el principio. Dos: <code>deny: Bash(curl *)</code> compara el texto, así que no frena <code>/usr/bin/curl</code> ni <code>sh -c &#x27;curl …&#x27;</code>. Si necesitas cortar la red de verdad, activa el sandbox (<code>/sandbox</code>; en Linux necesita bubblewrap y socat) con <code>sandbox.network.allowedDomains</code>. La plantilla no lo activa en el archivo del proyecto porque, si faltan esas dependencias, Claude Code ejecuta los comandos sin sandbox salvo que pongas <code>sandbox.failIfUnavailable</code>. La sintaxis completa está en la receta de <a href="permisos-claude-code.html">permisos</a>.</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://json.schemastore.org/claude-code-settings.json&quot;,
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [
+      &quot;Bash(python3 -m unittest *)&quot;,
+      &quot;Bash(git add *)&quot;,
+      &quot;Bash(git commit *)&quot;,
+      &quot;Bash(git switch -c *)&quot;
+    ],
+    &quot;ask&quot;: [
+      &quot;Bash(git push *)&quot;,
+      &quot;Bash(pip install *)&quot;,
+      &quot;Bash(uv add *)&quot;,
+      &quot;Edit(/.github/**)&quot;
+    ],
+    &quot;deny&quot;: [
+      &quot;Read(./.env)&quot;,
+      &quot;Read(./.env.*)&quot;,
+      &quot;Read(!.env.example)&quot;,
+      &quot;Read(./secrets/**)&quot;,
+      &quot;Bash(curl *)&quot;,
+      &quot;Bash(wget *)&quot;,
+      &quot;Bash(sudo *)&quot;
+    ],
+    &quot;disableBypassPermissionsMode&quot;: &quot;disable&quot;
+  },
+  &quot;hooks&quot;: {
+    &quot;PreToolUse&quot;: [
+      {
+        &quot;matcher&quot;: &quot;Bash|Read|Edit|Write&quot;,
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;python3 \&quot;$CLAUDE_PROJECT_DIR\&quot;/.claude/hooks/proteger.py&quot;
+          }
+        ]
+      }
+    ],
+    &quot;Stop&quot;: [
+      {
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;bash \&quot;$CLAUDE_PROJECT_DIR\&quot;/.claude/hooks/verificar.sh&quot;
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+<h3>.claude/hooks/proteger.py: lo que no puede fallar</h3>
+<p>Hook <strong>PreToolUse</strong>: se ejecuta antes de cada Bash, Read, Edit y Write. Si sale con código 2, Claude Code cancela la herramienta y le pasa el motivo a Claude. Bloquea: leer o escribir <code>.env</code>, <code>.env.local</code>, claves <code>.pem</code>, <code>.key</code>, <code>id_rsa</code> e <code>id_ed25519</code> (deja <code>.env.example</code>); comandos de Bash que nombran esos archivos; <code>rm -rf</code> (también <code>-r -f</code>, <code>-Rf</code>, <code>--recursive --force</code> y con <code>sudo</code>) sobre <code>/</code>, <code>~</code>, <code>$HOME</code>, <code>.</code>, <code>..</code>, <code>*</code> o rutas absolutas; y <code>git push --force</code> o <code>-f</code> hacia main o master. Si le llega un JSON ilegible, bloquea, para fallar del lado seguro. Es la versión corta de la receta <a href="hooks-seguridad.html">hooks de seguridad</a>, que explica cada expresión regular.</p>
+<pre><code class="language-python">#!/usr/bin/env python3
+&quot;&quot;&quot;Hook PreToolUse: frena secretos, rm -rf fuera del proyecto y git push --force a main.
+Versión corta; la completa y explicada está en la receta «hooks de seguridad» de ctrlia.dev.&quot;&quot;&quot;
+import json
+import re
+import sys
+
+SECRETO = re.compile(r&quot;(^|/)(\.env(\.[\w-]+)?|[\w.-]+\.pem|[\w.-]+\.key|id_rsa\w*|id_ed25519\w*)$&quot;)
+PLANTILLA = re.compile(r&quot;(^|/)\.env\.(example|sample|template)$&quot;)
+SECRETO_EN_COMANDO = re.compile(r&quot;(?&lt;![\w.-])(\.env(\.[\w-]+)?|[\w.-]+\.pem|id_rsa\w*|id_ed25519\w*)(?![\w.-])&quot;)
+
+
+def bloquear(motivo):
+    print(f&quot;Bloqueado por el hook de seguridad: {motivo}&quot;, file=sys.stderr)
+    sys.exit(2)  # 2 = Claude Code cancela la herramienta y le pasa el motivo a Claude
+
+
+def main():
+    try:
+        datos = json.load(sys.stdin)
+    except ValueError:
+        bloquear(&quot;entrada JSON ilegible; por seguridad no se ejecuta nada&quot;)
+    herramienta = datos.get(&quot;tool_name&quot;, &quot;&quot;)
+    entrada = datos.get(&quot;tool_input&quot;, {}) or {}
+
+    if herramienta in (&quot;Read&quot;, &quot;Edit&quot;, &quot;Write&quot;):
+        ruta = entrada.get(&quot;file_path&quot;, &quot;&quot;)
+        if SECRETO.search(ruta) and not PLANTILLA.search(ruta):
+            bloquear(f&quot;&#x27;{ruta}&#x27; tiene secretos. Pide al usuario el dato que necesites.&quot;)
+    elif herramienta == &quot;Bash&quot;:
+        comando = entrada.get(&quot;command&quot;, &quot;&quot;)
+        for m in SECRETO_EN_COMANDO.finditer(comando):
+            if not re.fullmatch(r&quot;\.env\.(example|sample|template)&quot;, m.group(1)):
+                bloquear(f&quot;el comando toca &#x27;{m.group(1)}&#x27;, que tiene secretos.&quot;)
+        for parte in re.split(r&quot;&amp;&amp;|\|\||;|\||\n&quot;, comando):
+            p = parte.split()
+            if p[:1] == [&quot;sudo&quot;]:
+                p = p[1:]
+            opciones = &quot;&quot;.join(o.lstrip(&quot;-&quot;) for o in p[1:] if o.startswith(&quot;-&quot;) and not o.startswith(&quot;--&quot;))
+            recursivo = &quot;r&quot; in opciones.lower() or &quot;--recursive&quot; in p
+            forzado = &quot;f&quot; in opciones or &quot;--force&quot; in p
+            if p[:1] == [&quot;rm&quot;] and recursivo and forzado:
+                for destino in (x.strip(&quot;&#x27;\&quot;&quot;) for x in p[1:] if not x.startswith(&quot;-&quot;)):
+                    if destino in (&quot;.&quot;, &quot;./&quot;, &quot;..&quot;, &quot;*&quot;, &quot;./*&quot;) or destino.startswith((&quot;/&quot;, &quot;~&quot;, &quot;$HOME&quot;, &quot;..&quot;)):
+                        bloquear(f&quot;&#x27;rm -rf {destino}&#x27; es demasiado amplio. Borra rutas concretas del proyecto.&quot;)
+            if re.search(r&quot;\bgit\b.*\bpush\b&quot;, parte) and re.search(r&quot;\s(--force\S*|-[a-zA-Z]*f)\b&quot;, parte) \
+                    and re.search(r&quot;\b(main|master)\b&quot;, parte):
+                bloquear(&quot;&#x27;git push --force&#x27; a main está prohibido. Usa una rama y un pull request.&quot;)
+    sys.exit(0)  # sin objeciones: sigue el flujo normal de permisos
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+<h3>.claude/hooks/verificar.sh: no termina con los tests rotos</h3>
+<p>Hook <strong>Stop</strong>: se ejecuta cada vez que Claude intenta terminar su turno. Si no hay cambios en el árbol de trabajo, no hace nada. Si los hay, corre los tests; si fallan, devuelve el final de la salida por stderr y sale con 2, y Claude recibe los errores y sigue trabajando. Para no entrar en bucle mira <code>stop_hook_active</code> (vale true cuando Claude ya sigue por culpa de un hook Stop), y además Claude Code corta solo tras 8 bloqueos seguidos sin ninguna herramienta de por medio.</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# Hook Stop: si hay cambios sin probar, Claude no puede terminar hasta que pasen los tests.
+set -euo pipefail
+entrada=$(cat)
+# Si ya estamos en una vuelta provocada por este hook, no insistas (evita bucles).
+if grep -q &#x27;&quot;stop_hook_active&quot;: *true&#x27; &lt;&lt;&lt;&quot;$entrada&quot;; then exit 0; fi
+cd &quot;${CLAUDE_PROJECT_DIR:-.}&quot; || exit 0
+# Sin cambios en el árbol de trabajo no hay nada que comprobar.
+if [ -z &quot;$(git status --porcelain 2&gt;/dev/null || true)&quot; ]; then exit 0; fi
+if ! salida=$(python3 -m unittest discover -s tests 2&gt;&amp;1); then
+  printf &#x27;Los tests fallan; arréglalos antes de terminar:\n%s\n&#x27; &quot;$salida&quot; | tail -n 40 &gt;&amp;2
+  exit 2
+fi
+exit 0</code></pre>
+<p>Ojo: según la <a href="https://code.claude.com/docs/en/hooks" rel="noopener">documentación</a>, en un repositorio que no es tuyo los hooks del proyecto se ejecutan con <code>claude -p</code> aunque nunca hayas aceptado la confianza. Lo comprobamos: un hook SessionStart creó un archivo antes incluso de pedir inicio de sesión. Por eso conviene revisar <code>.claude/</code> de cualquier repo antes de lanzar Claude en él (lo explica la <a href="checklist-permisos-claude-code.html">checklist de permisos</a>).</p>
+<h3>.claude/skills/probar/SKILL.md</h3>
+<p>Las skills viven en <code>.claude/skills/&lt;nombre&gt;/SKILL.md</code> y se invocan con <code>/nombre</code> o las carga Claude solo cuando la description encaja. <strong>/probar</strong> ejecuta los tests y exige pegar la salida real. Lleva <code>allowed-tools: Bash(python3 -m unittest *)</code>, que aprueba solo ese comando durante el turno de la skill. Acótalo siempre: según la documentación, la confianza en la carpeta nunca limita el allowed-tools de una skill de proyecto, así que un repo ajeno podría traer una skill con <code>allowed-tools: Bash</code>. Si es tu primera skill, mira <a href="primera-skill.html">cómo crear una</a>.</p>
+<pre><code class="language-markdown">---
+name: probar
+description: Ejecuta los tests del proyecto y resume el resultado con la evidencia. Úsala después de cambiar código o cuando el usuario pregunte si algo funciona.
+allowed-tools: Bash(python3 -m unittest *)
+---
+1. Ejecuta `python3 -m unittest discover -s tests -v`.
+2. Si todo pasa, responde con el número de tests y la última línea de la salida (por ejemplo `OK`).
+3. Si algo falla, copia el nombre del test, el error y el archivo y la línea donde ocurre.
+   Propón la causa más probable, pero no cambies código si el usuario solo pidió probar.
+4. Nunca digas «todo funciona» sin pegar la salida real.</code></pre>
+<h3>.claude/skills/preparar-pr/SKILL.md</h3>
+<p><strong>/preparar-pr</strong> lleva <code>disable-model-invocation: true</code>, para que solo la lances tú. Resume la rama, corre los tests y busca secretos, dependencias nuevas, archivos fuera de la tarea y tests debilitados; luego redacta la descripción del PR. No hace push.</p>
+<pre><code class="language-markdown">---
+name: preparar-pr
+description: Revisa la rama actual antes de abrir un pull request (tests, secretos, dependencias y cambios fuera de alcance) y redacta la descripción del PR.
+disable-model-invocation: true
+allowed-tools: Bash(git diff *) Bash(git log *) Bash(git status *) Bash(python3 -m unittest *)
+---
+Prepara el pull request de la rama actual contra `main`.
+
+1. `git log --oneline main..HEAD` y `git diff --stat main...HEAD`: resume qué cambia.
+2. Ejecuta los tests: `python3 -m unittest discover -s tests -v`. Si fallan, para y avisa.
+3. Revisa `git diff main...HEAD` y señala, con archivo y línea:
+   - claves, tokens o contraseñas escritos en el código;
+   - dependencias nuevas o versiones cambiadas;
+   - archivos que no tienen que ver con la tarea pedida;
+   - tests borrados, saltados o con aserciones debilitadas.
+4. Escribe la descripción del PR: qué cambia, por qué, cómo se probó (con la salida) y qué debe mirar quien revise.
+No hagas `git push` ni abras el PR: eso lo hace el usuario.</code></pre>
+<h3>.claude/agents/revisor.md</h3>
+<p>El subagente revisor tiene herramientas de lectura y Bash, y un prompt que pide solo problemas de corrección y seguridad, con archivo, línea y cómo comprobarlo, y que omita el estilo. La guía oficial explica por qué sirve: un revisor nuevo no vio el razonamiento que produjo el código y no se deja llevar por él. Úsalo con «usa el subagente revisor sobre git diff main...HEAD», o usa el <code>/code-review</code> integrado, que también corre en un subagente aparte. Más detalle en la <a href="checklist-revisar-codigo-ia.html">checklist antes de fusionar</a> y en la receta de <a href="subagentes.html">subagentes</a>.</p>
+<pre><code class="language-markdown">---
+name: revisor
+description: Revisor de solo lectura. Úsalo para revisar un diff antes de fusionar, con ojos que no vieron cómo se escribió.
+tools: Read, Grep, Glob, Bash
+model: inherit
+---
+Eres un revisor de código exigente. No editas archivos.
+Revisa el diff que te indiquen (por defecto `git diff main...HEAD`) y busca solo problemas que afecten a la corrección o a la seguridad:
+errores de lógica, casos límite sin cubrir, secretos en el código, entradas sin validar, dependencias nuevas sin justificar
+y cambios fuera del alcance de la tarea. Omite el estilo.
+Para cada hallazgo da archivo, línea, por qué es un problema y cómo comprobarlo. Si no encuentras nada serio, dilo.</code></pre>
+<h3>.github/workflows/ci.yml: el CI que Claude debe pasar</h3>
+<p>Corre en cada pull request y en cada push a main, con <code>permissions: contents: read</code> (el token del job no puede escribir en el repo). Hace dos cosas: ejecuta los mismos tests que el hook Stop y falla si hay algún <code>.env</code> versionado (deja pasar <code>.env.example</code>, <code>.sample</code> y <code>.template</code>). Así, lo que Claude ve en local y lo que ve GitHub es lo mismo: si la rama no está en verde, no se fusiona. Si quieres que Claude revise además cada PR en GitHub, añade la receta de <a href="revision-prs-github-actions.html">revisión de PRs con GitHub Actions</a>.</p>
+<pre><code class="language-yaml">name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: &quot;3.12&quot;
+      - name: Tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Ningún .env en git
+        run: |
+          if git ls-files | grep -E &#x27;(^|/)\.env(\.[^/]*)?$&#x27; | grep -vE &#x27;\.env\.(example|sample|template)$&#x27;; then
+            echo &quot;Hay un archivo .env versionado: quítalo del repositorio&quot; &gt;&amp;2
+            exit 1
+          fi</code></pre>
+<h3>.worktreeinclude: el .env en cada sesión paralela</h3>
+<p>Sirve para trabajar en paralelo con <code>claude --worktree &lt;nombre&gt;</code> (o <code>-w</code>). Cada worktree es un checkout nuevo en <code>.claude/worktrees/&lt;nombre&gt;/</code> sobre la rama <code>worktree-&lt;nombre&gt;</code>, así que los archivos ignorados como <code>.env</code> no están. El archivo usa sintaxis de .gitignore y solo copia lo que coincide y además está ignorado por git, así que nunca duplica archivos versionados. Lo comprobamos: <code>claude -w prueba</code> creó el worktree y el <code>.env</code> apareció dentro. La <a href="https://code.claude.com/docs/en/worktrees" rel="noopener">documentación</a> recomienda añadir <code>.claude/worktrees/</code> al .gitignore, y la plantilla ya lo hace. No se aplica a un <code>git worktree add</code> hecho a mano.</p>
+<pre><code class="language-text">.env
+.env.local</code></pre>
+<h3>.gitignore y .env.example</h3>
+<pre><code class="language-text">.env
+.env.*
+!.env.example
+.claude/settings.local.json
+.claude/worktrees/
+CLAUDE.local.md
+__pycache__/</code></pre>
+<pre><code class="language-text"># Copia este archivo a .env y rellena los valores (el .env no se sube a git)
+API_KEY=</code></pre>
+<h3>El código y el test de ejemplo</h3>
+<p><code>src/app/__init__.py</code>:</p>
+<pre><code class="language-python">def sumar(a, b):
+    return a + b</code></pre>
+<p><code>tests/test_app.py</code>:</p>
+<pre><code class="language-python">import sys
+import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / &quot;src&quot;))
+from app import sumar  # noqa: E402
+
+
+class TestSumar(unittest.TestCase):
+    def test_suma_enteros(self):
+        self.assertEqual(sumar(2, 3), 5)
+
+
+if __name__ == &quot;__main__&quot;:
+    unittest.main()</code></pre>
+<h2>Qué NO protege la plantilla</h2>
+<p>Ser honestos aquí es parte del valor:</p>
+<ul><li><strong>Comandos que no nombran el secreto.</strong> <code>python3 -c &quot;open(&#x27;.e&#x27;+&#x27;nv&#x27;)&quot;</code> o un <code>grep -r clave .</code> se escapan del hook y de la regla deny. La barrera real a nivel de sistema es el sandbox (lectura con <code>filesystem.denyRead</code>, red con <code>allowedDomains</code>) o un contenedor.</li><li><strong>Procesos que no son herramientas de Claude.</strong> Hooks, servidores MCP locales, monitores de plugins y la statusline corren fuera del sandbox con todos tus permisos. Un plugin que instales puede traer los suyos (lo cuenta la <a href="checklist-plugins-claude-code.html">checklist de plugins</a>).</li><li><strong>Mods.</strong> Sin ajustes administrados ni una sesión de Team o Enterprise, un mod instalado puede aprobar una llamada que una regla deny rechaza o que un hook PreToolUse bloqueó, según la <a href="https://code.claude.com/docs/en/permissions" rel="noopener">documentación de permisos</a>.</li><li><strong>El modo bypassPermissions</strong> se salta las preguntas y deja escribir en rutas protegidas como <code>.git</code> y <code>.claude</code>; por eso la plantilla lo desactiva.</li><li><strong>Lo que hace Bash no siempre se puede deshacer con /rewind</strong>: solo git lo revierte. Trabaja en ramas y haz commit antes de cada tarea.</li><li><strong>El CI de ejemplo no busca secretos dentro del código ni licencias</strong>: para eso hay herramientas específicas o la skill /preparar-pr, que solo señala dónde mirar.</li></ul>
+<h2>Qué probamos y qué falta</h2>
+<p>En este PC (Linux, Claude Code 2.1.316), con una configuración aislada para no tocar la de nadie: <code>proteger.py</code> con 20 entradas simuladas (secretos, <code>.env.example</code>, <code>rm -rf</code> en varias formas, push forzado a main y a otra rama, JSON roto); <code>verificar.sh</code> sin cambios (exit 0), con un test roto (exit 2 y la salida del fallo), con <code>stop_hook_active</code> true (exit 0) y con cambios y tests en verde (exit 0); los tests, el YAML del CI y su paso «Ningún .env en git» con y sin un <code>.env</code> forzado en git (exit 1 y exit 0); <code>claude doctor</code>, que no da «Invalid settings» con este settings.json y sí lo da con una coma rota; el aviso «Ignoring 4 permissions.allow entries… not been trusted» con <code>claude -p</code> hasta marcar la carpeta como confiable; y <code>claude -w prueba</code>, que creó el worktree con el <code>.env</code> copiado. <strong>Falta probarlo en una sesión con cuenta</strong>: que <code>/hooks</code> liste los dos hooks, que <code>Read(!.env.example)</code> deje leer la plantilla y que el hook Stop reenvíe el error a Claude. Cuando lo hagamos, actualizaremos esta página.</p>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Por qué mis reglas allow no hacen nada en un repo recién clonado?</h3>
+<p>Porque las reglas allow (y additionalDirectories) del <code>.claude/settings.json</code> del proyecto solo se aplican después de aceptar el diálogo de confianza de la carpeta, que solo aparece en una sesión interactiva. Con <code>claude -p</code> verás en stderr «Ignoring N permissions.allow entries from .claude/settings.json: this workspace has not been trusted». Abre <code>claude</code> una vez en la carpeta y acepta. Las reglas deny y ask se aplican siempre.</p>
+<h3>¿Puedo poner defaultMode: auto o bypassPermissions en la plantilla?</h3>
+<p>No tiene efecto. Según la documentación, auto y bypassPermissions puestos en <code>.claude/settings.json</code> o <code>.claude/settings.local.json</code> se ignoran: con auto se usa el modo por defecto de Claude Code y con bypass la sesión arranca en modo Manual. El resto de valores (default, acceptEdits, plan, dontAsk) sí funcionan desde el proyecto en la terminal. La extensión de VS Code nunca lee el modo inicial de los ajustes del proyecto.</p>
+<h3>¿El hook Stop no deja a Claude en un bucle infinito?</h3>
+<p>No. El script sale sin bloquear si <code>stop_hook_active</code> es true (Claude ya está continuando por un hook Stop) y, además, Claude Code ignora el bloqueo tras 8 continuaciones seguidas sin llamar a ninguna herramienta. Se puede subir ese límite con <code>CLAUDE_CODE_STOP_HOOK_BLOCK_CAP</code>.</p>
+<h3>¿Sirve para Node, Go o Java?</h3>
+<p>Sí. Solo cambia el comando de tests en cinco sitios: CLAUDE.md, la regla allow de settings.json, verificar.sh, las dos skills y ci.yml (y el paso de setup del lenguaje en el CI). Los hooks de seguridad no dependen del lenguaje del proyecto, solo necesitan python3 en la máquina.</p>
+<h3>¿Por qué el .worktreeinclude no copia mi .env?</h3>
+<p>Solo copia archivos que coinciden con un patrón y además están ignorados por git, y solo en los worktrees que crea Claude Code (<code>--worktree</code>, subagentes con worktree y sesiones paralelas de la app de escritorio). No actúa con un <code>git worktree add</code> manual ni cuando un hook WorktreeCreate sustituye la creación; en ese caso copia los archivos dentro del hook.</p>
+<h3>¿Debo subir .claude/settings.json a git?</h3>
+<p>Sí, es el archivo del equipo. Lo personal va en <code>.claude/settings.local.json</code> (Claude Code guarda ahí lo que apruebas con «no volver a preguntar») y en <code>CLAUDE.local.md</code>, ambos en el .gitignore. Ojo: si settings.local.json está versionado en git, Claude Code lo trata como del repositorio y retiene sus reglas hasta que confíes en la carpeta.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="auto-mode.html">Modo automático de Claude Code a fondo: clasificador y reglas</a></li><li><a href="checklist-permisos-claude-code.html">Antes de darle permisos a Claude Code: checklist de seguridad</a></li><li><a href="checklist-plugins-claude-code.html">Antes de instalar plugins, skills o MCP en Claude Code: checklist</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

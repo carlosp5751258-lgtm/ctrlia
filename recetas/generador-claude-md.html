@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Generador de CLAUDE.md y AGENTS.md en español, gratis · Ctrl+IA</title>
+<meta name="description" content="Rellena un formulario y descarga un CLAUDE.md, un AGENTS.md o los dos, con avisos en vivo de reglas vagas, claves pegadas e imports mal escritos.">
+<meta property="og:title" content="Generador de CLAUDE.md y AGENTS.md en español, gratis · Ctrl+IA">
+<meta property="og:description" content="Rellena un formulario y descarga un CLAUDE.md, un AGENTS.md o los dos, con avisos en vivo de reglas vagas, claves pegadas e imports mal escritos.">
+<meta property="og:image" content="https://ctrlia.dev/img/generador-claude-md.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/generador-claude-md.webp">
+<link rel="icon" href="../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/recetas/generador-claude-md.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/generador-claude-md.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/generador-claude-md.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/generador-claude-md.html">
+<meta property="og:url" content="https://ctrlia.dev/recetas/generador-claude-md.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Generador de CLAUDE.md y AGENTS.md en español, gratis", "totalTime": "PT5M", "step": [{"@type": "HowToStep", "position": 1, "name": "Rellena lo que Claude no puede ver en el código", "text": "Empieza por el comando de todos los tests y el de un solo test: es lo más útil del archivo. Luego las convenciones que no se deducen del código, las rutas que no debe tocar sin preguntar y las trampas conocidas. Deja fuera el árbol de carpetas y las dependencias.", "url": "https://ctrlia.dev/recetas/generador-claude-md.html"}, {"@type": "HowToStep", "position": 2, "name": "Elige la salida", "text": "Si solo usas Claude Code, «Solo CLAUDE.md». Si el repositorio lo usan también Codex, Cursor u otros agentes, «AGENTS.md + CLAUDE.md que lo importa», y pon lo exclusivo de Claude en el campo «Solo para Claude Code».", "url": "https://ctrlia.dev/recetas/generador-claude-md.html"}, {"@type": "HowToStep", "position": 3, "name": "Corrige los avisos y descarga", "text": "Los errores bloquean la descarga; los avisos no, pero léelos: una regla vaga no sirve y una prohibición sin excepción va mejor en permisos o en un hook. Descarga el archivo y guárdalo en la raíz del repositorio.", "url": "https://ctrlia.dev/recetas/generador-claude-md.html"}, {"@type": "HowToStep", "position": 4, "name": "Comprueba que Claude Code lo carga", "text": "Abre Claude Code en esa carpeta y ejecuta /context: CLAUDE.md debe aparecer en Memory files (si usas solo AGENTS.md verás la línea «no CLAUDE.md found; AGENTS.md loaded: …»). Haz una pregunta que dependa del archivo, por ejemplo «¿cómo ejecuto un solo test?», y comprueba que responde con tu comando.", "url": "https://ctrlia.dev/recetas/generador-claude-md.html"}, {"@type": "HowToStep", "position": 5, "name": "Mantenlo corto", "text": "Con el tiempo, añade solo lo que ya le hayas tenido que corregir dos veces, mueve los procedimientos largos a skills (receta tu primera skill) y las prohibiciones a permisos o hooks. Si tu archivo crece de 200 líneas, divide por ruta con .claude/rules/. Y si quieres revisar también tu settings.json, usa el comprobador de settings.", "url": "https://ctrlia.dev/recetas/generador-claude-md.html"}], "description": "Rellena un formulario y descarga un CLAUDE.md, un AGENTS.md o los dos, con avisos en vivo de reglas vagas, claves pegadas e imports mal escritos.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/generador-claude-md.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿CLAUDE.md o AGENTS.md?", "acceptedAnswer": {"@type": "Answer", "text": "Si solo usas Claude Code, CLAUDE.md. Si el repositorio lo usan también Codex, Cursor u otros agentes, AGENTS.md compartido y un CLAUDE.md con @AGENTS.md para lo específico de Claude. Desde la 2.1.277 Claude Code lee AGENTS.md solo cuando no hay CLAUDE.md."}}, {"@type": "Question", "name": "¿Se envía mi información a algún sitio?", "acceptedAnswer": {"@type": "Answer", "text": "No. El archivo se genera en tu navegador con un script de ctrlia.dev y se descarga directamente; la página no hace peticiones con lo que escribes."}}, {"@type": "Question", "name": "¿Cuántas líneas debe tener?", "acceptedAnswer": {"@type": "Answer", "text": "La documentación oficial recomienda menos de 200 por archivo; la herramienta avisa si te pasas. Lo que solo importa en una carpeta va a reglas por ruta en .claude/rules/."}}, {"@type": "Question", "name": "¿Por qué me avisa de «nunca» en una regla?", "acceptedAnswer": {"@type": "Answer", "text": "Porque CLAUDE.md es contexto, no una garantía. Lo que no admite excepciones (no leer .env, no hacer push --force) se cumple siempre con reglas deny de permisos o con un hook."}}, {"@type": "Question", "name": "¿Puedo usar un enlace simbólico en vez de @AGENTS.md?", "acceptedAnswer": {"@type": "Answer", "text": "Funciona si nadie usa Windows; la documentación avisa de que Git en Windows lo convierte en un archivo de una línea y de que Claude no edita a través del enlace. El import @AGENTS.md no tiene esos problemas."}}, {"@type": "Question", "name": "Tengo un CLAUDE.local.md y Claude ya no lee mi AGENTS.md, ¿por qué?", "acceptedAnswer": {"@type": "Answer", "text": "Es lo documentado: CLAUDE.local.md cuenta como CLAUDE.md. Pon @AGENTS.md en un CLAUDE.md o cambia /config → Project instructions a claude-md-and-agents-md."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
+<script src="../js/generador-claude-md.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <a class="idioma" href="../en/recetas/generador-claude-md.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
+        <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
+        <button type="button" class="boton-texto" data-salir>Salir</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Plantilla · Básico · 5 min</p>
+  <h1 id="t-art">Generador de CLAUDE.md y AGENTS.md en español, gratis</h1>
+  <p class="entrada">Rellena un formulario y descarga un CLAUDE.md, un AGENTS.md o los dos, con avisos en vivo de reglas vagas, claves pegadas e imports mal escritos.</p>
+  <img class="portada-img" src="../img/generador-claude-md.webp" width="960" height="540" alt="Portada: Generador de CLAUDE.md y AGENTS.md en español, gratis">
+  <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-generador-claude-md"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>Ver los archivos en GitHub</a> <span class="nota">Gratis · licencia MIT</span></p>
+  <section class="herramienta" aria-labelledby="t-herramienta">
+  <h2 id="t-herramienta">Pruébalo aquí</h2>
+  <p class="nota">Funciona en tu navegador: no se envía nada a ningún servidor.</p>
+  <form id="gen-form" class="herramienta-form" autocomplete="off" novalidate>
+  <fieldset><legend>Proyecto</legend>
+    <label>Nombre del proyecto (obligatorio) <input name="nombre" required maxlength="80"></label>
+    <label>Stack <input name="stack" maxlength="80" placeholder="Vite + React + TypeScript"></label>
+    <label>Descripción en una frase <input name="descripcion" maxlength="200"></label>
+  </fieldset>
+  <fieldset><legend>Comandos (cópialos tal cual los ejecutas)</legend>
+    <label>Instalar <input name="instalar" placeholder="npm ci"></label>
+    <label>Servidor de desarrollo <input name="dev" placeholder="npm run dev"></label>
+    <label>Todos los tests (muy recomendado) <input name="test" placeholder="npm test"></label>
+    <label>Un solo test <input name="unTest" placeholder="npx vitest run src/x.test.ts"></label>
+    <label>Lint <input name="lint"></label><label>Tipos <input name="tipos"></label><label>Compilar <input name="build"></label>
+  </fieldset>
+  <fieldset><legend>Reglas (una por línea)</legend>
+    <label>Cómo dar algo por terminado <textarea name="terminado" rows="3"></textarea></label>
+    <label>Convenciones que no se ven en el código <textarea name="convenciones" rows="3"></textarea></label>
+    <label>Rutas que no debe tocar sin preguntar <textarea name="noTocar" rows="3"></textarea></label>
+    <label>Trampas conocidas <textarea name="trampas" rows="3"></textarea></label>
+    <label>Ramas <input name="ramas" placeholder="feat/… o fix/…"></label>
+    <label>Commits <input name="commits" placeholder="en español, en imperativo"></label>
+    <label>Idioma de respuesta <input name="idioma" value="español"></label>
+  </fieldset>
+  <fieldset><legend>Salida</legend>
+    <label class="opcion"><input type="radio" name="salida" value="claude" checked> Solo CLAUDE.md</label>
+    <label class="opcion"><input type="radio" name="salida" value="agents"> Solo AGENTS.md (Codex, Cursor… y Claude Code ≥ 2.1.277)</label>
+    <label class="opcion"><input type="radio" name="salida" value="ambos"> AGENTS.md + CLAUDE.md que lo importa</label>
+    <label>Solo para Claude Code (va en CLAUDE.md) <textarea name="soloClaude" rows="3"></textarea></label>
+    <label class="opcion"><input type="checkbox" name="local" value="1"> Uso también un CLAUDE.local.md</label>
+  </fieldset>
+</form>
+<p id="gen-estado" class="herramienta-estado" role="status"></p>
+<ul id="gen-avisos" class="herramienta-avisos"></ul>
+<pre id="gen-vista" tabindex="0" aria-label="Vista previa del archivo"></pre>
+<div id="gen-descargas" class="cuenta-acciones"></div>
+</section>
+  
+<h2>Qué incluye</h2>
+<p>La herramienta está arriba: rellenas nombre, stack, comandos, reglas y trampas de tu proyecto, y genera un <code>CLAUDE.md</code>, un <code>AGENTS.md</code> o los dos (un <code>AGENTS.md</code> compartido + un <code>CLAUDE.md</code> que lo importa con <code>@AGENTS.md</code>). Mientras escribes, valida lo que la documentación oficial desaconseja, y al final descargas los archivos. Funciona sin conexión, sin registro y sin enviar nada: todo ocurre en tu navegador.</p>
+<p>El código (un único archivo JavaScript sin dependencias, un <code>index.html</code> de ejemplo y sus pruebas con Node) está en el repositorio gratuito <a href="https://github.com/carlosp5751258-lgtm/ctrlia-generador-claude-md" rel="noopener">ctrlia-generador-claude-md</a>.</p>
+<h3>Qué genera y por qué con esas reglas</h3>
+<p>La documentación oficial dice que Claude trata CLAUDE.md como contexto, no como configuración obligatoria, y da tres reglas que la herramienta aplica: instrucciones concretas y comprobables («usa 2 espacios», «ejecuta npm test antes de hacer commit»), menos de 200 líneas por archivo y nada contradictorio. Por eso el formulario no pide el árbol de carpetas ni la lista de dependencias (Claude las lee del código), y sí pide lo que no se ve: cómo comprobar el trabajo, convenciones ocultas, rutas que no debe tocar y trampas conocidas. La salida se organiza en secciones con encabezados y viñetas, como recomienda la documentación.</p>
+<p>Encaja con la receta <a href="claude-md-que-funciona.html">CLAUDE.md que funciona</a>: la receta explica el porqué y los niveles (usuario, proyecto, local, reglas por ruta); el generador produce el archivo de proyecto.</p>
+<h3>Campos del formulario</h3>
+<ul><li><strong>Proyecto:</strong> nombre (obligatorio, máx. 80 caracteres), stack y una frase de descripción.</li><li><strong>Comandos</strong>, copiados tal cual se ejecutan: instalar, servidor de desarrollo, todos los tests (muy recomendado), un solo test, lint, tipos y compilar. Los vacíos no salen.</li><li><strong>Reglas</strong>, una por línea: cómo dar algo por terminado (si se deja vacío y hay comando de tests, se rellena con «Pasa <code>&lt;test&gt;</code> sin errores»), convenciones que no se ven en el código (admite imports <code>@docs/estilo.md</code>), rutas que no debe tocar sin preguntar, trampas conocidas, ramas, estilo de commits e idioma de respuesta (por defecto «español»).</li><li><strong>Salida:</strong> solo CLAUDE.md, solo AGENTS.md o los dos; un campo «solo para Claude Code» (por ejemplo «usa el modo plan en src/pagos/») que va únicamente en CLAUDE.md; y una casilla «uso también un CLAUDE.local.md» para avisar de su efecto sobre AGENTS.md.</li></ul>
+<h3>Lógica de AGENTS.md (verificada en la documentación)</h3>
+<p>Desde la 2.1.277, con el valor por defecto de <code>/config</code> → Project instructions (<code>claude-md-or-agents-md</code>), Claude Code lee AGENTS.md solo si no hay <code>CLAUDE.md</code>, <code>.claude/CLAUDE.md</code> ni <code>CLAUDE.local.md</code> en el directorio de trabajo o por encima; <code>~/.claude/CLAUDE.md</code> y <code>.claude/rules/</code> no cuentan. Si hay los dos, gana CLAUDE.md.</p>
+<p>Por eso la opción «los dos» genera un CLAUDE.md cuya primera línea es <code>@AGENTS.md</code>, seguido de una sección «Claude Code» con lo específico: es el patrón oficial «Share one file with other coding tools», no lee AGENTS.md dos veces y funciona también en sesiones donde la lectura directa no está disponible. No proponemos el enlace simbólico <code>ln -s AGENTS.md CLAUDE.md</code> por defecto: la documentación avisa de que en Windows Git lo convierte en un archivo de texto de una línea y de que las herramientas Edit y Write no escriben a través del enlace. Dentro de AGENTS.md, Claude Code expande los @imports, pero otras herramientas pueden no hacerlo, y la herramienta lo avisa.</p>
+<h3>Validaciones</h3>
+<p>Errores (bloquean la descarga):</p>
+<ul><li>Falta el nombre del proyecto.</li><li>El texto contiene algo con forma de secreto (<code>sk-ant-…</code>, claves de 20+ caracteres tipo <code>sk-</code>, tokens <code>ghp_</code>/<code>gho_</code> de GitHub, claves <code>AKIA</code> de AWS, cabeceras de clave privada o «password/token/secret: valor»), porque el archivo se sube a git.</li></ul>
+<p>Avisos (no bloquean):</p>
+<ul><li>Sin comando de tests.</li><li>Reglas vagas («buen código», «código limpio», «buenas prácticas», «formatea bien»…).</li><li>Prohibiciones con «nunca/jamás/prohibido», que según la receta deberían ir a permisos o hooks para que se cumplan siempre.</li><li>Un @import entre comillas (la documentación dice que no se importa) o con espacios sin <code>\ </code>.</li><li>Más de 200 líneas en algún archivo.</li><li>@imports dentro de AGENTS.md.</li><li>Con «los dos» y la casilla de CLAUDE.local.md, el recordatorio de que ese archivo bloquea la lectura directa de AGENTS.md.</li></ul>
+<p>Las comillas invertidas de los comandos se limpian para no romper el formato. La vista previa usa <code>textContent</code>, así que nada de lo que escribas se interpreta como HTML.</p>
+<h3>Privacidad y accesibilidad</h3>
+<p>La página no tiene scripts en línea ni orígenes externos: un único script servido desde ctrlia.dev, sin <code>fetch</code>, sin almacenamiento y sin analítica propia de la herramienta. La descarga se hace con un Blob y un enlace temporal con atributo <code>download</code>, que se revoca al segundo; no hay servidor que reciba el texto. Cada campo tiene su <code>label</code>, los grupos van en <code>fieldset</code> con <code>legend</code>, la lista de avisos tiene <code>aria-live=&quot;polite&quot;</code> para lectores de pantalla y la vista previa es enfocable con teclado. La lógica (generar y validar) está separada de la interfaz para poder probarla con Node.</p>
+<h2>Cómo usarla</h2>
+<h3>1. Rellena lo que Claude no puede ver en el código</h3>
+<p>Empieza por el comando de todos los tests y el de un solo test: es lo más útil del archivo. Luego las convenciones que no se deducen del código, las rutas que no debe tocar sin preguntar y las trampas conocidas. Deja fuera el árbol de carpetas y las dependencias.</p>
+<h3>2. Elige la salida</h3>
+<p>Si solo usas Claude Code, «Solo CLAUDE.md». Si el repositorio lo usan también Codex, Cursor u otros agentes, «AGENTS.md + CLAUDE.md que lo importa», y pon lo exclusivo de Claude en el campo «Solo para Claude Code».</p>
+<h3>3. Corrige los avisos y descarga</h3>
+<p>Los errores bloquean la descarga; los avisos no, pero léelos: una regla vaga no sirve y una prohibición sin excepción va mejor en <a href="permisos-claude-code.html">permisos</a> o en un <a href="hooks-seguridad.html">hook</a>. Descarga el archivo y guárdalo en la raíz del repositorio.</p>
+<h3>4. Comprueba que Claude Code lo carga</h3>
+<p>Abre Claude Code en esa carpeta y ejecuta <code>/context</code>: CLAUDE.md debe aparecer en Memory files (si usas solo AGENTS.md verás la línea «no CLAUDE.md found; AGENTS.md loaded: …»). Haz una pregunta que dependa del archivo, por ejemplo «¿cómo ejecuto un solo test?», y comprueba que responde con tu comando.</p>
+<pre><code class="language-text">/context
+/doctor prompt-audit</code></pre>
+<p><code>/doctor prompt-audit</code> (2.1.283 o posterior) hace que Claude busque instrucciones contradictorias o que apuntan a archivos que no existen.</p>
+<h3>5. Mantenlo corto</h3>
+<p>Con el tiempo, añade solo lo que ya le hayas tenido que corregir dos veces, mueve los procedimientos largos a skills (receta <a href="primera-skill.html">tu primera skill</a>) y las prohibiciones a permisos o hooks. Si tu archivo crece de 200 líneas, divide por ruta con <code>.claude/rules/</code>. Y si quieres revisar también tu <code>settings.json</code>, usa el <a href="comprobador-settings.html">comprobador de settings</a>.</p>
+<h2>Los archivos</h2>
+<p>Salida real de la herramienta con la opción «AGENTS.md + CLAUDE.md que lo importa» para un proyecto FastAPI. <code>AGENTS.md</code>:</p>
+<pre><code class="language-markdown"># Proyecto: api-pedidos (Python 3.12 + FastAPI)
+
+API REST de pedidos.
+
+## Comandos
+- Instalar: `uv sync`
+- Servidor de desarrollo: `uv run fastapi dev app/main.py`
+- Todos los tests: `uv run pytest -q`
+- Un solo test: `uv run pytest tests/test_x.py -q`
+- Lint: `uv run ruff check .`
+- Tipos: `uv run mypy app`
+
+## Cómo dar algo por terminado
+- Pasa `uv run pytest -q` sin errores.
+
+## Convenciones (lo que no se ve en el código)
+- Indentación de 4 espacios
+- Las consultas SQL van en app/repos/, nunca en los endpoints
+- Estilo detallado: @docs/estilo.md
+
+## No tocar
+- `migrations/` (pregunta antes de cambiarlo)
+- `.github/workflows/` (pregunta antes de cambiarlo)
+
+## Trampas conocidas
+- Los tests de integración necesitan Postgres: docker compose up -d db
+
+## Git
+- Ramas: feat/… o fix/…
+- Commits: en español, en imperativo
+
+## Idioma
+- Responde y escribe comentarios en español.</code></pre>
+<p>Y el <code>CLAUDE.md</code> que lo importa:</p>
+<pre><code class="language-markdown">@AGENTS.md
+
+## Claude Code
+- Usa el modo plan para cambios en app/pagos/</code></pre>
+<p>Con esos datos la herramienta muestra dos avisos: la línea con «nunca» iría mejor como regla de permisos o hook, y el <code>@docs/estilo.md</code> dentro de AGENTS.md lo expande Claude Code, pero otras herramientas pueden leerlo como texto.</p>
+<p>En el repositorio están todos los archivos de la herramienta:</p>
+<div class="tabla"><table><thead><tr><th scope="col">Archivo</th><th scope="col">Qué es</th></tr></thead><tbody><tr><td><code>generador.js</code></td><td>Lógica (<code>generar</code>, <code>validar</code>) e interfaz, sin dependencias ni código en línea</td></tr><tr><td><code>index.html</code></td><td>Página de ejemplo con el formulario, que carga <code>generador.js</code> con <code>&lt;script src&gt;</code></td></tr><tr><td><code>pruebas.js</code></td><td>Comprobaciones con Node</td></tr><tr><td><code>ejemplo/</code></td><td>Los datos del ejemplo de arriba y los dos archivos que genera</td></tr></tbody></table></div>
+<p>Para probarla en tu equipo:</p>
+<pre><code class="language-bash">git clone https://github.com/carlosp5751258-lgtm/ctrlia-generador-claude-md
+cd ctrlia-generador-claude-md
+node pruebas.js        # → ok: generador … ok: ejemplo</code></pre>
+<p>Y abre <code>index.html</code> en el navegador. Fuentes: <a href="https://code.claude.com/docs/es/memory" rel="noopener">memoria de Claude Code</a>, <a href="https://code.claude.com/docs/en/commands" rel="noopener">comandos</a> y el <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG</a>.</p>
+<h2>Preguntas frecuentes</h2>
+<h3>¿CLAUDE.md o AGENTS.md?</h3>
+<p>Si solo usas Claude Code, CLAUDE.md. Si el repositorio lo usan también Codex, Cursor u otros agentes, AGENTS.md compartido y un CLAUDE.md con <code>@AGENTS.md</code> para lo específico de Claude. Desde la 2.1.277 Claude Code lee AGENTS.md solo cuando no hay CLAUDE.md.</p>
+<h3>¿Se envía mi información a algún sitio?</h3>
+<p>No. El archivo se genera en tu navegador con un script de ctrlia.dev y se descarga directamente; la página no hace peticiones con lo que escribes.</p>
+<h3>¿Cuántas líneas debe tener?</h3>
+<p>La documentación oficial recomienda menos de 200 por archivo; la herramienta avisa si te pasas. Lo que solo importa en una carpeta va a reglas por ruta en <code>.claude/rules/</code>.</p>
+<h3>¿Por qué me avisa de «nunca» en una regla?</h3>
+<p>Porque CLAUDE.md es contexto, no una garantía. Lo que no admite excepciones (no leer <code>.env</code>, no hacer <code>push --force</code>) se cumple siempre con reglas deny de permisos o con un hook.</p>
+<h3>¿Puedo usar un enlace simbólico en vez de @AGENTS.md?</h3>
+<p>Funciona si nadie usa Windows; la documentación avisa de que Git en Windows lo convierte en un archivo de una línea y de que Claude no edita a través del enlace. El import <code>@AGENTS.md</code> no tiene esos problemas.</p>
+<h3>Tengo un CLAUDE.local.md y Claude ya no lee mi AGENTS.md, ¿por qué?</h3>
+<p>Es lo documentado: <code>CLAUDE.local.md</code> cuenta como CLAUDE.md. Pon <code>@AGENTS.md</code> en un CLAUDE.md o cambia <code>/config</code> → Project instructions a <code>claude-md-and-agents-md</code>.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="agents-md.html">AGENTS.md vs CLAUDE.md en Claude Code: cuál lee y cómo usar ambos</a></li><li><a href="claude-code-espanol.html">Claude Code en español y sin relleno: language y estilo Concise</a></li><li><a href="claude-code-ollama-openrouter.html">Claude Code gratis con Ollama u OpenRouter: qué funciona</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
+</footer>
+</body>
+</html>

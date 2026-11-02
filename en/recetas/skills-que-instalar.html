@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code skills: which to install, how, and which to avoid · Ctrl+IA</title>
+<meta name="description" content="Which Claude Code skills and plugins to install, with the exact command, their measured token cost and a 4-step security review before you trust them.">
+<meta property="og:title" content="Claude Code skills: which to install, how, and which to avoid · Ctrl+IA">
+<meta property="og:description" content="Which Claude Code skills and plugins to install, with the exact command, their measured token cost and a 4-step security review before you trust them.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/skills-que-instalar.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/skills-que-instalar.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/skills-que-instalar.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/skills-que-instalar.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/skills-que-instalar.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/skills-que-instalar.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/skills-que-instalar.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code skills: which to install, how, and which to avoid", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/skills-que-instalar.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "Which Claude Code skills and plugins to install, with the exact command, their measured token cost and a 4-step security review before you trust them.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/skills-que-instalar.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Where do skills go?", "acceptedAnswer": {"@type": "Answer", "text": "Personal ones in ~/.claude/skills/<name>/SKILL.md (all your projects); project ones in .claude/skills/<name>/SKILL.md (shared via commit). Those that come in plugins are managed with /plugin. If two have the same name, the personal one wins over the project one."}}, {"@type": "Question", "name": "Why doesn't the skill I installed show up?", "acceptedAnswer": {"@type": "Answer", "text": "Look at the install summary: if it says \"Run /reload-plugins to apply\", run it. Type / and search for /plugin:skill. Check the Errors tab in /plugin and confirm with claude plugin list that it is enabled and in the right scope."}}, {"@type": "Question", "name": "Are the anthropics/skills skills free to use?", "acceptedAnswer": {"@type": "Answer", "text": "Many are Apache 2.0, but the document ones (docx, pdf, pptx, xlsx) are source-available, not open source. The repository itself says they are for demonstration and education, and that you should test them before using them for critical tasks."}}, {"@type": "Question", "name": "Does the official marketplace guarantee a plugin is safe?", "acceptedAnswer": {"@type": "Answer", "text": "No. The documentation says the marketplace name tells you who publishes the catalog, not what each plugin does. Most of the official catalog comes from partners and other authors. Always review before installing."}}, {"@type": "Question", "name": "How many skills can I have?", "acceptedAnswer": {"@type": "Answer", "text": "There's no magic number: count the cost. Each description enters every turn (truncated to 1,536 characters in the list). Use claude plugin details and /skill-doctor and turn off what you don't use."}}, {"@type": "Question", "name": "Do they work on the web (claude.ai/code)?", "acceptedAnswer": {"@type": "Answer", "text": "Cloud sessions don't load the plugins you installed on your machine. Skills you enable in your claude.ai account do sync with Cowork, the cloud and the terminal."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/skills-que-instalar.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Reference · Intermediate · 15 min</p>
+  <h1 id="t-art">Claude Code skills: which to install, how, and which to avoid</h1>
+  <p class="entrada">Which Claude Code skills and plugins to install, with the exact command, their measured token cost and a 4-step security review before you trust them.</p>
+  <img class="portada-img" src="../../img/en/skills-que-instalar.webp" width="960" height="540" alt="Cover: Claude Code skills: which to install, how, and which to avoid">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-skills-que-instalar"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>Summary</h2>
+<p>There are hundreds of skills and plugins for Claude Code, and most lists just paste links. This reference, reviewed on 1 November 2026 with Claude Code 2.1.316, explains in one minute what a skill and a plugin are, the four ways to install them, a short list of recommendations with their <strong>token cost measured</strong> on our PC, how to measure any other one before keeping it, a four-step security review and which ones to avoid. The files (skill list and a review script) are in the <a href="https://github.com/carlosp5751258-lgtm/ctrlia-skills-que-instalar" rel="noopener">ctrlia-skills-que-instalar</a> repository (English versions in its <code>en/</code> folder).</p>
+<h2>Skill, plugin and marketplace in one minute</h2>
+<p>A <strong>skill</strong> is a folder with a <code>SKILL.md</code> file (instructions with a description) and, if needed, scripts and resources. Claude loads it when the task matches its description, or you invoke it with <code>/name</code>. It can live in three places:</p>
+<ul><li><strong>Your user:</strong> <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code>, available in all your projects.</li><li><strong>The project:</strong> <code>.claude/skills/&lt;name&gt;/SKILL.md</code>, committed for the team.</li><li><strong>Inside a plugin:</strong> then it is called <code>/plugin:skill</code>.</li></ul>
+<p>A <strong>plugin</strong> is a package that can bring skills, agents, hooks and MCP or LSP servers. A <strong>marketplace</strong> is the catalog Claude Code downloads plugins from: <code>claude-plugins-official</code> is added automatically the first time you open an interactive session; the others are added by hand.</p>
+<p>Watch your context: according to the <a href="https://code.claude.com/docs/en/skills" rel="noopener">official skills documentation</a>, every listed skill adds its description to your context <strong>on every turn</strong>, even if you don&#x27;t use it; the full content only loads when invoked. If you want to write your own, follow the <a href="/en/recetas/primera-skill.html">Create your first skill</a> recipe.</p>
+<h2>How to install: the four ways</h2>
+<ol><li><strong>From the official marketplace, inside a session:</strong> <code>/plugin install frontend-design@claude-plugins-official</code>. Inside a session this command does not install right away: it opens the details panel so you can review what it adds and pick the scope (you in all projects, the whole repository, or only you in this repository). To browse, type <code>/plugin</code> and look in the Discover tab.</li><li><strong>From the shell, without opening a session:</strong> <code>claude plugin install &lt;name&gt;@claude-plugins-official</code> (user scope by default; add <code>--scope project</code> for the repository).</li><li><strong>From another Anthropic marketplace</strong>, such as the example skills one: <code>/plugin marketplace add anthropics/skills</code> and then <code>/plugin install document-skills@anthropic-agent-skills</code> or <code>example-skills@anthropic-agent-skills</code>. The community one is added with <code>/plugin marketplace add anthropics/claude-plugins-community</code> and installed with the <code>@claude-community</code> suffix.</li><li><strong>Copying the skill folder</strong> into <code>~/.claude/skills/</code> or <code>.claude/skills/</code>.</li></ol>
+<p>Check with <code>claude plugin list</code> or by typing <code>/</code> and searching for the name.</p>
+<pre><code class="language-bash">claude plugin install frontend-design@claude-plugins-official
+claude plugin list
+claude plugin details frontend-design   # tokens per turn (Always-on)</code></pre>
+<p>Inside a session, Anthropic&#x27;s official example skills:</p>
+<pre><code class="language-text">/plugin marketplace add anthropics/skills
+/plugin install document-skills@anthropic-agent-skills
+/plugin install example-skills@anthropic-agent-skills</code></pre>
+<h2>Recommended (reviewed 1 Nov 2026, measured cost)</h2>
+<p>All of them are in <code>claude-plugins-official</code>. The per-turn cost was measured on our PC (Linux, Claude Code 2.1.316) with <code>claude plugin details</code> on the official marketplace folders.</p>
+<div class="tabla"><table><thead><tr><th scope="col">Plugin</th><th scope="col">Publisher</th><th scope="col">What it does</th><th scope="col">Cost per turn</th></tr></thead><tbody><tr><td><code>frontend-design</code></td><td>Anthropic</td><td>Well-designed interfaces, avoids the generic AI look</td><td>~80 tokens</td></tr><tr><td><code>skill-creator</code></td><td>Anthropic</td><td>Creates, improves and measures your own skills</td><td>~114 tokens</td></tr><tr><td><code>commit-commands</code></td><td>Anthropic</td><td><code>/commit</code>, <code>/commit-push-pr</code> and cleanup of deleted branches</td><td>~105 tokens</td></tr><tr><td><code>security-guidance</code></td><td>Anthropic</td><td>4 hooks that warn about insecure patterns while editing and review the diff at the end</td><td>~0 tokens (they are hooks)</td></tr><tr><td><code>claude-md-management</code></td><td>Anthropic</td><td>Keep your CLAUDE.md up to date</td><td>not measured</td></tr><tr><td><code>playwright</code></td><td>Microsoft (partner)</td><td>MCP server to automate the browser</td><td>not measured</td></tr><tr><td><code>context7</code></td><td>Upstash (partner)</td><td>Remote MCP server with up-to-date documentation</td><td>not measured</td></tr><tr><td><code>superpowers</code></td><td>Community (obra/superpowers)</td><td>Brainstorming, red-green TDD, systematic debugging; the official catalog pins it to a specific commit</td><td>not measured</td></tr></tbody></table></div>
+<p>Two warnings: the <code>security-guidance</code> hooks <strong>run outside the sandbox</strong>, and <code>superpowers</code>, <code>playwright</code> and <code>context7</code> were not measured because they download from external repositories. Install one at a time and measure before adding the next.</p>
+<h2>Measure what it costs before keeping it</h2>
+<p>Every active skill and plugin adds tokens to all your messages. To see it <strong>before</strong> installing, clone the repository and point at the plugin folder; <strong>after</strong> installing, <code>claude plugin details &lt;name&gt;</code> is enough.</p>
+<pre><code class="language-bash">git clone https://github.com/anthropics/claude-plugins-official /tmp/cpo
+claude --plugin-dir /tmp/cpo/plugins/skill-creator plugin details skill-creator
+# Output measured on 1 Nov 2026: Skills (1) skill-creator · Always-on: ~114 tok</code></pre>
+<p>The <code>Always-on</code> line is what it adds to every session, and the per-component table tells you which skill or agent weighs the most. In our test, a bundle of 34 skills and 4 agents added <strong>~3,669 fixed tokens per turn</strong>, about 45 times a single skill like <code>frontend-design</code>.</p>
+<p>Other tools to keep spending under control:</p>
+<ul><li><code>/skill-doctor</code> (Claude Code 2.1.252 or later), inside a session, shows how much each skill costs and how often it is used, so you can turn off the ones you don&#x27;t use.</li><li>In <code>/plugin</code>, Installed tab, the ones not used recently are grouped together.</li><li>To turn one off without uninstalling: <code>claude plugin disable &lt;name&gt;@&lt;marketplace&gt;</code>.</li><li>To stop a skill of yours from using context and only run it by hand, set <code>disable-model-invocation: true</code> in its header.</li></ul>
+<h2>Review it before installing: security protocol</h2>
+<p>The <a href="https://code.claude.com/docs/en/plugins/security" rel="noopener">plugin security documentation</a> is clear: a plugin can run arbitrary code on your machine with your user privileges, and Anthropic does not control which MCP servers, files or software plugins include. A plugin&#x27;s hooks, monitors and MCP servers <strong>run outside the sandbox</strong> and your permission rules do not cover them.</p>
+<p>Four-step protocol:</p>
+<ol><li><code>claude plugin marketplace list</code> to see where each marketplace comes from. Official names are only accepted if they come from <code>github.com/anthropics/</code>.</li><li>Read the details panel in <code>/plugin</code>: the <strong>Will install</strong> section lists commands, agents, skills, hooks and servers.</li><li>Read the code: <code>hooks/hooks.json</code> (what each hook runs), <code>.mcp.json</code> (which command or URL starts each server) and everything in <code>bin/</code>.</li><li>Check the <code>allowed-tools</code> field of skills from someone else&#x27;s repository: it applies even if you haven&#x27;t accepted trusting the folder, and a skill can grant itself broad permissions.</li></ol>
+<pre><code class="language-bash">claude plugin marketplace list          # origin of each marketplace
+P=/tmp/cpo/plugins/security-guidance
+cat &quot;$P/hooks/hooks.json&quot; 2&gt;/dev/null   # commands of each hook
+cat &quot;$P/.mcp.json&quot; 2&gt;/dev/null          # MCP servers it starts
+ls -la &quot;$P/bin&quot; 2&gt;/dev/null             # executables it adds to PATH</code></pre>
+<p>The repository includes <code>en/review-plugin.sh</code>, which runs steps 3 and 4 in one go on any plugin folder. Also remember that auto-update can change the files you reviewed: it is off by default for third-party marketplaces; leave it that way. To harden what Claude can do, see also <a href="/en/recetas/hooks-seguridad.html">Security hooks</a>.</p>
+<h2>Which to avoid (or think twice about)</h2>
+<ol><li><strong>Skills that duplicate what Claude Code already ships.</strong> Version 2.1.316 includes built-in skills such as <code>/code-review</code>, <code>/simplify</code>, <code>/debug</code>, <code>/loop</code>, <code>/batch</code>, <code>/verify</code> and <code>/claude-api</code>; installing another with the same purpose only adds context.</li><li><strong>Huge &quot;all in one&quot; bundles</strong> if you&#x27;ll use two skills: you pay hundreds or thousands of tokens per turn for the rest.</li><li><strong>Third-party plugins with hooks or local MCP servers you can&#x27;t read</strong>, or whose repository doesn&#x27;t pin versions: they run with your permissions and can change with every update.</li><li><strong>Old tutorials that ask for <code>/plugin marketplace add anthropics/claude-code</code>:</strong> that marketplace (<code>claude-code-plugins</code>) is deprecated; use <code>claude-plugins-official</code>.</li><li><strong>Skills copied from websites or directories with no author or repository:</strong> a skill&#x27;s text enters the context as instructions and may try to make Claude do things you didn&#x27;t ask for. If a skill is useful, better copy it into your project, read it and pin it in your repository.</li></ol>
+<p>If you already installed something dubious, remove it and delete its folder in <code>~/.claude/plugins/cache/</code>:</p>
+<pre><code class="language-bash">claude plugin disable frontend-design@claude-plugins-official
+claude plugin uninstall frontend-design@claude-plugins-official --scope user</code></pre>
+<h2>What we tested and what&#x27;s pending</h2>
+<p>Tested on 1 Nov 2026 on Linux with Claude Code 2.1.316: <code>claude plugin details</code> on the official marketplace folders gave the costs in the table (<code>frontend-design</code> ~80, <code>skill-creator</code> ~114, <code>code-review</code> ~22, <code>commit-commands</code> ~105 and <code>security-guidance</code> ~0 tokens with 4 hooks) and ~3,669 tokens for an installed bundle of 34 skills. Still pending: installing each recommendation in a test folder, using it on a real task and running <code>/skill-doctor</code>; when we do, we&#x27;ll update this page and its date.</p>
+<p>To go further: MCP servers in <a href="/en/recetas/mcp-para-programadores.html">MCP for developers</a>, subagents in <a href="/en/recetas/subagentes.html">Subagents</a> and the full route in <a href="/en/recetas/empieza-aqui.html">Start here</a>.</p>
+<h2>FAQ</h2>
+<h3>Where do skills go?</h3>
+<p>Personal ones in <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> (all your projects); project ones in <code>.claude/skills/&lt;name&gt;/SKILL.md</code> (shared via commit). Those that come in plugins are managed with <code>/plugin</code>. If two have the same name, the personal one wins over the project one.</p>
+<h3>Why doesn&#x27;t the skill I installed show up?</h3>
+<p>Look at the install summary: if it says &quot;Run /reload-plugins to apply&quot;, run it. Type <code>/</code> and search for <code>/plugin:skill</code>. Check the Errors tab in <code>/plugin</code> and confirm with <code>claude plugin list</code> that it is enabled and in the right scope.</p>
+<h3>Are the anthropics/skills skills free to use?</h3>
+<p>Many are Apache 2.0, but the document ones (docx, pdf, pptx, xlsx) are source-available, not open source. The repository itself says they are for demonstration and education, and that you should test them before using them for critical tasks.</p>
+<h3>Does the official marketplace guarantee a plugin is safe?</h3>
+<p>No. The documentation says the marketplace name tells you who publishes the catalog, not what each plugin does. Most of the official catalog comes from partners and other authors. Always review before installing.</p>
+<h3>How many skills can I have?</h3>
+<p>There&#x27;s no magic number: count the cost. Each description enters every turn (truncated to 1,536 characters in the list). Use <code>claude plugin details</code> and <code>/skill-doctor</code> and turn off what you don&#x27;t use.</p>
+<h3>Do they work on the web (claude.ai/code)?</h3>
+<p>Cloud sessions don&#x27;t load the plugins you installed on your machine. Skills you enable in your claude.ai account do sync with Cowork, the cloud and the terminal.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="crear-plugin-claude-code.html">Create a Claude Code plugin: init, testing, evals and marketplace</a></li><li><a href="pack-comandos.html">5 must-have Claude Code commands, ready to copy</a></li><li><a href="que-pieza-usar.html">Claude Code skills vs hooks, MCP, subagents and plugins</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

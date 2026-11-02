@@ -12,35 +12,37 @@
 <meta name="description" content="Qué poner y qué no en CLAUDE.md, dónde va cada archivo, imports con @ruta, /init y /memory, y una plantilla probada para un proyecto web.">
 <meta property="og:title" content="Cómo hacer un CLAUDE.md que Claude Code sí respete · Ctrl+IA">
 <meta property="og:description" content="Qué poner y qué no en CLAUDE.md, dónde va cada archivo, imports con @ruta, /init y /memory, y una plantilla probada para un proyecto web.">
-<meta property="og:image" content="https://ctrlia.dev/img/kit.webp">
+<meta property="og:image" content="https://ctrlia.dev/img/claude-md-que-funciona.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/claude-md-que-funciona.webp">
 <link rel="icon" href="../img/byte.png">
 <link rel="canonical" href="https://ctrlia.dev/recetas/claude-md-que-funciona.html">
 <link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/claude-md-que-funciona.html">
 <link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/claude-md-que-funciona.html">
-<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/claude-md-que-funciona.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/claude-md-que-funciona.html">
 <meta property="og:url" content="https://ctrlia.dev/recetas/claude-md-que-funciona.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Cómo hacer un CLAUDE.md que Claude Code sí respete", "description": "Qué poner y qué no en CLAUDE.md, dónde va cada archivo, imports con @ruta, /init y /memory, y una plantilla probada para un proyecto web.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html", "totalTime": "PT15M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Genera un borrador con /init y empieza a borrar", "text": "Dentro de tu proyecto abre Claude Code y escribe:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 2, "name": "Deja solo lo que Claude no puede ver en el código", "text": "Pon:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 3, "name": "Pon cada cosa en su nivel", "text": "Claude Code junta (no sustituye) todos estos archivos, del más general al más concreto:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 4, "name": "Separa en archivos con imports @ruta", "text": "Escribe @ruta/al/archivo en cualquier parte del CLAUDE.md y ese archivo se carga junto con él. Las rutas relativas se resuelven desde el archivo que importa (no desde la carpeta donde lanzas Claude) y se permiten hasta cuatro saltos de imports anidados. Importar ordena, pero no ahorra contexto: lo importado se carga entero junto al CLAUDE.md. Si quieres mencionar una ruta sin importarla, ponla entre comillas invertidas. La primera vez que un CLAUDE.md de proyecto importa algo de fuera del proyecto (por ejemplo @~/.claude/mis-notas.md), Claude Code te pide aprobarlo.", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 5, "name": "Mueve los procedimientos a skills", "text": "Un flujo de varios pasos (publicar una versión, preparar una migración) pesa en todas las sesiones si vive en CLAUDE.md. En una skill (.claude/skills/<nombre>/SKILL.md) Claude solo ve el nombre y la descripción hasta que la tarea la necesita. Si el flujo tiene efectos (desplegar, publicar), añade disable-model-invocation: true en su frontmatter para que solo se ejecute cuando tú escribas /<nombre>.", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 6, "name": "Mueve las reglas obligatorias a hooks y permisos", "text": "CLAUDE.md es contexto, no configuración obligatoria: Claude lo sigue casi siempre, pero puede decidir que una indicación no aplica. Si algo tiene que pasar siempre o nunca, haz que lo aplique Claude Code. Por ejemplo, «nunca leas .env» como regla de permisos en .claude/settings.json:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 7, "name": "Copia esta plantilla para un proyecto web", "text": "Guárdala como CLAUDE.md en la raíz y cambia los comandos por los tuyos:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde se pone el archivo CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "En la raíz del proyecto (./CLAUDE.md o ./.claude/CLAUDE.md) para el equipo, y en ~/.claude/CLAUDE.md para tus preferencias en todos los proyectos. Ambos se cargan a la vez."}}, {"@type": "Question", "name": "¿Cuántas líneas debe tener un CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "La documentación oficial recomienda menos de 200 por archivo. Separarlo con imports no reduce el coste, porque lo importado se carga igual."}}, {"@type": "Question", "name": "¿Qué diferencia hay entre CLAUDE.md y CLAUDE.local.md?", "acceptedAnswer": {"@type": "Answer", "text": "CLAUDE.md se sube a git y lo comparte el equipo; CLAUDE.local.md es solo tuyo, se lee después del CLAUDE.md de la misma carpeta y debe ir en .gitignore."}}, {"@type": "Question", "name": "¿Sirve mi AGENTS.md?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: Claude Code lee AGENTS.md cuando no hay ningún CLAUDE.md ni CLAUDE.local.md en tu carpeta o por encima. Si tienes ambos, pon @AGENTS.md dentro del CLAUDE.md."}}, {"@type": "Question", "name": "¿Escribir «IMPORTANTE» o «SIEMPRE» ayuda?", "acceptedAnswer": {"@type": "Answer", "text": "Poco. Si una línea se sigue ignorando, o el archivo es demasiado largo o la regla no admite excepciones y debe ser un hook o una regla de permisos."}}]}]}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=4f5d9179">
-<script src="../js/sitio.js?v=4f5d9179"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Cómo hacer un CLAUDE.md que Claude Code sí respete", "totalTime": "PT15M", "step": [{"@type": "HowToStep", "position": 1, "name": "Genera un borrador con /init y empieza a borrar", "text": "Dentro de tu proyecto abre Claude Code y escribe:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 2, "name": "Deja solo lo que Claude no puede ver en el código", "text": "Pon:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 3, "name": "Pon cada cosa en su nivel", "text": "Claude Code junta (no sustituye) todos estos archivos, del más general al más concreto:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 4, "name": "Separa en archivos con imports @ruta", "text": "Escribe @ruta/al/archivo en cualquier parte del CLAUDE.md y ese archivo se carga junto con él. Las rutas relativas se resuelven desde el archivo que importa (no desde la carpeta donde lanzas Claude) y se permiten hasta cuatro saltos de imports anidados. Importar ordena, pero no ahorra contexto: lo importado se carga entero junto al CLAUDE.md. Si quieres mencionar una ruta sin importarla, ponla entre comillas invertidas. La primera vez que un CLAUDE.md de proyecto importa algo de fuera del proyecto (por ejemplo @~/.claude/mis-notas.md), Claude Code te pide aprobarlo.", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 5, "name": "Mueve los procedimientos a skills", "text": "Un flujo de varios pasos (publicar una versión, preparar una migración) pesa en todas las sesiones si vive en CLAUDE.md. En una skill (.claude/skills/<nombre>/SKILL.md) Claude solo ve el nombre y la descripción hasta que la tarea la necesita. Si el flujo tiene efectos (desplegar, publicar), añade disable-model-invocation: true en su frontmatter para que solo se ejecute cuando tú escribas /<nombre>.", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 6, "name": "Mueve las reglas obligatorias a hooks y permisos", "text": "CLAUDE.md es contexto, no configuración obligatoria: Claude lo sigue casi siempre, pero puede decidir que una indicación no aplica. Si algo tiene que pasar siempre o nunca, haz que lo aplique Claude Code. Por ejemplo, «nunca leas .env» como regla de permisos en .claude/settings.json:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}, {"@type": "HowToStep", "position": 7, "name": "Copia esta plantilla para un proyecto web", "text": "Guárdala como CLAUDE.md en la raíz y cambia los comandos por los tuyos:", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html"}], "description": "Qué poner y qué no en CLAUDE.md, dónde va cada archivo, imports con @ruta, /init y /memory, y una plantilla probada para un proyecto web.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/claude-md-que-funciona.html", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde se pone el archivo CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "En la raíz del proyecto (./CLAUDE.md o ./.claude/CLAUDE.md) para el equipo, y en ~/.claude/CLAUDE.md para tus preferencias en todos los proyectos. Ambos se cargan a la vez."}}, {"@type": "Question", "name": "¿Cuántas líneas debe tener un CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "La documentación oficial recomienda menos de 200 por archivo. Separarlo con imports no reduce el coste, porque lo importado se carga igual."}}, {"@type": "Question", "name": "¿Qué diferencia hay entre CLAUDE.md y CLAUDE.local.md?", "acceptedAnswer": {"@type": "Answer", "text": "CLAUDE.md se sube a git y lo comparte el equipo; CLAUDE.local.md es solo tuyo, se lee después del CLAUDE.md de la misma carpeta y debe ir en .gitignore."}}, {"@type": "Question", "name": "¿Sirve mi AGENTS.md?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: Claude Code lee AGENTS.md cuando no hay ningún CLAUDE.md ni CLAUDE.local.md en tu carpeta o por encima. Si tienes ambos, pon @AGENTS.md dentro del CLAUDE.md."}}, {"@type": "Question", "name": "¿Escribir «IMPORTANTE» o «SIEMPRE» ayuda?", "acceptedAnswer": {"@type": "Answer", "text": "Poco. Si una línea se sigue ignorando, o el archivo es demasiado largo o la regla no admite excepciones y debe ser un hook o una regla de permisos."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
 <meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
-<script src="../js/cuentas.js?v=4f5d9179" defer></script>
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
 </head>
 <body>
-<div class="aviso-idioma" lang="en" hidden><p>Prefer English? <a href="../en/recetas/claude-md-que-funciona.html" hreflang="en">Read this page in English</a></p><button type="button" class="aviso-cerrar" aria-label="Close">×</button></div>
 <header class="barra">
   <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
-  <nav aria-label="Secciones"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#recursos">Herramientas</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
   <a class="idioma" href="../en/recetas/claude-md-que-funciona.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
   <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
   <div class="cuenta" hidden>
     <div class="cuenta-fuera">
       <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
       <div class="cuenta-menu" id="menu-entrar" hidden>
-        <p class="cuenta-invita">Opcional: guarda recursos, pide nuevos y recibe avisos.</p>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
         <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
         <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
         <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
@@ -50,13 +52,13 @@
       <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
       <div class="cuenta-menu" id="menu-cuenta" hidden>
         <p class="cuenta-nombre"></p>
-        <a href="../cuenta.html">Mis recursos y ajustes</a>
-        <a href="../peticiones.html">Pedir un recurso</a>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
         <button type="button" class="boton-texto" data-salir>Salir</button>
       </div>
     </div>
   </div>
-  <a class="boton boton-oscuro boton-chico" href="../index.html#recursos">Explorar gratis</a>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
   <p class="cuenta-estado solo-lector" role="status"></p>
 </header>
 
@@ -65,7 +67,11 @@
   <p class="insignia">Receta · Básico · 15 min</p>
   <h1 id="t-art">Cómo hacer un CLAUDE.md que Claude Code sí respete</h1>
   <p class="entrada">Qué poner y qué no en CLAUDE.md, dónde va cada archivo, imports con @ruta, /init y /memory, y una plantilla probada para un proyecto web.</p>
+  <img class="portada-img" src="../img/claude-md-que-funciona.webp" width="960" height="540" alt="Portada: Cómo hacer un CLAUDE.md que Claude Code sí respete">
   <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-10-31">2026-10-31</time></p>
+  
+  
+  
 <h2>El problema</h2>
 <p>Escribes un CLAUDE.md enorme con todo lo que sabes del proyecto y Claude Code se salta la mitad. O al revés: no tienes ninguno y en cada sesión le vuelves a explicar cómo se ejecutan los tests. Las dos cosas tienen el mismo arreglo: un archivo corto, con solo lo que Claude no puede deducir del código, en el sitio correcto, y las reglas que no admiten excepciones fuera de él.</p>
 <h2>La solución</h2>
@@ -154,17 +160,17 @@ paths:
 <p>Sí: Claude Code lee <code>AGENTS.md</code> cuando no hay ningún <code>CLAUDE.md</code> ni <code>CLAUDE.local.md</code> en tu carpeta o por encima. Si tienes ambos, pon <code>@AGENTS.md</code> dentro del CLAUDE.md.</p>
 <h3>¿Escribir «IMPORTANTE» o «SIEMPRE» ayuda?</h3>
 <p>Poco. Si una línea se sigue ignorando, o el archivo es demasiado largo o la regla no admite excepciones y debe ser un hook o una regla de permisos.</p>
-  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Más recetas</h2>
-    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code gratis con Ollama u OpenRouter: qué funciona</a></li><li><a href="claude-code-precio-gratis.html">¿Claude Code es gratis? Precio y qué plan elegir (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code en VS Code: extensión o terminal y cómo instalarlo</a></li></ul></nav>
-  <p class="volver"><a class="boton boton-oscuro" href="index.html">Todas las recetas</a></p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="agents-md.html">AGENTS.md vs CLAUDE.md en Claude Code: cuál lee y cómo usar ambos</a></li><li><a href="claude-code-espanol.html">Claude Code en español y sin relleno: language y estilo Concise</a></li><li><a href="generador-claude-md.html">Generador de CLAUDE.md y AGENTS.md en español, gratis</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
 </article>
 </main>
 <footer class="pie">
   <div class="pie-arriba">
-    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro, en español.</p></div>
-    <nav aria-label="Enlaces"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
   </div>
-  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un recurso</a>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
   </div>
   <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
 </footer>

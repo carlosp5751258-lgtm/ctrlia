@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Claude Code vs Codex vs Gemini vs Cursor: same task, with data · Ctrl+IA</title>
+<meta name="description" content="How to compare Claude Code, Codex CLI, Gemini or Antigravity CLI and Cursor CLI on the same task, with hidden tests and 5 runs. Methodology and scripts.">
+<meta property="og:title" content="Claude Code vs Codex vs Gemini vs Cursor: same task, with data · Ctrl+IA">
+<meta property="og:description" content="How to compare Claude Code, Codex CLI, Gemini or Antigravity CLI and Cursor CLI on the same task, with hidden tests and 5 runs. Methodology and scripts.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/claude-code-vs-codex-gemini-cursor.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/claude-code-vs-codex-gemini-cursor.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/claude-code-vs-codex-gemini-cursor.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/claude-code-vs-codex-gemini-cursor.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/claude-code-vs-codex-gemini-cursor.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/claude-code-vs-codex-gemini-cursor.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/claude-code-vs-codex-gemini-cursor.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Claude Code vs Codex vs Gemini vs Cursor: same task, with data", "datePublished": "2026-11-01", "mainEntityOfPage": "https://ctrlia.dev/en/recetas/claude-code-vs-codex-gemini-cursor.html", "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "isAccessibleForFree": true, "description": "How to compare Claude Code, Codex CLI, Gemini or Antigravity CLI and Cursor CLI on the same task, with hidden tests and 5 runs. Methodology and scripts.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/claude-code-vs-codex-gemini-cursor.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which is better, Claude Code or Codex?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the task and changes with every version. We haven't run the test yet; when we publish it, with date, versions and script, look at the table for your task type and repeat it on your own repository before paying."}}, {"@type": "Question", "name": "Is Gemini CLI still free?", "acceptedAnswer": {"@type": "Answer", "text": "According to its official README, since 18 Jun 2026 Gemini CLI is for Gemini Code Assist Standard/Enterprise licenses and legacy paid keys; free individual access moved to Antigravity CLI (command agy). We haven't verified the limits of Antigravity's free plan."}}, {"@type": "Question", "name": "Why don't you compare plan prices?", "acceptedAnswer": {"@type": "Answer", "text": "Each vendor measures usage differently and changes it often. We compare what can be measured (time, reported tokens, quality) and link each vendor's official pricing page with a date."}}, {"@type": "Question", "name": "Can I use Claude Code inside Cursor?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: the official Claude Code extension installs in Cursor (the documentation has a direct link). Our VS Code recipe explains how to install it safely after the tampered version served on 29 Oct by Cursor's marketplace."}}, {"@type": "Question", "name": "Why Python and not JavaScript?", "acceptedAnswer": {"@type": "Answer", "text": "So the test runs with only the standard library and pytest, without installing dependencies that might fail. A second round in TypeScript with the same design can be added."}}, {"@type": "Question", "name": "Can a Claude Code site be impartial?", "acceptedAnswer": {"@type": "Answer", "text": "We say so up front and compensate by publishing everything: repository, prompts, script and raw logs, including where Claude Code loses. Anyone can repeat it and correct us."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/claude-code-vs-codex-gemini-cursor.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Comparison · Intermediate · 20 min</p>
+  <h1 id="t-art">Claude Code vs Codex vs Gemini vs Cursor: same task, with data</h1>
+  <p class="entrada">How to compare Claude Code, Codex CLI, Gemini or Antigravity CLI and Cursor CLI on the same task, with hidden tests and 5 runs. Methodology and scripts.</p>
+  <img class="portada-img" src="../../img/en/claude-code-vs-codex-gemini-cursor.webp" width="960" height="540" alt="Cover: Claude Code vs Codex vs Gemini vs Cursor: same task, with data">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-claude-code-vs-codex-gemini-cursor"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>Summary and verdict</h2>
+<p><strong>Methodology ready; results pending.</strong> We haven&#x27;t run the test yet, so this page declares no winner and publishes no performance numbers. What you do get: the full design of an honest comparison between four terminal coding agents (Claude Code, OpenAI&#x27;s Codex CLI, Google&#x27;s Antigravity CLI or Gemini CLI, and Cursor CLI), the official facts about each one, verified commands and the scripts to repeat it yourself on your own code. They&#x27;re in the <a href="https://github.com/carlosp5751258-lgtm/ctrlia-claude-code-vs-codex-gemini-cursor" rel="noopener">ctrlia-claude-code-vs-codex-gemini-cursor</a> repository.</p>
+<p>Impartiality notice: Ctrl+IA is a site about Claude Code. That&#x27;s why we&#x27;ll publish everything (repository, prompts, script and raw logs), including the results where Claude Code loses. Once we have data, the verdict will be <strong>per task type</strong>, not an overall winner.</p>
+<h2>The four contenders, with official data</h2>
+<ul><li><strong>Claude Code (Anthropic)</strong>, version 2.1.316 installed on our PC. CLI with headless mode <code>claude -p</code> and JSON output. Requires Pro, Max, Ultra, Team or Enterprise, or an API key (<a href="/en/recetas/claude-code-precio-gratis.html">pricing</a>).</li><li><strong>Codex CLI (OpenAI)</strong>, 0.166.0 according to npm on 1 Nov 2026. Installed with <code>npm install -g @openai/codex</code>, <code>brew install --cask codex</code> or the chatgpt.com/codex/install.sh script. Its <a href="https://github.com/openai/codex" rel="noopener">README</a> recommends signing in with ChatGPT to use it within the Plus, Pro, Business, Edu or Enterprise plans, and it also accepts an API key. The non-interactive mode is <code>codex exec</code>; <code>/init</code> creates an AGENTS.md.</li><li><strong>Gemini CLI (Google)</strong>, 0.66.0 on npm. According to its <a href="https://github.com/google-gemini/gemini-cli" rel="noopener">README</a>, since 18 Jun 2026 it is only for Gemini Code Assist Standard/Enterprise licenses and legacy paid keys. Free individual access and the Google AI Pro/Ultra plans moved to <strong>Antigravity CLI</strong>, whose command is <code>agy</code> and whose personal authentication covers the Free, Pro and Ultra plans.</li><li><strong>Cursor CLI</strong>: installed with <code>curl https://cursor.com/install -fsS | bash</code>, the command is <code>agent</code> and in scripts it uses <code>agent -p</code> with the <code>CURSOR_API_KEY</code> variable (<a href="https://cursor.com/docs/cli/headless" rel="noopener">documentation</a>).</li></ul>
+<h2>How we test it (methodology)</h2>
+<h3>The repository and the three tasks</h3>
+<p>A small public repository in Python 3.12, using only the standard library and pytest (about 600 lines), frozen at a tagged commit, so that language and dependencies favor nobody. Three tasks, each in a <code>tareas/Tn.md</code> file with the same text for everyone:</p>
+<ol><li><strong>T1, fix a bug:</strong> <code>parsear_fecha</code> fails with dates like &quot;31/12/2026&quot; and with leap years; there&#x27;s a visible failing test.</li><li><strong>T2, add a feature:</strong> an <code>exportar --csv</code> command that handles commas, quotes and accented characters in UTF-8.</li><li><strong>T3, refactor without breaking:</strong> split a 400-line module into three without changing behavior or adding dependencies.</li></ol>
+<p>Each task has <strong>hidden tests</strong>, kept outside the repository, that are copied in only after the agent finishes: they show whether the fix is real or only passes the visible test. The instructions go inside the prompt (not in CLAUDE.md, AGENTS.md or custom rules) so no tool gets an advantage from reading its own config file.</p>
+<h3>Metrics: time, cost, quality and tests</h3>
+<ul><li><strong>Time:</strong> wall-clock seconds from launching the command until it ends, measured by the script, and number of turns if the tool reports it (Claude Code gives <code>duration_ms</code> and <code>num_turns</code> in its JSON).</li><li><strong>Cost:</strong> input and output tokens and cost in dollars when the tool reports them. In Claude Code, <code>total_cost_usd</code> is an estimate at API prices even if you use a subscription. If a tool doesn&#x27;t report tokens we write &quot;not reported&quot; and don&#x27;t make it up.</li><li><strong>Quality:</strong> percentage of hidden tests passed (main metric), visible tests passed, files changed outside the task scope, new dependencies, diff size (<code>git diff --stat</code>) and a 1-to-5 readability score given by a person reviewing the diff without knowing which tool made it.</li><li><strong>Honesty:</strong> did it claim the tests passed when they didn&#x27;t? Recorded as a &quot;false claim&quot;.</li><li><strong>Human interventions:</strong> zero, because everything runs headless with equivalent permissions (edit files inside the repository and run pytest).</li></ul>
+<h3>Repetitions, variable control and blind evaluation</h3>
+<p>Models don&#x27;t always give the same answer, so a single run proves nothing (in our research we discarded a DeployHQ comparison for exactly that reason: it made one run per tool). The plan:</p>
+<ul><li><strong>5 repetitions</strong> per tool and task: 15 per tool, 60 in total with all four. We publish the median and the range (minimum and maximum), never just the best.</li><li><strong>Same PC</strong> (Linux, 12 cores, 7.6 GB RAM), clean clone of the repository on every run and versions recorded on the test day.</li><li><strong>Default model</strong> of each tool recorded, plus an optional second round with each tool&#x27;s most capable model.</li><li><strong>Interleaved runs</strong>, so a service outage or the time of day doesn&#x27;t affect only one tool.</li><li><strong>Spending cap</strong> per run (in Claude Code, <code>--max-budget-usd 2</code>).</li><li><strong>Blind evaluation:</strong> a script renames the branches to A, B, C and D before a person scores readability.</li></ul>
+<h3>The commands</h3>
+<p>Claude Code headless, with scoped permissions and a spending cap (flags verified in 2.1.316):</p>
+<pre><code class="language-bash">claude -p &quot;$(cat tareas/T1.md)&quot; --output-format json \
+  --permission-mode acceptEdits \
+  --allowedTools &quot;Bash(python3 -m pytest *)&quot; \
+  --max-budget-usd 2 --no-session-persistence &gt; claude-T1-1.json
+python3 -c &quot;import json;d=json.load(open(&#x27;claude-T1-1.json&#x27;));print(d[&#x27;duration_ms&#x27;],d[&#x27;num_turns&#x27;],d[&#x27;total_cost_usd&#x27;],d[&#x27;usage&#x27;][&#x27;output_tokens&#x27;])&quot;</code></pre>
+<p>The other agents, according to their official documentation (<strong>not tested here</strong>: we haven&#x27;t installed them):</p>
+<pre><code class="language-bash"># Codex CLI
+npm install -g @openai/codex
+codex exec &quot;$(cat tareas/T1.md)&quot;
+# Cursor CLI
+curl https://cursor.com/install -fsS | bash
+export CURSOR_API_KEY=...   # your key, never in the repository
+agent -p --force --output-format json &quot;$(cat tareas/T1.md)&quot;
+# Antigravity CLI (Gemini CLI&#x27;s successor for individuals)
+curl -fsSL https://antigravity.google/cli/install.sh | bash
+agy --version
+# Gemini CLI (Code Assist licenses or legacy paid keys only)
+gemini -p &quot;$(cat tareas/T1.md)&quot; --output-format json</code></pre>
+<h3>The single-run script</h3>
+<p><code>bench.sh</code> clones the test repository into a temporary folder, launches the tool, measures the time, saves the diff and then copies in and runs the hidden tests. It&#x27;s the repository file (<code>en/bench.sh</code>), checked with <code>bash -n</code> and with a simulated <code>claude</code> (spending nothing):</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# bench.sh — one run: bench.sh &lt;tool&gt; &lt;task&gt; &lt;repetition&gt;
+# Tools: claude | codex | cursor | agy. Tasks: T1 | T2 | T3.
+# Requires: the test repo in $FIXTURE (fixed commit) and the hidden tests in $HIDDEN_TESTS (outside the repo).
+set -euo pipefail
+[ $# -eq 3 ] || { echo &quot;usage: $0 &lt;tool&gt; &lt;task&gt; &lt;repetition&gt;&quot; &gt;&amp;2; exit 2; }
+H=$1; T=$2; N=$3
+FIXTURE=${FIXTURE:?set FIXTURE}; HIDDEN_TESTS=$(cd &quot;${HIDDEN_TESTS:?set HIDDEN_TESTS}&quot; &amp;&amp; pwd)
+OUT=$PWD/${OUT:-results}; mkdir -p &quot;$OUT&quot;; LOG=$OUT/$H-$T-$N
+W=$(mktemp -d); trap &#x27;rm -rf &quot;$W&quot;&#x27; EXIT
+git clone -q &quot;$FIXTURE&quot; &quot;$W/repo&quot;; cd &quot;$W/repo&quot;
+PROMPT=$(cat &quot;tareas/$T.md&quot;)
+rc=0; t0=$(date +%s.%N)
+case $H in
+  claude) claude -p &quot;$PROMPT&quot; --output-format json --permission-mode acceptEdits \
+            --allowedTools &quot;Bash(python3 -m pytest *)&quot; --max-budget-usd 2 \
+            --no-session-persistence &gt; &quot;$LOG.json&quot; || rc=$? ;;
+  codex)  codex exec &quot;$PROMPT&quot; &gt; &quot;$LOG.txt&quot; || rc=$? ;;   # JSON and sandbox flags: confirm with `codex exec --help` on the test day
+  cursor) agent -p --force --output-format json &quot;$PROMPT&quot; &gt; &quot;$LOG.json&quot; || rc=$? ;;
+  agy)    echo &quot;Antigravity CLI: headless mode not verified; see its Headless mode page&quot; &gt;&amp;2; exit 2 ;;
+  *)      echo &quot;unknown tool: $H&quot; &gt;&amp;2; exit 2 ;;
+esac
+t1=$(date +%s.%N)
+# the diff before copying in the hidden tests, so they don&#x27;t count as the agent&#x27;s changes
+git diff --stat HEAD &gt; &quot;$LOG.diff.txt&quot;; git status --porcelain &gt;&gt; &quot;$LOG.diff.txt&quot;
+python3 -m pytest -q tests --tb=no &gt; &quot;$LOG.visible.txt&quot; 2&gt;&amp;1 || true
+cp -r &quot;$HIDDEN_TESTS&quot; ./hidden_tests
+python3 -m pytest -q hidden_tests --tb=no &gt; &quot;$LOG.hidden.txt&quot; 2&gt;&amp;1 || true
+echo &quot;$H,$T,$N,$(python3 -c &quot;print(round($t1 - $t0, 2))&quot;),$rc&quot; &gt;&gt; &quot;$OUT/times.csv&quot;</code></pre>
+<p>And the full loop, 4 tools × 3 tasks × 5 repetitions, interleaved (<code>en/lote.sh</code>; <code>TOOLS=claude ./lote.sh</code> runs only Claude Code):</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# lote.sh — all tools × T1-T3 × 5 repetitions, interleaved
+set -euo pipefail
+cd &quot;$(dirname &quot;$0&quot;)&quot;
+mkdir -p results
+for n in 1 2 3 4 5; do
+  for t in T1 T2 T3; do
+    for h in ${TOOLS:-claude codex cursor agy}; do
+      ./bench.sh &quot;$h&quot; &quot;$t&quot; &quot;$n&quot; || echo &quot;$h,$t,$n,,failed&quot; &gt;&gt; results/times.csv
+    done
+  done
+done</code></pre>
+<h3>What we can measure on this PC and what needs third-party accounts</h3>
+<ul><li><strong>Today, on our PC:</strong> all of Claude Code. It&#x27;s installed (2.1.316), signed in to claude.ai on the Max plan, and its headless JSON mode was checked on 1 Nov 2026 (fields <code>result</code>, <code>duration_ms</code>, <code>num_turns</code>, <code>total_cost_usd</code> and <code>usage</code>). The 15 Claude Code runs consume the plan&#x27;s allowance; the dollar cost will be an estimate.</li><li><strong>Pending approval for installs and accounts</strong> (we installed nothing third-party): Codex CLI (npm or script, and a ChatGPT Plus or higher account, or an OpenAI API key); Antigravity CLI (official installer and a Google account; the Free plan limits weren&#x27;t verified); Gemini CLI (only with a Code Assist license or legacy paid key, so the usual move is to replace it with Antigravity CLI and explain why); Cursor CLI (official installer, a Cursor account and <code>CURSOR_API_KEY</code>; the required plan wasn&#x27;t verified).</li><li><strong>To confirm on the test day:</strong> the exact <code>codex exec</code> flags (JSON and sandbox) and Antigravity&#x27;s headless mode, which we couldn&#x27;t read in their documentation.</li></ul>
+<h2>Comparison table</h2>
+<p>Official data as of 1 Nov 2026. The result rows are empty on purpose: <strong>results pending</strong>.</p>
+<div class="tabla"><table><thead><tr><th scope="col"></th><th scope="col">Claude Code</th><th scope="col">Codex CLI</th><th scope="col">Antigravity CLI / Gemini CLI</th><th scope="col">Cursor CLI</th></tr></thead><tbody><tr><td>Vendor</td><td>Anthropic</td><td>OpenAI</td><td>Google</td><td>Cursor</td></tr><tr><td>Version</td><td>2.1.316 (installed)</td><td>0.166.0 (npm)</td><td>Gemini CLI 0.66.0 (npm); agy not recorded</td><td>not recorded</td></tr><tr><td>Headless command</td><td><code>claude -p</code></td><td><code>codex exec</code></td><td><code>agy</code>: not verified; <code>gemini -p</code></td><td><code>agent -p</code></td></tr><tr><td>Account</td><td>Pro, Max, Ultra, Team, Enterprise or API</td><td>ChatGPT Plus or higher, or API</td><td>agy: Google account (Free, Pro, Ultra); gemini: Code Assist</td><td>Cursor account and <code>CURSOR_API_KEY</code></td></tr><tr><td>Instructions file</td><td>CLAUDE.md</td><td>AGENTS.md</td><td>not verified</td><td>not verified</td></tr><tr><td>Tested by Ctrl+IA</td><td>Commands yes; benchmark no</td><td>Not installed</td><td>Not installed</td><td>Not installed</td></tr><tr><td>Hidden tests passed (median and range)</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Time per task</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Reported cost or tokens</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Files out of scope</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>False claims</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr><tr><td>Readability (1-5, blind)</td><td>pending</td><td>pending</td><td>pending</td><td>pending</td></tr></tbody></table></div>
+<p>When there are results we&#x27;ll publish <strong>one table per task</strong> (T1, T2, T3) with these rows, the date and the versions. Rules we&#x27;ll follow: no third-party prices except linked to their official page with a date, no comparing subscription plans as if they were equivalent (each vendor measures usage differently), and repeat the test when versions change, because in a month the result may be different.</p>
+<h2>When to use each one</h2>
+<p>Without our own results, we can only guide you with the official facts:</p>
+<ul><li><strong>Claude Code</strong>, if you already pay for a Claude plan or want its headless JSON mode, spending cap and fine-grained permissions (<a href="/en/recetas/permisos-claude-code.html">permissions</a>, <a href="/en/recetas/claude-md-que-funciona.html">CLAUDE.md</a>). If you&#x27;re unsure between terminal, desktop or web, see <a href="/en/recetas/que-claude-abrir.html">Which Claude should I open?</a>.</li><li><strong>Codex CLI</strong>, if you already pay for ChatGPT Plus or higher: it&#x27;s included in your plan.</li><li><strong>Antigravity CLI</strong>, if you want Google&#x27;s option with a personal account; <strong>Gemini CLI</strong> only if your company has a Gemini Code Assist license.</li><li><strong>Cursor CLI</strong>, if your team already works in Cursor. And remember the official Claude Code extension also works inside Cursor (<a href="/en/recetas/claude-code-vs-code.html">how to install it safely</a>).</li><li><strong>Repeat it yourself:</strong> clone the repository, swap the tasks for something from your own code and run <code>lote.sh</code> with the tools you have. That&#x27;s what will really tell you which one suits you. If you want to try local models in Claude Code, see <a href="/en/recetas/claude-code-ollama-openrouter.html">Ollama and OpenRouter</a>; the full route to get started is in <a href="/en/recetas/empieza-aqui.html">Start here</a>.</li></ul>
+<h2>FAQ</h2>
+<h3>Which is better, Claude Code or Codex?</h3>
+<p>It depends on the task and changes with every version. We haven&#x27;t run the test yet; when we publish it, with date, versions and script, look at the table for your task type and repeat it on your own repository before paying.</p>
+<h3>Is Gemini CLI still free?</h3>
+<p>According to its official README, since 18 Jun 2026 Gemini CLI is for Gemini Code Assist Standard/Enterprise licenses and legacy paid keys; free individual access moved to Antigravity CLI (command <code>agy</code>). We haven&#x27;t verified the limits of Antigravity&#x27;s free plan.</p>
+<h3>Why don&#x27;t you compare plan prices?</h3>
+<p>Each vendor measures usage differently and changes it often. We compare what can be measured (time, reported tokens, quality) and link each vendor&#x27;s official pricing page with a date.</p>
+<h3>Can I use Claude Code inside Cursor?</h3>
+<p>Yes: the official Claude Code extension installs in Cursor (the documentation has a direct link). Our VS Code recipe explains how to install it safely after the tampered version served on 29 Oct by Cursor&#x27;s marketplace.</p>
+<h3>Why Python and not JavaScript?</h3>
+<p>So the test runs with only the standard library and pytest, without installing dependencies that might fail. A second round in TypeScript with the same design can be added.</p>
+<h3>Can a Claude Code site be impartial?</h3>
+<p>We say so up front and compensate by publishing everything: repository, prompts, script and raw logs, including where Claude Code loses. Anyone can repeat it and correct us.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="claude-code-otros-editores.html">Claude Code in JetBrains, Visual Studio, Xcode, Zed and Neovim</a></li><li><a href="empezar-claude-code-15-minutos.html">How to start with Claude Code in a project: 15-minute checklist</a></li><li><a href="empieza-aqui.html">Claude Code from scratch: a step-by-step route to start (2026)</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

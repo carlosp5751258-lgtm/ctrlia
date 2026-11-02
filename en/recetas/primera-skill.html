@@ -12,34 +12,37 @@
 <meta name="description" content="Build a project skill in .claude/skills with SKILL.md, a helper script and a description Claude recognizes. Example: release notes from git log.">
 <meta property="og:title" content="Create your first Claude Code skill, step by step · Ctrl+IA">
 <meta property="og:description" content="Build a project skill in .claude/skills with SKILL.md, a helper script and a description Claude recognizes. Example: release notes from git log.">
-<meta property="og:image" content="https://ctrlia.dev/img/en/kit.webp">
+<meta property="og:image" content="https://ctrlia.dev/img/en/primera-skill.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/primera-skill.webp">
 <link rel="icon" href="../../img/byte.png">
 <link rel="canonical" href="https://ctrlia.dev/en/recetas/primera-skill.html">
 <link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/primera-skill.html">
 <link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/primera-skill.html">
-<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/primera-skill.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/primera-skill.html">
 <meta property="og:url" content="https://ctrlia.dev/en/recetas/primera-skill.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Create your first Claude Code skill, step by step", "description": "Build a project skill in .claude/skills with SKILL.md, a helper script and a description Claude recognizes. Example: release notes from git log.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/primera-skill.html", "totalTime": "PT10M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Create the skill folder", "text": "Project skills live in .claude/skills/<name>/SKILL.md at the root of the repository. Personal skills go in ~/.claude/skills/<name>/SKILL.md and work in all your projects.", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 2, "name": "Write SKILL.md", "text": "Save this as .claude/skills/version-notes/SKILL.md. The block between --- lines is the frontmatter, and it must start on the first line of the file.", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 3, "name": "Add a helper script", "text": "Scripts are executed, not loaded into context. Save this as .claude/skills/version-notes/scripts/commits.sh:", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 4, "name": "Add a reference file", "text": "Supporting files keep SKILL.md short: Claude reads them only when it needs them, because SKILL.md links to them. Save this as .claude/skills/version-notes/template.md:", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 5, "name": "Invoke it", "text": "Inside Claude Code type /version-notes or, to start from another tag or commit, /version-notes v1.0.0. It also works outside a session in non-interactive mode:", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 6, "name": "Write a description that makes Claude use it", "text": "Claude only sees each skill's name and description until it decides to load it. To get it picked:", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What's the difference between a skill and a command in .claude/commands?", "acceptedAnswer": {"@type": "Answer", "text": "Custom commands were merged into skills: .claude/commands/deploy.md and .claude/skills/deploy/SKILL.md both create the same /deploy. A skill adds a folder for supporting files and automatic loading by Claude; if both share a name, the skill wins."}}, {"@type": "Question", "name": "Do I need to restart Claude Code after editing a skill?", "acceptedAnswer": {"@type": "Answer", "text": "No. Claude Code watches the skill folders and applies changes to the open session. You only need /reload-skills when you create a top-level skills folder for the first time."}}, {"@type": "Question", "name": "How do I stop Claude from running it on its own?", "acceptedAnswer": {"@type": "Answer", "text": "Add disable-model-invocation: true to the frontmatter. Then it only runs when you type /version-notes, which is a good idea for skills with side effects, such as deploying or publishing."}}, {"@type": "Question", "name": "Can I share it with my team?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Commit the .claude/skills/ folder to the repository, and anyone who opens Claude Code in that project gets /version-notes."}}, {"@type": "Question", "name": "How long should SKILL.md be?", "acceptedAnswer": {"@type": "Answer", "text": "The official guide recommends under 500 lines. Put the details in supporting files linked from SKILL.md, which Claude reads only when it needs them."}}]}]}</script>
-<link rel="stylesheet" href="../../css/estilo.css?v=4f5d9179">
-<script src="../../js/sitio.js?v=4f5d9179"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Create your first Claude Code skill, step by step", "totalTime": "PT10M", "step": [{"@type": "HowToStep", "position": 1, "name": "Create the skill folder", "text": "Project skills live in .claude/skills/<name>/SKILL.md at the root of the repository. Personal skills go in ~/.claude/skills/<name>/SKILL.md and work in all your projects.", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 2, "name": "Write SKILL.md", "text": "Save this as .claude/skills/version-notes/SKILL.md. The block between --- lines is the frontmatter, and it must start on the first line of the file.", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 3, "name": "Add a helper script", "text": "Scripts are executed, not loaded into context. Save this as .claude/skills/version-notes/scripts/commits.sh:", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 4, "name": "Add a reference file", "text": "Supporting files keep SKILL.md short: Claude reads them only when it needs them, because SKILL.md links to them. Save this as .claude/skills/version-notes/template.md:", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 5, "name": "Invoke it", "text": "Inside Claude Code type /version-notes or, to start from another tag or commit, /version-notes v1.0.0. It also works outside a session in non-interactive mode:", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}, {"@type": "HowToStep", "position": 6, "name": "Write a description that makes Claude use it", "text": "Claude only sees each skill's name and description until it decides to load it. To get it picked:", "url": "https://ctrlia.dev/en/recetas/primera-skill.html"}], "description": "Build a project skill in .claude/skills with SKILL.md, a helper script and a description Claude recognizes. Example: release notes from git log.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/primera-skill.html", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What's the difference between a skill and a command in .claude/commands?", "acceptedAnswer": {"@type": "Answer", "text": "Custom commands were merged into skills: .claude/commands/deploy.md and .claude/skills/deploy/SKILL.md both create the same /deploy. A skill adds a folder for supporting files and automatic loading by Claude; if both share a name, the skill wins."}}, {"@type": "Question", "name": "Do I need to restart Claude Code after editing a skill?", "acceptedAnswer": {"@type": "Answer", "text": "No. Claude Code watches the skill folders and applies changes to the open session. You only need /reload-skills when you create a top-level skills folder for the first time."}}, {"@type": "Question", "name": "How do I stop Claude from running it on its own?", "acceptedAnswer": {"@type": "Answer", "text": "Add disable-model-invocation: true to the frontmatter. Then it only runs when you type /version-notes, which is a good idea for skills with side effects, such as deploying or publishing."}}, {"@type": "Question", "name": "Can I share it with my team?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Commit the .claude/skills/ folder to the repository, and anyone who opens Claude Code in that project gets /version-notes."}}, {"@type": "Question", "name": "How long should SKILL.md be?", "acceptedAnswer": {"@type": "Answer", "text": "The official guide recommends under 500 lines. Put the details in supporting files linked from SKILL.md, which Claude reads only when it needs them."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
 <meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
-<script src="../../js/cuentas.js?v=4f5d9179" defer></script>
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
 </head>
 <body>
 <header class="barra">
   <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
-  <nav aria-label="Sections"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#recursos">Tools</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
   <a class="idioma" href="../../recetas/primera-skill.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
   <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
   <div class="cuenta" hidden>
     <div class="cuenta-fuera">
       <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
       <div class="cuenta-menu" id="menu-entrar" hidden>
-        <p class="cuenta-invita">Optional: save resources, request new ones and get alerts.</p>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
         <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
         <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
         <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
@@ -49,13 +52,13 @@
       <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
       <div class="cuenta-menu" id="menu-cuenta" hidden>
         <p class="cuenta-nombre"></p>
-        <a href="../../en/cuenta.html">My resources and settings</a>
-        <a href="../../en/peticiones.html">Request a resource</a>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
         <button type="button" class="boton-texto" data-salir>Sign out</button>
       </div>
     </div>
   </div>
-  <a class="boton boton-oscuro boton-chico" href="../../en/index.html#recursos">Explore for free</a>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
   <p class="cuenta-estado solo-lector" role="status"></p>
 </header>
 
@@ -64,7 +67,11 @@
   <p class="insignia">Recipe · Basic · 10 min</p>
   <h1 id="t-art">Create your first Claude Code skill, step by step</h1>
   <p class="entrada">Build a project skill in .claude/skills with SKILL.md, a helper script and a description Claude recognizes. Example: release notes from git log.</p>
+  <img class="portada-img" src="../../img/en/primera-skill.webp" width="960" height="540" alt="Cover: Create your first Claude Code skill, step by step">
   <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-10-31">2026-10-31</time></p>
+  
+  
+  
 <h2>The problem</h2>
 <p>Every time you cut a release you paste the same instructions into Claude: &quot;look at the commits since the last tag, group them into features and fixes, don&#x27;t make anything up&quot;. When those instructions live in your head or in the chat, they get lost and everyone on the team gets a different result. A <strong>skill</strong> stores that procedure in the repository, so you can run it with <code>/name</code> or let Claude load it on its own when it&#x27;s needed.</p>
 <h2>The solution</h2>
@@ -161,17 +168,17 @@ fi</code></pre>
 <p>Yes. Commit the <code>.claude/skills/</code> folder to the repository, and anyone who opens Claude Code in that project gets <code>/version-notes</code>.</p>
 <h3>How long should SKILL.md be?</h3>
 <p>The official guide recommends under 500 lines. Put the details in supporting files linked from <code>SKILL.md</code>, which Claude reads only when it needs them.</p>
-  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">More recipes</h2>
-    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code for free with Ollama or OpenRouter: what works</a></li><li><a href="claude-code-precio-gratis.html">Is Claude Code free? Pricing and which plan to pick (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code in VS Code: extension or terminal, how to install</a></li></ul></nav>
-  <p class="volver"><a class="boton boton-oscuro" href="index.html">All recipes</a></p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="crear-plugin-claude-code.html">Create a Claude Code plugin: init, testing, evals and marketplace</a></li><li><a href="pack-comandos.html">5 must-have Claude Code commands, ready to copy</a></li><li><a href="que-pieza-usar.html">Claude Code skills vs hooks, MCP, subagents and plugins</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
 </article>
 </main>
 <footer class="pie">
   <div class="pie-arriba">
-    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code — in Spanish.</p></div>
-    <nav aria-label="Links"><a href="../../en/recetas/index.html">Recipes</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
   </div>
-  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a resource</a>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
   </div>
   <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
 </footer>

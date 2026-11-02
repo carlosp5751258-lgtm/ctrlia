@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>Debug a bug with Claude Code: from the error to a regression test · Ctrl+IA</title>
+<meta name="description" content="A six-step debugging flow for Claude Code: reproduce, hand over the evidence, hypotheses without edits, a failing test first and a minimal fix.">
+<meta property="og:title" content="Debug a bug with Claude Code: from the error to a regression test · Ctrl+IA">
+<meta property="og:description" content="A six-step debugging flow for Claude Code: reproduce, hand over the evidence, hypotheses without edits, a failing test first and a minimal fix.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/depurar-bug.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/depurar-bug.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/depurar-bug.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/depurar-bug.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/depurar-bug.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/depurar-bug.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/depurar-bug.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Debug a bug with Claude Code: from the error to a regression test", "totalTime": "PT15M", "step": [{"@type": "HowToStep", "position": 1, "name": "Reproduce it before touching anything", "text": "A bug you can't reproduce is a bug you can't call fixed. Before opening Claude, get a command that triggers it: a test that already fails, a curl against your local API, a five-line script or the exact click sequence. Write down the expected result and the one you get, with concrete data (\"100.00 in 3 installments adds up to 99.99\"), not \"it's wrong\".", "url": "https://ctrlia.dev/en/recetas/depurar-bug.html"}, {"@type": "HowToStep", "position": 2, "name": "Hand over the evidence, not your theory", "text": "Give Claude what you already have instead of describing it. For a file, type @ and the path (@logs/error.log) and its content goes into the message. For an error on screen, paste the screenshot into the prompt. For a command's output, the official docs suggest piping it from the shell:", "url": "https://ctrlia.dev/en/recetas/depurar-bug.html"}, {"@type": "HowToStep", "position": 3, "name": "Hypotheses in plan mode, no edits", "text": "Before it changes a line, ask it to think. /plan enters plan mode from the prompt and accepts a description, for example /plan the installment sum doesn't add up, see bug #42. In plan mode Claude reads and proposes, but doesn't edit your code until you approve the plan. Ask for two or three hypotheses ordered by likelihood and, for each one, which observation would confirm or rule it out. That way you see whether it understood the problem before spending time on the wrong fix.", "url": "https://ctrlia.dev/en/recetas/depurar-bug.html"}, {"@type": "HowToStep", "position": 4, "name": "Temporary logs that are easy to remove", "text": "When reading the code isn't enough, the quick way to rule out hypotheses is to observe: print intermediate values, timings or the order of calls. Ask for every temporary log to carry a fixed marker, for example a DEBUG-CLAUDE comment or prefix, so you can find and remove them at the end with grep -rn \"DEBUG-CLAUDE\" ..", "url": "https://ctrlia.dev/en/recetas/depurar-bug.html"}, {"@type": "HowToStep", "position": 5, "name": "Regression test in red, minimal fix in green", "text": "This is the step that keeps the bug from coming back. First ask for a test that reproduces the failure exactly and for Claude to show you that it fails (red). If the test passes with the broken code, it proves nothing. Then the minimal change that turns it green, and the full suite to check nothing else broke. Say it explicitly in the prompt: \"don't modify or loosen the test\". A common agent failure is to loosen the assertion or rewrite the test until it passes.", "url": "https://ctrlia.dev/en/recetas/depurar-bug.html"}, {"@type": "HowToStep", "position": 6, "name": "Review, clean up and leave a record", "text": "Before the commit, review the git diff yourself: the change should be small, no DEBUG-CLAUDE logs should remain and the new test should be included. /code-review (a bundled skill) reviews the current diff for correctness bugs if you want a second opinion. Ask Claude for a three-line root-cause summary and use it in the commit or PR message.", "url": "https://ctrlia.dev/en/recetas/depurar-bug.html"}], "description": "A six-step debugging flow for Claude Code: reproduce, hand over the evidence, hypotheses without edits, a failing test first and a minimal fix.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/depurar-bug.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does the /debug command debug my code?", "acceptedAnswer": {"@type": "Answer", "text": "No. /debug is a bundled skill that turns on the session's debug logging and analyzes that log to diagnose problems with Claude Code itself (a tool that fails, a setting that doesn't load). For a bug in your program, use the flow in this recipe."}}, {"@type": "Question", "name": "What do I do if Claude changes the test so it passes?", "acceptedAnswer": {"@type": "Answer", "text": "Forbid it in the prompt (\"don't modify or loosen the test\"), ask it to show you the test in red before fixing and review the diff of the test file. If it keeps happening, add it to your CLAUDE.md as a project rule."}}, {"@type": "Question", "name": "What if the bug is intermittent?", "acceptedAnswer": {"@type": "Answer", "text": "Say so and give the ratio (\"fails 1 in 10\"). Ask for hypotheses about concurrency, test order, cache or timing, and for a script that runs it in a loop (for example 50 times) to measure before and after the fix."}}, {"@type": "Question", "name": "Can I give it a huge log?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, but preferably with @path or piped with cat log | claude -p, asking it to filter. If it's very large, let a subagent read it and return only what matters, so the main context doesn't fill up."}}, {"@type": "Question", "name": "Does /rewind undo everything Claude did while debugging?", "acceptedAnswer": {"@type": "Answer", "text": "Not everything. It undoes the edits made with its editing tools; files changed only by Bash commands and external changes aren't tracked. Commit before you start."}}, {"@type": "Question", "name": "Do I have to approve every test run?", "acceptedAnswer": {"@type": "Answer", "text": "In Manual mode, yes. Add an allow rule for your test command or use auto mode, which approves routine actions and blocks risky ones (see the auto mode reference and the permissions recipe)."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/depurar-bug.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Intermediate · 15 min</p>
+  <h1 id="t-art">Debug a bug with Claude Code: from the error to a regression test</h1>
+  <p class="entrada">A six-step debugging flow for Claude Code: reproduce, hand over the evidence, hypotheses without edits, a failing test first and a minimal fix.</p>
+  <img class="portada-img" src="../../img/en/depurar-bug.webp" width="960" height="540" alt="Cover: Debug a bug with Claude Code: from the error to a regression test">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-depurar-bug"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>The problem</h2>
+<p>Asking Claude Code to &quot;fix it&quot; usually ends in a patch for the symptom, a test tweaked until it passes, or a bug that comes back a week later. With a bare &quot;fix it&quot; Claude only knows something is wrong and has to guess what, where and how to check that it&#x27;s fixed. This recipe gives you a six-step flow that ends with a regression test that keeps the bug from coming back, with a real example: installments that add up to 99.99 instead of 100.00.</p>
+<h2>The solution</h2>
+<p>The <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">official best practices guide</a> explains it with an example: instead of &quot;fix the login bug&quot;, write &quot;users report that login fails after session timeout; check the auth flow in src/auth/, especially token refresh; write a failing test that reproduces the issue, then fix it&quot;. The difference is information Claude can&#x27;t read in the code: the observed symptom, where to look and what &quot;fixed&quot; means. The official tips for bugs are three: give it the command that reproduces it and the stack trace, tell it the steps to reproduce it, and say whether the failure is consistent or intermittent. The steps below turn those tips into a repeatable flow.</p>
+<h3>1. Reproduce it before touching anything</h3>
+<p>A bug you can&#x27;t reproduce is a bug you can&#x27;t call fixed. Before opening Claude, get a command that triggers it: a test that already fails, a <code>curl</code> against your local API, a five-line script or the exact click sequence. Write down the expected result and the one you get, with concrete data (&quot;100.00 in 3 installments adds up to 99.99&quot;), not &quot;it&#x27;s wrong&quot;.</p>
+<p>If it&#x27;s intermittent, run it several times and note the ratio (&quot;fails 1 in 10&quot;): it completely changes the hypotheses (races, cache, time, test order). If you know since when it happens, give the commit or the version; <code>git log</code> and <code>git bisect</code> are clues Claude uses very well. If you still have no way to reproduce it, that is the first job: &quot;help me write a script that reproduces this, without fixing anything&quot;.</p>
+<p>Our example, <code>cuotas.py</code> (Spanish for &quot;installments&quot;), rounds each installment with <code>float</code>:</p>
+<pre><code class="language-python">def split_into_installments(total: str, n: int) -&gt; list[float]:
+    installment = round(float(total) / n, 2)
+    return [installment] * n</code></pre>
+<p><code>split_into_installments(&quot;100.00&quot;, 3)</code> returns three installments of 33.33, which add up to 99.99.</p>
+<h3>2. Hand over the evidence, not your theory</h3>
+<p>Give Claude what you already have instead of describing it. For a file, type <code>@</code> and the path (<code>@logs/error.log</code>) and its content goes into the message. For an error on screen, paste the screenshot into the prompt. For a command&#x27;s output, the <a href="https://code.claude.com/docs/en/common-workflows" rel="noopener">official docs</a> suggest piping it from the shell:</p>
+<pre><code class="language-bash">cat logs/error.log | claude -p &quot;what&#x27;s going on here? give me hypotheses, don&#x27;t edit anything&quot;</code></pre>
+<p>Paste the full stack trace, not the last line: the paths and line numbers in the middle are the ones that point to the origin. Avoid leading with your suspicion (&quot;I think it&#x27;s the cache&quot;): if you say it, Claude tends to look where you point. Better to describe the symptom and let it form hypotheses from the evidence; if you have a suspicion, add it at the end as one more hypothesis. One bug per conversation: when you&#x27;re done, <code>/clear</code> so leftovers from one bug don&#x27;t pollute the next.</p>
+<p>This template puts the whole flow into a single message. Copy it and fill in what&#x27;s between <code>&lt; &gt;</code>:</p>
+<pre><code class="language-text">There&#x27;s a bug: &lt;observable symptom, with concrete data&gt;.
+It reproduces with: &lt;exact command&gt; (always fails | fails 1 in N times).
+Output/error: @logs/error.log  (or paste it as is, with the full stack trace)
+Expected: &lt;correct result&gt;. Got: &lt;current result&gt;.
+Since when: &lt;commit, version or suspicious change, if you know&gt;.
+
+How I want you to work:
+1. Reproduce it yourself first with the command and show me the output.
+2. Give me 2-3 hypotheses ordered by likelihood and how you&#x27;d rule out each one. Don&#x27;t edit anything yet.
+3. If needed, add temporary logs marked with DEBUG-CLAUDE and run it again.
+4. Write a regression test that fails because of this bug and show me it fails.
+5. Make the minimal change that turns it green. Don&#x27;t modify or loosen the test.
+6. Run the whole suite, remove the DEBUG-CLAUDE logs and summarize the root cause in 3 lines.</code></pre>
+<h3>3. Hypotheses in plan mode, no edits</h3>
+<p>Before it changes a line, ask it to think. <code>/plan</code> enters plan mode from the prompt and accepts a description, for example <code>/plan the installment sum doesn&#x27;t add up, see bug #42</code>. In plan mode Claude reads and proposes, but doesn&#x27;t edit your code until you approve the plan. Ask for two or three hypotheses ordered by likelihood and, for each one, which observation would confirm or rule it out. That way you see whether it understood the problem before spending time on the wrong fix.</p>
+<p>If the bug is in code you didn&#x27;t write, in a flaky test or in a schema change with many readers, the official guide recommends raising the effort with <code>/effort high</code> or <code>/effort xhigh</code>: Claude checks more edge cases and verifies its work more, at the cost of more time and tokens. For a simple bug, the default effort is enough.</p>
+<h3>4. Temporary logs that are easy to remove</h3>
+<p>When reading the code isn&#x27;t enough, the quick way to rule out hypotheses is to observe: print intermediate values, timings or the order of calls. Ask for every temporary log to carry a fixed marker, for example a <code>DEBUG-CLAUDE</code> comment or prefix, so you can find and remove them at the end with <code>grep -rn &quot;DEBUG-CLAUDE&quot; .</code>.</p>
+<p>Let Claude run the reproduction command and read the output itself: it&#x27;s more reliable than copying and pasting by hand. If the output is huge (thousands of log lines or a slow suite), delegate that part to a <a href="../recetas/subagentes.html">subagent</a>: it reads everything in its own context and only returns the summary, so the main conversation doesn&#x27;t fill up. By default Claude asks permission to run commands; with <a href="../recetas/auto-mode.html">auto mode</a> or an allow rule for your test command (<code>Bash(python3 -m unittest *)</code>, see <a href="../recetas/permisos-claude-code.html">permissions</a>) the loop is much smoother.</p>
+<h3>5. Regression test in red, minimal fix in green</h3>
+<p>This is the step that keeps the bug from coming back. First ask for a test that reproduces the failure exactly and for Claude to show you that it fails (red). If the test passes with the broken code, it proves nothing. Then the minimal change that turns it green, and the full suite to check nothing else broke. Say it explicitly in the prompt: &quot;don&#x27;t modify or loosen the test&quot;. A common agent failure is to loosen the assertion or rewrite the test until it passes.</p>
+<p>The example&#x27;s regression test, <code>test_cuotas.py</code>, compares the sum with <code>Decimal(&quot;100.00&quot;)</code>. Name the test after the bug number so it makes sense in the future:</p>
+<pre><code class="language-python">import unittest
+from decimal import Decimal
+
+from cuotas import split_into_installments
+
+
+class TestInstallments(unittest.TestCase):
+    def test_regression_bug_42_exact_sum(self):
+        # Bug #42: 100.00 in 3 installments added up to 99.99
+        installments = split_into_installments(&quot;100.00&quot;, 3)
+        self.assertEqual(sum(Decimal(str(c)) for c in installments), Decimal(&quot;100.00&quot;))
+
+    def test_exact_division_unchanged(self):
+        installments = split_into_installments(&quot;90.00&quot;, 3)
+        self.assertEqual([Decimal(str(c)) for c in installments], [Decimal(&quot;30.00&quot;)] * 3)
+
+
+if __name__ == &quot;__main__&quot;:
+    unittest.main()</code></pre>
+<p>The fix works with <code>Decimal</code>, rounds down and adds the leftover cents to the first installment (33.34 + 33.33 + 33.33):</p>
+<pre><code class="language-python">from decimal import Decimal, ROUND_DOWN
+
+
+def split_into_installments(total: str, n: int) -&gt; list[Decimal]:
+    &quot;&quot;&quot;Splits an amount into n 2-decimal installments that add up exactly to the total.&quot;&quot;&quot;
+    if n &lt; 1:
+        raise ValueError(&quot;n must be &gt;= 1&quot;)
+    total_d = Decimal(total)
+    base = (total_d / n).quantize(Decimal(&quot;0.01&quot;), rounding=ROUND_DOWN)
+    installments = [base] * n
+    # The remainder (cents lost when rounding) goes to the first installment
+    installments[0] += total_d - base * n
+    return installments</code></pre>
+<h3>6. Review, clean up and leave a record</h3>
+<p>Before the commit, review the <code>git diff</code> yourself: the change should be small, no <code>DEBUG-CLAUDE</code> logs should remain and the new test should be included. <code>/code-review</code> (a bundled skill) reviews the current diff for correctness bugs if you want a second opinion. Ask Claude for a three-line root-cause summary and use it in the commit or PR message.</p>
+<p>Watch out for <code>/rewind</code>: it undoes the changes Claude made with its editing tools, but a file changed only by Bash commands isn&#x27;t tracked and stays as it is. That&#x27;s why it pays to commit (or at least <code>git stash</code>) before you start debugging: git is your real safety net. If the same kind of bug shows up twice, turn it into a rule: a line in <a href="../recetas/claude-md-que-funciona.html">CLAUDE.md</a> (&quot;amounts are always Decimal&quot;) or a <a href="../recetas/hooks-seguridad.html">hook</a> that runs the tests after every edit.</p>
+<h2>Check it</h2>
+<p>With the buggy <code>cuotas.py</code>, the regression test must fail; with the fix, it must pass:</p>
+<pre><code class="language-bash"># Red: with the buggy code, the regression test fails
+python3 -m unittest -q
+# AssertionError: Decimal(&#x27;99.99&#x27;) != Decimal(&#x27;100.00&#x27;)
+# FAILED (failures=1)
+
+# Green: after the fix
+python3 -m unittest -q
+# OK
+
+# Before the commit: no temporary logs left
+git diff
+grep -rn &quot;DEBUG-CLAUDE&quot; . &amp;&amp; echo &quot;Temporary logs left&quot;</code></pre>
+<p>We tested it on 1 Nov 2026 on Linux with Python 3.12.3 and Claude Code 2.1.316: the test gives exactly that <code>AssertionError</code> with the buggy code and <code>OK</code> with the fix. The Claude Code features we mention (<code>/plan</code> with a description, <code>/effort</code>, <code>/code-review</code>, <code>/debug</code>, the limits of <code>/rewind</code> and <code>cat … | claude -p</code>) come from the official documentation; we haven&#x27;t yet recorded a full interactive session with the prompt template. The example files are in the <code>ctrlia-depurar-bug</code> repository (English version in <code>en/</code>; run <code>./en/ejemplo/rojo-verde.sh</code>).</p>
+<h2>Why it works</h2>
+<p>Claude does much better when it can check its own work: a command that reproduces the failure and a test that goes from red to green give it an objective signal of &quot;fixed&quot; instead of its own opinion. Separating the hypotheses (plan mode, no edits) from the fix stops it from jumping at the first patch, and the regression test stays in the suite so the bug can&#x27;t come back unnoticed. More in the <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">best practices</a>, the <a href="https://code.claude.com/docs/en/common-workflows" rel="noopener">common workflows</a>, the <a href="https://code.claude.com/docs/en/commands" rel="noopener">command list</a> and <a href="https://code.claude.com/docs/en/checkpointing" rel="noopener">checkpointing</a>.</p>
+<h2>Common mistakes</h2>
+<ul><li><strong>The new test passes with the broken code</strong> → it doesn&#x27;t really reproduce the bug → ask it to show you the test in red before fixing anything; if it passes, it proves nothing.</li><li><strong>Claude loosens the assertion or rewrites the test until it passes</strong> → you didn&#x27;t forbid it → write &quot;don&#x27;t modify or loosen the test&quot; and review the diff of the test file.</li><li><strong>Claude only looks where you said</strong> → you led with your suspicion → describe the symptom and leave your theory at the end as one more hypothesis.</li><li><strong>Debug prints end up in the commit</strong> → unmarked temporary logs → mark them with <code>DEBUG-CLAUDE</code> and check with <code>grep -rn &quot;DEBUG-CLAUDE&quot; .</code>.</li><li><strong><code>/rewind</code> didn&#x27;t undo a file</strong> → a Bash command changed it, and that isn&#x27;t tracked → commit or <code>git stash</code> before you start debugging.</li><li><strong>You use <code>/debug</code> for your bug</strong> → <code>/debug</code> debugs Claude Code, not your program → use the flow in this recipe.</li></ul>
+<h2>FAQ</h2>
+<h3>Does the /debug command debug my code?</h3>
+<p>No. <code>/debug</code> is a bundled skill that turns on the session&#x27;s debug logging and analyzes that log to diagnose problems with Claude Code itself (a tool that fails, a setting that doesn&#x27;t load). For a bug in your program, use the flow in this recipe.</p>
+<h3>What do I do if Claude changes the test so it passes?</h3>
+<p>Forbid it in the prompt (&quot;don&#x27;t modify or loosen the test&quot;), ask it to show you the test in red before fixing and review the diff of the test file. If it keeps happening, add it to your CLAUDE.md as a project rule.</p>
+<h3>What if the bug is intermittent?</h3>
+<p>Say so and give the ratio (&quot;fails 1 in 10&quot;). Ask for hypotheses about concurrency, test order, cache or timing, and for a script that runs it in a loop (for example 50 times) to measure before and after the fix.</p>
+<h3>Can I give it a huge log?</h3>
+<p>Yes, but preferably with <code>@path</code> or piped with <code>cat log | claude -p</code>, asking it to filter. If it&#x27;s very large, let a subagent read it and return only what matters, so the main context doesn&#x27;t fill up.</p>
+<h3>Does /rewind undo everything Claude did while debugging?</h3>
+<p>Not everything. It undoes the edits made with its editing tools; files changed only by Bash commands and external changes aren&#x27;t tracked. Commit before you start.</p>
+<h3>Do I have to approve every test run?</h3>
+<p>In Manual mode, yes. Add an allow rule for your test command or use auto mode, which approves routine actions and blocks risky ones (see the <a href="../recetas/auto-mode.html">auto mode</a> reference and the <a href="../recetas/permisos-claude-code.html">permissions</a> recipe).</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="checklist-revisar-codigo-ia.html">Before merging Claude Code&#x27;s code: a review checklist</a></li><li><a href="claude-code-headless-cron.html">Claude Code headless: claude -p in scripts and cron, step by step</a></li><li><a href="clear-vs-compact.html">/clear vs /compact in Claude Code, and idle compaction</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>

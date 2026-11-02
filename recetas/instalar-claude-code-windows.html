@@ -12,35 +12,37 @@
 <meta name="description" content="Cómo instalar Claude Code en Windows 10 u 11 desde PowerShell, CMD o WSL, arreglar el PATH, iniciar sesión y resolver los errores más comunes.">
 <meta property="og:title" content="Instalar Claude Code en Windows: nativo, WSL y errores típicos · Ctrl+IA">
 <meta property="og:description" content="Cómo instalar Claude Code en Windows 10 u 11 desde PowerShell, CMD o WSL, arreglar el PATH, iniciar sesión y resolver los errores más comunes.">
-<meta property="og:image" content="https://ctrlia.dev/img/kit.webp">
+<meta property="og:image" content="https://ctrlia.dev/img/instalar-claude-code-windows.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/instalar-claude-code-windows.webp">
 <link rel="icon" href="../img/byte.png">
 <link rel="canonical" href="https://ctrlia.dev/recetas/instalar-claude-code-windows.html">
 <link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/instalar-claude-code-windows.html">
 <link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html">
-<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/recetas/instalar-claude-code-windows.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/instalar-claude-code-windows.html">
 <meta property="og:url" content="https://ctrlia.dev/recetas/instalar-claude-code-windows.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Instalar Claude Code en Windows: nativo, WSL y errores típicos", "description": "Cómo instalar Claude Code en Windows 10 u 11 desde PowerShell, CMD o WSL, arreglar el PATH, iniciar sesión y resolver los errores más comunes.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html", "totalTime": "PT10M", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "step": [{"@type": "HowToStep", "position": 1, "name": "Comprueba los requisitos", "text": "- Windows 10 1809 o posterior, o Windows Server 2019 o posterior, de 64 bits. - 4 GB de RAM o más, procesador x64 o ARM64 y conexión a internet. - Una cuenta Pro, Max, Ultra, Team, Enterprise o Console. El plan gratis de claude.ai no incluye Claude Code. - Estar en un país donde Anthropic da servicio.", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 2, "name": "Elige: Windows nativo o WSL", "text": "Si dudas, empieza por Windows nativo.", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 3, "name": "3a. Windows nativo: abre la terminal correcta", "text": "Busca «PowerShell» en el menú Inicio y abre Windows PowerShell, no la entrada que termina en (x86). Para saber en qué terminal estás, mira el inicio de la línea: PS C:\\Users\\TuNombre> es PowerShell y C:\\Users\\TuNombre> (sin PS) es CMD.", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 4, "name": "3b. WSL: instala dentro de Linux", "text": "Abre tu distribución de WSL (por ejemplo, Ubuntu) y ejecuta el instalador de Linux dentro de esa terminal, no en PowerShell:", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 5, "name": "(Windows nativo) Instala Git para Windows si quieres Bash", "text": "Sin Git para Windows, Claude Code ejecuta los comandos con su herramienta de PowerShell. Si instalas Git para Windows, marca «Add to PATH» durante la instalación. Así Claude Code puede usar Git Bash para su herramienta Bash, que también necesita la herramienta Monitor. Si Git está instalado en una carpeta poco habitual y Claude Code no lo encuentra, indica la ruta en %USERPROFILE%\\.claude\\settings.json:", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 6, "name": "Inicia sesión", "text": "Abre una terminal en la carpeta de tu proyecto y ejecuta:", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Hay Claude Code para Windows?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Funciona en Windows 10 (1809 o posterior) y Windows 11 de 64 bits, de forma nativa desde PowerShell o CMD, o dentro de WSL. Si prefieres no usar la terminal, también existe la app de escritorio."}}, {"@type": "Question", "name": "¿Es mejor instalarlo en PowerShell o en WSL?", "acceptedAnswer": {"@type": "Answer", "text": "Si tus proyectos y herramientas son de Windows, instálalo de forma nativa. Si trabajas con herramientas de Linux o quieres ejecutar comandos en sandbox, usa WSL 2, que es la única opción de Windows con sandbox."}}, {"@type": "Question", "name": "¿Necesito Node.js o npm?", "acceptedAnswer": {"@type": "Answer", "text": "No. El instalador nativo descarga un ejecutable propio. npm sigue siendo una opción, pero da más problemas en Windows, como los de la política de ejecución o el Node de Windows dentro de WSL."}}, {"@type": "Question", "name": "¿Necesito ser administrador?", "acceptedAnswer": {"@type": "Answer", "text": "No. El instalador nativo instala en tu carpeta de usuario y no pide permisos de administrador."}}, {"@type": "Question", "name": "¿Puedo usar Claude Code con el plan gratis?", "acceptedAnswer": {"@type": "Answer", "text": "No. El plan gratis de claude.ai no incluye Claude Code. Necesitas Pro, Max, Ultra, Team, Enterprise, una cuenta de Console o un proveedor como Amazon Bedrock."}}, {"@type": "Question", "name": "¿Cómo lo actualizo?", "acceptedAnswer": {"@type": "Answer", "text": "La instalación nativa se actualiza sola. Para actualizar al momento, ejecuta claude update. Si instalaste con WinGet, ejecuta winget upgrade Anthropic.ClaudeCode."}}]}]}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=4f5d9179">
-<script src="../js/sitio.js?v=4f5d9179"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "Instalar Claude Code en Windows: nativo, WSL y errores típicos", "totalTime": "PT10M", "step": [{"@type": "HowToStep", "position": 1, "name": "Comprueba los requisitos", "text": "- Windows 10 1809 o posterior, o Windows Server 2019 o posterior, de 64 bits. - 4 GB de RAM o más, procesador x64 o ARM64 y conexión a internet. - Una cuenta Pro, Max, Ultra, Team, Enterprise o Console. El plan gratis de claude.ai no incluye Claude Code. - Estar en un país donde Anthropic da servicio.", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 2, "name": "Elige: Windows nativo o WSL", "text": "Si dudas, empieza por Windows nativo.", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 3, "name": "3a. Windows nativo: abre la terminal correcta", "text": "Busca «PowerShell» en el menú Inicio y abre Windows PowerShell, no la entrada que termina en (x86). Para saber en qué terminal estás, mira el inicio de la línea: PS C:\\Users\\TuNombre> es PowerShell y C:\\Users\\TuNombre> (sin PS) es CMD.", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 4, "name": "3b. WSL: instala dentro de Linux", "text": "Abre tu distribución de WSL (por ejemplo, Ubuntu) y ejecuta el instalador de Linux dentro de esa terminal, no en PowerShell:", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 5, "name": "(Windows nativo) Instala Git para Windows si quieres Bash", "text": "Sin Git para Windows, Claude Code ejecuta los comandos con su herramienta de PowerShell. Si instalas Git para Windows, marca «Add to PATH» durante la instalación. Así Claude Code puede usar Git Bash para su herramienta Bash, que también necesita la herramienta Monitor. Si Git está instalado en una carpeta poco habitual y Claude Code no lo encuentra, indica la ruta en %USERPROFILE%\\.claude\\settings.json:", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}, {"@type": "HowToStep", "position": 6, "name": "Inicia sesión", "text": "Abre una terminal en la carpeta de tu proyecto y ejecuta:", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html"}], "description": "Cómo instalar Claude Code en Windows 10 u 11 desde PowerShell, CMD o WSL, arreglar el PATH, iniciar sesión y resolver los errores más comunes.", "inLanguage": "es", "url": "https://ctrlia.dev/recetas/instalar-claude-code-windows.html", "dateModified": "2026-10-31", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Hay Claude Code para Windows?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Funciona en Windows 10 (1809 o posterior) y Windows 11 de 64 bits, de forma nativa desde PowerShell o CMD, o dentro de WSL. Si prefieres no usar la terminal, también existe la app de escritorio."}}, {"@type": "Question", "name": "¿Es mejor instalarlo en PowerShell o en WSL?", "acceptedAnswer": {"@type": "Answer", "text": "Si tus proyectos y herramientas son de Windows, instálalo de forma nativa. Si trabajas con herramientas de Linux o quieres ejecutar comandos en sandbox, usa WSL 2, que es la única opción de Windows con sandbox."}}, {"@type": "Question", "name": "¿Necesito Node.js o npm?", "acceptedAnswer": {"@type": "Answer", "text": "No. El instalador nativo descarga un ejecutable propio. npm sigue siendo una opción, pero da más problemas en Windows, como los de la política de ejecución o el Node de Windows dentro de WSL."}}, {"@type": "Question", "name": "¿Necesito ser administrador?", "acceptedAnswer": {"@type": "Answer", "text": "No. El instalador nativo instala en tu carpeta de usuario y no pide permisos de administrador."}}, {"@type": "Question", "name": "¿Puedo usar Claude Code con el plan gratis?", "acceptedAnswer": {"@type": "Answer", "text": "No. El plan gratis de claude.ai no incluye Claude Code. Necesitas Pro, Max, Ultra, Team, Enterprise, una cuenta de Console o un proveedor como Amazon Bedrock."}}, {"@type": "Question", "name": "¿Cómo lo actualizo?", "acceptedAnswer": {"@type": "Answer", "text": "La instalación nativa se actualiza sola. Para actualizar al momento, ejecuta claude update. Si instalaste con WinGet, ejecuta winget upgrade Anthropic.ClaudeCode."}}]}]}</script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
 <meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
-<script src="../js/cuentas.js?v=4f5d9179" defer></script>
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
 </head>
 <body>
-<div class="aviso-idioma" lang="en" hidden><p>Prefer English? <a href="../en/recetas/instalar-claude-code-windows.html" hreflang="en">Read this page in English</a></p><button type="button" class="aviso-cerrar" aria-label="Close">×</button></div>
 <header class="barra">
   <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
-  <nav aria-label="Secciones"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#recursos">Herramientas</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
   <a class="idioma" href="../en/recetas/instalar-claude-code-windows.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
   <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
   <div class="cuenta" hidden>
     <div class="cuenta-fuera">
       <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
       <div class="cuenta-menu" id="menu-entrar" hidden>
-        <p class="cuenta-invita">Opcional: guarda recursos, pide nuevos y recibe avisos.</p>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
         <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
         <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
         <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
@@ -50,13 +52,13 @@
       <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
       <div class="cuenta-menu" id="menu-cuenta" hidden>
         <p class="cuenta-nombre"></p>
-        <a href="../cuenta.html">Mis recursos y ajustes</a>
-        <a href="../peticiones.html">Pedir un recurso</a>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
         <button type="button" class="boton-texto" data-salir>Salir</button>
       </div>
     </div>
   </div>
-  <a class="boton boton-oscuro boton-chico" href="../index.html#recursos">Explorar gratis</a>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
   <p class="cuenta-estado solo-lector" role="status"></p>
 </header>
 
@@ -65,7 +67,11 @@
   <p class="insignia">Receta · Básico · 10 min</p>
   <h1 id="t-art">Instalar Claude Code en Windows: nativo, WSL y errores típicos</h1>
   <p class="entrada">Cómo instalar Claude Code en Windows 10 u 11 desde PowerShell, CMD o WSL, arreglar el PATH, iniciar sesión y resolver los errores más comunes.</p>
+  <img class="portada-img" src="../img/instalar-claude-code-windows.webp" width="960" height="540" alt="Portada: Instalar Claude Code en Windows: nativo, WSL y errores típicos">
   <p class="probado">Probado con Claude Code <strong>2.1.316</strong> · revisado <time datetime="2026-10-31">2026-10-31</time></p>
+  
+  
+  
 <h2>El problema</h2>
 <p>Claude Code funciona en Windows, pero hay tres maneras de instalarlo (PowerShell, CMD o WSL) y cada una usa un comando distinto. Si copias el comando equivocado, aparecen errores como <code>&#x27;irm&#x27; is not recognized</code> o <code>The token &#x27;&amp;&amp;&#x27; is not a valid statement separator</code>. Si el instalador termina bien pero la carpeta no está en el PATH, aparece <code>&#x27;claude&#x27; is not recognized</code>. Esta receta te dice qué opción elegir, qué comando pegar y cómo arreglar cada error.</p>
 <p><strong>Cómo se comprobó:</strong> los comandos y los mensajes de error salen de la <a href="https://code.claude.com/docs/es/setup" rel="noopener">documentación oficial de instalación</a> y de la <a href="https://code.claude.com/docs/es/troubleshoot-install" rel="noopener">guía oficial de problemas de instalación</a>, revisadas el 31-oct-2026. <code>claude --version</code> y <code>claude doctor</code> se probaron en Linux con la versión 2.1.316. No pudimos probarlo en un Windows real: si algo no coincide en tu equipo, sigue la guía oficial de problemas de instalación.</p>
@@ -157,17 +163,17 @@ irm https://claude.ai/install.ps1 | iex</code></pre>
 <p>No. El plan gratis de claude.ai no incluye Claude Code. Necesitas Pro, Max, Ultra, Team, Enterprise, una cuenta de Console o un proveedor como Amazon Bedrock.</p>
 <h3>¿Cómo lo actualizo?</h3>
 <p>La instalación nativa se actualiza sola. Para actualizar al momento, ejecuta <code>claude update</code>. Si instalaste con WinGet, ejecuta <code>winget upgrade Anthropic.ClaudeCode</code>.</p>
-  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Más recetas</h2>
-    <ul><li><a href="claude-code-ollama-openrouter.html">Claude Code gratis con Ollama u OpenRouter: qué funciona</a></li><li><a href="claude-code-precio-gratis.html">¿Claude Code es gratis? Precio y qué plan elegir (2026)</a></li><li><a href="claude-code-vs-code.html">Claude Code en VS Code: extensión o terminal y cómo instalarlo</a></li></ul></nav>
-  <p class="volver"><a class="boton boton-oscuro" href="index.html">Todas las recetas</a></p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
+    <ul><li><a href="claude-code-otros-editores.html">Claude Code en JetBrains, Visual Studio, Xcode, Zed y Neovim</a></li><li><a href="claude-code-vs-codex-gemini-cursor.html">Claude Code vs Codex vs Gemini vs Cursor: misma tarea, con datos</a></li><li><a href="empezar-claude-code-15-minutos.html">Cómo empezar con Claude Code en un proyecto: checklist de 15 min</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">Toda la biblioteca</a></p>
 </article>
 </main>
 <footer class="pie">
   <div class="pie-arriba">
-    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro, en español.</p></div>
-    <nav aria-label="Enlaces"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
   </div>
-  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un recurso</a>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
   </div>
   <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
 </footer>

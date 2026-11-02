@@ -18,15 +18,28 @@ if (window.top !== window.self) document.documentElement.classList.add("enmarcad
 document.addEventListener("DOMContentLoaded", () => {
   const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Aviso «Prefer English?»: solo en páginas en español, con el navegador en inglés y si no se cerró antes
+  // Idioma: la elección guardada (botón ES/EN) o, si no hay, el del navegador (español → es, cualquier otro → en).
+  // Los buscadores no se redirigen (Google lo desaconseja: rastrea con el navegador en inglés y perdería las páginas en español).
   const recuerda = (k, v) => { try { return v === undefined ? localStorage.getItem(k) : localStorage.setItem(k, v); } catch { return null; } };
-  const aviso = document.querySelector(".aviso-idioma");
-  if (aviso && /^en\b/i.test(navigator.languages?.[0] || navigator.language || "") && !recuerda("ctrlia-aviso-idioma")) aviso.hidden = false;
-  aviso?.querySelector(".aviso-cerrar").addEventListener("click", () => { aviso.hidden = true; recuerda("ctrlia-aviso-idioma", "no"); });
-  document.querySelectorAll(".idioma, .aviso-idioma a").forEach((a) => a.addEventListener("click", () => recuerda("ctrlia-aviso-idioma", "no")));
+  const otroIdioma = document.querySelector("a.idioma");
+  otroIdioma?.addEventListener("click", () => recuerda("ctrlia-idioma", otroIdioma.hreflang));
+  const bot = navigator.webdriver || /bot|crawl|spider|slurp|lighthouse|preview/i.test(navigator.userAgent);
+  const quiere = recuerda("ctrlia-idioma") || (/^es\b/i.test(navigator.languages?.[0] || navigator.language || "") ? "es" : "en");
+  if (!bot && otroIdioma && quiere === otroIdioma.hreflang && quiere !== document.documentElement.lang) { location.replace(otroIdioma.href + location.search + location.hash); return; }
 
-  // Buscador: eliges qué quieres resolver y aparece el recurso que lo arregla
-  const chips = [...document.querySelectorAll(".portada .chip")];   // solo los del buscador (los de .tipos son enlaces normales)
+  // Portada: el buscador lleva a la biblioteca con la consulta (la CSP no deja enviar formularios: se navega desde aquí)
+  const portada = document.querySelector(".portada-busca");
+  if (portada) {
+    portada.hidden = false;
+    portada.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      const q = portada.elements.q.value.trim();
+      location.href = portada.action + (q ? "?q=" + encodeURIComponent(q) : "");
+    });
+  }
+
+  // «¿Qué quieres resolver hoy?»: eliges un problema y aparece el contenido que lo resuelve
+  const chips = [...document.querySelectorAll(".portada .problemas .chip")];
   const fichas = new Map([...document.querySelectorAll(".ficha")].map((f) => [f.id.replace(/^r-/, ""), f]));
   const elegir = (id, foco) => {
     if (!fichas.has(id)) return;
@@ -52,33 +65,63 @@ document.addEventListener("DOMContentLoaded", () => {
   if (chips.length) elegir(chips[0].dataset.id, false);
   desdeHash();
 
-  // Biblioteca: búsqueda por texto (sin acentos) y filtros por tema que se combinan (deben cumplirse todos)
+  // Biblioteca: búsqueda por texto (sin acentos) + un formato + un tema; el estado va en la URL (?q=&formato=&tema=)
   const bib = document.querySelector(".biblioteca");
   if (bib) {
     bib.hidden = false;
-    const tarjetas = [...document.querySelectorAll("#recursos .recurso")];
-    const caja = bib.querySelector("#busca"), marcas = [...bib.querySelectorAll(".filtros input")];
+    const tarjetas = [...document.querySelectorAll(".coleccion .nota-tarjeta")];
+    const caja = bib.querySelector("#busca");
     const res = bib.querySelector(".resultado"), nada = bib.querySelector(".sin-resultados");
     const plano = (s) => s.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");   // igual que plano() en web.py
+    const elegido = (g) => bib.querySelector(`input[name="${g}"]:checked`)?.value || "";
+    const params = new URLSearchParams(location.search);
+    caja.value = params.get("q") || "";
+    for (const g of ["formato", "tema"]) {
+      const r = [...bib.querySelectorAll(`input[name="${g}"]`)].find((x) => x.value === (params.get(g) || ""));
+      if (r) r.checked = true;
+    }
     const filtrar = () => {
       const palabras = plano(caja.value).split(/\s+/).filter(Boolean);
-      const elegidas = marcas.filter((m) => m.checked).map((m) => m.value);
+      const f = elegido("formato"), te = elegido("tema");
       let n = 0;
       tarjetas.forEach((c) => {
-        const temas = c.dataset.etiquetas.split(" ");
-        const si = elegidas.every((x) => temas.includes(x)) && palabras.every((w) => c.dataset.buscar.includes(w));
+        const si = (!f || c.dataset.formato === f) && (!te || c.dataset.tema === te) && palabras.every((w) => c.dataset.buscar.includes(w));
         c.hidden = !si; n += si;
       });
-      document.querySelectorAll("#recursos .grupo").forEach((g) => { g.hidden = !g.querySelector(".recurso:not([hidden])"); });
       res.textContent = res.dataset.plantilla.replace("{n}", n).replace("{total}", tarjetas.length);
       nada.hidden = n > 0;
+      const u = new URLSearchParams();
+      if (caja.value.trim()) u.set("q", caja.value.trim());
+      if (f) u.set("formato", f);
+      if (te) u.set("tema", te);
+      history.replaceState(null, "", location.pathname + (u.size ? "?" + u : ""));
     };
     caja.addEventListener("input", filtrar);
-    marcas.forEach((m) => m.addEventListener("change", filtrar));
+    bib.querySelectorAll("input[type=radio]").forEach((m) => m.addEventListener("change", filtrar));
     bib.querySelector(".limpiar").addEventListener("click", () => {
-      caja.value = ""; marcas.forEach((m) => { m.checked = false; }); filtrar(); caja.focus();
+      caja.value = ""; bib.querySelectorAll('input[type=radio][value=""]').forEach((m) => { m.checked = true; }); filtrar(); caja.focus();
     });
     filtrar();
+  }
+
+  // Checklists: las casillas se recuerdan en este navegador (localStorage, clave por contenido); nada va a ningún servidor
+  const lista = document.querySelector("[data-casillas]");
+  if (lista) {
+    const clave = "ctrlia-casillas-" + lista.dataset.casillas;
+    const cajas = [...lista.querySelectorAll("input.casilla")];
+    const barra = lista.querySelector(".casillas-barra"), estado = barra.querySelector(".casillas-estado");
+    let hechas = [];
+    try { hechas = JSON.parse(localStorage.getItem(clave) || "[]"); } catch { /* sin almacenamiento o dato roto: empieza vacío */ }
+    cajas.forEach((c) => { c.checked = Array.isArray(hechas) && hechas.includes(c.id); });
+    const pintar = () => { estado.textContent = estado.dataset.plantilla.replace("{n}", cajas.filter((c) => c.checked).length).replace("{total}", cajas.length); };
+    const guardar = () => {
+      try { localStorage.setItem(clave, JSON.stringify(cajas.filter((c) => c.checked).map((c) => c.id))); } catch { /* se marca, pero no se recuerda */ }
+      pintar();
+    };
+    cajas.forEach((c) => c.addEventListener("change", guardar));
+    barra.querySelector(".casillas-reiniciar").addEventListener("click", () => { cajas.forEach((c) => { c.checked = false; }); guardar(); cajas[0]?.focus(); });
+    barra.hidden = false;
+    pintar();
   }
 
   // Botón de tema: automático → claro → oscuro
@@ -98,12 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
       aplicarTema(); pintar();
     });
   }
-
-  // «Nuevo» durante los 14 días siguientes al alta del recurso
-  document.querySelectorAll(".nuevo[data-alta]").forEach((n) => {
-    const dias = (Date.now() - Date.parse(n.dataset.alta + "T00:00:00Z")) / 864e5;
-    n.hidden = !(dias >= 0 && dias < 14);
-  });
 
   // Botón «Copiar» en cada bloque de código; el aviso también llega a los lectores de pantalla
   const ingles = document.documentElement.lang === "en";
@@ -131,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Entradas escalonadas por sección
   const partes = document.querySelectorAll(
-    ".hero-texto > *, .hero-visual, .cabecera > *, .grupo-titulo, .recurso, .chips, .fichas, .caja, .plan, .byte-texto > *, .byte-video, .faq details");
+    ".cabecera > *, .destacado, .caja, .byte-texto > *, .byte-video, .faq details");
   const visor = new IntersectionObserver((ent) => ent.forEach((x) => {
     if (x.isIntersecting) { x.target.classList.add("dentro"); visor.unobserve(x.target); }
   }), { rootMargin: "0px 0px -6% 0px" });
@@ -157,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     avisar("vista", o);
     document.addEventListener("click", (ev) => {
       const h = ev.target.closest("a[href]")?.hostname || "";
-      const e = h.endsWith("gumroad.com") ? "clic-gumroad" : h === "github.com" ? "clic-github" : h === "dev.to" ? "clic-devto" : "";
+      const e = h === "github.com" ? "clic-github" : h === "dev.to" ? "clic-devto" : "";
       if (e) avisar(e);
     });
   }

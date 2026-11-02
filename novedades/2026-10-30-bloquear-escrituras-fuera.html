@@ -12,35 +12,37 @@
 <meta name="description" content="Nuevo ajuste blockWritesOutsideWorkingDirectories: Write, Edit y NotebookEdit no tocan archivos fuera de tus carpetas de trabajo, en ningún modo.">
 <meta property="og:title" content="Claude Code 2.1.314: bloquea escrituras fuera de tu proyecto · Ctrl+IA">
 <meta property="og:description" content="Nuevo ajuste blockWritesOutsideWorkingDirectories: Write, Edit y NotebookEdit no tocan archivos fuera de tus carpetas de trabajo, en ningún modo.">
-<meta property="og:image" content="https://ctrlia.dev/img/kit.webp">
+<meta property="og:image" content="https://ctrlia.dev/img/portada.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/portada.webp">
 <link rel="icon" href="../img/byte.png">
 <link rel="canonical" href="https://ctrlia.dev/novedades/2026-10-30-bloquear-escrituras-fuera.html">
 <link rel="alternate" hreflang="es" href="https://ctrlia.dev/novedades/2026-10-30-bloquear-escrituras-fuera.html">
 <link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/novedades/2026-10-30-bloquear-escrituras-fuera.html">
-<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/novedades/2026-10-30-bloquear-escrituras-fuera.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/novedades/2026-10-30-bloquear-escrituras-fuera.html">
 <meta property="og:url" content="https://ctrlia.dev/novedades/2026-10-30-bloquear-escrituras-fuera.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Claude Code 2.1.314: bloquea escrituras fuera de tu proyecto", "description": "Nuevo ajuste blockWritesOutsideWorkingDirectories: Write, Edit y NotebookEdit no tocan archivos fuera de tus carpetas de trabajo, en ningún modo.", "datePublished": "2026-10-30", "dateModified": "2026-10-30", "inLanguage": "es", "url": "https://ctrlia.dev/novedades/2026-10-30-bloquear-escrituras-fuera.html", "mainEntityOfPage": "https://ctrlia.dev/novedades/2026-10-30-bloquear-escrituras-fuera.html", "isBasedOn": "https://github.com/anthropics/claude-code/releases/tag/v2.1.314", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}, "publisher": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}</script>
-<link rel="stylesheet" href="../css/estilo.css?v=4f5d9179">
-<script src="../js/sitio.js?v=4f5d9179"></script>
+<link rel="stylesheet" href="../css/estilo.css?v=c13a61a9">
+<script src="../js/sitio.js?v=c13a61a9"></script>
 <meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
-<script src="../js/cuentas.js?v=4f5d9179" defer></script>
+<script src="../js/cuentas.js?v=c13a61a9" defer></script>
 </head>
 <body>
-<div class="aviso-idioma" lang="en" hidden><p>Prefer English? <a href="../en/novedades/2026-10-30-bloquear-escrituras-fuera.html" hreflang="en">Read this page in English</a></p><button type="button" class="aviso-cerrar" aria-label="Close">×</button></div>
 <header class="barra">
   <a class="logo" href="../index.html" aria-label="Ctrl+IA, inicio"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
-  <nav aria-label="Secciones"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#recursos">Herramientas</a><a href="../index.html#preguntas">Preguntas</a></nav>
+  <nav aria-label="Secciones"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="../index.html#preguntas">Preguntas</a></nav>
   <a class="idioma" href="../en/novedades/2026-10-30-bloquear-escrituras-fuera.html" hreflang="en" lang="en">EN<span class="solo-lector"> · Read in English</span></a>
   <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
   <div class="cuenta" hidden>
     <div class="cuenta-fuera">
       <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Entrar</button>
       <div class="cuenta-menu" id="menu-entrar" hidden>
-        <p class="cuenta-invita">Opcional: guarda recursos, pide nuevos y recibe avisos.</p>
+        <p class="cuenta-invita">Opcional: guarda contenidos, pide nuevos y recibe el boletín.</p>
         <button type="button" class="boton boton-oscuro" data-entrar="github">Entrar con GitHub</button>
         <button type="button" class="boton boton-borde" data-entrar="google">Entrar con Google</button>
         <p class="cuenta-legal"><a href="../privacidad.html">Aviso de privacidad</a></p>
@@ -50,13 +52,13 @@
       <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="Mi cuenta"></button>
       <div class="cuenta-menu" id="menu-cuenta" hidden>
         <p class="cuenta-nombre"></p>
-        <a href="../cuenta.html">Mis recursos y ajustes</a>
-        <a href="../peticiones.html">Pedir un recurso</a>
+        <a href="../cuenta.html">Mis guardados y ajustes</a>
+        <a href="../peticiones.html">Pedir un contenido</a>
         <button type="button" class="boton-texto" data-salir>Salir</button>
       </div>
     </div>
   </div>
-  <a class="boton boton-oscuro boton-chico" href="../index.html#recursos">Explorar gratis</a>
+  <a class="boton boton-oscuro boton-chico" href="../biblioteca/index.html">Explorar gratis</a>
   <p class="cuenta-estado solo-lector" role="status"></p>
 </header>
 
@@ -65,7 +67,11 @@
   <p class="insignia">Novedad · <time datetime="2026-10-30">2026-10-30</time></p>
   <h1 id="t-art">Claude Code 2.1.314: bloquea escrituras fuera de tu proyecto</h1>
   <p class="entrada">Nuevo ajuste blockWritesOutsideWorkingDirectories: Write, Edit y NotebookEdit no tocan archivos fuera de tus carpetas de trabajo, en ningún modo.</p>
+  <img class="portada-img" src="../img/portada.webp" width="960" height="540" alt="Portada: Claude Code 2.1.314: bloquea escrituras fuera de tu proyecto">
   <p class="probado">Claude Code <strong>2.1.314</strong> · Fuente: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" rel="noopener">github.com</a></p>
+  
+  
+  
 <h2>Qué cambia</h2>
 <p>Claude Code 2.1.314 añade el ajuste <code>permissions.blockWritesOutsideWorkingDirectories</code>. Con él activado, las herramientas Write, Edit y NotebookEdit se niegan a escribir en rutas que estén fuera de las carpetas de trabajo, en todos los modos de permisos.</p>
 <p>Hasta ahora, una regla de permiso o un modo permisivo podían dejar que Claude editara archivos fuera del proyecto (tu <code>~/.bashrc</code>, otro repositorio, la configuración global). Con este ajuste, el límite lo pone la carpeta y no depende de lo que hayas aprobado.</p>
@@ -86,17 +92,17 @@
 <p>Probado con 2.1.316: con una regla <code>Edit(//tmp/…/**)</code> que permite la escritura, el archivo se crea; con la misma regla y el ajuste activado, Write lo rechaza con el mensaje de arriba, y los archivos dentro del proyecto se siguen creando.</p>
 <h2>¿Te afecta?</h2>
 <ul><li><strong>Sí, si dejas a Claude trabajar con permisos amplios</strong> (modo de aceptar ediciones, reglas <code>Edit</code> generosas): es una red de seguridad barata para que no toque nada fuera del proyecto.</li><li><strong>Ojo:</strong> el ajuste cubre Write, Edit y NotebookEdit. Los comandos de shell (Bash) no aparecen en la nota de la versión; para limitarlos usa reglas de permiso o el sandbox.</li><li>No cambia nada si no lo activas: viene apagado.</li></ul>
-  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Más novedades</h2>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Sigue leyendo</h2>
     <ul><li><a href="2026-10-30-extension-claude-code-cursor.html">Copia manipulada de Claude Code en Cursor: comprueba tu equipo</a></li></ul></nav>
   <p class="volver"><a class="boton boton-oscuro" href="index.html">Todas las novedades</a></p>
 </article>
 </main>
 <footer class="pie">
   <div class="pie-arriba">
-    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro, en español.</p></div>
-    <nav aria-label="Enlaces"><a href="../recetas/index.html">Recetas</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+    <div><a class="logo logo-claro" href="../index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Programa con Claude Code como un pro.</p></div>
+    <nav aria-label="Enlaces"><a href="../biblioteca/index.html">Biblioteca</a><a href="../novedades/index.html">Novedades</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutoriales</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
   </div>
-  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un recurso</a>
+  <div class="pie-legal"><a href="../privacidad.html">Aviso de privacidad</a><a href="../terminos.html">Términos de uso</a><a href="../peticiones.html">Pide un contenido</a>
   </div>
   <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Hecho por Carlos P.</span></div>
 </footer>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src https://ecolnzmvnjmnqjzgprls.supabase.co https://ctrlia-visitas.ctrlia.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="ctrlia-visitas" content="https://ctrlia-visitas.ctrlia.workers.dev/v">
+<meta name="google-site-verification" content="wfZ4SSTOqXer97GiQXrHVS6ztB6nn_hgJ3BlgCPoS-s">
+<meta name="google-site-verification" content="z7yqIn2TtTJob9stfXnrffLow4-5AX5YDGUiqy3U2yk">
+<title>TDD with Claude Code: red, green and refactor with no cheating · Ctrl+IA</title>
+<meta name="description" content="A TDD cycle with Claude Code: tests first, minimal code with the tests locked by a permission rule, and git to check that it did not touch them. Tested.">
+<meta property="og:title" content="TDD with Claude Code: red, green and refactor with no cheating · Ctrl+IA">
+<meta property="og:description" content="A TDD cycle with Claude Code: tests first, minimal code with the tests locked by a permission rule, and git to check that it did not touch them. Tested.">
+<meta property="og:image" content="https://ctrlia.dev/img/en/tdd-claude-code.webp">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="540">
+<meta name="twitter:image" content="https://ctrlia.dev/img/en/tdd-claude-code.webp">
+<link rel="icon" href="../../img/byte.png">
+<link rel="canonical" href="https://ctrlia.dev/en/recetas/tdd-claude-code.html">
+<link rel="alternate" hreflang="es" href="https://ctrlia.dev/recetas/tdd-claude-code.html">
+<link rel="alternate" hreflang="en" href="https://ctrlia.dev/en/recetas/tdd-claude-code.html">
+<link rel="alternate" hreflang="x-default" href="https://ctrlia.dev/en/recetas/tdd-claude-code.html">
+<meta property="og:url" content="https://ctrlia.dev/en/recetas/tdd-claude-code.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../fuentes/poppins-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "HowTo", "name": "TDD with Claude Code: red, green and refactor with no cheating", "totalTime": "PT15M", "step": [{"@type": "HowToStep", "position": 1, "name": "Understand why TDD with an agent", "text": "The official best practices guide puts it this way: if Claude has nothing to run that tells it whether it is really done, \"looks done\" is all it has. The same guide gives \"write a failing test that reproduces it, then fix it\" as an example of a good prompt, and asks for evidence: the command that was run and its output, because a bare \"all tests pass\" says very little. TDD formalizes that in three phases:", "url": "https://ctrlia.dev/en/recetas/tdd-claude-code.html"}, {"@type": "HowToStep", "position": 2, "name": "Red phase: tests first (failing for the right reason)", "text": "Ask only for tests and say what behavior you expect with concrete examples, not \"cover it with tests\": if you do not describe the behavior, Claude tends to write tests that copy what the code already does. In our example, src/slug.py only contains raise NotImplementedError and the prompt asks for four cases:", "url": "https://ctrlia.dev/en/recetas/tdd-claude-code.html"}, {"@type": "HowToStep", "position": 3, "name": "Green phase: minimal code with the tests locked", "text": "Now ask for the implementation and forbid touching the tests in two ways. The first is a permission rule when you start the session:", "url": "https://ctrlia.dev/en/recetas/tdd-claude-code.html"}, {"@type": "HowToStep", "position": 4, "name": "Check there was no cheating", "text": "The permission rule blocks Claude's editing tools, but not a terminal command that rewrites the file (for example, sed -i or a cat >). That is why the final check does not depend on Claude:", "url": "https://ctrlia.dev/en/recetas/tdd-claude-code.html"}, {"@type": "HowToStep", "position": 5, "name": "Refactor phase and the CLAUDE.md rule", "text": "With everything green, ask for specific improvements without changing behavior: \"refactor slug so the regular expression is compiled at module level and has a clear name; run the tests afterwards\". If anything turns red, you will know at once, and /rewind (or Esc twice) takes the code back to its previous state. Repeat the cycle for the next behavior: a new red test, commit, green, refactor.", "url": "https://ctrlia.dev/en/recetas/tdd-claude-code.html"}], "description": "A TDD cycle with Claude Code: tests first, minimal code with the tests locked by a permission rule, and git to check that it did not touch them. Tested.", "inLanguage": "en", "url": "https://ctrlia.dev/en/recetas/tdd-claude-code.html", "dateModified": "2026-11-01", "author": {"@type": "Organization", "name": "Ctrl+IA", "url": "https://ctrlia.dev/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I write the tests or does Claude?", "acceptedAnswer": {"@type": "Answer", "text": "Both work as long as you review them before the red-phase commit. What matters is giving concrete examples of the behavior; if you ask it to \"cover this with tests\", it tends to copy what the code already does."}}, {"@type": "Question", "name": "Does the Edit(tests/) rule completely stop it from changing the tests?", "acceptedAnswer": {"@type": "Answer", "text": "It blocks its editing and writing tools, not a terminal command that rewrites the file. That is why the final check is git diff --exit-code HEAD -- tests/."}}, {"@type": "Question", "name": "What if the test I wrote is wrong?", "acceptedAnswer": {"@type": "Answer", "text": "Claude should say so and stop, not change it. You fix it (or ask for it outside the green phase), commit and carry on."}}, {"@type": "Question", "name": "Claude tries to run the tests with ; echo $? and gets denied.", "acceptedAnswer": {"@type": "Answer", "text": "A rule like Bash(python3 -m unittest ) does not cover a compound command. We saw it in the headless test: Claude repeated the simple command and it worked. In a normal session it will ask you for permission."}}, {"@type": "Question", "name": "Does it work with pytest, Jest or PHPUnit?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, the cycle is the same. Change the test command in the prompt and in CLAUDE.md, and the rule's path if your tests are not in tests/ (for example Edit(/.test.ts))."}}, {"@type": "Question", "name": "Isn't it slower?", "acceptedAnswer": {"@type": "Answer", "text": "A bit more per task, but the time you save on manual review and on bugs that come back makes up for it. For trivial changes it is not needed."}}]}]}</script>
+<link rel="stylesheet" href="../../css/estilo.css?v=c13a61a9">
+<script src="../../js/sitio.js?v=c13a61a9"></script>
+<meta name="ctrlia-supabase" content="https://ecolnzmvnjmnqjzgprls.supabase.co|sb_publishable_fe8LCf01Icq8rqwFd2sRug_v0Z5SWvp">
+<script src="../../js/cuentas.js?v=c13a61a9" defer></script>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../../en/index.html" aria-label="Ctrl+IA, home"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a>
+  <nav aria-label="Sections"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="../../en/index.html#preguntas">FAQ</a></nav>
+  <a class="idioma" href="../../recetas/tdd-claude-code.html" hreflang="es" lang="es">ES<span class="solo-lector"> · Leer en español</span></a>
+  <button type="button" class="tema" data-estado="auto" hidden><svg class="i-auto" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="i-claro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-oscuro" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <div class="cuenta" hidden>
+    <div class="cuenta-fuera">
+      <button type="button" class="boton boton-borde boton-chico" aria-expanded="false" aria-controls="menu-entrar">Sign in</button>
+      <div class="cuenta-menu" id="menu-entrar" hidden>
+        <p class="cuenta-invita">Optional: save content, request new pieces and get the newsletter.</p>
+        <button type="button" class="boton boton-oscuro" data-entrar="github">Sign in with GitHub</button>
+        <button type="button" class="boton boton-borde" data-entrar="google">Sign in with Google</button>
+        <p class="cuenta-legal"><a href="../../en/privacidad.html">Privacy notice</a></p>
+      </div>
+    </div>
+    <div class="cuenta-dentro" hidden>
+      <button type="button" class="cuenta-inicial" aria-expanded="false" aria-controls="menu-cuenta" aria-label="My account"></button>
+      <div class="cuenta-menu" id="menu-cuenta" hidden>
+        <p class="cuenta-nombre"></p>
+        <a href="../../en/cuenta.html">My saved items and settings</a>
+        <a href="../../en/peticiones.html">Request a piece</a>
+        <button type="button" class="boton-texto" data-salir>Sign out</button>
+      </div>
+    </div>
+  </div>
+  <a class="boton boton-oscuro boton-chico" href="../../en/biblioteca/index.html">Explore for free</a>
+  <p class="cuenta-estado solo-lector" role="status"></p>
+</header>
+
+<main>
+<article class="seccion prosa contenido" aria-labelledby="t-art">
+  <p class="insignia">Recipe · Intermediate · 15 min</p>
+  <h1 id="t-art">TDD with Claude Code: red, green and refactor with no cheating</h1>
+  <p class="entrada">A TDD cycle with Claude Code: tests first, minimal code with the tests locked by a permission rule, and git to check that it did not touch them. Tested.</p>
+  <img class="portada-img" src="../../img/en/tdd-claude-code.webp" width="960" height="540" alt="Cover: TDD with Claude Code: red, green and refactor with no cheating">
+  <p class="probado">Tested with Claude Code <strong>2.1.316</strong> · reviewed <time datetime="2026-11-01">2026-11-01</time></p>
+  <p class="repo-accion"><a class="boton boton-github" href="https://github.com/carlosp5751258-lgtm/ctrlia-tdd-claude-code"><svg class="gh" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>See the files on GitHub</a> <span class="nota">Free · MIT license</span></p>
+  
+  
+<h2>The problem</h2>
+<p>Claude tells you &quot;done, it works&quot;, but have you checked? Claude stops when the work looks finished, and if it has nothing to run that tells it whether it really is, you become the test suite. Worse: when there are tests, the most common trick is that, to reach green, the agent changes the test or adds a special case that only serves that test. With TDD (test-driven development) the test is written before the code, so the test is both the specification and the proof that it works.</p>
+<h2>The solution</h2>
+<p>We follow the red, green and refactor cycle with a real Python example: a <code>slug</code> function that turns text with accents and ñ into something like <code>cancion-nandu-2026</code>. We lock editing of the tests during the green phase and check with git that Claude did not touch them. The complete example is in the free repository <code>ctrlia-tdd-claude-code</code>.</p>
+<h3>1. Understand why TDD with an agent</h3>
+<p>The <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">official best practices guide</a> puts it this way: if Claude has nothing to run that tells it whether it is really done, &quot;looks done&quot; is all it has. The same guide gives &quot;write a failing test that reproduces it, then fix it&quot; as an example of a good prompt, and asks for evidence: the command that was run and its output, because a bare &quot;all tests pass&quot; says very little. TDD formalizes that in three phases:</p>
+<ul><li><strong>Red:</strong> you (or Claude) write tests that describe the behavior and fail because the code does not exist yet.</li><li><strong>Green:</strong> Claude writes the minimal code to make them pass, without touching the tests.</li><li><strong>Refactor:</strong> with the tests green, it improves the code and runs them again.</li></ul>
+<p>Keeping the phases separate is what prevents the trick of changing the test to reach green.</p>
+<h3>2. Red phase: tests first (failing for the right reason)</h3>
+<p>Ask only for tests and say what behavior you expect with concrete examples, not &quot;cover it with tests&quot;: if you do not describe the behavior, Claude tends to write tests that copy what the code already does. In our example, <code>src/slug.py</code> only contains <code>raise NotImplementedError</code> and the prompt asks for four cases:</p>
+<pre><code class="language-text">TDD RED phase. Write ONLY tests in tests/test_slug.py (unittest) for src/slug.py:
+- slug(&#x27;Canción Ñandú 2026&#x27;) == &#x27;cancion-nandu-2026&#x27;
+- repeated spaces and leading/trailing spaces collapse: &#x27;  Hello   World  &#x27; -&gt; &#x27;hello-world&#x27;
+- punctuation is removed: &#x27;¿Qué tal?&#x27; -&gt; &#x27;que-tal&#x27;
+- empty string -&gt; &#x27;&#x27;
+DO NOT touch src/. Run python3 -m unittest discover -s tests -t . and confirm they fail
+with NotImplementedError, not with syntax or import errors.</code></pre>
+<p>The part about failing for the right reason matters: a test that fails because it is badly written proves nothing. This is what Claude wrote (English version of the repository, <code>en/ejemplo/tests/test_slug.py</code>):</p>
+<pre><code class="language-python">import unittest
+
+from src.slug import slug
+
+
+class SlugTests(unittest.TestCase):
+    def test_strips_accents_and_turns_enye_into_ascii(self):
+        self.assertEqual(slug(&quot;Canción Ñandú 2026&quot;), &quot;cancion-nandu-2026&quot;)
+
+    def test_collapses_repeated_and_edge_spaces(self):
+        self.assertEqual(slug(&quot;  Hello   World  &quot;), &quot;hello-world&quot;)
+
+    def test_removes_punctuation(self):
+        self.assertEqual(slug(&quot;¿Qué tal?&quot;), &quot;que-tal&quot;)
+
+    def test_empty_string_returns_empty(self):
+        self.assertEqual(slug(&quot;&quot;), &quot;&quot;)</code></pre>
+<p>For <code>unittest discover -s tests -t .</code> to import the folder, <code>tests/</code> needs an <code>__init__.py</code> (it can be empty). Review the tests yourself: they are your specification, and this is the one step where your judgment is essential. When you are happy with them, commit:</p>
+<pre><code class="language-bash">git add tests &amp;&amp; git commit -m &quot;test: slug (red)&quot;</code></pre>
+<p>That commit is your safety net: from here on, any change to the tests will show up in git.</p>
+<h3>3. Green phase: minimal code with the tests locked</h3>
+<p>Now ask for the implementation and forbid touching the tests in two ways. The first is a permission rule when you start the session:</p>
+<pre><code class="language-bash">claude --disallowedTools &quot;Edit(tests/**)&quot;
+# &gt; TDD GREEN phase. Implement src/slug.py with the minimum code to make the tests in
+#   tests/ pass. The tests are the specification: don&#x27;t change them, don&#x27;t skip them
+#   and don&#x27;t special-case the test inputs (no if text == ...).
+#   Standard library only. Run the tests and show me the output.</code></pre>
+<p>A deny rule with a single-segment path like <code>tests/**</code> blocks any <code>tests</code> folder under the current directory, at any depth, and also covers writing new files (Claude Code checks file permissions with the <code>Edit</code> and <code>Read</code> rules). The second way is in the prompt, which says: GREEN phase; implement <code>src/slug.py</code> with the minimal code to make the tests pass; the tests are the specification, so do not change them, do not skip them and do not special-case the test values (no <code>if text == ...</code>); standard library only; run the tests and show me the output.</p>
+<p>In our test with Haiku, it wrote a two-line solution with <code>unicodedata.normalize(&quot;NFKD&quot;, ...)</code> and a regular expression, ran <code>python3 -m unittest</code> and showed <code>Ran 4 tests ... OK</code> (English version in <code>en/solucion/slug.py</code>):</p>
+<pre><code class="language-python">import re
+import unicodedata
+
+
+def slug(text: str) -&gt; str:
+    ascii_text = unicodedata.normalize(&quot;NFKD&quot;, text).encode(&quot;ascii&quot;, &quot;ignore&quot;).decode(&quot;ascii&quot;)
+    return re.sub(r&quot;[^a-z0-9]+&quot;, &quot;-&quot;, ascii_text.lower()).strip(&quot;-&quot;)</code></pre>
+<p>For longer tasks, <code>/goal all tests in tests/ pass</code> lets Claude keep going until the condition is met: a separate model checks the condition after each turn (we did not test it in this recipe; see the <a href="https://code.claude.com/docs/en/goal" rel="noopener">/goal</a> page).</p>
+<h3>4. Check there was no cheating</h3>
+<p>The permission rule blocks Claude&#x27;s editing tools, but not a terminal command that rewrites the file (for example, <code>sed -i</code> or a <code>cat &gt;</code>). That is why the final check does not depend on Claude:</p>
+<pre><code class="language-bash"># Check that does not depend on Claude: 0 = tests untouched
+git diff --exit-code HEAD -- tests/ &amp;&amp; echo &quot;tests untouched&quot;</code></pre>
+<p>It returns 0 if the tests are exactly as in your red-phase commit and 1 if they changed. In our test it returned 0. Then look at the code: search for conditions that compare against the tests&#x27; literal values, <code>skip</code>, <code>xfail</code>, <code>try/except</code> blocks that swallow errors, or functions that return constants.</p>
+<p>If you want to automate the check, a <code>Stop</code> hook can run that <code>git diff</code> at the end of each turn (the <a href="../recetas/hooks-seguridad.html">security hooks</a> recipe explains how hooks work; we have not tested this variant), or you put it in your CI. One last trick: add by hand a case Claude has not seen, for example <code>slug(&quot;Árbol--de  Navidad!&quot;)</code>. If the implementation is general, it will pass; if it was tailored to the tests, it will fail. With the solution above it returns <code>arbol-de-navidad</code>.</p>
+<h3>5. Refactor phase and the CLAUDE.md rule</h3>
+<p>With everything green, ask for specific improvements without changing behavior: &quot;refactor slug so the regular expression is compiled at module level and has a clear name; run the tests afterwards&quot;. If anything turns red, you will know at once, and <code>/rewind</code> (or Esc twice) takes the code back to its previous state. Repeat the cycle for the next behavior: a new red test, commit, green, refactor.</p>
+<p>So you do not have to repeat it in every prompt, put the rule in the project&#x27;s CLAUDE.md: the exact command to run the tests (and a single file), that in a tests-first task the tests are not edited during implementation, and that &quot;done&quot; means showing the test output:</p>
+<pre><code class="language-markdown">## Tests
+- Whole suite: `python3 -m unittest discover -s tests -t .`
+- One file: `python3 -m unittest tests.test_slug`
+- If the task says &quot;tests first&quot;: in the implementation phase DO NOT edit anything in tests/.
+  If a test looks wrong to you, say so and stop; don&#x27;t change it.
+- &quot;Done&quot; = paste the command you ran and its output, not just &quot;the tests pass&quot;.</code></pre>
+<p>The official guide recommends exactly that: that CLAUDE.md says how to verify work in the repository (more in <a href="../recetas/claude-md-que-funciona.html">a CLAUDE.md that works</a>). If a phase calls for design judgment, the Learning output style makes Claude leave that part of the code to you.</p>
+<h2>Check it</h2>
+<p>With the repository&#x27;s example you can see both phases without spending anything:</p>
+<pre><code class="language-bash">cd en/ejemplo
+python3 -m unittest discover -s tests -t .     # red: FAILED (errors=4), all from NotImplementedError
+cp ../solucion/slug.py src/slug.py
+python3 -m unittest discover -s tests -t .     # green</code></pre>
+<p>The first run is red (<code>FAILED (errors=4)</code>, all from <code>NotImplementedError</code>); after copying the solution, the second is green. Expected output of the green phase:</p>
+<pre><code class="language-text">....
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK</code></pre>
+<p>What we checked with Claude Code 2.1.316 on Linux on 1 Nov 2026, with <code>claude -p --model haiku</code> and unittest: the red phase wrote 4 tests that failed with <code>NotImplementedError</code> (an estimated 0.007 USD); the green phase with <code>--disallowedTools &quot;Edit(tests/**)&quot;</code> implemented <code>slug</code> and the suite passed (0.008 USD); and <code>git diff --exit-code HEAD -- tests/</code> returned 0. We did not test <code>/goal</code> or the <code>Stop</code> hook.</p>
+<h2>Why it works</h2>
+<p>A test written and reviewed before the code turns &quot;looks done&quot; into something you can run: Claude has an objective signal to stop and you have evidence to review. The red-phase commit pins the specification in git, the <code>Edit(tests/**)</code> rule in <code>--disallowedTools</code> stops Claude&#x27;s editing tools from changing it during the green phase, and <code>git diff --exit-code</code> covers what the rule cannot see (terminal commands). More details in the <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">best practices</a>, <a href="https://code.claude.com/docs/en/common-workflows" rel="noopener">common workflows</a>, <a href="https://code.claude.com/docs/en/permissions" rel="noopener">permissions</a> and <a href="https://code.claude.com/docs/en/checkpointing" rel="noopener">checkpointing</a> pages. Permission rules are explained in depth in the <a href="../recetas/permisos-claude-code.html">Claude Code permissions</a> recipe.</p>
+<h2>Common mistakes</h2>
+<ul><li><strong><code>ImportError: Start directory is not importable</code></strong> → <code>tests/__init__.py</code> is missing → create it empty.</li><li><strong>Red-phase tests fail because of a syntax or import error</strong> → they do not test the behavior → ask Claude to confirm they fail with <code>NotImplementedError</code> and fix them before the commit.</li><li><strong>The tests copy what the code already does</strong> → you asked to &quot;cover it with tests&quot; without describing the behavior → give concrete input and output examples.</li><li><strong>Claude tries to run the tests with <code>; echo $?</code> and is denied</strong> → a rule like <code>Bash(python3 -m unittest *)</code> does not cover a compound command → in the headless test Claude repeated the simple command and it worked; in a normal session it will ask you for permission.</li><li><strong>The tests changed even though the rule was set</strong> → <code>Edit(tests/**)</code> does not block terminal commands like <code>sed -i</code> → always check with <code>git diff --exit-code HEAD -- tests/</code>.</li><li><strong>Your tests are not in <code>tests/</code></strong> → the rule does not cover them → adjust the path, for example <code>Edit(**/*.test.ts)</code>.</li></ul>
+<h2>FAQ</h2>
+<h3>Do I write the tests or does Claude?</h3>
+<p>Both work as long as you review them before the red-phase commit. What matters is giving concrete examples of the behavior; if you ask it to &quot;cover this with tests&quot;, it tends to copy what the code already does.</p>
+<h3>Does the Edit(tests/**) rule completely stop it from changing the tests?</h3>
+<p>It blocks its editing and writing tools, not a terminal command that rewrites the file. That is why the final check is <code>git diff --exit-code HEAD -- tests/</code>.</p>
+<h3>What if the test I wrote is wrong?</h3>
+<p>Claude should say so and stop, not change it. You fix it (or ask for it outside the green phase), commit and carry on.</p>
+<h3>Claude tries to run the tests with <code>; echo $?</code> and gets denied.</h3>
+<p>A rule like <code>Bash(python3 -m unittest *)</code> does not cover a compound command. We saw it in the headless test: Claude repeated the simple command and it worked. In a normal session it will ask you for permission.</p>
+<h3>Does it work with pytest, Jest or PHPUnit?</h3>
+<p>Yes, the cycle is the same. Change the test command in the prompt and in CLAUDE.md, and the rule&#x27;s path if your tests are not in tests/ (for example <code>Edit(**/*.test.ts)</code>).</p>
+<h3>Isn&#x27;t it slower?</h3>
+<p>A bit more per task, but the time you save on manual review and on bugs that come back makes up for it. For trivial changes it is not needed.</p>
+  <nav class="mas" aria-labelledby="t-mas"><h2 id="t-mas">Keep reading</h2>
+    <ul><li><a href="checklist-revisar-codigo-ia.html">Before merging Claude Code&#x27;s code: a review checklist</a></li><li><a href="claude-code-headless-cron.html">Claude Code headless: claude -p in scripts and cron, step by step</a></li><li><a href="clear-vs-compact.html">/clear vs /compact in Claude Code, and idle compaction</a></li></ul></nav>
+  <p class="volver"><a class="boton boton-oscuro" href="../biblioteca/index.html">The whole library</a></p>
+</article>
+</main>
+<footer class="pie">
+  <div class="pie-arriba">
+    <div><a class="logo logo-claro" href="../../en/index.html"><span class="logo-tecla">Ctrl</span><span class="logo-mas">+</span>IA</a><p>Code like a pro with Claude Code.</p></div>
+    <nav aria-label="Links"><a href="../../en/biblioteca/index.html">Library</a><a href="../../en/novedades/index.html">News</a><a href="https://github.com/carlosp5751258-lgtm">GitHub</a><a href="https://dev.to/carlosp5751258lgtm">Tutorials</a><a href="https://www.instagram.com/carlosp5751258/">Instagram</a></nav>
+  </div>
+  <div class="pie-legal"><a href="../../en/privacidad.html">Privacy notice</a><a href="../../en/terminos.html">Terms of use</a><a href="../../en/peticiones.html">Request a piece</a>
+  </div>
+  <div class="pie-abajo"><span>© 2026 Ctrl+IA</span><span>Made by Carlos P.</span></div>
+</footer>
+</body>
+</html>
